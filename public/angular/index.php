@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
-<
+
 
 <?php echo str_repeat("&blank;", 4); ?>
 
@@ -26,6 +26,9 @@
     <a href="../../public/index.php" style="color: white">Home</a>
     <?php echo str_repeat("&nbsp;", 4); ?>
     <a href="../../public/admin/index.php" style="color: white">Admin Home</a>
+    <?php echo str_repeat("&nbsp;", 4); ?>
+    <a href="angularregistration/index.html" style="color: white">Registration AngularJS </a>
+
     <?php echo str_repeat("&nbsp;", 150); ?>
 
     <?php  if (isset($_SESSION["user_id"])){ ?>
