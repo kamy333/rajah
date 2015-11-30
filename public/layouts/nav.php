@@ -64,6 +64,7 @@ if ($layout_context=="public"){
                             <li><a href="<?php echo $path_public;?>about_us.php">About us1</a></li>
                             <li><a href="<?php echo $path_public;?>about_us_2.php">About us 2</a></li>
                             <li><a href="<?php echo $path_public;?>angular.php">About Us 3</a></li>
+                            <li><a href="<?php echo $path_public;?>angular2.php">AngularJS Login</a></li>
 
 
                         </ul>

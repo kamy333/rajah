@@ -234,7 +234,7 @@
                 </div>
                 <div class="modal-body">
                     <p><img src="img/kamy.JPG" style="width: 40%;height: 40%;" alt="<?php echo $nom_employee ;?>" class="img-responsive pull-left ">Kamran or Kamy is a client and friend for more than 10 years. He is struck with a genetic diseases named Inclusion Body Myositis. He always been active and works in a bank as a Director and is a certified public accountant but also have good knowledge of productivity tools like Microsoft Excel or Access.  Two years ago an invoicing system in Microsoft Access which I use now</p>
-                    <p>Last year he started to learn web related programing and he designed this website but also an enterprise system were planning is made, travel are recorded by each driver which then can be collected for invoicing. </p>
+                    <p>Last year he started to learn web related technology and he designed this website but also an enterprise system for transport company were planning online, travel are recorded by each driver and used to invoice clients. </p>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" data-dismiss="modal">Close</button>

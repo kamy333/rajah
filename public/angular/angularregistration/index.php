@@ -1,3 +1,5 @@
+<?php require_once('../../../includes/initialize.php'); ?>
+
 <!doctype html>
 <html lang="en" ng-app="MyApp">
 <head>
@@ -24,7 +26,7 @@
 </head>
 <body>
 <header>
-    <nav class="cf" ng-include="'views/nav.html'"></nav>
+    <nav class="cf" ng-include="'views/nav.php'"></nav>
 </header>
 <div class="page">
     <div class="userinfo" ng-show="currentUser" ng-controller="RegistrationController">

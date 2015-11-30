@@ -27,7 +27,7 @@
     <?php echo str_repeat("&nbsp;", 4); ?>
     <a href="../../public/admin/index.php" style="color: white">Admin Home</a>
     <?php echo str_repeat("&nbsp;", 4); ?>
-    <a href="angularregistration/index.html" style="color: white">Registration AngularJS </a>
+    <a href="angularregistration/index.php" style="color: white">Registration AngularJS </a>
 
     <?php echo str_repeat("&nbsp;", 150); ?>
 
