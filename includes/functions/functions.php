@@ -91,13 +91,15 @@ function datetime_to_text($datetime="") {
     return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);
 }
 
-
+function now(){
+    return strftime("%B %d, %Y at %I:%M %p", time());
+}
 
 
 function mth_fr_name($month_name){
     switch($month_name){
         case "January":       return "janvier" ;    break;
-        case "February":      return "février" ;    break;
+        case "February":      return "fï¿½vrier" ;    break;
         case "March":         return "mars" ;       break;
         case "April":         return "avril" ;      break;
         case "May":           return "mai";         break;
@@ -107,7 +109,7 @@ function mth_fr_name($month_name){
         case "September":     return "septembre";   break;
         case "October":       return "octobre";     break;
         case "November":      return "novembre";    break;
-        case "December":      return "décembre";    break;
+        case "December":      return "dï¿½cembre";    break;
 
         default:
             return "ATTENTION ";
@@ -118,17 +120,17 @@ function mth_fr_name($month_name){
 function mth_fr_no($month_no){
     switch($month_no){
         case "01":       return "janvier" ;    break;
-        case "02":       return "février" ;    break;
+        case "02":       return "fï¿½vrier" ;    break;
         case "03":       return "mars" ;       break;
         case "04":       return "avril" ;      break;
         case "05":       return "mai";         break;
         case "06":       return "juin";        break;
         case "07":       return "juillet";     break;
-        case "08":       return "août";        break;
+        case "08":       return "aoï¿½t";        break;
         case "09":       return "septembre";   break;
         case "10":       return "octobre";     break;
         case "11":       return "novembre";    break;
-        case "12":       return "décembre";    break;
+        case "12":       return "dï¿½cembre";    break;
 
         default:
             return "ATTENTION ";
@@ -228,14 +230,14 @@ function date_fr($str_time='now'){
     $hour_minute= str_replace('*0','',$hour_minute);
     $hour_minute= str_replace('*','',$hour_minute);
 
-    $date_fr=$jour_no.".".$now_month.".".$now_year;
-    $date_fr_short = $nom_jour_short." ".$jour_no." ".$now_month_short." ".$now_year_short;
-    $date_fr_long=$nom_jour." ".$jour_no." ".$now_month." ".$now_year;
+    $date_fr=h($jour_no.".".$now_month.".".$now_year);
+    $date_fr_short = h($nom_jour_short." ".$jour_no." ".$now_month_short." ".$now_year_short);
+    $date_fr_long=h($nom_jour." ".$jour_no." ".$now_month." ".$now_year);
 
-    $date_fr_hr=$jour_no.".".$now_month.".".$now_year." - ".$hour_minute;
+    $date_fr_hr=h($jour_no.".".$now_month.".".$now_year." - ".$hour_minute);
     $date_fr_short_hr = $nom_jour_short." ".$jour_no." ".$now_month_short." ".$now_year_short." - ".$hour_minute;
-    $date_fr_long_hr=$nom_jour." ".$jour_no." ".$now_month." ".$now_year." - ".$hour_minute;
-    $date_fr_full_hr=$nom_jour." ".$jour_no." ".$now_month." ".$now_year." à ".$hour_minute;
+    $date_fr_long_hr=h($nom_jour." ".$jour_no." ".$now_month." ".$now_year." - ".$hour_minute);
+    $date_fr_full_hr=h($nom_jour." ".$jour_no." ".$now_month." ".$now_year." ".$hour_minute);
 
 
     return array($date_fr,$date_fr_short,$date_fr_long,$date_fr_hr,$date_fr_short_hr,$date_fr_long_hr,$date_fr_full_hr);

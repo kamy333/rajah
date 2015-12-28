@@ -11,12 +11,105 @@
 class MyCigarette extends DatabaseObject {
     protected static $table_name="mycigarette";
 
-    protected static $db_fields = array('id','cig_date','number_cig','creation_time','modification_time','comment');
+    protected static $db_fields = array('id','cig_date','number_cig','cig_date_time','comment');
 
-    protected static $db_fields_table_display_short =array('id','cig_date','number_cig','creation_time','modification_time','comment');
+    protected static $required_fields = array('cig_date','number_cig');
 
-    protected static $db_fields_table_display_full = array('id','cig_date','number_cig','creation_time','modification_time','comment');
+    protected static $db_fields_table_display_short =array('id','cig_date','number_cig','cig_date_time','comment');
+
+    protected static $db_fields_table_display_full = array('id','cig_date','number_cig', 'cig_date_time','comment');
+
+    protected static $db_field_exclude_table_display_sort=null;
+
+    public static $fields_numeric=array('id','number_cig');
+
+    protected static $form_properties= array(
+
+        "number_cig"=> array("type"=>"number",
+            "name"=>'number_cig',
+            "label_text"=>"No Cig",
+            'min'=>0,
+            "placeholder"=>" number Cig",
+            "required" =>true,
+        ),
+        "cig_date"=> array("type"=>"datetime",
+            "name"=>'cig_date',
+            "label_text"=>"Cig Date",
+            "placeholder"=>"Input cig Date",
+            "required" =>true,
+        ),
+        "comment"=> array("type"=>"textarea",
+            "name"=>'comment',
+            "label_text"=>"Comment",
+            "placeholder"=>"input Comment",
+            "required" =>false,
+        ),
+        "cig_date_time"=> array("type"=>"datetime",
+            "name"=>'cig_date_time',
+            "label_text"=>"Cig Date time",
+            "placeholder"=>"Input cig Date",
+            "required" =>true,
+        ),
+    );
+
+    protected static $form_properties_search=array(
+        "search_all"=> array("type"=>"text",
+            "name"=>'search_all',
+            "label_text"=>"",
+            "placeholder"=>"Search all",
+            "required" =>false,
+        ),
+        "download_csv" =>array("type"=>"radio",
+            array(0,
+                array(
+                    "label_all"=>"Dnld csv",
+                    "name"=>"download_csv",
+                    "label_radio"=>"non",
+                    "value"=>"No",
+                    "id"=>"visible_no",
+                    "default"=>true)),
+            array(1,
+                array(
+                    "label_all"=>"Dnld csv",
+                    "name"=>"download_csv",
+                    "label_radio"=>"oui",
+                    "value"=>"Yes",
+                    "id"=>"visible_yes",
+                    "default"=>true)),
+        ),
+
+    );
 
 
+    public static $db_field_search =array('search_all','download_csv');
+
+
+    public static $page_name="MyCigarrette";
+    public static $page_manage="manage_MyCigarrette.php";
+    public static $page_new="new_MyCigarrette.php";
+    public static $page_edit="edit_MyCigarrette.php";
+    public static $page_delete="delete_MyCigarrette.php";
+
+    public static $per_page;
+
+
+    public $id;
+    public $number_cig;
+    public $cig_date;
+//    public $creation_time;
+    public $cig_date_time;
+    public $comment;
+
+
+
+    public  function form_validation() {
+        $valid=new FormValidation();
+
+        $valid->validate_presences(self::$required_fields) ;
+        return $valid;
+
+
+
+    }
 
 }
