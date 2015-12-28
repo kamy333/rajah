@@ -1,17 +1,23 @@
-SELECT sum(quantity * unit_price) FROM invoice_actual  WHERE project_id='4' and invoiced=0;
+# SELECT sum(quantity * unit_price) FROM invoice_actual  WHERE project_id='4' and invoiced=0;
+#
+# SELECT project_id,invoice_id,invoiced FROM invoice_actual;
+#
+# INSERT INTO invoice_send
+#  (project_id,amount,vat)
+# VALUES
+# (4,  1000,0)  ;
+#
+# UPDATE invoice_actual
+# SET
+#   invoice_id=1001,
+#   invoiced=1
+# WHERE project_id=4 AND invoiced=0;
 
-SELECT project_id,invoice_id,invoiced FROM invoice_actual;
+DROP TABLE IF EXISTS invoice_send;
+DROP TABLE IF EXISTS mycigarette;
+DROP TABLE IF EXISTS myexpense;
 
-INSERT INTO invoice_send
- (project_id,amount,vat)
-VALUES
-(4,  1000,0)  ;
 
-UPDATE invoice_actual
-SET
-  invoice_id=1001,
-  invoiced=1
-WHERE project_id=4 AND invoiced=0;
 
 DROP TABLE IF EXISTS invoice_send;
 CREATE TABLE IF NOT EXISTS `invoice_send` (
@@ -35,10 +41,9 @@ ADD CONSTRAINT `invoice_send_ibfk_1` FOREIGN KEY (`project_id`) REFERENCES `proj
 DROP TABLE IF EXISTS mycigarette;
 CREATE TABLE IF NOT EXISTS mycigarette (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  number_cig INT(11) NOT NULL DEFAULT 1,
-  cig_date DATETIME NOT NULL DEFAULT now(),
-  `creation_time`     DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  `number_cig` INT(11) NOT NULL DEFAULT 1,
+  `cig_date` DATE   NOT NULL ,
+  `cig_date_time` DATETIME   NOT NULL ,
   `comment` text,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -50,9 +55,28 @@ CREATE TABLE IF NOT EXISTS myexpense (
   `amount` DECIMAL(10,2) NOT NULL DEFAULT '0' ,
   `person_name` VARCHAR(50),
   `expense_type` VARCHAR(50),
-   expenset_date DATE not null ,
+   expense_date DATE not null ,
   `comment` text,
-  `creation_time`     DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `modification_time` DATETIME ON UPDATE CURRENT_TIMESTAMP,
+  `modification_time` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS myexpense_person;
+CREATE TABLE IF NOT EXISTS myexpense_person (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `person_name` VARCHAR(50),
+  `rank` int(11) UNSIGNED DEFAULT 1,
+  `comment` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS myexpense_type;
+CREATE TABLE IF NOT EXISTS myexpense_type (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `expense_type` VARCHAR(50),
+  `rank` int(11) UNSIGNED DEFAULT 1,
+  `comment` text,
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;

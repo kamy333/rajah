@@ -14,7 +14,9 @@
 <!doctype html>
 <html lang="en" <?php echo $angular ? "ng-app='myApp'" :"";?>>
 <head>
-    <meta charset="utf-8">
+<!--    <meta charset="utf-8">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     ;
     <title>ikamy.ch Rajah Prod <?php if ($layout_context == "admin") { echo "Admin"; } ?></title>

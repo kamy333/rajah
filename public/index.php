@@ -36,18 +36,37 @@
         <li data-target="#carousel-example-generic" data-slide-to="7"></li>
         <li data-target="#carousel-example-generic" data-slide-to="8"></li>
         <li data-target="#carousel-example-generic" data-slide-to="9"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="10"></li>
         <!--<li data-target="#carousel-example-generic" data-slide-to="11"></li>
         <li data-target="#carousel-example-generic" data-slide-to="12"></li>
         <li data-target="#carousel-example-generic" data-slide-to="13"></li>
 -->
 
 
+<?php
+
+for ($i = 1; $i <= 11; $i++) {
+
+    $c=9+$i;
+    echo "<li data-target=\"#carousel-example-generic\" data-slide-to=\"{$c}\"></li>";
+}
+
+
+
+?>
+
     </ol>
 
     <!-- Wrapper for slides -->
+
+
+
+
+
     <div class="carousel-inner" role="listbox">
-       <div class="item active">
+
+
+
+        <div class="item active">
            <img src="img/kamy.JPG" alt="tr1" style="width: 100%;height: 100%">
             <div class="carousel-caption">
                 kamy is the best
@@ -79,12 +98,6 @@
         </div>
 
 
-        <div class="item">
-            <img src="img/Kamy/maman_castro.JPG" alt="MamanCastro" >
-            <div class="carousel-caption">
-                Maman & Castro
-            </div>
-        </div>
 
         <div class="item">
             <img src="img/Kamy/CaroMichael.jpg" alt="CaroMichael">
@@ -130,6 +143,28 @@
         </div>
 
 
+
+
+
+
+        <?php
+
+        for ($i = 1; $i <= 11; $i++) {
+
+            $c=1556+$i;
+            $img="FiançailleDesiree_{$c}.JPG";
+
+            echo "        <div class=\"item\">
+            <img src=\"img/Kamy/{$img}\" alt=\"tr1\" style=\"width: 100%;height: 100%\">
+            <div class=\"carousel-caption\">
+                Fiancaille de desirée
+            </div>
+        </div>";
+
+        }
+
+
+        ?>
       <!--  <div class="item">
             <img src="img/photo_transmed_1.jpg" alt="Pablo & car">
             <div class="carousel-caption">
