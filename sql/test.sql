@@ -80,3 +80,16 @@ CREATE TABLE IF NOT EXISTS myexpense_type (
   `comment` text,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP VIEW IF EXISTS mycigarette_view;
+CREATE VIEW mycigarette_view AS (
+  SELECT
+    monthname(cig_date), cig_date,sum(number_cig)
+
+  FROM mycigarette
+  GROUP BY  cig_date
+);
+
+
+SELECT * FROM mycigarette_view;

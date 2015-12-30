@@ -90,7 +90,7 @@ $table_name=$class_name::get_table_name();
 
     </fieldset>
 
-<?php $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','FailedLogin','user_type') ?>
+<?php $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','FailedLogin','user_type','MyCigarrette','MyExpense','MyExpensePerson','MyExpenseType') ?>
 
     <div class='form-group'>
     <label  class='col-sm-3 control-label' for="xxxx" >Choose</label>

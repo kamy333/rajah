@@ -25,7 +25,9 @@ function checking($bol=false){
             echo "<pre>";
             echo 'Contents of the $_GET array: <br>';
             var_dump($_GET);
+            echo "</pre>";
         } elseif ($_POST) {
+            echo "<pre>";
             echo 'Contents of the $_POST array: <br>';
             var_dump($_POST);
             echo "</pre>";

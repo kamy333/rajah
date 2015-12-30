@@ -92,7 +92,7 @@ if(request_is_post() && request_is_same_domain()) {
 
 <?php echo output_message($message); ?>
 
-<?php checking(false);?>
+<?php checking(true);?>
 
 
 
@@ -123,6 +123,9 @@ if(request_is_post() && request_is_same_domain()) {
             echo  $class_name::get_form($name,$value);
 
 
+
+
+
             //              $myDate = strftime("%Y-%m-%d %H:%M:%S",time());
             $myDate = strftime("%Y-%m-%d",time());
             $name='expense_date';
@@ -130,11 +133,12 @@ if(request_is_post() && request_is_same_domain()) {
             echo  $class_name::get_form($name,$value);
 
             $name='person_name';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$myDate;}
+            if(isset($_GET[$name])){ $value=$_GET[$name]; }
+            else { isset($get_item)? $value=$get_item->$name :$value='';}
             echo  $class_name::get_form($name,$value);
 
             $name='expense_type';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$myDate;}
+            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='';}
             echo  $class_name::get_form($name,$value);
 
 

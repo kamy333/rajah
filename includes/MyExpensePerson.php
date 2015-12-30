@@ -11,7 +11,7 @@
 class MyExpensePerson extends DatabaseObject {
     protected static $table_name="myexpense_person";
 
-    protected static $db_fields = array('id','person_name','rank'.'comment');
+    protected static $db_fields = array('id','person_name','rank','comment');
 
     protected static $required_fields =  array('person_name','rank');
 
@@ -20,7 +20,7 @@ class MyExpensePerson extends DatabaseObject {
     protected static $db_fields_table_display_full =  array('id','person_name','rank','comment');
     protected static $db_field_exclude_table_display_sort=null;
 
-    public static $fields_numeric=array('id');
+    public static $fields_numeric=array('id','rank');
 
     protected static $form_properties= array(
 
@@ -41,7 +41,7 @@ class MyExpensePerson extends DatabaseObject {
             "label_text"=>"Rank",
             'min'=>0,
             "placeholder"=>"a number to sort",
-            "required" =>true,
+            "required" =>false,
         ),
     );
 
@@ -95,7 +95,7 @@ class MyExpensePerson extends DatabaseObject {
     );
 
 
-    public static $db_field_search =array('search_all','download_csv');
+    public static $db_field_search =array('search_all','person_name','download_csv');
 
 
     public static $page_name="MyExpensePerson";

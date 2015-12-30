@@ -3,6 +3,9 @@
 <?php if(User::is_employee()){ redirect_to('index.php');}?>
 
 <?php $class_name="MyExpenseType" ;
+$class_name2="MyExpensePerson" ;
+$class_name1="MyExpense" ;
+
 
 
 
@@ -106,7 +109,16 @@ if(request_is_post() && request_is_same_domain()) {
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
     <a href="index.php">Index</a> &nbsp;&nbsp;
+    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
     <a href="<?php echo $class_name::$page_manage ?>" >Manage <?php echo $class_name::$page_name ?></a>
+    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name1::$page_manage ?>" >Manage <?php echo $class_name1::$page_name ?></a>
+    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name2::$page_manage ?>" >Manage <?php echo $class_name2::$page_name ?></a>
+    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name1::$page_new ?>">Add New <?php echo $class_name1::$page_name ?></a>
+    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name2::$page_new ?>">Add New <?php echo $class_name2::$page_name ?></a>
 
     <div class ="background_light_blue">
 
@@ -125,7 +137,7 @@ if(request_is_post() && request_is_same_domain()) {
 
 
                 $name='rank';
-                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='1';}
+                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=1;}
                 echo  $class_name::get_form($name,$value);
 
                 $name='comment';

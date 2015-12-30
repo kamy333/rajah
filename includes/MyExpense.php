@@ -13,7 +13,7 @@ class MyExpense extends DatabaseObject {
 
     protected static $db_fields = array('id','amount','person_name','expense_type','expense_date','comment','modification_time');
 
-    protected static $required_fields = array('amount','person_name'.'expense_type','expense_date');
+    protected static $required_fields = array('amount','person_name','expense_type','expense_date');
 
     protected static $db_fields_table_display_short = array('id','amount','person_name','expense_type','expense_date');
 
@@ -35,8 +35,8 @@ class MyExpense extends DatabaseObject {
         "person_name"=> array("type"=>"select",
             "name"=>'person_name',
             "class"=>"MyExpensePerson",
-            "label_text"=>"Person",
-            "select_option_text"=>'Person',
+            "label_text"=>"Person Name",
+            "select_option_text"=>'Person Name',
             'field_option_0'=>"person_name",
             'field_option_1'=>"person_name",
             "required" =>true,
