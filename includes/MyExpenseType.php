@@ -11,7 +11,7 @@
 class MyExpenseType extends DatabaseObject {
     protected static $table_name="myexpense_type";
 
-    protected static $db_fields = array('id','expense_type','rank'.'comment');
+    protected static $db_fields = array('id','expense_type','rank','comment');
 
     protected static $required_fields =  array('expense_type','rank');
 
@@ -20,7 +20,7 @@ class MyExpenseType extends DatabaseObject {
     protected static $db_fields_table_display_full =  array('id','expense_type','rank','comment');
     protected static $db_field_exclude_table_display_sort=null;
 
-    public static $fields_numeric=array('id');
+    public static $fields_numeric=array('id','rank');
 
     protected static $form_properties= array(
 
@@ -58,7 +58,7 @@ class MyExpenseType extends DatabaseObject {
             "id"=>"search_expense_type",
             "class"=>"MyExpenseType",
             "label_text"=>"",
-            "select_option_text"=>'expense_type',
+            "select_option_text"=>'Expense type',
             'field_option_0'=>"expense_type",
             'field_option_1'=>"expense_type",
             "required" =>false,
@@ -95,7 +95,7 @@ class MyExpenseType extends DatabaseObject {
     );
 
 
-    public static $db_field_search =array('search_all','download_csv');
+    public static $db_field_search =array('search_all','expense_type','download_csv');
 
 
     public static $page_name="MyExpenseType";

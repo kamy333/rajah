@@ -2,7 +2,7 @@
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee()){ redirect_to('index.php');}?>
 
-<?php $class_name="MyExpensePerson" ?>
+<?php $class_name="MyExpenseType" ?>
 
 <?php
 if (!isset($_GET["id"])) {

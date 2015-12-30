@@ -32,7 +32,7 @@ class MyCigarette extends DatabaseObject {
             "placeholder"=>" number Cig",
             "required" =>true,
         ),
-        "cig_date"=> array("type"=>"datetime",
+        "cig_date"=> array("type"=>"date",
             "name"=>'cig_date',
             "label_text"=>"Cig Date",
             "placeholder"=>"Input cig Date",
@@ -84,11 +84,11 @@ class MyCigarette extends DatabaseObject {
     public static $db_field_search =array('search_all','download_csv');
 
 
-    public static $page_name="MyCigarrette";
-    public static $page_manage="manage_MyCigarrette.php";
-    public static $page_new="new_MyCigarrette.php";
-    public static $page_edit="edit_MyCigarrette.php";
-    public static $page_delete="delete_MyCigarrette.php";
+    public static $page_name="MyCigarette";
+    public static $page_manage="manage_MyCigarette.php";
+    public static $page_new="new_MyCigarette.php";
+    public static $page_edit="edit_MyCigarette.php";
+    public static $page_delete="delete_MyCigarette.php";
 
     public static $per_page;
 
@@ -100,7 +100,41 @@ class MyCigarette extends DatabaseObject {
     public $cig_date_time;
     public $comment;
 
+public static function get_cigarette_view($view='day'){
+    $output="";
+    $output.="</div>";
 
+    $output.="<div class='table-responsive'>";
+
+    $output.="<table class='table table-striped table-bordered table-hover table-condensed '>";
+    $output.= "<tr>";
+    if ($view==='day'){
+        $query="SELECT * FROM mycigarette_view_by_day ";
+
+    } elseif($view==='month'){
+        $query="SELECT * FROM mycigarette_view_by_month ";
+    }  elseif($view==='year'){
+        $query="SELECT * FROM mycigarette_view_by_year ";
+    }
+
+    else {
+        $query="SELECT * FROM mycigarette_view_by_day ";
+    }
+
+$results=self::find_by_sql($query);
+
+    if($results){
+//foreach ($results as $result ){
+//    $output.="<th>$result</th>";
+//}
+
+
+    }
+
+//    print_r($result);
+return $results;
+
+}
 
     public  function form_validation() {
         $valid=new FormValidation();

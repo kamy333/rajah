@@ -3,15 +3,15 @@
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
 if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
-require_once LIB_PATH.DS.'download'.DS.'download_csv.php';
+$class_name="MyCigarette";
+$class_name1="MyCigaretteDay";
+$class_name2="MyCigaretteMonth";
+$class_name3="MyCigaretteYear";
 
-
-$class_name="MyCigaretteDay";
 $table_name=$class_name::get_table_name();
 
-
-$order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'date';
-$order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'ASC';
+$order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'id';
+$order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'DESC';
 
 
 
@@ -23,6 +23,7 @@ $where=get_where_string($class_name);
 $total_count=$class_name::count_all_where($where);
 $pagination= new Pagination($page,$per_page,$total_count);
 
+require_once LIB_PATH.DS.'download'.DS.'download_csv.php';
 
 
 $sql = "SELECT * FROM {$table_name} ";
@@ -40,13 +41,7 @@ $sql .= "OFFSET {$pagination->offset()}";
 //echo "<p>$sql</p>";
 //unset($_GET);
 
-//var_dump($sql);
-
 $result_class = $class_name::find_by_sql($sql);
-
-//echo '<pre>';
-//var_dump($result_class);
-//echo '</pre>';
 
 $query_string=remove_get(array('view','page'));
 
@@ -62,7 +57,6 @@ if($view_full_table==1){
     $offset='';
 
 }
-
 
 ?>
 
@@ -86,10 +80,19 @@ if($view_full_table==1){
         <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
     </div>
 
-    <div class="col-md-5 <?php echo $offset; ?>">
-        <a href="index.php">Index</a> &nbsp;&nbsp;
+    <div class="col-md-10 <?php echo $offset; ?>">
+        <a href="index.php">Index</a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name3::$page_manage ?>">View <?php echo $class_name3::$page_name ?></a>
+
     </div>
 
 
@@ -117,7 +120,7 @@ if($view_full_table==1){
         <div class="col-md-12  ">
 
 
-            <?php echo $class_name::display_all($result_class,$view_full_table,false) ?>
+            <?php echo $class_name::display_all($result_class,$view_full_table,true) ?>
 
         </div>
     </div>

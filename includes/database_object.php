@@ -41,7 +41,7 @@ class DatabaseObject {
     public static $db_field_search;
 
     // list class case sensitive
-public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type') ;
+public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType') ;
 
 
 public static function get_table_name() {
@@ -516,20 +516,22 @@ public static function get_table_name() {
     }
 
 
-    public static function display_all($object_all,$long_short=0){
+    public static function display_all($object_all,$long_short=0,$edit=true){
+
+
         $output="";
-        $output.=static::display_table_head($long_short);
+        $output.=static::display_table_head($long_short,$edit);
 
         foreach($object_all as $object){
-            $output.=   $object->display_table($long_short);
+            $output.=   $object->display_table($long_short,$edit);
         }
 
-        $output.=static::display_table_footer();
+        $output.=static::display_table_footer($edit);
         return $output;
 
     }
 
-    public static function display_table_head($long_short=0){
+    public static function display_table_head($long_short=0,$edit=true){
 
 
        // $query_string= urldecode($_SERVER['QUERY_STRING']);
@@ -602,21 +604,29 @@ public static function get_table_name() {
             }
         }
 
-        $output.= "<th colspan=\"2\" class=\"text-center\" style='vertical-align:middle;'>Actions</th>";
+        if($edit){
+            $output.= "<th colspan=\"2\" class=\"text-center\" style='vertical-align:middle;'>Actions</th>";
+        }
+
         $output.= "</tr>";
         return $output;
     }
 
-    public static function display_table_footer(){
+    public static function display_table_footer($edit=true){
+
+
         $output="</table>";
         $output.="</div>";
         $output.="</div>";
-        $output.="<p class='text-right'><a href='". static::$page_new."'>Add New ". static::$page_name."</a></p>";
+        if($edit){
+            $output.="<p class='text-right'><a href='". static::$page_new."'>Add New ". static::$page_name."</a></p>";
+        }
+
         return $output;
 
     }
 
-    public function display_table($long_short=0){
+    public function display_table($long_short=0,$edit){
 
         $this->set_up_display();
 
@@ -639,9 +649,12 @@ if($long_short==1){
             }
         }
 
-        $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+        if($edit){
+            $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
 
-        $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+            $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+        }
+
         $output.= "</tr>";
         return $output;
 
