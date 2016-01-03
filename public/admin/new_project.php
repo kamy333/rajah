@@ -105,8 +105,8 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
-    <a href="index.php">Index</a> &nbsp;&nbsp;
-    <a href="<?php echo $class_name::$page_manage ?>" >Manage <?php echo $class_name ?></a>
+    <a href="index.php">Index</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name::$page_manage ?>" >Manage <?php echo $class_name ?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 
     <div class ="background_light_blue">
 

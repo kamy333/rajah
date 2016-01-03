@@ -265,7 +265,7 @@ public $link;
 
 
 
-public static function find_all_get(){
+public static function find_all_get($category_1=false,$category_2=false){
 
     $table=self::$table_name;
 
@@ -278,9 +278,19 @@ public static function find_all_get(){
 
     $sql="SELECT * FROM {$table} ";
 
-    if (!empty($category)) {
-        $sql.= "WHERE category = '{$category}' ORDER BY rank";
+    if($category_1){
+            $sql.= "WHERE  sub_category_1 = '{$category}'";
+    } elseif($category_2 ){
+        $sql.= "WHERE  sub_category_2 = '{$category}'";
+    }  else {
+        if (!empty($category)) {
+            $sql.= "WHERE category = '{$category}' ORDER BY rank";
+        }
     }
+
+
+
+
 
     return static::find_by_sql($sql);
 
@@ -297,14 +307,43 @@ ORDER BY t2.rank ASC, t1.id ASC ";
        return self::find_by_sql($sql);
     }
 
+    public static function find_all_category_1_from_links(){
+        // global $database;
+        $sql="SELECT DISTINCT sub_category_1
+FROM links WHERE sub_category_1 IS NOT NULL ";
+        //  return   self::find_by_sql("SELECT DISTINCT category FROM" . " ".self::$table_name. " ORDER BY id ASC");
+
+        return self::find_by_sql($sql);
+    }
 
 
-   public static function get_search_category(){
+    public static function find_all_category_2_from_links(){
+        // global $database;
+        $sql="SELECT DISTINCT sub_category_2
+FROM links WHERE sub_category_2 IS NOT NULL ";
+        //  return   self::find_by_sql("SELECT DISTINCT category FROM" . " ".self::$table_name. " ORDER BY id ASC");
 
-       $category_set = self::find_all_category_from_links();
+        return self::find_by_sql($sql);
+    }
+
+   public static function get_search_category($category_1=false,$category_2=false){
+
+       if($category_1){
+           $category_set = self::find_all_category_1_from_links();
+
+       } elseif($category_2){
+           $category_set = self::find_all_category_2_from_links();
+
+       }
+       else {
+           $category_set = self::find_all_category_from_links();
+
+       }
+
+
 
        $output="";
-       $output.="<ul class='nav nav-pills '>";
+       $output.="<ul class='nav nav-tabs '>";
 
        if (!isset($_GET['category'])){
            $active1="active";
@@ -313,7 +352,7 @@ ORDER BY t2.rank ASC, t1.id ASC ";
        }
 
 
-       $output.="<li role='presentation' class='{$active1}'><a href=" ;
+       $output.="<li role='presentation' class=''><a href=" ;
        $output.="admin/new_link.php";
        $output.=">New</a></li>";
 
@@ -321,11 +360,47 @@ ORDER BY t2.rank ASC, t1.id ASC ";
        $output.=$_SERVER['PHP_SELF'];
        $output.=">All</a></li>";
 
+       if($category_1){
+            $output.="<li role='presentation' class=''><a href=" ;
+            $output.='myLinks.php?category=Others';
+           $output.=">All Category</a></li>";
+           $output.="<li role='presentation' class=''><a href=" ;
+           $output.='myLinks2.php';
+           $output.=">Sub Category 2</a></li>";
+       } elseif($category_2){
+           $output.="<li role='presentation' class=''><a href=" ;
+           $output.='myLinks.php?category=Others';
+           $output.=">All Category</a></li>";
+           $output.="<li role='presentation' class=''><a href=" ;
+           $output.='myLinks1.php?category=Udemy';
+           $output.=">Sub Category 1</a></li>";
+       } else {
+           $output.="<li role='presentation' class=''><a href=" ;
+           $output.='myLinks1.php?category=Udemy';
+           $output.=">Sub Category 1</a></li>";
+           $output.="<li role='presentation' class=''><a href=" ;
+           $output.='myLinks2.php';
+           $output.=">Sub Category 2</a></li>";
+       }
+
+            $output.="</ul>";
+
+       $output.="<ul class='nav nav-pills '>";
+//       echo '<pre>';
 //var_dump($category_set);
+//       echo '</pre>';
 
        foreach($category_set as $category){
 
-           $categ=$category->category;
+
+           if($category_1){
+               $categ=$category->sub_category_1;
+           } elseif($category_2){
+               $categ=$category->sub_category_2;
+           }else {
+               $categ=$category->category;
+           }
+
 
            if (isset($_GET['category']) && $_GET['category']==$categ){
                $active="active";
@@ -362,15 +437,38 @@ ORDER BY t2.rank ASC, t1.id ASC ";
         return !empty($result_array) ? $result_array : false;
     }
 
+    public static function find_name_category_1_links($name_category="") {
+        global $database;
+        $name_category = $database->escape_value($name_category);
+        $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE sub_category_1='{$name_category}'");
+        return !empty($result_array) ? $result_array : false;
+    }
 
-    public static function output_links($name_category=null){
+    public static function find_name_category_2_links($name_category="") {
+        global $database;
+        $name_category = $database->escape_value($name_category);
+        $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE sub_category_2='{$name_category}'");
+        return !empty($result_array) ? $result_array : false;
+    }
+
+
+    public static function output_links($name_category=null,$category_1=false,$category_2=false){
 
     ////global $database;
 
 
         If(!$name_category or empty($name_category)){
           //  $link_set=find_all_links();
-            $link_set=self::find_all_get();
+
+            if($category_1){
+                $link_set=self::find_all_get(true);
+            }   elseif($category_2){
+                $link_set=self::find_all_get(false,true);
+            } else {
+                $link_set=self::find_all_get();
+            }
+
+
 
             if (isset($_GET['category'])){
                 $category= $_GET['category'];
@@ -379,7 +477,17 @@ ORDER BY t2.rank ASC, t1.id ASC ";
 
             }
         } else {
-            $link_set=self::find_name_category_links($name_category);
+
+            if($category_1){
+                $link_set=self::find_name_category_1_links($name_category);
+
+            }  elseif($category_2){
+                $link_set=self::find_name_category_2_links($name_category);
+
+            } else {
+                $link_set=self::find_name_category_links($name_category);
+            }
+
             $category=$name_category;
         }
 

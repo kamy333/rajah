@@ -133,6 +133,7 @@ if ($layout_context=="public"){
                 <li><a href="<?php echo $path_admin;?>manage_MyExpenseType.php">Manage MyExpenseType</a></li>
 
                 <li><a href="<?php echo $path_admin;?>manage_MyCigarette.php">Manage Cigarette</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_currency.php">Manage Currency</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_clients.php">Manage Clients</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_projects.php">Manage Projects</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_category.php">Manage Category</a></li>
@@ -166,8 +167,8 @@ if ($layout_context=="public"){
                 <li><a href="<?php echo $path_admin;?>new_MyExpense.php">New MyExpense</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpensePerson.php">New MyExpensePerson</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpenseType.php">New MyExpenseType</a></li>
-
                 <li><a href="<?php echo $path_admin;?>new_MyCigarette.php">New Cigarette</a></li>
+                <li><a href="<?php echo $path_admin;?>new_currency.php">New Currency</a></li>
                 <li><a href="<?php echo $path_admin;?>new_client.php">New Client</a></li>
                 <li><a href="<?php echo $path_admin;?>new_project.php">New Project</a></li>
                 <li><a href="<?php echo $path_admin;?>new_user.php">New User</a></li>

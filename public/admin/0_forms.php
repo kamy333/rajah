@@ -85,6 +85,7 @@ $radio->radio[]=array(1,
 <h4 class="text-center"><mark><a href="<?php echo $_SERVER["PHP_SELF"] ?>">Form modele using class</a> </mark></h4>
 
 
+
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
 
 

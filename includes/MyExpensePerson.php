@@ -98,7 +98,7 @@ class MyExpensePerson extends DatabaseObject {
     public static $db_field_search =array('search_all','person_name','download_csv');
 
 
-    public static $page_name="MyExpensePerson";
+    public static $page_name="Expense Person";
     public static $page_manage="manage_MyExpensePerson.php";
     public static $page_new="new_MyExpensePerson.php";
     public static $page_edit="edit_MyExpensePerson.php";

@@ -3,6 +3,8 @@
 <?php if(User::is_employee() || !User::is_kamy()){ redirect_to('index.php');}?>
 
 <?php $class_name="MyCigarette" ;
+$class_name1="MyCigaretteDay" ;
+
 
 $new_item= new MyCigarette();
 $new_item->number_cig=1;
@@ -16,5 +18,5 @@ $new_item->comment="Added automatically!";
 $new_item->save();
 $session->message("Added 1 cig");
 $session->ok(true);
-redirect_to($class_name::$page_manage);
+redirect_to($class_name1::$page_manage);
  ?>

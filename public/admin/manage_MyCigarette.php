@@ -80,7 +80,8 @@ if($view_full_table==1){
         <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
     </div>
 
-    <div class="col-md-10 <?php echo $offset; ?>">
+    <div class="col-md-12 <?php echo $offset; ?>">
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="index.php">Index</a>
         <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
@@ -92,6 +93,11 @@ if($view_full_table==1){
         <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
         <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $class_name3::$page_manage ?>">View <?php echo $class_name3::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <br>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name::$page_add_cig ?>">Add 1 cig</a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 
     </div>
 

@@ -2,11 +2,9 @@
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee()){ redirect_to('index.php');}?>
 
-<?php
-$class_name="MyCigarette" ;
-$class_name1="MyCigaretteDay" ;
-$class_name2="MyCigaretteMonth" ;
-$class_name3="MyCigaretteYear" ;
+<?php $class_name="Currency" ;
+
+
 
 if(isset($_GET['id'])){
     $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
@@ -33,14 +31,14 @@ if(request_is_post() && request_is_same_domain()) {
         $message = "Sorry, request was not valid.";
     } else {
 
-        $new_item=new $class_name() ;
+      $new_item=new $class_name() ;
         $expected_fields=$class_name::get_table_field();
-        foreach($expected_fields as $field){
+       foreach($expected_fields as $field){
             if(isset($_POST[$field])){
-                $new_item->$field=trim($_POST{$field}) ;
+         $new_item->$field=trim($_POST{$field}) ;
             }
 
-        }
+       }
 
         //todo complete valid like pseudo
 
@@ -55,7 +53,6 @@ if(request_is_post() && request_is_same_domain()) {
                 $message($class_name.$new_item->pseudo." "."$text_post1 failed");
 
             }
-
 
 
 
@@ -81,10 +78,10 @@ if(request_is_post() && request_is_same_domain()) {
 ?>
 
 <?php $layout_context = "admin"; ?>
-<?php $active_menu="adminNew"; ?>
+<?php $active_menu="admin"; ?>
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
-<?php $javascript=$class_name; ?>
+<?php $javascript=""; ?>
 <?php $incl_message_error=true; ?>
 <?php //include_layout_template('header_2.php'); ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
@@ -107,48 +104,49 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
-    <a href="index.php">Index</a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name::$page_manage ?>" >View <?php echo $class_name::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name1::$page_manage ?>" >View <?php echo $class_name1::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name2::$page_manage ?>" >View <?php echo $class_name2::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name3::$page_manage ?>" >View <?php echo $class_name3::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="index.php">Index</a> &nbsp;&nbsp;
+    <a href="<?php echo $class_name::$page_manage ?>" >Manage <?php echo $class_name ?></a>
+
     <div class ="background_light_blue">
 
 
-        <form name="form_invoice_actual" id="form_invoice_actual" class="form-horizontal" method="post" action="<?php echo $post_link;?>">
+        <form name="form_client"  class="form-horizontal" method="post" action="<?php echo $post_link;?>">
 
             <fieldset id="login" title="Client">
                 <legend class="text-center" style="color: #0000ff"><?php echo $page1 . $class_name::$page_name ?></legend>
 
 
-                <?php
+            <?php
 
-                $name='number_cig';
-                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="1";}
-                echo  $class_name::get_form($name,$value);
+            $name='currency';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
+
+            $name='currency_country';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
+
+            $name='rate';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
+
+            $name='date';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
+
+            $name='rank';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
+
+            $name='comment';
+            isset($get_item)? $value=$get_item->$name :$value="";
+            echo  $class_name::get_form($name,$value);
 
 
-//              $myDate = strftime("%Y-%m-%d %H:%M:%S",time());
-                $myDate = strftime("%Y-%m-%d",time());
-                $name='cig_date';
-                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$myDate;}
-                echo  $class_name::get_form($name,$value);
 
 
-
-                $myDate = strftime("%Y-%m-%d %H:%M:%S",time());
-                //                $myDate = strftime("%Y-%m-%d",time());
-                $name='cig_date_time';
-                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$myDate;}
-                echo  $class_name::get_form($name,$value);
-
-                echo Form::form_id();
-                echo csrf_token_tag();?>
+            echo Form::form_id();
+             echo csrf_token_tag();?>
 
 
 
@@ -169,7 +167,6 @@ if(request_is_post() && request_is_same_domain()) {
         </form>
     </div>
 </div>
-
 
 
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>

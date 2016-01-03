@@ -108,6 +108,7 @@ require_once(LIB_PATH.DS.'LinksCategory.php');
 
 require_once(LIB_PATH.DS.'MyCigarette.php');
 require_once(LIB_PATH.DS.'MyCigaretteByPeriod.php');
+require_once(LIB_PATH.DS.'Currency.php');
 require_once(LIB_PATH.DS.'MyExpensePerson.php');
 require_once(LIB_PATH.DS.'MyExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');

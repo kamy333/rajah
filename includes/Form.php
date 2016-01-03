@@ -29,6 +29,7 @@ class Form extends DatabaseObject{
 
     public $default;
 
+
     public $max;
     public $min;
     public $step;

@@ -4,6 +4,9 @@ require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
 if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
 $class_name="MyExpensePerson";
+$class_name1="MyExpense";
+$class_name2="MyExpenseType";
+
 $table_name=$class_name::get_table_name();
 
 $order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'id';
@@ -76,10 +79,23 @@ if($view_full_table==1){
         <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
     </div>
 
-    <div class="col-md-5 <?php echo $offset; ?>">
-        <a href="index.php">Index</a> &nbsp;&nbsp;
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
+    <div class="col-md-10 <?php echo $offset; ?>">
+        <a href="index.php">Index</a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name1::$page_new ?>">Add New <?php echo $class_name1::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name2::$page_new ?>">Add New <?php echo $class_name2::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <br>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
     </div>
 
 

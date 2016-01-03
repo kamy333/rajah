@@ -84,11 +84,12 @@ class MyCigarette extends DatabaseObject {
     public static $db_field_search =array('search_all','download_csv');
 
 
-    public static $page_name="MyCigarette";
+    public static $page_name="Cigarette";
     public static $page_manage="manage_MyCigarette.php";
     public static $page_new="new_MyCigarette.php";
     public static $page_edit="edit_MyCigarette.php";
     public static $page_delete="delete_MyCigarette.php";
+    public static $page_add_cig="new_MyCigarette_Add_1.php";
 
     public static $per_page;
 

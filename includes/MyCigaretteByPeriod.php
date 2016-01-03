@@ -15,7 +15,7 @@ public $year;
 public $total;
 
 
-    public static $page_name="Cigarette By Day";
+    public static $page_name="Cigarette by Day";
     public static $page_manage="manage_MyCigaretteDay_view.php";
 
 
@@ -37,7 +37,7 @@ public $year;
     public $total;
 
 
-    public static $page_name="Cigarette By Month";
+    public static $page_name="Cigarette by Month";
     public static $page_manage="manage_MyCigaretteMonth_view.php";
 
 
@@ -58,7 +58,7 @@ class MyCigaretteYear extends MyCigarette{
     public $total;
 
 
-    public static $page_name="Cigarette By Year";
+    public static $page_name="Cigarette by Year";
     public static $page_manage="manage_MyCigaretteYear_view.php";
 
 

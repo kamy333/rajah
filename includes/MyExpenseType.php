@@ -98,7 +98,7 @@ class MyExpenseType extends DatabaseObject {
     public static $db_field_search =array('search_all','expense_type','download_csv');
 
 
-    public static $page_name="MyExpenseType";
+    public static $page_name="Expense Type";
     public static $page_manage="manage_MyExpenseType.php";
     public static $page_new="new_MyExpenseType.php";
     public static $page_edit="edit_MyExpenseType.php";

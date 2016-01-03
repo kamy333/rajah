@@ -103,6 +103,9 @@ if($view_full_table==1){
         <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
         <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
         <a href="<?php echo $class_name3::$page_manage ?>">View <?php echo $class_name3::$page_name ?></a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a href="<?php echo $class_name::$page_add_cig ?>">Add 1 cig</a>
+        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 
     </div>
 

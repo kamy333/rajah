@@ -150,8 +150,8 @@ if(isset($_GET['id'])){
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
-    <a href="index.php">Index</a> &nbsp;&nbsp;
-    <a href="<?php echo $class_name::$page_manage ?>" >Manage User</a>
+    <a href="index.php">Index</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a href="<?php echo $class_name::$page_manage ?>" >Manage User</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 
     <div class ="background_light_blue">
 

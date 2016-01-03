@@ -48,6 +48,12 @@
 
             <?php echo Links::output_links('Bootstrap'); ?>
         </div>
+        <div class="col-lg-2 ">
+            <?php //echo get_search_category(); ?>
+
+            <?php echo Links::output_links('udemy',true); ?>
+        </div>
+
         </div>
 
         <div class="row">
@@ -68,8 +74,8 @@
           <tr>  <td><a target="_blank" href="http://kickass.to/usearch/ufc/?field=time_add&sorder=desc">Dnld UFC</a> </td></tr>
           <tr>  <td><a target="_blank" href="http://kickass.to/usearch/category:movies%20lang_id:5/">Dnld French Movie</a> </td></tr>
           <tr>  <td><a target="_blank" href="http://www.cpasbienstreaming.fr/2015/02/une-merveilleuse-histoire-du-temps.html">Film</a> </td></tr>
-          
-
+            <tr>  <td><a target="_blank" href="SuperLearning/CourseSyllabusSuperLearner2.html"">Course Syllabus</a> </td></tr>
+            <tr>  <td><a target="_blank" href="SuperLearning/CourseSyllabusSuperLearnerV2.0Udemy.pdf"">SuperLearning Material </a> </td></tr>
  
  
  

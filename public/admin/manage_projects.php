@@ -78,10 +78,10 @@ if($view_full_table==1){
 <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
 </div>
 
-    <div class="col-md-5 <?php echo $offset; ?>">
-<a href="index.php">Index</a> &nbsp;&nbsp;
-<a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
-<a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
+    <div class="col-md-10 <?php echo $offset; ?>">
+<a href="index.php">Index</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+<a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+<a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 </div>
 
 

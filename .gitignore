@@ -19,6 +19,8 @@ sql/test
 
 includes/mpdf60/
 
+learning/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

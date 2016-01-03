@@ -123,7 +123,7 @@ class MyExpense extends DatabaseObject {
     public static $db_field_search =array('search_all','download_csv');
 
 
-    public static $page_name="MyExpense";
+    public static $page_name="MExpense";
     public static $page_manage="manage_MyExpense.php";
     public static $page_new="new_MyExpense.php";
     public static $page_edit="edit_MyExpense.php";
