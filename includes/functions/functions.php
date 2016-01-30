@@ -99,17 +99,17 @@ function now(){
 function mth_fr_name($month_name){
     switch($month_name){
         case "January":       return "janvier" ;    break;
-        case "February":      return "f�vrier" ;    break;
+        case "February":      return "février" ;    break;
         case "March":         return "mars" ;       break;
         case "April":         return "avril" ;      break;
         case "May":           return "mai";         break;
         case "June":          return "juin";        break;
         case "July":          return "juillet";     break;
-        case "August":        return "aout";        break;
+        case "August":        return "aôut";        break;
         case "September":     return "septembre";   break;
         case "October":       return "octobre";     break;
         case "November":      return "novembre";    break;
-        case "December":      return "d�cembre";    break;
+        case "December":      return "décembre";    break;
 
         default:
             return "ATTENTION ";
@@ -120,17 +120,17 @@ function mth_fr_name($month_name){
 function mth_fr_no($month_no){
     switch($month_no){
         case "01":       return "janvier" ;    break;
-        case "02":       return "f�vrier" ;    break;
+        case "02":       return "février" ;    break;
         case "03":       return "mars" ;       break;
         case "04":       return "avril" ;      break;
         case "05":       return "mai";         break;
         case "06":       return "juin";        break;
         case "07":       return "juillet";     break;
-        case "08":       return "ao�t";        break;
+        case "08":       return "août";        break;
         case "09":       return "septembre";   break;
         case "10":       return "octobre";     break;
         case "11":       return "novembre";    break;
-        case "12":       return "d�cembre";    break;
+        case "12":       return "décembre";    break;
 
         default:
             return "ATTENTION ";
@@ -358,6 +358,44 @@ function get_where_string($class_name){
 
 
 }
+
+function validate_ip ($ip){
+    if(filter_var($ip,FILTER_VALIDATE_IP|FILTER_FLAG_IPV4 | FILTER_FLAG_NO_PRIV_RANGE|FILTER_FLAG_NO_RES_RANGE)===false){
+        return false;
+    } else {
+        return true;
+    }
+
+}
+
+// return first found
+function forwarded_ip(){
+    $keys=array(
+        'HTTP_X_FORWARDED_FOR',
+        'HTTP_X_FORWARDED',
+        'HTTP_FORWARDED_FOR',
+        'HTTP_FORWARDED',
+        'HTTP_CLIENT_IP',
+        'HTTP_X_CLUSTER_CLIENT_IP'
+    );
+    foreach ($keys as $key) {
+        if(isset($_SERVER[$key])){
+            $ip_array=explode(",",$_SERVER[$key]);
+            foreach ($ip_array as $ip) {
+                $ip=trim($ip);
+            if(validate_ip($ip)){
+                return $ip;
+            }
+
+            }
+
+        }
+    }
+    return 'None';
+
+}
+
+
 
 
 ?>

@@ -16,21 +16,26 @@
 </div>   <!--Div class container-->
 
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 
 <?php if (isset($layout_context) && $layout_context=="public"){  ?>
 
+    <?php $jspath=""; ?>
     <script src="js/bootstrap.min.js"></script>
     <script src="myjs/socialmedia.js"></script>
 
+
 <?php    } else { ?>
+<?php $jspath="../"; ?>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../myjs/socialmedia.js"></script>
 <?php } ?>
 
+<?php   if ( isset($javascript) && $javascript=="some_data"){?>
+<script src="<?php echo $jspath."myjs/some_data"  ?>"</script>
 
-
-
+<?php }?>
 
 
 <?php   if ( isset($javascript) && $javascript=="InvoiceActual"){?>

@@ -11,13 +11,14 @@
 
         // DIRECTORY_SEPARATOR is a PHP pre-defined constant
         // (\ for Windows, / for Unix)
+
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 $server_name = $_SERVER['SERVER_NAME'];
 $server_local = "localhost";
 //$server_phpstorm = "PhpStorm 8.0.3";
-$server_phpstorm = "PhpStorm 9.0.2";
+$server_phpstorm = "PhpStorm 10.0.3";
 
-http://localhost:63342/rajah_production/public/admin/login.php
+//http://localhost:63342/rajah_production/public/admin/login.php
     if ($server_name === $server_local || $server_name === $server_phpstorm) {
 
     defined('SITE_ROOT') ? null : define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS . 'rajah_production');
@@ -34,7 +35,7 @@ http://localhost:63342/rajah_production/public/admin/login.php
 
             defined('SESSION_PATH') ? null : define('SESSION_PATH', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'tmp');
 
-            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/public/');
+            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/');
             defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.DS.'/admin/');
 
     }
@@ -70,6 +71,7 @@ require_once(LIB_PATH.DS . 'functions'.DS."security_request_forgery_functions.ph
 require_once(LIB_PATH.DS . 'functions'.DS."security_mcrypt_functions.php");
 require_once(LIB_PATH.DS . 'functions'.DS."security_allowed_get.php");
 require_once(LIB_PATH.DS . 'functions'.DS."reset_token_functions.php");
+
 //require_once(LIB_PATH.DS . "function_links.php"); //todo clean up and move to function
 
 
@@ -93,6 +95,7 @@ require_once(LIB_PATH.DS.'user.php');
 require_once(LIB_PATH.DS.'UserType.php');
 require_once(LIB_PATH.DS.'FailedLogin.php');
 require_once(LIB_PATH.DS.'BlacklistIp.php');
+require_once(LIB_PATH.DS."BrowserDetect.php");
 require_once(LIB_PATH.DS.'Client.php');
 require_once(LIB_PATH.DS.'Project.php');
 

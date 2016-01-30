@@ -65,6 +65,7 @@ if ($layout_context=="public"){
                             <li><a href="<?php echo $path_public;?>about_us_2.php">About us 2</a></li>
                             <li><a href="<?php echo $path_public;?>angular.php">About Us 3</a></li>
                             <li><a href="<?php echo $path_public;?>angular2.php">AngularJS Login</a></li>
+                            <li><a href="<?php echo $path_public;?>some_data.php">Your info</a></li>
 
 
                         </ul>
@@ -335,7 +336,9 @@ if ($layout_context=="public"){
 
                     </ul>
                 </div>
-
+                <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+                <li><a href="<?php echo $path_admin;?>new_MyCigarette_Add_1.php">Add 1 cig</a></li>
+                <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
 
             <?php } ?>
         </ol>

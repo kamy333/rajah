@@ -26,6 +26,11 @@ class Session {
     public $user_agent;
     public $last_login;
 
+    public $referrer;
+
+   public function set_referrer(){
+       $this->last_page=$_SERVER['HTTP_REFERER'];
+   }
 
     function __construct() {
      //   session_save_path(SESSION_PATH);
@@ -34,6 +39,7 @@ class Session {
 		$this->check_message();
 		$this->check_login();
         $this->check_info();
+        $this->set_referrer();
     if($this->logged_in) {
       // actions to take right away if user is logged in
     } else {

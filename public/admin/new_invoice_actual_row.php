@@ -183,7 +183,7 @@ $select->field_option_1="project_code"; //2nd field for db query
     <td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>
     <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>
     <td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>
-    <td class="text-center remove btn btn-primary ">Delete</td>
+    <td class="text-center remove btn btn-danger ">Delete</td>
 
 </tr>
 

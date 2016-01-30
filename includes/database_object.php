@@ -650,9 +650,9 @@ if($long_short==1){
         }
 
         if($edit){
-            $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
 
-            $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
         }
 
         $output.= "</tr>";

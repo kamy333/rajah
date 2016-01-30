@@ -56,7 +56,7 @@ function addnewrow(){
        '<td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>' +
        ' <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>'+
         '<td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>'+
-       ' <td class="text-center remove btn btn-primary ">Delete</td>'+
+       ' <td class="text-center remove btn btn-danger ">Delete</td>'+
         '</tr>';
 
     $('.detail').append(tr);
