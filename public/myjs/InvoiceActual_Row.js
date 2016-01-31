@@ -51,12 +51,12 @@ function addnewrow(){
 
     var tr =
 '<tr>'+
-   '<td class="no">'+ n +'</td>' +
-       ' <td class="text-center"><input type="text" class="form-control category" name="category[]"></td>'+
-       '<td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>' +
-       ' <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>'+
-        '<td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>'+
-       ' <td class="text-center remove btn btn-danger ">Delete</td>'+
+       '<td class="no">'+ n +'</td>' + select +
+       //' <td class="text-center"><input type="text" class="form-control category" name="category[]"></td>'+
+       //'<td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>' +
+       //' <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>'+
+       // '<td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>'+
+       ' <td class="text-center remove btn btn-danger table-btn1 ">Delete</td>'+
         '</tr>';
 
     $('.detail').append(tr);

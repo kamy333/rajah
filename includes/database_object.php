@@ -152,6 +152,62 @@ public static function get_table_name() {
         return $clean_attributes;
     }
 
+
+
+    // form multi
+    public static function form_text($name,$type="text",$value=""){
+
+//        $name="";
+//        $type="text";
+//        $value="";
+
+
+        $output="";
+        $output.="";
+        $output.="<input type='{$type}' class='form-control {$name}' name='{$name}[]' value='{$value}' placeholder=''  >";
+
+
+
+        return $output;
+
+    }
+
+
+   public static function form_select_option($input_name,$field_1,$field_2){
+//
+//        $input_name='project_id';
+////        $class_name="Project";
+//        $field_1='id';
+//        $field_2='project_code';
+
+
+        $objects=static::find_all();
+
+
+        $output="";
+
+        $output.="<select class='form-control {$input_name}' name='{$input_name}[]' id=''>";
+        $output.="<option value='' selected></option>";
+
+        foreach($objects as $object){
+
+            foreach($object as $k=>$v){
+                if($k===$field_1 || $k === $field_2){
+
+                    if($k===$field_1){$output.=" <option value='{$v}'>";  }
+
+                    if($k===$field_2){ $output.="{$v}</option>"; }
+
+                }
+            }
+        }
+        $output.="</select>";
+        return $output;
+    }
+
+
+
+
     public function save(){
         // if the id is set then we update and prevent to create another same user
         // if(isset($this->id)){$this->update();} else {$this->create();}

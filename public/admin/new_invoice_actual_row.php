@@ -22,7 +22,7 @@ if(isset($_GET['id'])){
 
 }
 
-
+ check_request();
 
 
 if(request_is_post() && request_is_same_domain()) {
@@ -143,6 +143,8 @@ $select->field_option_1="project_code"; //2nd field for db query
 
 ?>
 
+<div class="row">
+
 <form name="form_invoice_actual" id="form_invoice_actual" class="form-horizontal" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>">
 
 
@@ -169,6 +171,7 @@ $select->field_option_1="project_code"; //2nd field for db query
    <thead>
     <tr>
         <th  class="text-center">No</th>
+        <th  class="text-center">Project</th>
         <th class="text-center">category</th>
         <th class="text-center">Quantity</th>
         <th class="text-center">Price</th>
@@ -176,21 +179,50 @@ $select->field_option_1="project_code"; //2nd field for db query
         <th class="text-center" style="background: whitesmoke"><a  class="btn btn-info " role="button"  id="add">+</a></th>
     </tr>
     </thead>
+
+    <?php
+    $td="<td class=\"text - center\">";
+    $td_end=" </td>";
+    $my_project_id=Project::form_select_option('project_id','id','project_code');
+    $my_category_id= Category::form_select_option('category_id','id','category');
+    $my_quantity= Project::form_text('quantity','text',1);
+    $my_unit_price=Project::form_text('price','text',1);
+    $my_amount= Project::form_text('amount','text',1);
+
+
+
+    $my_form=$my_project_id.$my_category_id.$my_quantity.$my_unit_price.$my_amount;
+//    $my_form_js="<script>var select=".$my_project_id."+".$my_category_id."+".$my_quantity."+".$my_unit_price."+".$my_amount."</script>";
+
+//    echo $my_form_js;
+    ?>
+
     <tbody class="detail">
 <tr>
-    <td class="no">1</td>
-    <td class="text-center"><input type="text" class="form-control category"  name="category[]"></td>
-    <td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>
-    <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>
-    <td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>
-    <td class="text-center remove btn btn-danger ">Delete</td>
+     <td class="no">1</td>
+<!--     <td class="text-center">--><?php //echo Project::form_select_option('project_id','id','project_code'); ?><!--</td>-->
+<!---->
+<!--     <td class='text-center'>--><?php //echo Category::form_select_option('category_id','id','category'); ?><!--</td>-->
+<!--    <td class="text-center"><input type="text" class="form-control category"  name="category[]"></td>-->
+<!--    <td class="text-center"><input type="text" class="form-control quantity" name="quantity[]"></td>-->
+
+
+      <?php echo $td.$my_project_id.$td_end;?>
+      <?php echo $td.$my_category_id.$td_end;?>
+      <?php echo $td.$my_quantity.$td_end;?>
+      <?php echo $td.$my_unit_price.$td_end;?>
+      <?php echo $td.$my_amount.$td_end;?>
+
+<!--    <td class="text-center"><input type="text" class="form-control price" name="price[]"></td>-->
+<!--    <td class="text-center"><input type="text" class="form-control amount" name="amount[]"></td>-->
+    <td class="text-center remove btn btn-danger table-btn1 ">Delete</td>
 
 </tr>
 
     </tbody>
 <tfoot>
 
-<td class="grandtotal text-right" colspan="4">Total</td>
+<td class="text-right" colspan="4">Total</td>
     <td class="text-center grandtotal" colspan="1"><u><b>0</b></u></td>
 
 </tfoot>
@@ -205,7 +237,21 @@ echo csrf_token_tag();
 
 </form>
 
+</div>
 
+
+
+<script>
+var select="<td class='text-center'><?php echo $my_project_id;  ?></td>" +
+    "<td class='text-center'><?php echo $my_category_id;  ?></td>" +
+    "<td class='text-center'><?php echo $my_quantity;  ?></td>" +
+    "<td class='text-center'><?php echo $my_unit_price;  ?></td>" +
+    "<td class='text-center'><?php echo $my_amount;  ?></td>"
+
+
+
+
+</script>
 
 
 

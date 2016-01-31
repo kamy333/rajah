@@ -395,6 +395,31 @@ function forwarded_ip(){
 
 }
 
+function check_request(){
+
+    echo $_POST['project_id'][0]."<br>";
+    echo $_POST['project_id'][1]."<br>";
+    echo array_count_values($_POST['project_id']);
+
+
+if(request_is_post()  && $_POST){
+    echo "<p>POST Request Value</p>"."<br>";
+    echo "<pre>";
+     print_r($_POST);
+    echo "</pre>";
+}
+
+    if(request_is_get() && $_GET){
+        echo "<p>GET Request Value</p>"."<br>";
+        echo "<pre>";
+         print_r($_GET);
+        echo "</pre>";
+    }
+
+
+
+}
+
 
 
 

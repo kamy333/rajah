@@ -5,7 +5,7 @@ FROM employee AS t1 INNER JOIN info AS t2 ON t1.name = t2.name;
 
 SELECT DISTINCT t1.category
 FROM links AS t1 INNER JOIN links_category AS t2 on t2.id = t1.category_id
-ORDER BY t2.rank ASC
+ORDER BY t2.rank ASC;
 
 
 
