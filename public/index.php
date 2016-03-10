@@ -6,17 +6,28 @@
 <?php $fluid_view=true; ?>
 <?php $javascript=""; ?>
 <?php $incl_message_error=true; ?>
-<?php //include_layout_template('header_2.php'); ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
-<?php //include_layout_template('nav.php'); ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 
 
 <div id="animate" style='position: relative; top: 100px;'>
 
-<h1 class="text-center">Welcome to <mark>ikamy.ch!</mark></h1>
+<h1 class="text-center">Welcome to <?php echo $logo?></h1>
 
-<h1 class="text-center">Sorry this site is under construction</h1>
+<!--<h1 class="text-center">Sorry this site is under construction</h1>-->
+
+    <h6 class="text-center" style="position:relative; color:blue;"><a  target="_blank" href="https://www.lumosity.com/app/v4/dashboard">Exercice my brain in Lumonisity
+        </a></h6>
+    <h6><a href="../Inspinia/index.php">Inspinia</a></h6>
+
+
+
+<!--    <div id="scrollcontainerTop" style="position:relative; overflow:hidden; width:100%;">-->
+<!--  <span id="scrolltextTop" style="position:absolute; white-space:nowrap">-->
+<!---->
+<!--  </span>-->
+<!--    </div>-->
+
 
 
 </div>
@@ -40,6 +51,7 @@
         <li data-target="#carousel-example-generic" data-slide-to="12"></li>
         <li data-target="#carousel-example-generic" data-slide-to="13"></li>
 -->
+
 
 
 <?php
@@ -202,10 +214,10 @@ for ($i = 1; $i <= 11; $i++) {
 </div>
 
 
-<div id="scrollcontainer" style="postion:relative; overflow:hidden; width:100%;">
+<div id="scrollcontainer" style="position:relative; overflow:hidden; width:100%;">
   <span id="scrolltext" style="position:absolute; white-space:nowrap">
-  <h1 class="text-center" style="postion:relative; color:blue;">Please come back later, we have great features coming up.</h1>
-  <h1 class="text-center" style="postion:relative; color:red;">Use contact form to contact me.</h1>
+  <h1 class="text-center" style="position:relative; color:blue;">Please come back later, we have great features coming up.</h1>
+  <h1 class="text-center" style="position:relative; color:red;">Use contact form to contact me.</h1>
 
   </span>
 </div>

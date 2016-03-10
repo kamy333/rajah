@@ -43,6 +43,15 @@ $server_phpstorm = "PhpStorm 10.0.3";
 defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 
 
+defined('HEADER')? null : define('HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header.php');
+defined('FOOTER')? null : define('FOOTER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer.php');
+defined('NAV')? null : define('NAV', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav.php');
+defined('SIDEBAR')? null : define('SIDEBAR', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'sidebar.php');
+
+
+//include(SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS."footer.php")
+
+
 $logo="<span style='color: #0016b0'><b>i</b></span>";
 $logo.="<span style='color: green'><b>k</b></span>";
 $logo.="<span style='color: red'><b>a</b></span>";

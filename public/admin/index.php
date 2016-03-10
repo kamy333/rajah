@@ -14,9 +14,14 @@ require_once('../../includes/initialize.php');?>
 <h2>Menu</h2>
 
 	<?php echo output_message($message); ?>
+
+<!---->
 	<ul>
 		<li><a href="logfile.php">View Log file</a></li>
 		<li><a href="logout.php">Logout</a></li>
+		<li><a href="logout.php">Logout</a></li>
+		<li><a href="../../Inspinia/">Inspinia</a></li>
+		<li><a href="../../Inspinia_Full_Version/">Inspinia Full Version</a></li>
 
     </ul>
 

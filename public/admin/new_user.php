@@ -156,7 +156,7 @@ if(isset($_GET['id'])){
     <div class ="background_light_blue">
 
 
-        <form name="form_client"  class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form name="form_user"  class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
 
             <fieldset id="login" title="User">
                 <legend class="text-center" style="color: #0000ff">New User</legend>
@@ -201,7 +201,7 @@ if(isset($_GET['id'])){
 
 
             <div class="col-sm-offset-3 col-sm-7 col-xs-3">
-                <button type="submit" name="submit" class="btn btn-primary">Ajouter</button>
+                <button type="submit" name="submit" id="submit_user" class="btn btn-primary">Ajouter</button>
             </div>
 
             <div class="text-right " >

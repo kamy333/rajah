@@ -14,6 +14,8 @@
 <?php //include_layout_template('nav.php'); ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 
+<h2 class="text-center"><a  target="_blank" href="https://www.lumosity.com/app/v4/dashboard">Exercice my brain in Lumonisity
+    </a></h2>
 
 <div class="row">
     <?php echo $session->message(); ?>
