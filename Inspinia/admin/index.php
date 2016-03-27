@@ -1,7 +1,10 @@
-<?php require_once('../../includes/initialize.php'); ?>
+<?php require_once('../../includes/initialize.php');
+$session->confirmation_protected_page();
+if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+?>
 
-<?php $layout_context = "admin"; ?>
-<?php $active_menu="home"; ?>
+
+
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
 <?php $javascript=""; ?>

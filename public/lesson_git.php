@@ -404,9 +404,11 @@ To have connection to github and not having to type your username and password o
 
 <ul>
 <li>jeter cig dehors</li>
-<li>donner mon vin à ses amis</li>
+<li>donner mon vin Ã  ses amis</li>
 <li>mes cig</li>
 <li>fin de mois sans argent</li>
+<li>Alcoolic </li>
+<li>Amener des gens</li>
 
 </ul>
 </div>

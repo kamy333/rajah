@@ -19,8 +19,8 @@ date_default_timezone_set('Europe/Zurich');
 $bd=new BrowserDetective();
 ?>
 
-<a  target="_blank" href="http://whatsmy.browsersize.com/">browsersize</a>
-<a target="_blank"  href="https://github.com/garetjax/phpbrowscap">phpbrowscap</a>
+<a  target="_blank" href="http://whatsmy.browsersize.com/">browsersize</a> &nbsp;&nbsp;&nbsp;
+<a target="_blank"  href="https://github.com/garetjax/phpbrowscap">phpbrowscap</a> &nbsp;&nbsp;&nbsp;
 <a  target="_blank" href="https://github.com/piwik/device-detector">device-detector</a>
 <div class="row">
     <div class="col-md-offset-2">

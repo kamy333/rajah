@@ -339,8 +339,6 @@ public static function get_table_name() {
 
     public function get_form_search (){
 
-
-
         $output="";
         $div_class="<div class='col-xs-4'>";
         $value=null;
@@ -587,6 +585,25 @@ public static function get_table_name() {
 
     }
 
+    public static function display_all_new($long_short=0,$edit=true){
+
+        
+        
+        $object_all = static::find_all();
+
+        $output="";
+//        $output.=static::display_table_head($long_short,$edit);
+
+        foreach($object_all as $object){
+            $output.=   $object->display_table_new($long_short,$edit);
+        }
+
+//        $output.=static::display_table_footer($edit);
+        return $output;
+
+    }
+
+
     public static function display_table_head($long_short=0,$edit=true){
 
 
@@ -668,6 +685,72 @@ public static function get_table_name() {
         return $output;
     }
 
+    public static function display_table_head_new($long_short=0,$edit=true){
+
+
+
+        // $query_string= urldecode($_SERVER['QUERY_STRING']);
+
+        $query_string= remove_get(array('order_name','order_type','page'));
+
+        if($long_short==1){
+            $table_field=static::$db_fields_table_display_full;
+
+        } else {
+            $table_field=static::$db_fields_table_display_short;
+
+        }
+
+        $output="";
+
+
+        $where=get_where_string(get_called_class());
+        $found_count=static::count_all_where($where);
+        $total_count=static::count_all();
+
+        if($found_count!==$total_count){
+//            $output.="<b>Found records: <span style='color:blue;'> ".h($found_count)." of ".h($total_count)."</span></b> | ";
+        }
+
+
+
+        foreach($_GET as $key=>$val){
+            $key_clean = str_replace("_", " ", $key);
+            $key_clean = ucfirst($key_clean);
+
+
+            if(!empty($_GET[$key]) && !in_array($key,array('page','view'))){
+//                $output.="<b>".h($key_clean)." <span style='color:blue;'> ".h(urldecode($_GET[$key]))."</span></b> | ";
+            }
+        }
+
+//        $output.= "<tr>";
+
+
+
+
+        foreach($table_field as $fieldname){
+            if(property_exists(new static,$fieldname)){
+                $fieldname = str_replace("_", " ", $fieldname);
+                $fieldname = ucfirst($fieldname);
+
+                $output.= "<th class='text-center'>".$fieldname."</th>";
+                            }
+        }
+
+        if($edit){
+//            $output.= "<th colspan=\"1\" class=\"text-center\" style='vertical-align:middle;'>Actions</th>";
+
+            $output.= "<th>Actions</th>";
+            $output.= "<th></th>";
+        }
+
+//        $output.= "</tr>";
+        return $output;
+    }
+
+
+
     public static function display_table_footer($edit=true){
 
 
@@ -715,5 +798,45 @@ if($long_short==1){
         return $output;
 
     }
+
+
+
+
+    public function display_table_new($long_short=0,$edit){
+
+        $this->set_up_display();
+
+        $output="";
+        $output.= "<tr class=\"gradeX\">";
+
+        if($long_short==1){
+            $table_field=static::$db_fields_table_display_full;
+
+        } else {
+            $table_field=static::$db_fields_table_display_short;
+
+        }
+
+
+        foreach($table_field as $fieldname){
+            if(property_exists($this,$fieldname)){
+                $output.= "<td class='text-center'>".$this->$fieldname."</td>";
+
+            }
+        }
+
+        if($edit){
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+
+            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+        }
+
+        $output.= "</tr>";
+        return $output;
+
+    }
+
+
+
 
 }

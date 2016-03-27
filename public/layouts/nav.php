@@ -3,6 +3,8 @@
 <?php if(isset($_SESSION["user_id"])) {$user=User::find_by_id($_SESSION['user_id']);} else {$user="";} ?>
 
 <?php
+//$layout_context=basename(__DIR__);
+
 if ($layout_context=="public"){
     $path_admin="admin/";
     $path_public=""  ;
@@ -10,9 +12,8 @@ if ($layout_context=="public"){
 } else {
     $path_admin="";
     $path_public="../";
+
 } ?>
-
-
 
 <?php if ($layout_context=="public"){ ?>
     <script>
@@ -46,15 +47,18 @@ if ($layout_context=="public"){
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand active" href="http://www.ikamy.ch/public/index.php"><?php echo LOGO ?><span style="color: blue"> Rajah Prod<?php if (isset($layout_context) && $layout_context == "admin") { echo " Admin"; } ?></span></a>
+            <a class="navbar-brand active" href="http://www.ikamy.ch/public/index.php"><?php echo LOGO ?><span style="color: blue"> <?php if (isset($layout_context) && $layout_context == "admin") { echo " Admin"; } ?></span></a>
 
         </div>
         <div class="collapse navbar-collapse" id="collapse">
             <ul class="nav navbar-nav">
-                <li
-                    <?php if ( isset($active_menu) && $active_menu=="home") {echo "class=\"active\"";} ?>
 
-                    ><a href="<?php echo $path_public;?>index.php">Home</a></li>
+                <li <?php if ( isset($active_menu) && $active_menu=="home") {echo "class=\"active\"";} ?>>
+                    <?php if ($layout_context=="public"){  ?>
+                    <a href="<?php echo $path_admin;?>index.php">Home</a>
+                    <?php } ?>
+
+                </li>
 
 
                 <li
@@ -238,11 +242,13 @@ if ($layout_context=="public"){
 
                 <?php  if (isset($_SESSION["user_id"])){ ?>
 
-                    <li class="active"><a href="<?php echo $path_admin;?>logout.php" data-toggle="dropdown"><span class='glyphicon glyphicon-user' aria-hidden='true'></span><?php  echo "&nbsp;&nbsp;" ?><?php echo $user->username."&nbsp;&nbsp;"; ?>
+                    <li class="active"><a href="<?php echo $path_admin;?>logout.php" data-toggle="dropdown"><?php  echo "&nbsp;&nbsp;" ?><small><strong><?php echo $user->username."&nbsp;&nbsp;"; ?></strong></small>
+
+
                             <?php
                             $username=$user->username;
-                            if(file_exists("../img/{$username}.JPG")){
-                                echo "<span><img class='img-thumbnail img-responsive img-circle'  src='../img/{$username}.JPG' alt='{$username}'style='width:2em;height:2em;'</span>";
+                            if(file_exists($path_public."img/{$username}.JPG")){
+                                echo "<span><img class='img-thumbnail img-responsive img-circle'  src='{$path_public}img/{$username}.JPG' alt='{$username}'style='width:2em;height:2em;'</span>";
                             }
                             ?>
                             <span class="caret"></span></a>
@@ -295,7 +301,7 @@ if ($layout_context=="public"){
 
 
 
-    <div class=" socialmediaicons text-right container-fluid ">
+    <div style="line-height: 4%;" class=" socialmediaicons text-right container-fluid ">
 
     </div>
 </div>

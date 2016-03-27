@@ -460,7 +460,7 @@ class User extends DatabaseObject {
     if(isset($this->first_name) && isset($this->last_name)) {
       return $this->first_name . " " . $this->last_name;
     } else {
-      return "";
+      return $this->username;
     }
   }
 

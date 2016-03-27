@@ -11,6 +11,8 @@
 class MyExpense extends DatabaseObject {
     protected static $table_name="myexpense";
 
+// 'currency_id','Account','debitor','creditor'
+
     protected static $db_fields = array('id','amount','person_name','expense_type','expense_date','comment','modification_time');
 
     protected static $required_fields = array('amount','person_name','expense_type','expense_date');

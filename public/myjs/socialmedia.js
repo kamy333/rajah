@@ -23,5 +23,5 @@ var socialList = function() {
 
   for (var i = myList.length - 1; i >= 0; i--) {
     myList[i].innerHTML = output;
-  };
+  }
 }(socialMedia);

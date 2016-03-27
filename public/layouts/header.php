@@ -19,7 +19,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     ;
-    <title>ikamy.ch Rajah Prod <?php if ($layout_context == "admin") { echo "Admin"; } ?></title>
+    <title>ikamy.ch <?php if ($layout_context == "admin") { echo "Admin"; } ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php if ($layout_context=="public"){  ?>

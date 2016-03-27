@@ -5,7 +5,23 @@ if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
 
 <?php if(isset($_GET["class_name"])){$class_name= urldecode($_GET["class_name"]) ;} else {$class_name="User";}  ?>
 
-<?php //$Classes=User::find_all(); ?>
+<?php
+
+
+$query_string=remove_get(array('view','page'));
+$view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
+if($view_full_table==1){
+    $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
+    $page_link_text=$class_name::$page_name." short view";
+    //$add_view="&view=".u(1);
+    $offset="col-md-offset-2";
+} else {
+    $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
+    $page_link_text=$class_name::$page_name." full view";
+    $offset='';
+
+}
+?>
 
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>

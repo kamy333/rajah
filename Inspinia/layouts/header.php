@@ -1,36 +1,4 @@
-<?php
-
-if ($layout_context=="public"){
-    $path_admin="admin/";
-    $path_public=""  ;
-    $path="";
-
-} else {
-    $path_admin="";
-    $path_public="../";
-    $path="../";
-} ?>
-
-
-
-<?php if ($layout_context=="public"){ ?>
-    <script>
-        var $layout_context="public";
-        var $path_admin="admin/";
-        var $path_public=""  ;
-        var $path="";
-    </script>
-<?php  } else {?>
-    <script>
-        var $layout_context="admin";
-        var $path_admin="";
-        var  $path_public="../";
-        var $path="../";
-    </script>
-
-<?php  } ?>
-
-
+<?php require_once (CONFIG_HEADER);?>
 
 
 <!DOCTYPE html>
@@ -46,8 +14,21 @@ if ($layout_context=="public"){
     <link href="<?php echo $path;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $path;?>font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <!-- Toastr style -->
+    <link href="<?php echo $path;?>css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="<?php echo $path;?>js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    
     <link href="<?php echo $path;?>css/animate.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style.css" rel="stylesheet">
+
+
+    <link href="<?php echo $path;?>css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+
+
+
 
 </head>
 

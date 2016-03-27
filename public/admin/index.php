@@ -16,12 +16,20 @@ require_once('../../includes/initialize.php');?>
 	<?php echo output_message($message); ?>
 
 <!---->
+
+
+<ul>
+    <li><a href="../../SmartAdmin/">SmartAdmin</a></li>
+    <li><a href="../../SmartAdmin_PHP_AJAX_Version_v1.8.1/">SmartAdmin Full Version</a></li>
+    <li><a href="../../Inspinia/">Inspinia</a></li>
+    <li><a href="../../Inspinia_Full_Version/">Inspinia Full Version</a></li>
+</ul>
+
 	<ul>
 		<li><a href="logfile.php">View Log file</a></li>
 		<li><a href="logout.php">Logout</a></li>
 		<li><a href="logout.php">Logout</a></li>
-		<li><a href="../../Inspinia/">Inspinia</a></li>
-		<li><a href="../../Inspinia_Full_Version/">Inspinia Full Version</a></li>
+
 
     </ul>
 
