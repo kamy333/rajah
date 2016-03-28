@@ -109,12 +109,25 @@
                     </ul>
                 </li>
 
+                    <?php
+                    if($session->is_logged_in()) {
+                        echo "<li><a href='{$path_public}index.php'><i class=\"fa fa-home\"></i> Home</a></li>";
 
-                <li>
-                    <a href="<?php echo $path_admin; ?>login.php">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
+                        echo "<li><a href='{$path_admin}logout.php'><i class=\"fa fa-sign-out\"></i> Log out</a></li>";
+
+                    } else {
+                        echo "<li><a href='{$path_public}index.php'><i class=\"fa fa-home\"></i> Home </a></li>";
+
+                     if ($active_menu_clean !=='login'){
+                        echo "<li><a href='{$path_admin}login.php'><i class=\"fa fa-sign-in\"></i> Log in</a></li>";
+                     }
+
+                    }
+                    ?>
+
+
+
+
                 <li>
                     <a class="right-sidebar-toggle">
                         <i class="fa fa-tasks"></i>

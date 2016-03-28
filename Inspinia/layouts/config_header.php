@@ -1,7 +1,10 @@
 <?php
 
 $active_menu=basename($_SERVER["PHP_SELF"]) ;
-$active_menu_clean = str_replace(".php", " ", $active_menu);
+$active_menu_clean = str_replace(".php", "", $active_menu);
+
+//change this if the folder name of project changes
+$folder_project_name="Inspinia";
 
 if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){
     $path_admin="";
@@ -39,6 +42,7 @@ if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){
     </script>
 
 <?php  } ?>
+
 
 <?php if(isset($_SESSION["user_id"])) {$user=User::find_by_id($_SESSION['user_id']);} else {$user="";} ?>
 <?php if(isset($_SESSION["user_id"])) {$user->set_user_type();} ?>

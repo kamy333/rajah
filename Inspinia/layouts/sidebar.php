@@ -1,5 +1,7 @@
 
-
+<?php //if($layout_context=="admin"){ ?>
+<!---->
+<?php //} ?>
 
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
@@ -7,33 +9,44 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
 
-                        <?php
-//                        if(file_exists("{$path}img/{$user->username}.JPG")){
-//                            echo "<span><img class='img-thumbnail img-responsive img-circle'
-//  src='{$path}img/{$user->username}.JPG' alt='{$user->username}' style='width:2em;height:2em;'</span>";
-//                        }
-//                        ?>
 
-<?php      if (isset($_SESSION["user_id"])){?>
-                    <span>
-                            <img alt="image" class="img-circle" style='width:3em;height:3em;' src="<?php echo $path;?>img/<?php echo $user->username;?>.jpg" />
-                             </span>
+           
+                    <?php
+                        $img_path=SITE_ROOT.DS.$folder_project_name.DS.'img'.DS;
+                        if(file_exists($img_path.$user->username.'.jpg') && isset($_SESSION["user_id"])){
+                            $username=$user->username;
+                            echo "<span> <img class='img-circle'  src='{$path}img/{$user->username}.jpg' alt='{$user->username}' style='width:3em; height:3em;' > </span>";
+                        }else {
+                            echo "<span><img class='img-circle' src='{$path}img/no_user.jpg' alt='image' style='width:2em;height:2em;'></span>";
+                        }
 
-<?php } ?>
+
+                         ?>
 
 
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear"> <span class="block m-t-xs"> 
                                     <strong class="font-bold">
-                    <?php if (isset($_SESSION["user_id"])){echo $user->full_name();} ?>
+                    <?php if (isset($_SESSION["user_id"])){echo $user->full_name();} else {
+                        echo "No User"; } ?>
 
                                     </strong>
                              </span> <span class="text-muted text-xs block">
-                     <?php if (isset($_SESSION["user_id"])){echo $user->user_type();} ?>
-                                    
+        <?php if (isset($_SESSION["user_id"])){echo $user->user_type;}else {echo "Log in"; } ?>
+
                                     <b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="#">Logout</a></li>
+
+                        <?php
+                        
+                        if(isset($_SESSION["user_id"])) {
+                            echo "<li><a href='{$path_admin}logout.php'>Logout</a></li>";
+                        } else {
+                            echo "<li><a href='{$path_admin}login.php'>Login</a></li>";
+                        }
+                        ?>
+
+
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -41,11 +54,15 @@
                 </div>
             </li>
 
-
+            <?php if($session->is_logged_in()) { ?>
             <li>
-                <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-home"></i> <span class="nav-label">Home Admin</span></a>
 
             </li>
+
+
+
+
 
             <li class="<?php echo $class_admin_active; ?>">
 
@@ -109,6 +126,7 @@
             </li>
 
 
+            <?php } // end of is logged in?>
 
 
 
@@ -120,16 +138,22 @@
 
                 <ul class="nav nav-second-level">
                     <li class="<?php if($active_menu=='index.php' && $active_public){echo 'active';};?>"><a href="<?php echo $path_public;?>index.php">Home</a></li>
+                    
+
+                    <li class="<?php if($active_menu=='index_old.php' && $active_public){echo 'active';};?>"><a href="<?php echo $path_public;?>index_old.php">Old public Layout</a></li>
                     <li class="<?php if($active_menu=='minor.php'  && $active_public){echo 'active';};?>"><a href="<?php echo $path_public;?>minor.php?class=2">Minor</a></li>
                     <li>
-                        <a href="http://www.ikamy.ch/Inspinia_Full_Version/" target="_blank"><i class="fa fa-th-large"></i> <span class="nav-label">full version</span></a>
+                        <a href="http://www.ikamy.ch/Inspinia_Full_Version/" target="_blank"><i class="fa fa-th-large"></i> <span class="nav-label">Full version</span></a>
                     </li>
 
                 </ul>
             </li>
 
 
-            <li >
+            <?php if($session->is_logged_in()) { ?>
+
+
+            <li>
                 <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Admin</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
@@ -193,18 +217,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             <li>
                 <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Kamy</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -262,7 +274,7 @@
                 </ul>
             </li>
 
-
+            <?php } ?>
 
 
             <li class="landing_link">
