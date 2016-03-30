@@ -6,7 +6,7 @@
  * Date: 8/21/2015
  * Time: 12:47 AM
  */
-class Form extends DatabaseObject{
+class FormNew extends DatabaseObject{
 
     const FORM_HORIZONTAL=0;
     const FORM_INLINE=1;
@@ -54,8 +54,6 @@ class Form extends DatabaseObject{
         //  settype($this->required,"bool");
 
     }
-
-
 
 
     public function radio(){

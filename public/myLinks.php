@@ -439,5 +439,6 @@ echo "<hr>";
 
 </div>
 </div>  <!--container-->
-<?php include(FOOTER_PUBLIC) ;?>
+<?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
+
 

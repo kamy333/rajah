@@ -287,8 +287,8 @@ if (isset($_GET)){
         }
     }
 
- //   var_dump($array);
- //  var_dump($_GET);
+//    var_dump($array);
+//   var_dump($_GET);
 
     return "?".http_build_query($array)."&";
 } else {

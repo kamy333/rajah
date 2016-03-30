@@ -45,14 +45,17 @@ defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 defined('CONFIG_HEADER')? null : define('CONFIG_HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'config_header.php');
 defined('HEADER')? null : define('HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header.php');
 defined('HEADER_PUBLIC')? null : define('HEADER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header_public.php');
+defined('HEADER_CANVAS')? null : define('HEADER_CANVAS', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header_canvas.php');
 
 defined('FOOTER')? null : define('FOOTER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer.php');
 defined('FOOTER_PUBLIC')? null : define('FOOTER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer.php');
 
 defined('NAV')? null : define('NAV', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav.php');
 defined('NAV_PUBLIC')? null : define('NAV_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_public.php');
+defined('NAV_CANVAS')? null : define('NAV_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_canvas.php');
 
 defined('SIDEBAR')? null : define('SIDEBAR', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'sidebar.php');
+defined('SIDEBAR_CANVAS')? null : define('SIDEBAR_CANVAS', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'sidebar_canvas.php');
 defined('TABLE_MANAGE')? null : define('TABLE_MANAGE', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'table_manage.php');
 
 

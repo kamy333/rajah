@@ -93,3 +93,11 @@ CREATE VIEW mycigarette_view AS (
 
 
 SELECT * FROM mycigarette_view;
+
+CREATE TABLE user_setting (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL ,
+   canvas enum('Yes','No') NOT NULL DEFAULT 'No',
+   tables enum('static','data','foo','jqGrid') NOT NULL DEFAULT 'No',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
