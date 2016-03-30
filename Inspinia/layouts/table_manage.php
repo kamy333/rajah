@@ -1,17 +1,28 @@
-
+<!--        -->
 
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5 class="text-center">
-            Manage <?php echo $class_name::$page_name; ?>
-        </h5>
+        <div class="row">
+                     <div class="col-md-2">
+        <span><a class="btn btn-primary btn-xm" href="class_edit.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
+                </div>
+            <div class="col-md-6">
+                <h2 class="text-center ">
+                    Manage <?php echo $class_name::$page_name; ?>
+                </h2>
+            </div>
+                <div class=" pull-right">
+        <span><a class="btn btn-primary btn-xm" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php echo str_repeat("&nbsp;", 7); ?>
+                </div>
+    </div>
 
-     &nbsp;&nbsp;&nbsp;  <span><a href="index.php">New <?php echo $class_name::$page_name; ?></a></span>
-        
 
         <div class="ibox-tools">
             <a class="collapse-link">
                 <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="fullscreen-link">
+                <i class="fa fa-expand"></i>
             </a>
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-wrench"></i>
@@ -33,19 +44,15 @@
             <table class="table table-striped table-bordered table-hover dataTables-example" >
                 <thead>
                 <tr>
-<!--                    <th>Rendering engine</th>-->
-<!--                    <th>Browser</th>-->
-<!--                    <th>Platform(s)</th>-->
-<!--                    <th>Engine version</th>-->
-<!--                    <th>CSS grade</th>-->
-                    <?php echo $class_name::display_table_head_new(); ?>
+
+                    <?php echo $class_name::display_table_head_new($view_full_table); ?>
                     
                     
                 </tr>
                 </thead>
                 <tbody>
 
-                <?php echo $class_name::display_all_new(); ?>
+                <?php echo $class_name::display_all_new($view_full_table); ?>
 
                 </tbody>
                 <tfoot>
@@ -55,6 +62,16 @@
                 </tfoot>
             </table>
         </div>
+        <div class="row">
+            <div class="col-md-2">
+                <span><a class="btn btn-primary btn-xm" href="class_edit.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
+            </div>
+
+            <div class=" pull-right">
+                <span><a class="btn btn-primary btn-xm" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php echo str_repeat("&nbsp;", 7); ?>
+            </div>
+        </div>
+
 
     </div>
 </div>

@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Main view</title>
+    <title>ikamy</title>
 
     <link href="<?php echo $path;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $path;?>font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -32,7 +32,12 @@
 
 </head>
 
+<?php if ($menu_canvas) {
+    echo "<body class=\"canvas-menu\">";
+} else {
+    echo "<body>";
 
-<body>
+}?>
+
 
 <div id="wrapper">

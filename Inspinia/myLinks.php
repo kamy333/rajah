@@ -3,19 +3,16 @@
 
 <?php $class_name="Links"; ?>
 
-<?php $layout_context = "public"; ?>
-<?php $active_menu="links"; ?>
+<?php //$layout_context = "public"; ?>
+<?php //$active_menu="links"; ?>
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
 <?php $javascript=""; ?>
 <?php $incl_message_error=true; ?>
-<?php //include_layout_template('header_2.php'); ?>
-<?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
-<?php //include_layout_template('nav.php'); ?>
-<?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
+<?php include(HEADER_PUBLIC) ;?>
+<?php include_once(NAV_PUBLIC) ?>
 
-<!--<h2 class="text-center"><a  target="_blank" href="https://www.lumosity.com/app/v4/dashboard">Exercice my brain in Lumonisity-->
-<!--    </a></h2>-->
+
 
 <div class="row">
     <?php echo $session->message(); ?>
@@ -440,4 +437,5 @@ echo "<hr>";
 </div>
 </div>  <!--container-->
 <?php include(FOOTER_PUBLIC) ;?>
+
 

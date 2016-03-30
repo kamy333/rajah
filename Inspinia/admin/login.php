@@ -82,7 +82,7 @@ if(request_is_post() && request_is_same_domain()) {
 <?php include(HEADER); ?>
 <?php include(NAV); ?>
 
-<?php echo output_message($message); ?>
+<?php  if(isset($message)){echo output_message($message);} ?>
 
 <body class="gray-bg">
 

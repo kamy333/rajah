@@ -1,16 +1,9 @@
-
-<?php //if($layout_context=="admin"){ ?>
-<!---->
-<?php //} ?>
-
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
+        <a class="close-canvas-menu"><i class="fa fa-times"></i></a>
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-
-
-           
                     <?php
                         $img_path=SITE_ROOT.DS.$folder_project_name.DS.'img'.DS;
                         if(file_exists($img_path.$user->username.'.jpg') && isset($_SESSION["user_id"])){
@@ -19,8 +12,6 @@
                         }else {
                             echo "<span><img class='img-circle' src='{$path}img/no_user.jpg' alt='image' style='width:2em;height:2em;'></span>";
                         }
-
-
                          ?>
 
 
@@ -38,12 +29,16 @@
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
 
                         <?php
-                        
+
+                        echo "<li><a href='{$path_admin}profile.php'>profile</a></li>";
+
                         if(isset($_SESSION["user_id"])) {
                             echo "<li><a href='{$path_admin}logout.php'>Logout</a></li>";
                         } else {
                             echo "<li><a href='{$path_admin}login.php'>Login</a></li>";
+
                         }
+
                         ?>
 
 
@@ -70,25 +65,25 @@
 
                 <ul class="nav nav-second-level <?php echo $class_admin_collapse; ?>">
 
-                    <?php $class_menu="User"; $text_menu="Users"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="User"; $text_menu="Users"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                     <?php $class_menu="Client"; $text_menu="Clients"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                     <?php $class_menu="Client"; $text_menu="Clients"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                    <?php $class_menu="Project"; $text_menu="Project"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-
-                    <?php $class_menu="InvoiceActual"; $text_menu="Invoice Actual"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-                    <?php $class_menu="InvoiceEstimate"; $text_menu="Invoice Estimate"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="Project"; $text_menu="Project"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
-                    <?php $class_menu="InvoiceSend"; $text_menu="Invoice Send"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="InvoiceActual"; $text_menu="Invoice Actual"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                    <?php $class_menu="InvoiceEstimate"; $text_menu="Invoice Estimate"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+
+                    <?php $class_menu="InvoiceSend"; $text_menu="Invoice Send"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
                 </ul>
@@ -99,25 +94,25 @@
                 <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-th-large"></i> <span class="nav-label">Kamy</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level <?php echo $class_kamy_collapse; ?>">
 
-                    <?php $class_menu="Links"; $text_menu="Links"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="Links"; $text_menu="Links"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                    <?php $class_menu="MyExpense"; $text_menu="MyExpense"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-
-                    <?php $class_menu="MyCigarette"; $text_menu="Cigarette"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="MyExpense"; $text_menu="MyExpense"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
-                    <?php $class_menu="MyCigaretteDay"; $text_menu="MyCigaretteDay"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="MyCigarette"; $text_menu="Cigarette"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                    <?php $class_menu="MyCigaretteMonth"; $text_menu="MyCigaretteMonth"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                    <?php $class_menu="MyCigaretteYear"; $text_menu="MyCigaretteYear"; $active_page="manage_class.php" ?>
-                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                    <?php $class_menu="MyCigaretteDay"; $text_menu="MyCigaretteDay"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                    <?php $class_menu="MyCigaretteMonth"; $text_menu="MyCigaretteMonth"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                    <?php $class_menu="MyCigaretteYear"; $text_menu="MyCigaretteYear"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
 
@@ -160,25 +155,25 @@
                         <a href="#">Manage<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
 
-                            <?php $class_menu="User"; $text_menu="Users"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="User"; $text_menu="Users"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                            <?php $class_menu="Client"; $text_menu="Clients"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="Client"; $text_menu="Clients"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                            <?php $class_menu="Project"; $text_menu="Project"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-
-                            <?php $class_menu="InvoiceActual"; $text_menu="Invoice Actual"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-                            <?php $class_menu="InvoiceEstimate"; $text_menu="Invoice Estimate"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="Project"; $text_menu="Project"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
-                            <?php $class_menu="InvoiceSend"; $text_menu="Invoice Send"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="InvoiceActual"; $text_menu="Invoice Actual"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                            <?php $class_menu="InvoiceEstimate"; $text_menu="Invoice Estimate"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+
+                            <?php $class_menu="InvoiceSend"; $text_menu="Invoice Send"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
                         </ul>
                     </li>
@@ -190,20 +185,20 @@
                         <a href="#">Set Up Admin<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level <?php echo $class_setup_admin_collapse; ?>">
 
-                            <?php $class_menu="Currency"; $text_menu="Currency"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="Currency"; $text_menu="Currency"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
-                            <?php $class_menu="Category"; $text_menu="Category"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="Category"; $text_menu="Category"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
-                            <?php $class_menu="Category1"; $text_menu="Category1"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="Category1"; $text_menu="Category1"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
-                            <?php $class_menu="Category2"; $text_menu="Category2"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="Category2"; $text_menu="Category2"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
-                            <?php $class_menu="UserType"; $text_menu="UserType"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="UserType"; $text_menu="UserType"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
                          </ul>
 
                     </li>
@@ -224,25 +219,25 @@
                         <a href="#">Manage Kamy<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
 
-                            <?php $class_menu="Links"; $text_menu="Links"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="Links"; $text_menu="Links"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                            <?php $class_menu="MyExpense"; $text_menu="MyExpense"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
-
-
-                            <?php $class_menu="MyCigarette"; $text_menu="Cigarette"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="MyExpense"; $text_menu="MyExpense"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
-                            <?php $class_menu="MyCigaretteDay"; $text_menu="MyCigaretteDay"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="MyCigarette"; $text_menu="Cigarette"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                            <?php $class_menu="MyCigaretteMonth"; $text_menu="MyCigaretteMonth"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                            <?php $class_menu="MyCigaretteYear"; $text_menu="MyCigaretteYear"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+                            <?php $class_menu="MyCigaretteDay"; $text_menu="MyCigaretteDay"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                            <?php $class_menu="MyCigaretteMonth"; $text_menu="MyCigaretteMonth"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                            <?php $class_menu="MyCigaretteYear"; $text_menu="MyCigaretteYear"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
 
@@ -256,11 +251,11 @@
                     <li>
                         <a href="#">Set Up Kamy<span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
-                            <?php $class_menu="MyExpensePerson"; $text_menu="My Expense Person"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="MyExpensePerson"; $text_menu="My Expense Person"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
-                            <?php $class_menu="MyExpenseType"; $text_menu="My Expense Type"; $active_page="manage_class.php" ?>
-                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>manage_class.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
+                            <?php $class_menu="MyExpenseType"; $text_menu="My Expense Type"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?><span class="label label-primary pull-right">FULL</span></a></li>
 
 
 

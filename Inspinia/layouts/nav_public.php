@@ -4,20 +4,26 @@
             <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
                 <i class="fa fa-reorder"></i>
             </button>
-            <a href="<?php echo $path_public;?>index.php" class="navbar-brand">ikamy.ch</a>
+            <a href="<?php echo $path_public;?>index.php" class="navbar-brand"><?php echo $logo; ?></a>
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
                 <li class="active">
                     <a aria-expanded="false" role="button" href="<?php echo $path_admin;?>index.php">Admin </a>
                 </li>
+
+                <li >
+                    <a aria-expanded="false" role="button" href="<?php echo $path_public;?>myLinks.php">Links</a>
+                </li>
+
                 <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Public <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="<?php echo $path;?>index.php">New public Layout</a></li>
                         <li><a href="<?php echo $path;?>index_old">Old public Layout</a></li>
                         <li><a href="<?php echo $path_public;?>minor.php">Minor</a></li>
-                        <li><a href="<?php echo $path_public;?>landing.php">Menu item</a></li>
+                        <li><a href="<?php echo $path_public;?>landing.php">Landing Page</a></li>
+                        <li><a href="<?php echo $path_public;?>off_canvas_menu.php">Canvas view</a></li>
 
                     </ul>
                 </li>

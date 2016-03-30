@@ -6,6 +6,7 @@ $active_menu_clean = str_replace(".php", "", $active_menu);
 //change this if the folder name of project changes
 $folder_project_name="Inspinia";
 
+
 if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){
     $path_admin="";
     $path_public="../";
@@ -46,6 +47,10 @@ if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){
 
 <?php if(isset($_SESSION["user_id"])) {$user=User::find_by_id($_SESSION['user_id']);} else {$user="";} ?>
 <?php if(isset($_SESSION["user_id"])) {$user->set_user_type();} ?>
+    <?php
+//isset($_GET['menu_canvas'])? $menu_canvas= true : $menu_canvas= false; //select the view?>
+<?php //$menu_canvas= false; //test?>
+
 
 <?php
 
