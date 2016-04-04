@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="Links" ;
 
@@ -118,37 +118,40 @@ if(request_is_post() && request_is_same_domain()) {
 
                 <?php
 
-                $name='name';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo  $class_name::get_form($name,$value);
+                echo  $class_name::construct_form($get_item);
 
-                $name='web_address';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo   $class_name::get_form($name,$value);
 
-                $name='description';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo  $class_name::get_form($name,$value);
-
-                $name='category_id';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo $class_name::get_form($name,$value);
-
-                $name='sub_category_1';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo $class_name::get_form($name,$value);
-
-                $name='sub_category_2';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo  $class_name::get_form($name,$value);
-
-                $name='privacy';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo  $class_name::get_form($name,$value);
-
-                $name='rank';
-                isset($get_item)? $value=$get_item->$name :$value="";
-                echo  $class_name::get_form($name,$value);
+//                $name='name';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo  $class_name::get_form($name,$value);
+//
+//                $name='web_address';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo   $class_name::get_form($name,$value);
+//
+//                $name='description';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo  $class_name::get_form($name,$value);
+//
+//                $name='category_id';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo $class_name::get_form($name,$value);
+//
+//                $name='sub_category_1';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo $class_name::get_form($name,$value);
+//
+//                $name='sub_category_2';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo  $class_name::get_form($name,$value);
+//
+//                $name='privacy';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo  $class_name::get_form($name,$value);
+//
+//                $name='rank';
+//                isset($get_item)? $value=$get_item->$name :$value="";
+//                echo  $class_name::get_form($name,$value);
 
 
                 echo Form::form_id();

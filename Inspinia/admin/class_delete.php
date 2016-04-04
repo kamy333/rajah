@@ -1,49 +1,43 @@
-<?php require_once('../../includes/initialize.php');
-$session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
-?>
+<?php require_once('../../includes/initialize.php'); ?>
+<?php  $session->confirmation_protected_page(); ?>
+<?php if(User::is_employee()){ redirect_to('index.php');}?>
+
+//old
+<?php //$class_name="Category2" ?>
 
 <?php if(isset($_GET["class_name"])){$class_name= urldecode($_GET["class_name"]) ;} else {$class_name="User";}  ?>
 
-<?php $stylesheets="";  ?>
-<?php $fluid_view=true; ?>
-<?php $javascript="table"; ?>
-<?php $incl_message_error=true; ?>
+<?php  $page_manage="class_manage?".$class_name?>
 
-<?php include(HEADER) ?>
-<?php include(SIDEBAR) ?>
-<?php include(NAV) ?>
+<?php
+if (!isset($_GET["id"])) {
+    $id="";
+//    redirect_to($class_name::$page_manage);
+    redirect_to($page_manage);
+} else {
+
+    $id=$_GET["id"];
+    $class_found=$class_name::find_by_id($id);
 
 
-<div class="wrapper wrapper-content animated fadeInRight">
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center m-t-lg">
-                        <h1>Form Edit for <?php echo $class_name; ?></h1>
-                                                <small></small>
-                        <div class="row">
-                            <div class="col-lg-2"></div>
-                            <ul>
-                                <li><?php echo $class_name; ?></li>
-                                <li><?php echo ""; ?></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    if($class_found->delete()){
+        $session->message("ID ".$class_found->id." succesfully deleted") ;
+        $session->ok(true);
+//        redirect_to($class_name::$page_manage);
+        redirect_to($page_manage);
+    } else {
+        $session->message("ID ".$class_found->id." deletion failed ") ;
+        redirect_to($page_manage);
+    }
 
 
 
-</div>
+
+}
 
 
 
 
 
-<?php include(FOOTER) ?>
+?>
 

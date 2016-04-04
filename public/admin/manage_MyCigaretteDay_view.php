@@ -2,7 +2,7 @@
 
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
 require_once LIB_PATH.DS.'download'.DS.'download_csv.php';
 
 
@@ -12,6 +12,7 @@ $class_name2="MyCigaretteMonth";
 $class_name3="MyCigaretteYear";
 
 
+/** @noinspection PhpUndefinedMethodInspection */
 $table_name=$class_name::get_table_name();
 
 
@@ -25,6 +26,7 @@ $order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'DESC';
 $page= !empty($_GET['page'])? (int) $_GET["page"]:1;
 $per_page=20;
 $where=get_where_string($class_name);
+/** @noinspection PhpUndefinedMethodInspection */
 $total_count=$class_name::count_all_where($where);
 $pagination= new Pagination($page,$per_page,$total_count);
 
@@ -47,6 +49,7 @@ $sql .= "OFFSET {$pagination->offset()}";
 
 //var_dump($sql);
 
+/** @noinspection PhpUndefinedMethodInspection */
 $result_class = $class_name::find_by_sql($sql);
 
 //echo '<pre>';
@@ -57,12 +60,16 @@ $query_string=remove_get(array('view','page'));
 
 $view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
 if($view_full_table==1){
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_text=$class_name::$page_name." short view";
     //$add_view="&view=".u(1);
     $offset="col-md-offset-2";
 } else {
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_text=$class_name::$page_name." full view";
     $offset='';
 
@@ -87,23 +94,26 @@ if($view_full_table==1){
 
 <div class="row">
 
-    <div class="col-md-12">
-        <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
-    </div>
-
     <div class="col-md-10 <?php echo $offset; ?>">
-        <a href="index.php">Index</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name3::$page_manage ?>">View <?php echo $class_name3::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_add_cig ?>">Add 1 cig</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a class="btn btn-warning"  href="index.php">Index</a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary"  href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name1::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name1::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name2::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name2::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name3::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name3::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name::$page_add_cig ?>">Add 1 cig</a>
+        <span>&nbsp;</span>
     </div>
 
 
@@ -112,26 +122,18 @@ if($view_full_table==1){
 <div class="row">
 
     <div class="col-md-7 <?php echo $offset; ?>">
-        <?php echo $class_name::display_pagination($pagination,$page) ?>
+        <?php /** @noinspection PhpUndefinedMethodInspection */
+        echo $class_name::display_pagination($pagination,$page) ?>
 
     </div>
-
-
-
-
-    <div class="col-md-2 col-md-offset-1">
-
-        <?php echo $class_name::get_modal_search() ;?>
-
-    </div>
-
 
 
     <div class="row">
         <div class="col-md-12  ">
 
 
-            <?php echo $class_name::display_all($result_class,$view_full_table,false) ?>
+            <?php /** @noinspection PhpUndefinedMethodInspection */
+            echo $class_name::display_all($result_class,$view_full_table,false) ?>
 
         </div>
     </div>

@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="Currency" ;
 
@@ -118,31 +118,18 @@ if(request_is_post() && request_is_same_domain()) {
 
             <?php
 
-            $name='currency';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+            foreach ($class_name::$get_form_element as $val) {
+                if($val==='date'){
+                    $myvalue = strftime("%Y-%m-%d",time());
+                } else {
+                    $myvalue ="";
+                }
+                isset($get_item)? $value=$get_item->$val :$value=$myvalue;
+                echo  $class_name::get_form($val,$value);
 
-            $name='currency_country';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+            }
 
-            $name='rate';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='rank';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='comment';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-
+           
 
 
             echo Form::form_id();

@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="Client" ;
 
@@ -121,66 +121,7 @@ if(request_is_post() && request_is_same_domain()) {
 
             <?php
 
-            $name='pseudo';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='restricted_list';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='company_name';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='web_view';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='last_name';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='first_name';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='email';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='website';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='address';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo $class_name::get_form($name,$value);
-
-            $name='cp';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo $class_name::get_form($name,$value);
-
-            $name='city';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo $class_name::get_form($name,$value);
-
-            $name='country';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo $class_name::get_form($name,$value);
-
-            $name='phone';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo $class_name::get_form($name,$value);
-
-            $name='mobile';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='liste_rank';
-            isset($get_item)? $value=$get_item->$name :$value="";
-           echo $class_name::get_form($name,$value);
-
+            echo  $class_name::construct_form($get_item);
 
              echo Form::form_id();
              echo csrf_token_tag();?>

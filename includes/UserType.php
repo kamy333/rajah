@@ -16,11 +16,17 @@ class UserType extends DatabaseObject {
     protected static $db_fields_table_display_full = array('id', 'user_type','comment');
     protected static $db_field_exclude_table_display_sort=null;
 
+
+    public static $get_form_element=array('user_type','comment');
+    public static $get_form_element_others=array();
+
+  
+
     protected static $form_properties= array(
         "user_type"=> array("type"=>"text",
             "name"=>'user_type',
-            "label_text"=>"User Type eg employee",
-            "placeholder"=>"input Pseudo",
+            "label_text"=>"User type eg employee",
+            "placeholder"=>"input user type",
             "required" =>true,
             ),
 

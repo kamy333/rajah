@@ -42,6 +42,9 @@ $server_phpstorm = "PhpStorm 10.0.3";
 
 defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 
+defined('PATH_UPLOAD') ? null : define('PATH_UPLOAD', SITE_ROOT.DS.'uploads');
+
+
 defined('CONFIG_HEADER')? null : define('CONFIG_HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'config_header.php');
 defined('HEADER')? null : define('HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header.php');
 defined('HEADER_PUBLIC')? null : define('HEADER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header_public.php');

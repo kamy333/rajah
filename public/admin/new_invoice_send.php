@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="InvoiceSend" ;
 
@@ -118,6 +118,9 @@ if(request_is_post() && request_is_same_domain()) {
 
 
             <?php
+
+
+
 
             $name='project_id';
             if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}

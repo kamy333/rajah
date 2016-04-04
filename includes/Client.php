@@ -22,6 +22,15 @@ class Client extends DatabaseObject {
 
     public static $fields_numeric=array('id','restricted_list','liste_rank');
 
+    public static $get_form_element=array('pseudo','restricted_list','company_name','web_view','last_name','first_name','email','website','address','cp','city','country','phone','mobile','liste_rank','comment');
+
+    public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "restricted_list"=>"0",
+    );
+
+
     protected static $form_properties= array(
      "pseudo"=> array("type"=>"text",
                        "name"=>'pseudo',
@@ -70,7 +79,7 @@ class Client extends DatabaseObject {
 
         "last_name"=> array("type"=>"text",
             "name"=>'last_name',
-            "label_text"=>"Last name",
+            "label_text"=>"Last Name",
             "placeholder"=>"Last Name",
             "required" =>false,
         ),
@@ -126,8 +135,8 @@ class Client extends DatabaseObject {
 
      "mobile"=> array("type"=>"tel",
                  "name"=>'mobile',
-                 "label_text"=>"mobile no",
-                 "placeholder"=>"mobile no",
+                 "label_text"=>"Mobile no",
+                 "placeholder"=>"Mobile no",
                  "required" =>false,
      ),
        "liste_rank"=> array("type"=>"number",
@@ -137,7 +146,12 @@ class Client extends DatabaseObject {
                  "placeholder"=>"a number to sort",
                  "required" =>true,
      ),
-
+        "comment"=> array("type"=>"textarea",
+            "name"=>'comment',
+            "label_text"=>"comment",
+            "placeholder"=>"comment",
+            "required" =>false,
+        ),
 
 
 

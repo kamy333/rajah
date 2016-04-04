@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="Category1" ;
 $class_name_1="Category2" ;
@@ -121,13 +121,16 @@ if(request_is_post() && request_is_same_domain()) {
 
             <?php
 
-            $name='category_1';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+            echo  $class_name::construct_form($get_item);
 
-            $name='comment';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+//
+//            $name='category_1';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='comment';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
 
 
             echo Form::form_id();

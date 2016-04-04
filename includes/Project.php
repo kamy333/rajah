@@ -20,6 +20,20 @@ class Project extends DatabaseObject {
 
     public static $fields_numeric=array('id','client_id');
 
+    public static $get_form_element=array('project_code','project_name','client_id','start_date','end_date','closed','currency_iso','vat','comment');
+
+    public static $get_form_element_others=array();
+
+//    public static $form_default_value;
+
+    public static $form_default_value=array(
+        "start_date"=>"now()",
+        "end_date"=>"now()",
+        "closed"=>"0",
+        "vat"=>"No"
+    );
+
+
 
     protected static $form_properties= array(
            "project_code"=> array("type"=>"text",

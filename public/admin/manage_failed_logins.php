@@ -2,7 +2,7 @@
 
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
 
 $class_name="FailedLogin";
 $table_name=$class_name::get_table_name();

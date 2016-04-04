@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="MyExpenseType" ;
 
@@ -117,19 +117,20 @@ if(request_is_post() && request_is_same_domain()) {
 
 
             <?php
+            echo $class_name::construct_form($get_item,$_GET);
 
-            $name='expense_type';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-            echo  $class_name::get_form($name,$value);
-
-
-            $name='rank';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='1';}
-            echo  $class_name::get_form($name,$value);
-
-            $name='comment';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='';}
-            echo  $class_name::get_form($name,$value);
+//            $name='expense_type';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//            echo  $class_name::get_form($name,$value);
+//
+//
+//            $name='rank';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='1';}
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='comment';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='';}
+//            echo  $class_name::get_form($name,$value);
 
             echo Form::form_id();
             echo csrf_token_tag();?>

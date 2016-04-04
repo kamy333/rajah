@@ -19,8 +19,8 @@ require_once('../../includes/initialize.php');?>
 
 
 <ul>
-    <li><a href="../../SmartAdmin/">SmartAdmin</a></li>
-    <li><a href="../../SmartAdmin_PHP_AJAX_Version_v1.8.1/">SmartAdmin Full Version</a></li>
+    <li><a href="../../smartAdmin/">SmartAdmin</a></li>
+    <li><a href="../../SmartAdmin_Full_Version_html/">SmartAdmin Full Version</a></li>
     <li><a href="../../Inspinia/">Inspinia</a></li>
     <li><a href="../../Inspinia_Full_Version/">Inspinia Full Version</a></li>
 </ul>

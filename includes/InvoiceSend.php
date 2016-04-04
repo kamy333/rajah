@@ -26,6 +26,17 @@ class InvoiceSend extends DatabaseObject
 
     public static $fields_numeric=array('id','project_id','gross_amount','vat','amount','company_unit_price','category_id');
 
+    public static $get_form_element=array('project_code','invoice_date','payment_date','gross_amount','vat','amount','canceled','status');
+
+   public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "invoice_date"=>"now()",
+        "end_date"=>"now()",
+        "closed"=>"0",
+        "vat"=>"No"
+    );
+    
     protected static $form_properties= array(
         "project_id"=> array("type"=>"select",
             "name"=>'project_id',

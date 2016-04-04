@@ -22,6 +22,15 @@ class MyExpenseType extends DatabaseObject {
 
     public static $fields_numeric=array('id','rank');
 
+
+    public static $get_form_element=array('expense_type','rank','comment');
+    public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "rank"=>"1",
+    );
+
+
     protected static $form_properties= array(
 
         "expense_type"=> array("type"=>"text",

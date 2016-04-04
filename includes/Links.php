@@ -20,9 +20,16 @@ class Links extends DatabaseObject {
     protected static $db_field_exclude_table_display_sort=array('link');
 
    // protected static $field_replace_display=array('name'=>'link');
-
-
     public static $fields_numeric=array('id','privacy','rank','category_id');
+
+    public static $get_form_element=array('name','web_address','description','category','sub_category_1','sub_category_2','privacy','rank');
+    
+    public static $get_form_element_others=array();
+    
+    public static  $form_default_value=array(
+        "category_id"=>"1",
+        "privacy"=>"0",
+        "rank"=>"1",);
 
     protected static $form_properties= array(
         "name"=> array("type"=>"text",

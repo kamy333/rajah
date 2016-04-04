@@ -22,6 +22,11 @@ class LinksCategory extends DatabaseObject {
 
     public static $fields_numeric=array('id','rank');
 
+    public static $get_form_element=array('category','rank');
+    public static $get_form_element_others=array();
+    
+    
+
     protected static $form_properties= array(
         "category"=> array("type"=>"text",
             "name"=>'category',

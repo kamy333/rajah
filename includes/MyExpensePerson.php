@@ -22,6 +22,13 @@ class MyExpensePerson extends DatabaseObject {
 
     public static $fields_numeric=array('id','rank');
 
+    public static $get_form_element=array('person_name','rank','comment');
+    public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "person_name"=>"Pablo"
+    );
+
     protected static $form_properties= array(
 
         "person_name"=> array("type"=>"text",

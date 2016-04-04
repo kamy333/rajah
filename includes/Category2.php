@@ -15,6 +15,8 @@ class Category2 extends DatabaseObject {
     protected static $db_fields_table_display_full =array('id','category_2','comment',);
     protected static $db_field_exclude_table_display_sort=null;
     public static $fields_numeric=array('id');
+    public static $get_form_element=array('category_2','comment');
+    public static $get_form_element_others=array();
 
     protected static $form_properties= array(
         "category_2"=> array("type"=>"text",

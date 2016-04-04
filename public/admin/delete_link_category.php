@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="LinksCategory" ?>
 
@@ -18,7 +18,7 @@ if($class_found->username=="Admin"){
     redirect_to($class_name::$page_manage);
 } else {
     if($class_found->delete()){
-        $session->message($class_found->username." succesfully deleted") ;
+        $session->message($class_found->username." successfully deleted") ;
         $session->ok(true);
         redirect_to($class_name::$page_manage);
     } else {

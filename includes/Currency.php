@@ -17,6 +17,14 @@ class Currency extends DatabaseObject
     protected static $db_field_exclude_table_display_sort=null;
     public static $fields_numeric=array('id','rate','rank');
 
+    public static $get_form_element=array('currency','currency_country','rate','date','rank','comment');
+
+    public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "currency_country"=>"CHF",
+        "date"=>"now()",
+    );
     protected static $form_properties= array(
         "currency"=> array("type"=>"text",
             "name"=>'currency',
@@ -29,7 +37,7 @@ class Currency extends DatabaseObject
             "name"=>'currency_country',
             "id"=>"currency_country",
             "label_text"=>"Currency Country",
-            "placeholder"=>"Currency Countryname",
+            "placeholder"=>"Currency Country Name",
             "required" =>false,
         ),
         "rate"=> array("type"=>"number",

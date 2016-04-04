@@ -4,7 +4,7 @@
 <!--   <div class="" >-->
 <footer class="row nav navbar-fixed-bottom my_footer">
     <div class="row">
-    <div class="socialmediaicons pull-right">
+    <div class="socialmediaicons pull-right" style="margin-right: 5em;">
 
     </div>
     <div class="text-center">

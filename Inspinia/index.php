@@ -13,13 +13,13 @@
                             <div class="ibox-content">
                                 <div class="text-center m-t-lg">
                                     <h1>Welcome to <?php echo $logo?> public page </h1>
-                                    <small>
-                                        <p>Bring together beautiful design and data! Manage everything and securely on the web and access it on every device, anywhere!</p>
-                                        <p>My name Kamran Nafisspour and owner of this website!</p>
+
+                                        <p><small>Bring together beautiful design and data! Manage everything and securely on the web and access it on every device, anywhere!</small></p>
+                                        <p> <small> My name Kamran Nafisspour and owner of this website!</small></p>
 
 
-                                        <span><img alt="image" class=""  style='width:2em;height:2em;' src="<?php echo $path;?>img/admin.jpg" /></span>
-                                    </small>
+<!--                                        <span><img alt="image" class=""  style='width:2em;height:2em;' src="--><?php //echo $path;?><!--img/admin.jpg" /></span>-->
+
                                 </div>
                             </div>
                         </div>

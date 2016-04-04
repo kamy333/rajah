@@ -140,6 +140,12 @@
                     <li>
                         <a href="http://www.ikamy.ch/Inspinia_Full_Version/" target="_blank"><i class="fa fa-th-large"></i> <span class="nav-label">Full version</span></a>
                     </li>
+                    <li class=""><a href="<?php echo "/smartAdmin/"//.$path;?>index.php?class=2">SmartAdmin</a></li>
+                    <li>
+   <li class=""><a href="<?php echo "/SmartAdmin_Full_Version_html/"//.$path;?>index.php?class=2">SmartAdmin Full Version</a></li>
+                    <li>
+
+
 
                 </ul>
             </li>

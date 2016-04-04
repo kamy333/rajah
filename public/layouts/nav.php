@@ -301,9 +301,7 @@ if ($layout_context=="public"){
 
 
 
-    <div style="line-height: 4%;" class=" socialmediaicons text-right container-fluid ">
 
-    </div>
 </div>
 
 <?php  //  echo "<p class='text-left'><small>".$complete_date."</small></p>";?>

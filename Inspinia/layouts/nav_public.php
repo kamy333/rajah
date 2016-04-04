@@ -11,7 +11,9 @@
                 <li class="active">
                     <a aria-expanded="false" role="button" href="<?php echo $path_admin;?>index.php">Admin </a>
                 </li>
-
+                <li class="active">
+                    <a  aria-expanded="false" role="button" href="<?php echo "/smartAdmin/"//.$path;?>index.php?class=2">SmartAdmin</a></li>
+                <li>
                 <li >
                     <a aria-expanded="false" role="button" href="<?php echo $path_public;?>myLinks.php">Links</a>
                 </li>

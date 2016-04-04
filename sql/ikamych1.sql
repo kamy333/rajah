@@ -603,6 +603,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_type_id` int(11) NOT NULL,
   `first_name` varchar(30) DEFAULT NULL,
   `last_name` varchar(30) DEFAULT NULL,
+  `user_image` varchar(255) DEFAULT NULL,
   `reset_token` varchar(70) DEFAULT NULL,
   `block_user` tinyint(1) DEFAULT '0',
   `address` varchar(100) DEFAULT NULL,
@@ -618,6 +619,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `user_type_id` (`user_type_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
+# ALTER TABLE `users`  ADD `user_image` VARCHAR(255) NOT NULL AFTER `last_name`;
 --
 -- Dumping data for table `users`
 --

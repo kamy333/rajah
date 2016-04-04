@@ -23,6 +23,16 @@ class MyCigarette extends DatabaseObject {
 
     public static $fields_numeric=array('id','number_cig');
 
+
+    public static $get_form_element=array('number_cig','cig_date','cig_date_time','comment');
+    public static $get_form_element_others=array();
+
+    public static $form_default_value=array(
+        "number_cig"=>"1",
+        "cig_date"=>"now()",
+        "cig_date_time"=>"nowtime()"
+    );
+
     protected static $form_properties= array(
 
         "number_cig"=> array("type"=>"number",

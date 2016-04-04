@@ -2,7 +2,7 @@
 
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
 $class_name="MyCigarette";
 $class_name1="MyCigaretteDay";
 $class_name2="MyCigaretteMonth";
@@ -41,18 +41,23 @@ $sql .= "OFFSET {$pagination->offset()}";
 //echo "<p>$sql</p>";
 //unset($_GET);
 
+/** @noinspection PhpUndefinedMethodInspection */
 $result_class = $class_name::find_by_sql($sql);
 
 $query_string=remove_get(array('view','page'));
 
 $view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
 if($view_full_table==1){
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_text=$class_name::$page_name." short view";
     //$add_view="&view=".u(1);
     $offset="col-md-offset-2";
 } else {
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
+    /** @noinspection PhpUndefinedFieldInspection */
     $page_link_text=$class_name::$page_name." full view";
     $offset='';
 
@@ -75,29 +80,32 @@ if($view_full_table==1){
 
 
 <div class="row">
-
-    <div class="col-md-12">
-        <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
-    </div>
-
     <div class="col-md-12 <?php echo $offset; ?>">
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="index.php">Index</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name3::$page_manage ?>">View <?php echo $class_name3::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <br>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_add_cig ?>">Add 1 cig</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <span>&nbsp; </span>
+        <a class="btn btn-warning" href="index.php">Index</a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name::$page_new ?>">Add New <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name1::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name1::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name2::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name2::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name3::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
+            echo $class_name3::$page_name ?></a>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
+        echo $class_name::$page_add_cig ?>">Add 1 cig</a>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp; </span>
 
     </div>
 
@@ -107,19 +115,10 @@ if($view_full_table==1){
 <div class="row">
 
     <div class="col-md-7 <?php echo $offset; ?>">
-        <?php echo $class_name::display_pagination($pagination,$page) ?>
+        <?php /** @noinspection PhpUndefinedMethodInspection */
+        echo $class_name::display_pagination($pagination,$page) ?>
 
     </div>
-
-
-
-
-    <div class="col-md-2 col-md-offset-1">
-
-        <?php echo $class_name::get_modal_search() ;?>
-
-    </div>
-
 
 
     <div class="row">

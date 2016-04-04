@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php // var_dump($session) ?>
 
@@ -63,6 +63,9 @@ if (!csrf_token_is_valid() || !csrf_token_is_recent()) {
 
         $valid->validate_presences($required_field);
         $valid->validate_email('email');
+
+        $user->set_files($_FILES['user_image']) ;
+        $user->upload_photo();
         // to validation
 
         if(empty($valid->errors)){
@@ -95,9 +98,9 @@ if (!csrf_token_is_valid() || !csrf_token_is_recent()) {
 }
 } elseif(isset($_GET['id'])) {
     $id=$_GET['id'];
-    $get_user=  $class_name::find_by_id($id);
- //   $_GET['user_type_id']=$get_user->user_type_id;
-//   var_dump($get_user);
+    $get_item=  $class_name::find_by_id($id);
+ //   $_GET['user_type_id']=$get_item->user_type_id;
+//   var_dump($get_item);
 
 }else{
 
@@ -150,13 +153,13 @@ if(isset($_GET['id'])){
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
-    <a href="index.php">Index</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name::$page_manage ?>" >Manage User</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+    <a class="btn btn-warning" href="index.php">Index</a><span>&nbsp;</span>
+    <a class="btn btn-primary" href="<?php echo $class_name::$page_manage ?>" >Manage User</a><span>&nbsp;</span>
 
     <div class ="background_light_blue">
 
 
-        <form name="form_user"  class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+        <form name="form_user"  class="form-horizontal" method="post" action="<?php echo $_SERVER['PHP_SELF'];?>" enctype="multipart/form-data">
 
             <fieldset id="login" title="User">
                 <legend class="text-center" style="color: #0000ff">New User</legend>
@@ -165,26 +168,16 @@ if(isset($_GET['id'])){
 
                 <?php
 
-                isset($get_user)? $value=$get_user->username :$value="";
-                echo $class_name::get_form('username',$value);
+//            $get_form_element=array('user_image','username','password','nom','email','user_type_id','first_name','last_name');
 
-                isset($get_user)? $value=$get_user->password :$value="";
-                echo $class_name::get_form('password',$value);
+//                foreach ($class_name::$get_form_element as $val) {
+//                    isset($get_item)? $value=$get_item->$val :$value="";
+//                    echo  $class_name::get_form($val,$value);
+//
+//                }
 
-                isset($get_user)? $value=$get_user->nom :$value="";
-                echo $class_name::get_form('nom',$value);
+                echo  $class_name::construct_form($get_item);
 
-                isset($get_user)? $value=$get_user->email :$value="";
-                echo $class_name::get_form('email',$value);
-
-                isset($get_user)? $value=$get_user->user_type_id :$value="";
-                echo $class_name::get_form('user_type_id',$value);
-
-                isset($get_user)? $value=$get_user->first_name :$value="";
-                echo $class_name::get_form('first_name',$value);
-
-                isset($get_user)? $value=$get_user->last_name :$value="";
-                echo $class_name::get_form('last_name',$value);
 
 
                  echo Form::form_id();

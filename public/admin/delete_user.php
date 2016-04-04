@@ -1,8 +1,9 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="User" ?>
+
 
 <?php
 if (!isset($_GET["id"])) {
@@ -16,9 +17,15 @@ if (!isset($_GET["id"])) {
 if($class_found->username=="Admin"){
     $session->message($class_found->username." cannot be deleted  ") ;
     redirect_to($class_name::$page_manage);
+
+    if($class_found->id===$_SESSION["user_id"]){
+        $session->message($class_found->username." you cannot delete the active user logged in !(yourself)  ") ;
+        redirect_to($class_name::$page_manage);
+    }
+
 } else {
     if($class_found->delete()){
-        $session->message($class_found->username." succesfully deleted") ;
+        $session->message($class_found->username." successfully deleted") ;
         $session->ok(true);
         redirect_to($class_name::$page_manage);
     } else {

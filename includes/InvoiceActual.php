@@ -22,6 +22,16 @@ class InvoiceActual extends DatabaseObject{
 
     public static $fields_numeric=array('id','project_id','quantity','unit_price','company_unit_price','category_id');
 
+    public static $get_form_element=array('project_id','category_id','project_code','start_date','end_date','quantity','unit_price','company_unit_price','comment');
+    public static $get_form_element_others=array('ref_upload');
+
+    public static $form_default_value=array(
+        "start_date"=>"now()",
+        "end_date"=>"now()",
+        "closed"=>"0",
+        "vat"=>"No"
+    );
+
     protected static $form_properties= array(
         "project_id"=> array("type"=>"select",
             "name"=>'project_id',

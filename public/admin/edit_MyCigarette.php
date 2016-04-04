@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="MyCigarette" ;
 
@@ -117,6 +117,8 @@ if(request_is_post() && request_is_same_domain()) {
 
 
             <?php
+
+//            echo  $class_name::construct_form($get_item);
 
             $name='number_cig';
             isset($get_item)? $value=$get_item->$name :$value="";

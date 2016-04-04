@@ -25,6 +25,9 @@ public $host;
 
     protected static $db_field_exclude_table_display_sort=null;
 
+    public static $get_form_element=array('username','login_attempt','last_time','ip','host');
+    public static $get_form_element_others=array();
+
     protected static $form_properties= array(
         "username"=> array("type"=>"text",
             "name"=>'username',

@@ -25,6 +25,8 @@ public $login_failed;
     protected static $db_fields_table_display_full=array('id', 'ip', 'login_failed',);
     protected static $db_field_exclude_table_display_sort=null;
 
+    public static $get_form_element=array('ip','login_failed');
+    public static $get_form_element_others=array();
 
     protected static $form_properties= array(
         "ip"=> array("type"=>"text",

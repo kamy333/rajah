@@ -1,8 +1,8 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
-<?php $class_name="InvoiceSend" ;
+<?php $class_name="InvoiceActual" ;
 
 
 
@@ -118,38 +118,41 @@ if(request_is_post() && request_is_same_domain()) {
 
             <?php
 
-            $name='project_id';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='invoice_date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='invoice_date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='vat';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='amount';
-            isset($get_item)? $value=$get_item->$name :$value="1";
-            echo  $class_name::get_form($name,$value);
-
-            $name='canceled';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='status';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+            echo  $class_name::construct_form($get_item);
 
 
-            $name='payment_date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+//            $name='project_id';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='invoice_date';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='invoice_date';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='vat';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='amount';
+//            isset($get_item)? $value=$get_item->$name :$value="1";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='canceled';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='status';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
+//
+//
+//            $name='payment_date';
+//            isset($get_item)? $value=$get_item->$name :$value="";
+//            echo  $class_name::get_form($name,$value);
 
 
             echo Form::form_id();

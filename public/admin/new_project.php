@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="Project" ;
 
@@ -96,11 +96,6 @@ if(request_is_post() && request_is_same_domain()) {
 <?php checking(true);?>
 
 
-
-
-
-
-
 <h4 class="text-center"><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo $page ." " .$class_name::$page_name ?></a> </h4>
 
 
@@ -119,46 +114,10 @@ if(request_is_post() && request_is_same_domain()) {
 
             <?php
 
-            $name='project_code';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
+            echo  $class_name::construct_form();
 
-            $name='project_name';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='client_id';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='start_date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='end_date';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='closed';
-            isset($get_item)? $value=$get_item->$name :$value="0";
-            echo  $class_name::get_form($name,$value);
-
-            $name='currency_iso';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-            $name='vat';
-            isset($get_item)? $value=$get_item->$name :$value="No";
-            echo  $class_name::get_form($name,$value);
-
-            $name='comment';
-            isset($get_item)? $value=$get_item->$name :$value="";
-            echo  $class_name::get_form($name,$value);
-
-
-
-             echo Form::form_id();
-             echo csrf_token_tag();?>
+            echo Form::form_id();
+            echo csrf_token_tag();?>
 
 
 

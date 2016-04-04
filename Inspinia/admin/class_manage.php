@@ -32,7 +32,8 @@ if($view_full_table==1){
 <?php include(HEADER) ?>
 <?php include(SIDEBAR) ?>
 <?php include(NAV) ?>
-
+<?php  echo isset($valid)? $valid->form_errors():"" ?>
+<?php echo $message; ?>
 
 <div class="wrapper wrapper-content animated fadeInRight">
 

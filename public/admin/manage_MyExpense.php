@@ -2,7 +2,7 @@
 
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
 $class_name="MyExpense";
 $class_name1="MyExpensePerson";
 $class_name2="MyExpenseType";
@@ -75,27 +75,22 @@ if($view_full_table==1){
 
 <div class="row">
 
-    <div class="col-md-12">
-        <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
-    </div>
-
     <div class="col-md-12 <?php echo $offset; ?>">
-        <a href="index.php">Index</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name1::$page_new ?>">Add New <?php echo $class_name1::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name2::$page_new ?>">Add New <?php echo $class_name2::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <br>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
+        <a class="btn btn-warning" href="index.php">Index</a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $class_name1::$page_new ?>">Add New <?php echo $class_name1::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $class_name2::$page_new ?>">Add New <?php echo $class_name2::$page_name ?></a>
+        <span>&nbsp;</span>
+<!--        <br>-->
+<!--        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>-->
+        <a class="btn btn-primary" href="<?php echo $class_name1::$page_manage ?>">View <?php echo $class_name1::$page_name ?></a>
+        <span>&nbsp;</span>
+        <a class="btn btn-primary" href="<?php echo $class_name2::$page_manage ?>">View <?php echo $class_name2::$page_name ?></a>
     </div>
 
 
@@ -107,16 +102,6 @@ if($view_full_table==1){
         <?php echo $class_name::display_pagination($pagination,$page) ?>
 
     </div>
-
-
-
-
-    <div class="col-md-2 col-md-offset-1">
-
-        <?php echo $class_name::get_modal_search() ;?>
-
-    </div>
-
 
 
     <div class="row">

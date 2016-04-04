@@ -3,16 +3,23 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
         <div class="row">
-                     <div class="col-md-2">
-        <span><a class="btn btn-primary btn-xm" href="class_edit.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
+                     <div class="col-md-2 col-xs-4">
+        <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="class_new.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
                 </div>
-            <div class="col-md-6">
-                <h2 class="text-center ">
+            <div class="col-md-6 col-xs-4">
+                <h2 class="text-center  ">
+                    <div class="hidden-sm hidden-xs">
                     Manage <?php echo $class_name::$page_name; ?>
-                </h2>
+                     <?php echo str_repeat("&nbsp;", 3); ?>
+                    </div>
+                     <div>
+                    <?php echo $class_name::get_modal_search() ?>
             </div>
-                <div class=" pull-right">
-        <span><a class="btn btn-primary btn-xm" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php echo str_repeat("&nbsp;", 7); ?>
+                </h2>
+
+            </div>
+                <div class=" pull-right  col-xs-4 text-right">
+        <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php// echo str_repeat("&nbsp;", 7); ?>
                 </div>
     </div>
 
@@ -63,12 +70,12 @@
             </table>
         </div>
         <div class="row">
-            <div class="col-md-2">
-                <span><a class="btn btn-primary btn-xm" href="class_edit.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
+            <div class="col-md-6 col-xs-6">
+                <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="class_new.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
             </div>
 
-            <div class=" pull-right">
-                <span><a class="btn btn-primary btn-xm" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php echo str_repeat("&nbsp;", 7); ?>
+            <div class=" col-md-6 col-xs-6 text-right">
+                <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="<?php echo $page_link_view; ?>"><?php echo $page_link_text; ?></a></span><?php echo str_repeat("&nbsp;", 7); ?>
             </div>
         </div>
 

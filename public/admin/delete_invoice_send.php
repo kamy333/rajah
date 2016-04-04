@@ -1,6 +1,6 @@
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee()){ redirect_to('index.php');}?>
+<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="InvoiceSend" ?>
 
@@ -15,7 +15,7 @@ if (!isset($_GET["id"])) {
 
 
     if($class_found->delete()){
-        $session->message($class_found->pseudo." succesfully deleted") ;
+        $session->message($class_found->pseudo." successfully deleted") ;
         $session->ok(true);
         redirect_to($class_name::$page_manage);
     } else {

@@ -40,6 +40,44 @@ class DatabaseObject {
 
     public static $db_field_search;
 
+    public static $get_form_element;
+
+    public static $get_form_element_all;
+
+    public static $form_default_value;
+
+
+    public static function construct_form($get_item=false,$GET=false){
+
+        $output="";
+        foreach (static::$get_form_element as $val) {
+            $myvalue ="";
+
+            if(isset($GET[$val])){
+                $myvalue=$_GET[$val];
+            }elseif(isset(static::$form_default_value)){
+                if(array_key_exists($val,static::$form_default_value) )  {
+                    if(static::$form_default_value[$val]==="now()"){
+                        $myvalue= strftime("%Y-%m-%d",time());
+                    } elseif(static::$form_default_value[$val]==="nowtime()"){
+                        $myvalue= strftime("%Y-%m-%d %H:%M:%S",time());
+                    }
+
+                    else {
+                        $myvalue= static::$form_default_value[$val];
+                    }
+
+                }
+            }
+
+            $get_item? $value=$get_item->$val :$value=$myvalue;
+            $output.=  static::get_form($val,$value);
+
+        }
+
+        return $output;
+    }
+
     // list class case sensitive
 public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType') ;
 
@@ -623,8 +661,9 @@ public static function get_table_name() {
 
         $output.="<div class='panel panel-primary text-center'>";
         // <!-- Default panel contents -->
-        $output.="<div class='panel-heading'>".static::$page_name."</div>";
+        $output.="<div class='panel-heading'>"."<a class='btn btn-default' style='color:blue;font-size:1.3em;' href='".static::$page_manage."'>Manage ".static::$page_name."</a> ".static::get_modal_search();
 
+        $output.="</div>";
 
         $output.=" <div class='panel-body'>";
         $where=get_where_string(get_called_class());
@@ -826,9 +865,9 @@ if($long_short==1){
         }
 
         if($edit){
-            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' href='class_edit"."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='class_edit?class_name".get_called_class()."?id=".urlencode($this->id)."'>Edit</a></td>" ;
 
-            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete"."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Delete</a></td>" ;
         }
 
         $output.= "</tr>";

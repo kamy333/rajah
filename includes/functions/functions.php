@@ -95,6 +95,9 @@ function now(){
     return strftime("%B %d, %Y at %I:%M %p", time());
 }
 
+function now_sql(){
+  return strftime("%Y-%m-%d",time());  
+}
 
 function mth_fr_name($month_name){
     switch($month_name){
