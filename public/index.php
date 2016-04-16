@@ -9,6 +9,25 @@
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 
+<?php
+
+$folders=array(
+   "img/DesireeWedding/",
+   "img/Kamy/",
+   "img/DesireeWedding/Before/",
+);
+
+$photos=array(
+    $folders[0]=>"CarolineFeredoun.jpg",
+    $folders[0]=>"Chupah1.jpg",
+
+
+)
+
+?>
+
+
+
 
 <!--<div id="animate" style='position: relative; top: 100px;'>-->
 <!--</div>-->
@@ -40,16 +59,16 @@
     <!-- Indicators -->
     <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="6"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="7"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="8"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="9"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="10"></li>
+<!--        <li data-target="#carousel-example-generic" data-slide-to="1"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="2"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="3"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="4"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="5"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="6"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="7"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="8"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="9"></li>-->
+<!--        <li data-target="#carousel-example-generic" data-slide-to="10"></li>-->
         <!--<li data-target="#carousel-example-generic" data-slide-to="11"></li>
         <li data-target="#carousel-example-generic" data-slide-to="12"></li>
         <li data-target="#carousel-example-generic" data-slide-to="13"></li>
@@ -58,6 +77,12 @@
 
 
 <?php
+for ($i = 1; $i <= 10; $i++) {
+
+    $c=$i;
+    echo "<li data-target=\"#carousel-example-generic\" data-slide-to=\"{$c}\"></li>";
+}
+
 
 for ($i = 1; $i <= 11; $i++) {
 
@@ -65,7 +90,11 @@ for ($i = 1; $i <= 11; $i++) {
     echo "<li data-target=\"#carousel-example-generic\" data-slide-to=\"{$c}\"></li>";
 }
 
+for ($i = 1; $i <= 18; $i++) {
 
+    $c=22+$i;
+    echo "<li data-target=\"#carousel-example-generic\" data-slide-to=\"{$c}\"></li>";
+}
 
 ?>
 
@@ -79,9 +108,122 @@ for ($i = 1; $i <= 11; $i++) {
 
     <div class="carousel-inner" role="listbox">
 
-
-
         <div class="item active">
+            <img src="img/DesireeWedding/Chupah1.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/Chupah2.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/CarolineFeredoun.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/Desiree_entry.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/Desiree_entry002.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+
+        <div class="item ">
+            <img src="img/DesireeWedding/FereCaroMich.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/cousins_picture.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/DesireePaddy.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/DesireePaddyMichaelComment.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/DesireePeddy2.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/FereCaroMich.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/maman.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+
+
+        <div class="item ">
+            <img src="img/DesireeWedding/michael_papa_maman_caro_fere_maman.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/papa_caro_ziva_papa.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+
+        <div class="item ">
+            <img src="img/DesireeWedding/ziva.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/zivaDesireePedy.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+
+        <div class="item ">
+            <img src="img/DesireeWedding/ZivaCaroJanet.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+        <div class="item ">
+            <img src="img/DesireeWedding/ZivaCaroline.jpg" alt="tr1" style="width: 100%;height: 100%">
+            <div class="carousel-caption">
+            </div>
+        </div>
+
+
+
+        <div class="item ">
            <img src="img/kamy.JPG" alt="tr1" style="width: 100%;height: 100%">
             <div class="carousel-caption">
                 kamy is the best
@@ -186,26 +328,7 @@ for ($i = 1; $i <= 11; $i++) {
 
 
         ?>
-      <!--  <div class="item">
-            <img src="img/photo_transmed_1.jpg" alt="Pablo & car">
-            <div class="carousel-caption">
-                Pablo et sa voiture
-            </div>
-        </div>
 
-        <div class="item">
-            <img src="img/photo_transmed_2.jpg" alt="transmed 1">
-            <div class="carousel-caption">
-            Pablo patient 1
-            </div>
-        </div>
-
-        <div class="item">
-            <img src="img/photo_transmed_3.jpg" alt="transmed 2">
-            <div class="carousel-caption">
-                Pablo patient 2
-            </div>
-        </div>-->
 
     </div>
 

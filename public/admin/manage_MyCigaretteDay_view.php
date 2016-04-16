@@ -91,33 +91,9 @@ if($view_full_table==1){
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php echo $message; ?>
 
-
-<div class="row">
-
-    <div class="col-md-10 <?php echo $offset; ?>">
-        <a class="btn btn-warning"  href="index.php">Index</a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary"  href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name1::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name1::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name2::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name2::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name3::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name3::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name::$page_add_cig ?>">Add 1 cig</a>
-        <span>&nbsp;</span>
-    </div>
+<?php echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
 
-</div>
 
 <div class="row">
 

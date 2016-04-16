@@ -21,6 +21,8 @@ includes/mpdf60/
 
 learning/
 
+inspinia/img/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -44,6 +46,9 @@ $RECYCLE.BIN/
 *.bmp
 *.png
 *.gif
+*.mp4
+*.mov
+
 db_connection.php
 new_ByB_project/
 smartAdmin/

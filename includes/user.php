@@ -22,11 +22,21 @@ class User extends DatabaseObject {
 
     public static $fields_numeric=array('id','user_type','block_user');
 
-    public static $get_form_element=array('user_image','username','password','nom','email','user_type_id','first_name','last_name');
+    public static $get_form_element=array('user_image','username','password','nom','email','user_type_id','first_name','last_name','block_user');
 
     public static $get_form_element_others=array('address','cp','city','country','phone','mobile','','');
 
-    
+    public static $form_default_value=array(
+        "block_user"=>"0",
+        "user_type_id"=>"5"
+    );
+
+    // todo message per class
+
+    public function message_form($msg='done'){
+        return " ".$this->id. " with ID".$this->id.$msg;
+        return "User: ".$this->username. " with ID (".$this->id.") ".msg;
+    }
 
     protected static $form_properties= array(
         "username"=> array("type"=>"text",
@@ -843,5 +853,11 @@ class UserUpdate extends User {
 
 
 }
+
+class RegisterUser extends User{
+
+    public static $required_fields=array('username','password','first_name','last_name','email','user_type_id');
+}
+
 
 ?>

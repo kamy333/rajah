@@ -4,6 +4,7 @@ require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
 if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
 $class_name="MyCigarette";
+
 $class_name1="MyCigaretteDay";
 $class_name2="MyCigaretteMonth";
 $class_name3="MyCigaretteYear";
@@ -78,39 +79,41 @@ if($view_full_table==1){
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php echo $message; ?>
 
-
-<div class="row">
-    <div class="col-md-12 <?php echo $offset; ?>">
-        <span>&nbsp; </span>
-        <a class="btn btn-warning" href="index.php">Index</a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name::$page_new ?>">Add New <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name1::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name1::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name2::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name2::$page_name ?></a>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name3::$page_manage ?>">View <?php /** @noinspection PhpUndefinedFieldInspection */
-            echo $class_name3::$page_name ?></a>
-        <span>&nbsp;</span>
-        <span>&nbsp;</span>
-        <a class="btn btn-primary" href="<?php /** @noinspection PhpUndefinedFieldInspection */
-        echo $class_name::$page_add_cig ?>">Add 1 cig</a>
-        <span>&nbsp;&nbsp;&nbsp;&nbsp; </span>
-
-    </div>
+<?php  echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
 
-</div>
+<!--<div class="row">-->
+<!--    <div class="col-md-12 --><?php //echo $offset; ?><!--">-->
+<!--        <span>&nbsp; </span>-->
+<!--        <a class="btn btn-warning" href="index.php">Index</a>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php //echo $page_link_view?><!--">--><?php //echo $page_link_text?><!--</a>&nbsp;&nbsp;-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php ///** @noinspection PhpUndefinedFieldInspection */
+//        echo $class_name::$page_new ?><!--">Add New --><?php ///** @noinspection PhpUndefinedFieldInspection */
+//            echo $class_name::$page_name ?><!--</a>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php ///** @noinspection PhpUndefinedFieldInspection */
+//        echo $class_name1::$page_manage ?><!--">View --><?php ///** @noinspection PhpUndefinedFieldInspection */
+//            echo $class_name1::$page_name ?><!--</a>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php ///** @noinspection PhpUndefinedFieldInspection */
+//        echo $class_name2::$page_manage ?><!--">View --><?php ///** @noinspection PhpUndefinedFieldInspection */
+//            echo $class_name2::$page_name ?><!--</a>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php ///** @noinspection PhpUndefinedFieldInspection */
+//        echo $class_name3::$page_manage ?><!--">View --><?php ///** @noinspection PhpUndefinedFieldInspection */
+//            echo $class_name3::$page_name ?><!--</a>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <span>&nbsp;</span>-->
+<!--        <a class="btn btn-primary" href="--><?php ///** @noinspection PhpUndefinedFieldInspection */
+//        echo $class_name::$page_add_cig ?><!--">Add 1 cig</a>-->
+<!--        <span>&nbsp;&nbsp;&nbsp;&nbsp; </span>-->
+<!---->
+<!--    </div>-->
+<!---->
+<!---->
+<!--</div>-->
 
 <div class="row">
 

@@ -70,17 +70,8 @@ if($view_full_table==1){
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php echo $message; ?>
 
+<?php  echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
-<div class="row">
-
-        <div class="col-md-5 <?php echo $offset; ?>">
-        <a class="btn btn-warning" href="index.php">Index</a><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>
-        <a class="btn btn-primary" href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>
-        <a class="btn btn-primary" href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a><span>&nbsp;&nbsp;&nbsp;&nbsp; </span>
-    </div>
-
-
-</div>
 
 <div class="row">
 

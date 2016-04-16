@@ -8,13 +8,13 @@
                 </div>
             <div class="col-md-6 col-xs-4">
                 <h2 class="text-center  ">
-                    <div class="hidden-sm hidden-xs">
+                    <span class="hidden-sm hidden-xs">
                     Manage <?php echo $class_name::$page_name; ?>
                      <?php echo str_repeat("&nbsp;", 3); ?>
-                    </div>
-                     <div>
+                    </span>
+                     <span>
                     <?php echo $class_name::get_modal_search() ?>
-            </div>
+            </span>
                 </h2>
 
             </div>
@@ -48,7 +48,8 @@
     <div class="ibox-content">
 
         <div class="table-responsive">
-            <table class="table table-striped table-bordered table-hover dataTables-example" >
+            <table id="<?php echo "table".$class_name?>" class="table table-striped table-bordered table-hover dataTables-example" >
+<!--            <table id="--><?php //echo "table".$class_name?><!--" class="display" cellspacing="0" width="100%" >-->
                 <thead>
                 <tr>
 

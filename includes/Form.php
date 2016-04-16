@@ -36,6 +36,7 @@ class Form extends DatabaseObject{
     public $onclick;
     public $alt;
     public $source;
+    public $autocomplete;
 
     public $select_option_text;
     public $field_option_0;

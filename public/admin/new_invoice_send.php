@@ -93,7 +93,7 @@ if(request_is_post() && request_is_same_domain()) {
 
 <?php echo output_message($message); ?>
 
-<?php checking(false);?>
+<?php checking(true);?>
 
 
 
@@ -120,50 +120,51 @@ if(request_is_post() && request_is_same_domain()) {
             <?php
 
 
+                        echo $class_name::construct_form($get_item,$_GET);
 
 
-            $name='project_id';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-             echo  $class_name::get_form($name,$value);
-
-
-
-            $date=strftime("%Y-%m-%d", time());
-
-            $name='invoice_date';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$date;}
-            echo  $class_name::get_form($name,$value);
-
-            $name='payment_date';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-            echo  $class_name::get_form($name,$value);
-
-            $name='gross_amount';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="1";}
-            echo  $class_name::get_form($name,$value);
-
-
-
-            $name='vat';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-                if($categ){ $value=$categ->$name; }
-
-            echo  $class_name::get_form($name,$value);
-
-            $name='amount';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-            if($categ){ $value=$categ->$name; }
-
-            echo  $class_name::get_form($name,$value);
-
-
-            $name='canceled';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-            echo  $class_name::get_form($name,$value);
-
-            $name='status';
-            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-            echo  $class_name::get_form($name,$value);
+//            $name='project_id';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//             echo  $class_name::get_form($name,$value);
+//
+//
+//
+//            $date=strftime("%Y-%m-%d", time());
+//
+//            $name='invoice_date';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=$date;}
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='payment_date';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='gross_amount';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="1";}
+//            echo  $class_name::get_form($name,$value);
+//
+//
+//
+//            $name='vat';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//                if($categ){ $value=$categ->$name; }
+//
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='amount';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//            if($categ){ $value=$categ->$name; }
+//
+//            echo  $class_name::get_form($name,$value);
+//
+//
+//            $name='canceled';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//            echo  $class_name::get_form($name,$value);
+//
+//            $name='status';
+//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
+//            echo  $class_name::get_form($name,$value);
 
 //            $name='comment';
 //            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}

@@ -156,5 +156,13 @@ return $results;
 
 
     }
+    public static function  table_nav_additional(){
+        $output="<span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyCigaretteDay::$page_manage ."\">". "By Day </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyCigaretteMonth::$page_manage ."\">" ."By Month </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyCigaretteYear::$page_manage ."\">"."By Year </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_add_cig ."\">Add 1 Cig". " </a><span>&nbsp;</span>";
 
+        return $output;
+    }
 }

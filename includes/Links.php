@@ -798,7 +798,12 @@ FROM links WHERE sub_category_2 IS NOT NULL ";
 
 }*/
 
+    public static function  table_nav_additional(){
+        $output="";
+        $output.="<span>&nbsp;</span><a  class=\"btn btn-primary\"  href=\"". LinksCategory::$page_new ."\">Add New ". LinksCategory::$page_name." </a><span>&nbsp;</span>";
 
+        return $output;
+    }
 
 
 }

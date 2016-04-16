@@ -72,16 +72,39 @@ if($view_full_table==1){
 <?php echo $message; ?>
 
 
-<div class="row">
+<?php
+class Test extends Project{
+    
+ public static  function   table_nav($page_link_view,$page_link_text,$offset){
+     $output="<div class=\"row\" >";
+     $output.="<div class=\"col-md-10 {$offset}\" > ";
+     $output.="<a  class=\"btn btn-warning\"  href=\"index.php\">Index</a><span>&nbsp;</span>";
+     $output.="<a  class=\"btn btn-primary\"  href=\" $page_link_view\"> $page_link_text</a><span>&nbsp;</span>";
+     $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add New ". static::$page_name." </a>";
+     $output.="</div>";
+     $output.="</div>";
+//     $output.="";
+     return $output;
 
-    <div class="col-md-10 <?php echo $offset; ?>">
-<a  class="btn btn-warning"  href="index.php">Index</a><span>&nbsp;</span>
-<a  class="btn btn-primary"  href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a><span>&nbsp;&</span>
-<a  class="btn btn-primary"  href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?>
-</div>
+ }
+
+}
 
 
-</div>
+?>
+
+<?php echo $class_name::table_nav($page_link_view,$page_link_text,$offset); ?>
+
+<!--<div class="row">-->
+<!---->
+<!--    <div class="col-md-10 --><?php //echo $offset; ?><!--">-->
+<!--<a  class="btn btn-warning"  href="index.php">Index</a><span>&nbsp;</span>-->
+<!--<a  class="btn btn-primary"  href="--><?php //echo $page_link_view?><!--">--><?php //echo $page_link_text?><!--</a><span>&nbsp;</span>-->
+<!--<a  class="btn btn-primary"  href="--><?php //echo $class_name::$page_new ?><!--">Add New --><?php //echo $class_name::$page_name ?><!--</a>-->
+<!--</div>-->
+<!---->
+<!---->
+<!--</div>-->
 
 <div class="row">
 
@@ -92,12 +115,6 @@ if($view_full_table==1){
 
 
 
-
-    <div class="col-md-2 col-md-offset-1">
-
-        <?php echo $class_name::get_modal_search() ;?>
-
-    </div>
 
 
 

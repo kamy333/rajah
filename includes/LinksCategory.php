@@ -139,4 +139,10 @@ class LinksCategory extends DatabaseObject {
 
     }
 
+    public static function  table_nav_additional(){
+        $output="";
+        $output.="<span>&nbsp;</span><a  class=\"btn btn-primary\"  href=\"". Links::$page_new ."\">Add New ". Links::$page_name." </a><span>&nbsp;</span>";
+
+        return $output;
+    }
 }

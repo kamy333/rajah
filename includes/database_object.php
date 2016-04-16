@@ -25,6 +25,7 @@ class DatabaseObject {
     // todo not use but too attempt to have sort reference on table head an db field
     protected static $field_replace_display=null;
 
+ 
 
     public static $page_name;
     public static $page_manage;
@@ -46,12 +47,13 @@ class DatabaseObject {
 
     public static $form_default_value;
 
-
+    
     public static function construct_form($get_item=false,$GET=false){
 
         $output="";
+        $myvalue ="";
         foreach (static::$get_form_element as $val) {
-            $myvalue ="";
+
 
             if(isset($GET[$val])){
                 $myvalue=$_GET[$val];
@@ -70,13 +72,38 @@ class DatabaseObject {
                 }
             }
 
-            $get_item? $value=$get_item->$val :$value=$myvalue;
+            $get_item? $value=$get_item->$val : $value=$myvalue;
             $output.=  static::get_form($val,$value);
+            $myvalue="";
 
         }
 
         return $output;
     }
+
+    public static  function   table_nav($page_link_view,$page_link_text,$offset){
+        $output="<div class=\"row\" >";
+        $output.="<div class=\"col-md-10 {$offset}\" > ";
+        $output.="<a  class=\"btn btn-success\"  href=\"index.php\">Index</a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\" $page_link_view\"> $page_link_text</a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add New ". static::$page_name." </a>";
+        $output.=static::table_nav_additional();
+        $output.="</div>";
+        $output.="</div>";
+//     $output.="";
+        return $output;
+
+    }
+
+    public static function  table_nav_additional(){
+        $output="";
+        return $output;
+    }
+
+    public function message_form($msg='done'){
+             return " ".$this->id. " with ID".$this->id.$msg;
+    }
+
 
     // list class case sensitive
 public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType') ;
@@ -659,9 +686,16 @@ public static function get_table_name() {
 
         $output="";
 
-        $output.="<div class='panel panel-primary text-center'>";
+        $output.="<div class='panel panel-default text-center'>";
         // <!-- Default panel contents -->
         $output.="<div class='panel-heading'>"."<a class='btn btn-default' style='color:blue;font-size:1.3em;' href='".static::$page_manage."'>Manage ".static::$page_name."</a> ".static::get_modal_search();
+
+        $output.="";
+        $output.="";
+        $output.="";
+        $output.="";
+        $output.="";
+
 
         $output.="</div>";
 

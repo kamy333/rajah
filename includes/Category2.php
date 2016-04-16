@@ -112,4 +112,11 @@ class Category2 extends DatabaseObject {
 
 
 
+    public static function  table_nav_additional(){
+        $output="<span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". Category1::$page_new ."\">Add New ". Category1::$page_name." </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". Category::$page_new ."\">Add New ". Category::$page_name." </a>";
+        return $output;
+    }
+
 }

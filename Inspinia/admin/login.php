@@ -102,7 +102,7 @@ if(request_is_post() && request_is_same_domain()) {
 
                 <div class="form-group">
                     <label for="username" class="sr-only">username</label>
-                    <input type="text" name="username" id="password" class="form-control" placeholder="Username" required autofocus <?php echo 'value="'.htmlentities($username, ENT_COMPAT, 'utf-8') . '"';?>>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus <?php echo 'value="'.htmlentities($username, ENT_COMPAT, 'utf-8') . '"';?>>
                 </div>
 
                 <div class="form-group">

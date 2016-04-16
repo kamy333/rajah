@@ -188,6 +188,8 @@
                         <li><a href="table_data_tables.html">Data Tables</a></li>
                         <li class="active"><a href="table_foo_table.html">Foo Tables</a></li>
                         <li><a href="jq_grid.html">jqGrid</a></li>
+                        <li><a href="ecommerce-orders.html">Table ecommerce</a></li>
+
                     </ul>
                 </li>
                 <li>

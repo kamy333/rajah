@@ -32,9 +32,9 @@ class InvoiceSend extends DatabaseObject
 
     public static $form_default_value=array(
         "invoice_date"=>"now()",
-        "end_date"=>"now()",
-        "closed"=>"0",
-        "vat"=>"No"
+        "canceled"=>"No",
+        "vat"=>8.5,
+        "status"=>"prepared"
     );
     
     protected static $form_properties= array(
@@ -56,7 +56,7 @@ class InvoiceSend extends DatabaseObject
         "gross_amount"=> array("type"=>"number",
             "name"=>'gross_amount',
             "id"=>"gross_amount",
-            "label_text"=>"Amount No Vat",
+            "label_text"=>"Gross Amount",
             'min'=>0,
             "placeholder"=>"Amount No Vat",
             "required" =>true,
@@ -75,7 +75,7 @@ class InvoiceSend extends DatabaseObject
             "label_text"=>"Amount",
             'min'=>0,
             "placeholder"=>"Amount",
-            "required" =>true,
+            "required" =>false,
         ),
 
         "canceled" =>array("type"=>"radio",
@@ -135,8 +135,7 @@ class InvoiceSend extends DatabaseObject
         "payment_date"=> array("type"=>"date",
             "name"=>'payment_date',
             "label_text"=>"Payment Date",
-            "placeholder"=>"Input Payment Date",
-            "required" =>true,
+            "required" =>false,
         ),
 
     );

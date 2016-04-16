@@ -558,8 +558,8 @@ public $warnings=array();
     function check_date_vs_now($str_time,$warning_me=false)
     {
 
-        // attention contrairement aux autres validation $warning_me part défaut true
-        // pour error  rajouter false en appellant la fonction après la date
+        // attention contrairement aux autres validation $warning_me part defaut true
+        // pour error  rajouter false en appellant la fonction apres la date
 
         $this->errors;
         $this->warnings;
@@ -582,20 +582,20 @@ public $warnings=array();
 
         $msg = "";
         $text_array = "";
-        $text_return = "Attention la date est au <strong>{$date_input_fr}</strong> aujourd'hui est <strong>{$date_now_fr}</strong>. Assurez-vous si nécéssaire de rentrer la bonne date ";
+        $text_return = "Attention la date est au <strong>{$date_input_fr}</strong> aujourd'hui est <strong>{$date_now_fr}</strong>. Assurez-vous si necessaire de rentrer la bonne date ";
 
         if ($date_input === $date_now) {
             return null;
         } else {
 
             if ($warning_me) {
-                $this->warnings[$field] = $this->fieldname_as_text($field) . " car elle n'est pas aujourd'hui. Assurez-vous de changer la date si nécéssaire ";
+                $this->warnings[$field] = $this->fieldname_as_text($field) . " car elle n'est pas aujourd'hui. Assurez-vous de changer la date si necessaire ";
 
                 return $text_return;
 
             } else {
 
-                $this->errors[$field] = $this->fieldname_as_text($field) . " car elle n'est pas aujourd'hui. Assurez-vous de changer la date si nécéssaire ";
+                $this->errors[$field] = $this->fieldname_as_text($field) . " car elle n'est pas aujourd'hui. Assurez-vous de changer la date si necessaire ";
 
                 return $text_return;
 

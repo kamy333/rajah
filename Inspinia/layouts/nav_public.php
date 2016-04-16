@@ -22,47 +22,50 @@
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Public <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="<?php echo $path;?>index.php">New public Layout</a></li>
+                        <li><a href="<?php echo $path;?>index_gallery.php">Photo Gallery</a></li>
+                        <li><a href="<?php echo $path;?>index_gallery2.php">Photo Gallery2</a></li>
+                        <li><a href="<?php echo $path;?>index_gallery3.php">Photo Gallery3</a></li>
                         <li><a href="<?php echo $path;?>index_old">Old public Layout</a></li>
                         <li><a href="<?php echo $path_public;?>minor.php">Minor</a></li>
                         <li><a href="<?php echo $path_public;?>landing.php">Landing Page</a></li>
                         <li><a href="<?php echo $path_public;?>off_canvas_menu.php">Canvas view</a></li>
+                        <li><a href="<?php echo $path_public;?>player.php">players</a></li>
 
                     </ul>
                 </li>
                 <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Desiree's Book <span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="<?php echo $path;?>index_gallery.php">Gallery</a></li>
+                    </ul>
+                </li>
+                <!--<li class="dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
+                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
                     </ul>
-                </li>
-                <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                        <li><a href="<?php echo $path;?>">Menu item</a></li>
-                    </ul>
-                </li>
+                </li>-->
 
             </ul>
             <ul class="nav navbar-top-links navbar-right">
                 <?php
+                echo "<li>Welcome to $logo</li>";
                 if(isset($_SESSION["user_id"])) {
                 echo "<li><a href='{$path_admin}logout.php'><i class=\"fa fa-sign-out\"></i> $user->username</a></li>";
                 } else {
+                echo "<li><a href='{$path_admin}register.php'><i class=\"fa fa-r\"></i>Register</a></li>";
                 echo "<li><a href='{$path_admin}login.php'><i class=\"fa fa-sign-in\"></i> Log in</a></li>";
                 }
 

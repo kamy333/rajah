@@ -71,21 +71,9 @@ if($view_full_table==1){
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php echo $message; ?>
 
-
-<div class="row">
-
-    <div class="col-md-12">
-        <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
-    </div>
-
-    <div class="col-md-10 <?php echo $offset; ?>">
-        <a href="index.php">Index</a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    </div>
+<?php echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
 
-</div>
 
 <div class="row">
 

@@ -46,12 +46,12 @@ $query_string=remove_get(array('view','page'));
 $view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
 if($view_full_table==1){
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
-    $page_link_text=$class_name::$page_name." short view";
+    $page_link_text="Short view";
     //$add_view="&view=".u(1);
     $offset="col-md-offset-2";
 } else {
     $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
-    $page_link_text=$class_name::$page_name." full view";
+    $page_link_text="Full view";
     $offset='';
 
 }
@@ -72,16 +72,9 @@ if($view_full_table==1){
 <?php echo $message; ?>
 
 
-<div class="row">
-
-    <div class="col-md-5 <?php echo $offset; ?>">
-<a class="btn btn-warning" href="index.php">Index</a><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-<a  class="btn btn-primary"  href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a><span>&nbsp;&nbsp; &nbsp;&nbsp; </span>
-<a   class="btn btn-primary" href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a><span>&nbsp;&nbsp; &nbsp;&nbsp; </span>
-</div>
+<?php  echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
 
-</div>
 
 <div class="row">
 
@@ -91,25 +84,15 @@ if($view_full_table==1){
     </div>
 
 
+    <div class="row">
+        <div class="col-md-12  ">
 
 
-<!--    <div class="col-md-2 col-md-offset-1">-->
-<!---->
-<!--        --><?php // echo $class_name::get_modal_search() ;?>
-<!---->
-<!--    </div>-->
+            <?php  echo $class_name::display_all($result_class,$view_full_table) ?>
 
-
-
-<div class="row">
-    <div class="col-md-12  ">
-
-
-        <?php  echo $class_name::display_all($result_class,$view_full_table) ?>
-
+        </div>
     </div>
-</div>
 
-<?php  ?>
-<?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
+    <?php  ?>
+    <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
 

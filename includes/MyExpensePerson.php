@@ -131,4 +131,13 @@ class MyExpensePerson extends DatabaseObject {
 
     }
 
+    public static function  table_nav_additional(){
+        $output="</a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpense::$page_new ."\">Add New Expense ". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_new ."\">Add New Type ". " </a></a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpense::$page_manage ."\">View Expense ". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_manage ."\">View Type ". " </a>";
+        return $output;
+    }
+
 }

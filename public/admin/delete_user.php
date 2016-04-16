@@ -25,11 +25,13 @@ if($class_found->username=="Admin"){
 
 } else {
     if($class_found->delete()){
-        $session->message($class_found->username." successfully deleted") ;
+//        $session->message($class_found->username." successfully deleted") ;
+        $session->message($class_found->message_form("successfully deleted!")) ;
         $session->ok(true);
         redirect_to($class_name::$page_manage);
     } else {
-        $session->message($class_found->username." deletion failed ") ;
+//        $session->message($class_found->username." deletion failed ") ;
+        $session->message($class_found->message_form("deletion failedxxxxxx!")) ;
         redirect_to($class_name::$page_manage);
     }
 }

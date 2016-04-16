@@ -51,7 +51,7 @@ defined('HEADER_PUBLIC')? null : define('HEADER_PUBLIC', SITE_ROOT.DS.'Inspinia'
 defined('HEADER_CANVAS')? null : define('HEADER_CANVAS', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header_canvas.php');
 
 defined('FOOTER')? null : define('FOOTER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer.php');
-defined('FOOTER_PUBLIC')? null : define('FOOTER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer.php');
+defined('FOOTER_PUBLIC')? null : define('FOOTER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'footer_public.php');
 
 defined('NAV')? null : define('NAV', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav.php');
 defined('NAV_PUBLIC')? null : define('NAV_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_public.php');

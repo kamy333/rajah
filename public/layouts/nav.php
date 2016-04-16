@@ -133,23 +133,23 @@ if ($layout_context=="public"){
 
                         <ul class="dropdown-menu">
 
-                <li><a href="<?php echo $path_admin;?>manage_MyExpense.php">Manage MyExpense</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyExpensePerson.php">Manage MyExpensePerson</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyExpenseType.php">Manage MyExpenseType</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_MyExpense.php">MyExpense</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_MyExpensePerson.php">MyExpense Person</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_MyExpenseType.php">MyExpense Type</a></li>
 
-                <li><a href="<?php echo $path_admin;?>manage_MyCigarette.php">Manage Cigarette</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_currency.php">Manage Currency</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_clients.php">Manage Clients</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_projects.php">Manage Projects</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category.php">Manage Category</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category_1.php">Manage Category 1</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category_2.php">Manage Category 2</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_invoice_actual.php">Manage Invoice Actual</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_invoice_estimate.php">Manage Invoice Estimate</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_invoice_send.php">Manage Invoice Send</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_user.php">Manage Users</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_links.php">Manage links</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_links_category.php">Manage links Category</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_MyCigarette.php">Cigarette</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_currency.php">Currency</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_clients.php">Clients</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_projects.php">Projects</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_category.php">Category</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_category_1.php">Category 1</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_category_2.php">Category 2</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_invoice_actual.php">Invoice Actual</a></li>
+<!--                <li><a href="--><?php //echo $path_admin;?><!--manage_invoice_estimate.php">Invoice Estimate</a></li>-->
+                <li><a href="<?php echo $path_admin;?>manage_invoice_send.php">Invoice Send</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_user.php">Users</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_links.php">Links</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_links_category.php">Links Category</a></li>
 
 
                             <?php if(isset($session->user_id) and $user->is_admin() ) { ?>
@@ -181,11 +181,12 @@ if ($layout_context=="public"){
                 <li><a href="<?php echo $path_admin;?>new_category_1.php">New Category 1</a></li>
                 <li><a href="<?php echo $path_admin;?>new_category_2.php">New Category2</a></li>
                 <li><a href="<?php echo $path_admin;?>new_invoice_actual.php">New Invoice Actual</a></li>
-                <li><a href="<?php echo $path_admin;?>new_invoice_estimate.php">New Invoice Estimate</a></li>
-                <li><a href="<?php echo $path_admin;?>new_link.php">New link</a></li>
+<!--                <li><a href="--><?php //echo $path_admin;?><!--new_invoice_estimate.php">New Invoice Estimate</a></li>-->
+               <li><a href="<?php echo $path_admin;?>new_invoice_send.php">New Invoice Send</a></li>                        <li><a href="<?php echo $path_admin;?>new_invoice_actual_row.php">New Invoice Actual Row</a></li>
+
+                 <li><a href="<?php echo $path_admin;?>new_link.php">New link</a></li>
                 <li><a href="<?php echo $path_admin;?>new_link_category.php">New links Category</a></li>
-                <li><a href="<?php echo $path_admin;?>new_invoice_actual_row.php">New Invoice Actual Row</a></li>
-                <li><a href="<?php echo $path_admin;?>new_invoice_send.php">New Invoice Send</a></li>
+
 
                         </ul>
                     </li>
@@ -365,6 +366,5 @@ if ($layout_context=="public"){
 
 
 <?php } ?>
-
 
 

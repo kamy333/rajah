@@ -400,9 +400,9 @@ function forwarded_ip(){
 
 function check_request(){
 
-    echo $_POST['project_id'][0]."<br>";
-    echo $_POST['project_id'][1]."<br>";
-    echo array_count_values($_POST['project_id']);
+//    echo $_POST['project_id'][0]."<br>";
+//    echo $_POST['project_id'][1]."<br>";
+//    echo array_count_values($_POST['project_id']);
 
 
 if(request_is_post()  && $_POST){
@@ -424,6 +424,68 @@ if(request_is_post()  && $_POST){
 }
 
 
+function get_picture_folder_blueimp_gallery($img_folder="",$title="",$default_path="public"){
+//    global $folder_project_name;
+    $dir=SITE_ROOT.DS.$default_path.DS."/img/".$img_folder;
 
+    $output="";
+    if(is_dir($dir)) {
+        $dir_array = scandir($dir);
+        foreach($dir_array as $file) {
+            if(stripos($file, '.') > 0) {
+                $ext = pathinfo($file, PATHINFO_EXTENSION);
+                if($ext=='jpg' || $ext=='JPG' || $ext=='png' || $ext=='PNG'){
+                    $output.= "<a href='img/$img_folder/{$file}' title=\"{$title}\" data-gallery=''><img src='img/$img_folder/{$file}' style='width: 10em;height: 10em' ></a>";
+                }
+            }
+        }
+    }
+    return $output;
+}
+
+
+function get_picture_folder_bootstrap_gallery($img_folder="",$alt="image",$default_path="public",$caption=false){
+//    global $folder_project_name;
+    $dir=SITE_ROOT.DS.$default_path.DS."/img/".$img_folder;
+
+    $output="";
+    if(is_dir($dir)) {
+        $dir_array = scandir($dir);
+        foreach($dir_array as $file) {
+            if(stripos($file, '.') > 0) {
+                $ext = pathinfo($file, PATHINFO_EXTENSION);
+                $file_no_ext= str_replace(".".$ext, "", $file);;
+                if($caption){$out_caption="<div class=\"carousel-caption\">{$file_no_ext}
+                                </div>";} else {$out_caption="";}
+                if($ext=='jpg' || $ext=='JPG' || $ext=='png' || $ext=='PNG'){
+                    $output.= "<div class=\"item\">
+                                <img alt=\"{$alt}\" class=\"img - responsive thum\"                                                            src='img/$img_folder/{$file}'>
+                                {$out_caption}
+                                </div>";
+                }
+            }
+        }
+    }
+    return $output;
+}
+
+function blueimp_lightBoxGallery($content=""){
+    $output="";
+    $output.="<div class=\"lightBoxGallery\">";
+    $output.=$content;
+    $output.=" <div id=\"blueimp-gallery\" class=\"blueimp-gallery\">
+                            <div class=\"slides\"></div>
+                            <h3 class=\"title\"></h3>
+                            <a class=\"prev\">‹</a>
+                            <a class=\"next\">›</a>
+                            <a class=\"close\">×</a>
+                            <a class=\"play-pause\"></a>
+                            <ol class=\"indicator\"></ol>
+                        </div>";
+    $output.="</div>";
+
+    return $output;
+
+}
 
 ?>

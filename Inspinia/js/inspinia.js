@@ -16,6 +16,7 @@ $(document).ready(function () {
         $('body').removeClass('body-small')
     }
 
+    
     // MetsiMenu
     $('#side-menu').metisMenu();
 

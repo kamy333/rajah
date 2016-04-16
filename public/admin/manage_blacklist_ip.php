@@ -72,22 +72,9 @@ if($view_full_table==1){
 <?php echo $message; ?>
 
 
-<div class="row">
 
-    <div class="col-md-12">
-        <h3 class="text-center"><u><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo "Manage ".$class_name::$page_name ?></a> </u></h3>
-    </div>
+<?php  echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 
-    <div class="col-md-10 <?php echo $offset; ?>">
-        <a href="index.php">Index</a>
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $page_link_view?>"><?php echo $page_link_text?></a>&nbsp;&nbsp;
-        <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-        <a href="<?php echo $class_name::$page_new ?>">Add New <?php echo $class_name::$page_name ?></a><span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    </div>
-
-
-</div>
 
 <div class="row">
 
@@ -97,58 +84,14 @@ if($view_full_table==1){
     </div>
 
 
+    <div class="row">
+        <div class="col-md-12  ">
 
 
-    <div class="col-md-2 col-md-offset-1">
+            <?php echo $class_name::display_all($result_class,$view_full_table) ?>
 
-
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-lg">
-            <span class="glyphicon glyphicon-search" style="color: whitesmoke" aria-hidden="true"></span>
-        </button>
-
-
-
-        <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                    </div>
-                    <div class="modal-body">
-
-                        <?php echo $class_name::get_form_search (); ?>
-
-
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
         </div>
-
-
-
     </div>
-</div>
 
-
-
-
-<div class="row">
-    <div class="col-md-12  ">
-
-
-        <?php echo $class_name::display_all($result_class,$view_full_table) ?>
-
-    </div>
-</div>
-
-<?php  ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
 
