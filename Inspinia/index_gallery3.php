@@ -6,10 +6,12 @@
 <?php
 
 ?>
-<p id="side-menu"></p>
-
+<!--<p id="side-menu"></p>-->
+<?php echo gallery_button();?>
 <div class="wrapper wrapper-content">
     <div class="row">
+
+
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
 
@@ -18,14 +20,30 @@
                     <h2>Friends<span class="pull-right"> <a href="index.php" class="btn btn-primary">back Home</a></span> </h2>
                     <p>
 
-                        <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends","Kamy Bar Mitzvah",$folder_project_name)); ?>
-                        <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends/Adrian_connor","Michael Bar Mitzvah",$folder_project_name)); ?>
-                        <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends/Greg","Familly",$folder_project_name)); ?>
-                        <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends/Luca Satnarine","Maman Bozorgue",$folder_project_name)); ?>
 
+<?php
+$h2="Greg and familly";
+$fol="Friends/Greg";
+echo blueimp_wrapper($h2,blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery($fol,$h2,$folder_project_name))); ?>
 
-                    <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends/Sandyne","Familly Caroline",$folder_project_name)); ?>
-                    <?php echo blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery("Friends/Xavier Open","Familly Caroline",$folder_project_name)); ?>
+<?php
+$h2="Adrian Federica Liam Birth";
+$fol="Friends/Adrian_connor";
+echo blueimp_wrapper($h2,blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery($fol,$h2,$folder_project_name)));
+?>
+
+<?php
+$h2="Xavier and Open";
+$fol="Friends/Xavier Open";
+echo  blueimp_wrapper($h2, blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery($fol,$h2,$folder_project_name)));
+?>
+
+<?php
+$h2="Friends";
+$fol="Friends";
+echo blueimp_wrapper($h2, blueimp_lightBoxGallery( get_picture_folder_blueimp_gallery($fol,"Others",$folder_project_name)));
+?>
+
 
 
 

@@ -22,7 +22,7 @@ class Links extends DatabaseObject {
    // protected static $field_replace_display=array('name'=>'link');
     public static $fields_numeric=array('id','privacy','rank','category_id');
 
-    public static $get_form_element=array('name','web_address','description','category','sub_category_1','sub_category_2','privacy','rank');
+    public static $get_form_element=array('name','web_address','description','category_id','sub_category_1','sub_category_2','privacy','rank');
     
     public static $get_form_element_others=array();
     

@@ -2,33 +2,61 @@
 
 <?php include(HEADER_PUBLIC) ;?>
 <?php include_once(NAV_PUBLIC) ?>
+<?php echo gallery_button();?>
     <div class="row">
-        <div class="col-lg-2 col-md-2 col-md-offset-6">
-            <div class="text-center m-t-lg">
-                <ul class="list-group">
-                    <li class="list-group-item"><a style="width: 19em;" class="btn btn-primary" href="index_gallery.php"><strong>Go to Desiree Wedding Gallery</strong></a></li>
-
-                </ul>
-            </div>
-        </div>
 
         <div class="pull-right">
-            <p>You can stop music here!</p>
+            <p class="text-center">Music here!</p>
             <audio controls>
 <!--                <source src="horse.ogg" type="audio/ogg">-->
                 <source src="img/audio/SomewhereOvertheRainbow.mp3" type="audio/mpeg">
                 <source src="img/audio/ArmikLagrimasDeGuitarra.mp3" type="audio/mpeg">
                 Your browser does not support the audio element.
             </audio>
+
+            <audio controls >
+                <!--                <source src="horse.ogg" type="audio/ogg">-->
+                <source src="img/audio/ArmikLagrimasDeGuitarra.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
         </div>
     </div>
+
+
 
         <div class="wrapper wrapper-content">
             <div class="container">
 
 
 
+
+
                 <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="ibox float-e-margins" ">
+                            <div class="ibox-content">
+
+                                <div class="fb-video" data-href="https://www.facebook.com/albert.tabibian/videos/vb.1270734952/10206162000150236/?type=2&amp;theater" data-width="5000" data-show-text="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/albert.tabibian/videos/10206162000150236/"><a href="https://www.facebook.com/albert.tabibian/videos/10206162000150236/">Captured by Albert Tabibian</a><p></p>Posted by <a href="#" role="button">Albert Tabibian</a> on Tuesday, April 19, 2016</blockquote></div></div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="row">
+                <div class="col-lg-8 col-md-offset-3 ">
+                    <div class="ibox float-e-margins" ">
+                    <div class="ibox-content">
+
+                        <div class="fb-video" data-href="https://www.facebook.com/TheFeverEvent/videos/220888771587991/?pnref=story" data-width="500" data-show-text="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/TheFeverEvent/videos/220888771587991/"><a href="https://www.facebook.com/TheFeverEvent/videos/220888771587991/"></a><p>Tom Browne - Funkin&#039; For Jamaica (1980)</p>Posted by <a href="https://www.facebook.com/TheFeverEvent/">The Fever</a> on Friday, February 12, 2016</blockquote></div></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                                <div class="row">
 
 
                     <div class="col-lg-4 ">
@@ -91,9 +119,7 @@
                     
 
 
-
-
-
+                    
 
 <!--                <div class="row">-->
                     <div class="col-lg-4 ">

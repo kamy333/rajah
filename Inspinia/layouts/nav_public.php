@@ -25,6 +25,7 @@
                         <li><a href="<?php echo $path;?>index_gallery.php">Photo Gallery</a></li>
                         <li><a href="<?php echo $path;?>index_gallery2.php">Photo Gallery2</a></li>
                         <li><a href="<?php echo $path;?>index_gallery3.php">Photo Gallery3</a></li>
+                        <li><a href="<?php echo $path;?>index_gallery4.php">Photo Gallery4</a></li>
                         <li><a href="<?php echo $path;?>index_old">Old public Layout</a></li>
                         <li><a href="<?php echo $path_public;?>minor.php">Minor</a></li>
                         <li><a href="<?php echo $path_public;?>landing.php">Landing Page</a></li>

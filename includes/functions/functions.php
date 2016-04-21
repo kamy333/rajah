@@ -488,4 +488,50 @@ function blueimp_lightBoxGallery($content=""){
 
 }
 
+function blueimp_wrapper($h2="",$content){
+    $output="";
+    $output.="<div class=\"row\">
+                <div class=\"ibox-content\">";
+    if($h2){
+        $output.="<h2>{$h2}</h2>";
+    }
+    $output.=$content;
+    $output.="</div>";
+//    $output.="";
+
+    return $output;
+}
+
+
+function gallery_button(){
+    $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
+            <div class=\"text-center m-t-lg\">
+        <div class=\"btn-group\" role=\"group\" aria-label=\"...\">
+<!--            <button type=\"button\" class=\"btn btn-default\">1</button>-->
+<!--            <button type=\"button\" class=\"btn btn-default\">2</button>-->
+
+            <div class=\"btn-group\" role=\"group\">
+                <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                    <b>Select Gallery</b>
+                    <span class=\"caret\"></span>
+                </button>
+                <ul class=\"dropdown-menu\">
+                    <li><a href=\"index_gallery.php\"><b>Desiree Wedding</b></a></li>
+                    <li><a href=\"index_gallery2.php\">Familly</a></li>
+                    <li><a href=\"index_gallery3.php\">Friends</a></li>
+                    <li><a href=\"index_gallery4.php\">my page</a></li>
+
+                </ul>
+            </div>
+        </div>
+            </div>
+        </div>";
+
+    return $output;
+
+
+}
+
+
+
 ?>

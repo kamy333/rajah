@@ -40,7 +40,7 @@
 <!--<script src="js/demo/peity-demo.js"></script>-->
 
 <?php //--------------------------------------------------------------------------------- ?>
-<?php $pages=array('index_gallery','index_video','index_gallery2','index_gallery3') ?>
+<?php $pages=array('index_gallery','index_video','index_gallery2','index_gallery3','index_gallery4') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <!-- blueimp gallery -->
     <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'blueimpVideo.php');?>
@@ -59,7 +59,7 @@
 
 
 <?php //--------------------------------------------------------------------------------- ?>
-<?php $pages=array('index') ?>
+<?php $pages=array('index','index_gallery4') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <script>$('.carousel').carousel({interval: 3000})</script>
 
@@ -74,12 +74,12 @@
 
 
 
-<?php $pages=array('player') ?>
-<?php if(in_array($active_menu_clean,$pages) ) { ?>
-
-    <script src="js/plugins/video_players/player.js"></script>
-
-<?php } unset($pages) ?>
+<?php //$pages=array('player') ?>
+<?php //if(in_array($active_menu_clean,$pages) ) { ?>
+<!---->
+<!--    <script src="js/plugins/video_players/player.js"></script>-->
+<!---->
+<?php //} unset($pages) ?>
 <?php //--------------------------------------------------------------------------------- ?>
 
 

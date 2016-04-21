@@ -10,6 +10,8 @@
 
 <div class="wrapper wrapper-content">
     <div class="row">
+        <?php echo gallery_button();?>
+
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
 

@@ -6,10 +6,12 @@
 <?php
 
 ?>
-<p id="side-menu"></p>
-
+<!--<p id="side-menu"></p>-->
+<?php echo gallery_button();?>
 <div class="wrapper wrapper-content">
     <div class="row">
+
+
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
 
@@ -27,7 +29,17 @@
                 </div>
                 </div>
 
-           
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 ">
+                    <div class="ibox float-e-margins" ">
+                    <div class="ibox-content">
+
+                        <div class="fb-video" data-href="https://www.facebook.com/albert.tabibian/videos/vb.1270734952/10206162000150236/?type=2&amp;theater" data-width="2000" data-show-text="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/albert.tabibian/videos/10206162000150236/"><a href="https://www.facebook.com/albert.tabibian/videos/10206162000150236/">Captured by Albert Tabibian</a><p></p>Posted by <a href="#" role="button">Albert Tabibian</a> on Tuesday, April 19, 2016</blockquote></div></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
                 <div class="row">
@@ -38,7 +50,7 @@
                     <p>
                         <strong>Watch Desiree and Peddy Videos</strong>
                     </p>
-                    <div class="col-md-8 col-md-offset-3">
+                    <div class="col-md-8 col-md-offset-2">
                     <div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
                         <div class="slides"></div>
                         <h3 class="title"></h3>

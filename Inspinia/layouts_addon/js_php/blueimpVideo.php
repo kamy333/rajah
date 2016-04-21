@@ -74,6 +74,19 @@
                 vimeo: '162192645',
                 poster: 'http://www.ikamy.ch/Inspinia/img/DesireeVideo/DesireeStairs.jpg'
             },
+//            {
+//                title: 'Gypsy King 1',
+//                type: 'text/html',
+//                vimeo: '163138866',
+//                poster: 'http://www.ikamy.ch/Inspinia/img/video/GypsyKing1.jpg'
+//            },
+//
+//            {
+//                title: 'Gypsy King 2',
+//                type: 'text/html',
+//                vimeo: '163138825',
+//                poster: 'http://www.ikamy.ch/Inspinia/video/img/GypsyKing2.jpg'            },
+
             {  title: 'Caroline Feredoun dancing',
 //                href: 'http://www.ikamy.ch/Inspinia/img/DesireeVideo/CaroDancing.mp4',
 //                type: 'video/mp4',
