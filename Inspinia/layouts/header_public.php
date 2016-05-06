@@ -17,6 +17,8 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/style.personal.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/style_personal.css" rel="stylesheet">
+
 
 
 

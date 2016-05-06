@@ -34,6 +34,7 @@ class DatabaseObject {
     public static $page_delete;
 
     public static $fields_numeric;
+    public static $fields_numeric_format;
 
     protected static $form_properties;
 
@@ -49,7 +50,7 @@ class DatabaseObject {
 
     
     public static function construct_form($get_item=false,$GET=false){
-
+        
         $output="";
         $myvalue ="";
         foreach (static::$get_form_element as $val) {
@@ -153,6 +154,15 @@ public static function get_table_name() {
 
     }
 
+
+    public static function sum_field_where($field="",$where=""){
+        global $database;
+        $table=static::$table_name;
+        $result_set=$database->query("SELECT sum({$field}) FROM {$table} {$where} ");
+        $row=$database->fetch_array($result_set);
+        return $row ? array_shift($row): false;
+
+    }
 
     public static function count_all_where($where=''){
         global $database;
@@ -854,10 +864,16 @@ if($long_short==1){
 }
 
 
+
         foreach($table_field as $fieldname){
             if(property_exists($this,$fieldname)){
-                $output.= "<td class='text-center'>".$this->$fieldname."</td>";
-
+                if(in_array($fieldname,static::$fields_numeric_format)){
+                    if((float) $this->$fieldname <0) {$style="style='color:red;";}else {$style="";}
+//                    $output.= "<td $style class='text-right'>".number_format ( $this->$fieldname,2)."</td>";
+                    $output.= "<td><span $style class='text-right'>".number_format ( $this->$fieldname,2)."</span></td>";
+                } else {
+                    $output.= "<td  class='text-center'>".$this->$fieldname."</td>";
+                }
             }
         }
 
@@ -893,7 +909,16 @@ if($long_short==1){
 
         foreach($table_field as $fieldname){
             if(property_exists($this,$fieldname)){
-                $output.= "<td class='text-center'>".$this->$fieldname."</td>";
+
+                if(in_array($fieldname,static::$fields_numeric_format)){
+                    if((float) $this->$fieldname <0) {$style="color:red;";}else {$style="";}
+//                    $output.= "<td $style class='text-right'>".number_format ( $this->$fieldname,2)."</td>";
+                    $output.= "<td><span style='{$style}' class='text-right'>".number_format ( $this->$fieldname,2)."</span></td>";
+                } else {
+                    $output.= "<td  class='text-center text-capitalize'>".$this->$fieldname."</td>";
+                }
+
+
 
             }
         }

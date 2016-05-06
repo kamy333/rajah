@@ -28,6 +28,7 @@
     
     <link href="<?php echo $path;?>css/animate.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style.css" rel="stylesheet">
+    <link href="<?php echo $path;?>css/style_personal.css" rel="stylesheet">
 
 
     <?php $pages=array('class_manage') ?>

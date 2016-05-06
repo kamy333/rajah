@@ -101,3 +101,36 @@ CREATE TABLE user_setting (
    tables enum('static','data','foo','jqGrid') NOT NULL DEFAULT 'No',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+DROP TABLE IF EXISTS chat;
+CREATE TABLE chat (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL ,
+  `to_user_id` VARCHAR(255),
+  `message` VARCHAR(255),
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `chat`
+ADD CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+
+INSERT INTO chat (user_id,to_user_id,message)VALUE (20,1,'hi from gva');
+
+DROP TABLE IF EXISTS notifications;
+CREATE TABLE notifications (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL ,
+  `message` VARCHAR(255),
+  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+ALTER TABLE `notifications`
+ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+INSERT INTO chat (user_id,message)VALUE (20,'hi from gva');

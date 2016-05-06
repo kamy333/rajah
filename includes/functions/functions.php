@@ -95,9 +95,68 @@ function now(){
     return strftime("%B %d, %Y at %I:%M %p", time());
 }
 
+
+
 function now_sql(){
   return strftime("%Y-%m-%d",time());  
 }
+
+function unixToMySQL($timestamp)
+{
+    return date('Y-m-d H:i:s', $timestamp);
+}
+
+
+
+function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
+{
+    $datetime1 = date_create($date_1);
+    $datetime2 = date_create($date_2);
+
+    $interval = date_diff($datetime1, $datetime2);
+
+    
+    return $interval->format($differenceFormat);
+
+}
+
+function DateDifferenceFormat($date_1 , $date_2){
+
+    $day=(int) dateDifference($date_1 ,  $date_2 , "%a" );
+    $hour=(int) dateDifference($date_1 ,  $date_2 , "%h" );
+    $minute=(int) dateDifference($date_1 ,  $date_2 , "%i" );
+    $differenceFormat="%a";
+    $now=(boolean)false;
+
+    if($day<1){
+        if($hour==0) {
+            if($minute<2){$minutes="Minute";$now=true;} else {$minutes="Minutes";}
+             $differenceFormat = "%i $minutes ago";
+
+
+        }  else {
+            if($hour<2){$hours="Hour";} else {$hours="Hours";}
+            $differenceFormat="%h $hours ago";}
+
+    }  else {
+        if($day>=1) {
+            if($day<2){$days="Day";} else {$days="Days";}
+            $differenceFormat="%a $days ago";
+        }
+
+
+    }
+
+    if($now){
+        return "&nbsp;Now";
+    } else {
+        return  dateDifference($date_1 , $date_2 , $differenceFormat );
+
+    }
+}
+
+
+
 
 function mth_fr_name($month_name){
     switch($month_name){

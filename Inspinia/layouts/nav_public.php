@@ -61,9 +61,11 @@
 
             </ul>
             <ul class="nav navbar-top-links navbar-right">
+
                 <?php
                 echo "<li>Welcome to $logo</li>";
                 if(isset($_SESSION["user_id"])) {
+                 echo Chat::get_chat();
                 echo "<li><a href='{$path_admin}logout.php'><i class=\"fa fa-sign-out\"></i> $user->username</a></li>";
                 } else {
                 echo "<li><a href='{$path_admin}register.php'><i class=\"fa fa-r\"></i>Register</a></li>";

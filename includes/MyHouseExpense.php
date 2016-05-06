@@ -8,8 +8,8 @@
  */
 //protected static $db_fields = array('','','','','','','','','','');
 
-class MyExpense extends DatabaseObject {
-    protected static $table_name="myexpense";
+class MyHouseExpense extends DatabaseObject {
+    protected static $table_name="my_house_expense";
 
 // 'currency_id','Account','debitor','creditor'
 
@@ -206,11 +206,11 @@ class MyExpense extends DatabaseObject {
     public static $db_field_search =array('search_all','download_csv');
 
 
-    public static $page_name="Expense Loan";
-    public static $page_manage="manage_MyExpense.php";
-    public static $page_new="new_MyExpense.php";
-    public static $page_edit="edit_MyExpense.php";
-    public static $page_delete="delete_MyExpense.php";
+    public static $page_name="House Expense";
+    public static $page_manage="manage_MyHouseExpense.php";
+    public static $page_new="new_MyHouseExpense.php";
+    public static $page_edit="edit_MyHouseExpense.php";
+    public static $page_delete="delete_MyHouseExpense.php";
 
     public static $per_page;
 
@@ -412,70 +412,6 @@ GROUP BY ccy_id;";
 
                 unset($ccy);
                 unset($person);
-            }
-        }
-
-        unset($results);
-
-        $sum=number_format(static ::sum_field_where($field="amount * rate"),2);
-
-        $output.="<tr>";
-        $output.="<td class='text-center'><strong>Total</strong></td>";
-        $output.=str_repeat("<td></td>", 2);
-        $output.="<td class='text-right'><strong>".$sum."</strong></td>";
-        $output.="</tr>";
-
-        $output.="</table>";
-        return $output;
-    }
-
-
-    public static function by_type()
-    {
-        $output="";
-        array_push(static::$db_fields,'total','itemsCount','amountCHF');
-        $table=static::$table_name;
-        $sql="SELECT 
-    expense_type_id,
-    COUNT(id) AS itemsCount,
-    SUM(amount) AS amount,
-    SUM(amount * rate) AS amountCHF
-FROM
-    $table
-GROUP BY expense_type_id;";
-
-
-        $output.="<table class='table-bordered table-responsive table-hover '>";
-        $output.="<tr>
-                           <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
-                          <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total Type".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total CHF".str_repeat("&nbsp;", 4)."</th>
-                          </tr>";
-
-        $results= static::find_by_sql($sql);
-        if($results){
-
-            foreach($results as $result){
-
-                $myType=MyExpenseType::find_by_id($result->expense_type_id);
-                $type=$myType->expense_type;
-
-//                $myperson=MyExpensePerson::find_by_id($result->person_id);
-//                $person=$myperson->person_name;
-
-                $output.="<tr>";
-//                $output.="<td class='text-center'>{$person}</td>";
-//                $output.="<td class='text-center'>{$result->person_name}</td>";
-//                $output.="<td class='text-center'>{$result->person_id}</td>";
-                $output.="<td class='text-center'>{$type}</td>";
-                $output.="<td class='text-center'>{$result->itemsCount}</td>";
-                $output.="<td class='text-right'>".number_format($result->amount,2)."</td>";
-                $output.="<td class='text-right'>".number_format($result->amountCHF,2)."</td>";
-                $output.="</tr>";
-
-                unset($type);
-                unset($myType);
             }
         }
 

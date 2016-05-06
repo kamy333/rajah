@@ -7,20 +7,20 @@ class User extends DatabaseObject {
 
 	protected static $table_name="users";
 
-    protected static $db_fields = array('id', 'username', 'hashed_password', 'nom','email','user_type','user_type_id','block_user','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
+    protected static $db_fields = array('id', 'username', 'hashed_password', 'nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
 
-    protected static $db_fields_no_password=array('id', 'username','nom','email','user_type','user_type_id','block_user','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
+    protected static $db_fields_no_password=array('id', 'username','nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
 
     public static $required_fields=array('username','password','nom','email','user_type_id');
     public static $required_fields_no_password=array('username','nom','email','user_type_id');
 
     protected static $db_fields_table_display_short = array('id', 'username', 'nom','email','user_type','user_type_id','block_user','photo','reset_token');
 
-    protected static $db_fields_table_display_full = array('id', 'username', 'nom','email','user_type','user_type_id','block_user','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
+    protected static $db_fields_table_display_full = array('id', 'username', 'nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
 
     protected static $db_field_exclude_table_display_sort=array('photo');
 
-    public static $fields_numeric=array('id','user_type','block_user');
+    public static $fields_numeric=array('id','user_type','block_user','unread_message','unread_notification',);
 
     public static $get_form_element=array('user_image','username','password','nom','email','user_type_id','first_name','last_name','block_user');
 
@@ -34,8 +34,8 @@ class User extends DatabaseObject {
     // todo message per class
 
     public function message_form($msg='done'){
-        return " ".$this->id. " with ID".$this->id.$msg;
-        return "User: ".$this->username. " with ID (".$this->id.") ".msg;
+//        return " ".$this->id. " with ID".$this->id.$msg;
+        return "User: ".$this->username. " with ID (".$this->id.") ".$msg;
     }
 
     protected static $form_properties= array(
@@ -394,10 +394,13 @@ class User extends DatabaseObject {
     public $country;
     public $phone;
     public $mobile;
-    public $img;
+//    public $img;
     public $user_image;
 
     public $photo;
+
+    public $unread_message;
+    public $unread_notification;
 
 
     public $upload_directory="uploads";
@@ -435,8 +438,27 @@ class User extends DatabaseObject {
 
     }
 
+
+    public static function add_soustract_message( $user_id,$operator=1){
+//
+        global $database;
+        $user=static::find_by_id($user_id);
+        var_dump($user->unread_message);
+
+        $new_count=(int)($user->unread_message + $operator);
+        if($new_count <=0){$new_count=0;}
+
+        $sql = "UPDATE ".static::$table_name." SET ";
+        $sql .="unread_message = ".$new_count;
+        $sql .= " WHERE id=". $database->escape_value($user_id);
+        $database->query($sql);
+        return ($database->affected_rows() == 1) ? true : false;
+
+    }
+
+
     public function user_path_and_placeholder(){
-        $dir=   "../". $this->upload_directory.DS.$this->user_image;
+        $dir=   "../../". $this->upload_directory.DS.$this->user_image;
 //     $dir=   $this->full_path_directory.DS.$this->user_image;
 
         return empty($this->user_image)?$this->image_placeholder :$dir;
@@ -590,6 +612,10 @@ class User extends DatabaseObject {
     }
 
     public function full_name() {
+    if($this->first_name.$this->last_name ==""){
+        return $this->username;
+    }
+
     if(isset($this->first_name) && isset($this->last_name)) {
       return $this->first_name . " " . $this->last_name;
     } else {

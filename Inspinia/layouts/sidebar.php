@@ -56,12 +56,19 @@
             </li>
 
 
+                <li><a href="<?php echo $path_admin;?>chat.php"><i class="fa fa-th-large"></i> <span class="nav-label">Chat</span> </a></li>
 
+
+
+                <?php $class_menu="chat"; $text_menu="Chat"; $active_page="chat.php" ?>
+                <li class="<?php if($active_menu_clean==$class_menu ){echo 'active';};?>"><a href="<?php echo $path_admin;?>chat.php?=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
             <li class="<?php echo $class_admin_active; ?>">
 
                 <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-th-large"></i> <span class="nav-label">Admin</span> <span class="fa arrow"></span></a>
+
+
 
                 <ul class="nav nav-second-level <?php echo $class_admin_collapse; ?>">
 
@@ -85,6 +92,11 @@
                     <?php $class_menu="InvoiceSend"; $text_menu="Invoice Send"; $active_page="class_manage.php" ?>
                     <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
+                    <?php $class_menu="Chat"; $text_menu="Chat"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                    <?php $class_menu="Notification"; $text_menu="Notifications"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
                 </ul>
             </li>

@@ -133,6 +133,7 @@ if ($layout_context=="public"){
 
                         <ul class="dropdown-menu">
 
+                <li><a href="<?php echo $path_admin;?>manage_MyHouseExpense.php">My House Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyExpense.php">MyExpense</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyExpensePerson.php">MyExpense Person</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyExpenseType.php">MyExpense Type</a></li>
@@ -169,6 +170,7 @@ if ($layout_context=="public"){
                         <ul class="dropdown-menu">
                 <li><a href="<?php echo $path_admin;?>new_MyCigarette_Add_1.php">Add 1 cig</a></li>
 
+                <li><a href="<?php echo $path_admin;?>new_MyHouseExpense.php">New House Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpense.php">New MyExpense</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpensePerson.php">New MyExpensePerson</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpenseType.php">New MyExpenseType</a></li>

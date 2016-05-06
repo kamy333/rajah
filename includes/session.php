@@ -27,6 +27,7 @@ class Session {
     public $last_login;
 
     public $referrer;
+    public $count;
 
    public function set_referrer(){
        $this->last_page=$_SERVER['HTTP_REFERER'];
@@ -36,6 +37,7 @@ class Session {
      //   session_save_path(SESSION_PATH);
         session_name('rajah');
         session_start();
+        $this->visitor_count();
 		$this->check_message();
 		$this->check_login();
         $this->check_info();
@@ -46,6 +48,15 @@ class Session {
       // actions to take right away if user is not logged in
     }
 	}
+
+
+    public function visitor_count(){
+        if(isset($_SESSION['count'])){
+            return $this->count=$_SESSION["count"]++;
+        } else {
+            return $_SESSION['count']=1;
+        }
+    }
 
 
     public function end_session() {

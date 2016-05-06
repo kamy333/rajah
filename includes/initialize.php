@@ -137,6 +137,9 @@ require_once(LIB_PATH.DS.'Currency.php');
 require_once(LIB_PATH.DS.'MyExpensePerson.php');
 require_once(LIB_PATH.DS.'MyExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');
+require_once(LIB_PATH.DS.'MyHouseExpense.php');
+require_once(LIB_PATH.DS.'Chat.php');
+require_once(LIB_PATH.DS.'Notification.php');
 
 //require_once(LIB_PATH.DS.'photograph.php');
 //require_once(LIB_PATH.DS.'comment.php');
