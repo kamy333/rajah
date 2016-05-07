@@ -6,12 +6,21 @@
                 <div class="dropdown profile-element">
                     <?php
                         $img_path=SITE_ROOT.DS.$folder_project_name.DS.'img'.DS;
-                        if(file_exists($img_path.$user->username.'.jpg') && isset($_SESSION["user_id"])){
-                            $username=$user->username;
-                            echo "<span> <img class='img-circle'  src='{$path}img/{$user->username}.jpg' alt='{$user->username}' style='width:3em; height:3em;' > </span>";
-                        }else {
-                            echo "<span><img class='img-circle' src='{$path}img/no_user.jpg' alt='image' style='width:2em;height:2em;'></span>";
-                        }
+
+                    $user->user_path_and_placeholder();
+
+//                        if(file_exists($img_path.$user->username.'.jpg') && isset($_SESSION["user_id"])){
+//                            $username=$user->username;
+//                            echo "<span> <img class='img-circle'  src='{$path}img/{$user->username}.jpg' alt='{$user->username}' style='width:3em; height:3em;' > </span>";
+//                        }else {
+//                            echo "<span><img class='img-circle' src='{$path}img/no_user.jpg' alt='image' style='width:2em;height:2em;'></span>";
+//                        }
+
+
+                        $username=$user->username;
+                        echo "<span> <img class='img-circle'  src='{$user->user_path_and_placeholder()}' alt='{$user->username}' style='width:3em; height:3em;' > </span>";
+
+
                          ?>
 
 
@@ -31,6 +40,11 @@
                         <?php
 
                         echo "<li><a href='{$path_admin}profile.php'>profile</a></li>";
+                        echo "<li><a href='{$path_admin}mailbox.php'>Mailbox</a></li>";
+                        echo "<li><a href='{$path_admin}contacts.php'>Contacts</a></li>";
+
+
+                        echo "<li class='divider'></li>";
 
                         if(isset($_SESSION["user_id"])) {
                             echo "<li><a href='{$path_admin}logout.php'>Logout</a></li>";

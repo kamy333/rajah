@@ -165,32 +165,23 @@ class Notification extends DatabaseObject
         global $path_admin;
         $output="";
         $notifications=static::find_all();
-        $count_notification=static::count_all_where(' WHERE user_id ='.$session->user_id);
+        $count_notification=static::count_all();
 
         $output.="<li class=\"dropdown\">
                     <a class=\"dropdown-toggle count-info\" data-toggle=\"dropdown\" href=\"#\">
-                        <i class=\"fa fa-bell\"></i>  <span class=\"label label-primary\">8</span>
+                        <i class=\"fa fa-bell\"></i>  <span class=\"label label-primary\">{$count_notification}</span>
                     </a>
-                    <ul class=\"dropdown-menu dropdown-alerts\">
-                        <li>
-                            <a href=\"";
-        $output.=$path_admin."mailbox.php";
-        $output.="\">";
+                    <ul class=\"dropdown-menu dropdown-alerts\">";
+//         $output.="               <li>
+//                            <a href=\"";
+//        $output.=$path_admin."mailbox.php";
+//        $output.="\">";
 
         foreach ($notifications as $notification) {
             $output.= $notification-> get_notification_nav($notification);
         }
 
-        $output.="                        <div>
-                                    <i class=\"fa fa-envelope fa-fw\"></i>";
-        $output.="You have 16 messages";
-        $output.="                            <span class=\"pull-right text-muted small\">";
-        $output.="4 minutes ago";
-        $output.="</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class=\"divider\"></li>";
+//        $output.="                <li class=\"divider\"></li>";
 
         $output.="                <li>
                             <div class=\"text-center link-block\">
@@ -212,11 +203,13 @@ class Notification extends DatabaseObject
 
     }
 
+    
     public function get_notification_nav($notification){
         global $path_admin;
         $output="";
 
-        $when=dateDifference($notification->date , unixToMySQL(time()) , '%d %h' )." days ago";
+        $when=DateDifferenceFormat($notification->date , unixToMySQL(time()) );
+
 
         if($notification->links){
             $link="href='{$path_admin}.{$notification->links}'";
@@ -229,10 +222,12 @@ class Notification extends DatabaseObject
      $output.="                        <li>";
      $output.="                       <a";
      $output.="    href=\"";
-     $output.=$path_admin."mailbox.php\">";
+
+     $output.=$link;
+     $output.="\">";
      $output.="                            <div>
                                     <i class=\"fa fa-envelope fa-fw\"></i>";
-     $output.=" You have 16 messages";
+     $output.=$notification->message;
      $output.="                             <span class=\"pull-right text-muted small\">";
      $output.=$when;
      $output.="                         </span>

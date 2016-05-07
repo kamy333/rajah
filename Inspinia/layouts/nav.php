@@ -20,55 +20,12 @@
         <?php   echo Chat::get_chat();?>
 
 
-                        <li class="dropdown">
-                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        
-                        <li>
-                            <a href="<?php echo $path_admin; ?>mailbox.php">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="<?php echo $path_admin; ?>profile.php">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="<?php echo $path_admin; ?>grid_options.php">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
+      <?php } // end of message chat when $session->is_logged_in() ?>
+
+                <?php echo Notification::get_notification(); ?>
 
 
-                        <li>
-                            <div class="text-center link-block">
-                                <a href="<?php echo $path_admin; ?>notifications.php">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
-      <?php } // end of notification when $session->is_logged_in() ?>
-
-                    <?php
+                <?php
                     if($session->is_logged_in()) {
                         echo "<li><a href='{$path_public}index.php'><i class=\"fa fa-home\"></i> Home</a></li>";
 

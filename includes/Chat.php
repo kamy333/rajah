@@ -169,6 +169,10 @@ class Chat extends DatabaseObject
         unset($user);
 
     }
+
+
+
+
     
     public static function  get_chat(){
         global $session;
