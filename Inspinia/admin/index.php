@@ -4,7 +4,7 @@ if(User::is_employee() || User::is_visitor() || !User::is_admin() ||  User::is_s
 ?>
 
 
- !User::isadmin(
+
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
 <?php $javascript=""; ?>
@@ -30,87 +30,32 @@ if(User::is_employee() || User::is_visitor() || !User::is_admin() ||  User::is_s
 <!--        </div>-->
 <!--    </div>-->
 
-<div id="page-wrapper">
+<!--<div id="page-wrapper">-->
+
 
     <?php include("admin_content.php")?>
 
 
     <?php if(User::is_kamy()){ ?>
 
-
+<div class="row">
+        <?php echo Table::ibox_table(MyExpense::by_person(),"Expense by Person",4,0) ?>
+        <?php echo Table::ibox_table(MyExpense::by_type(),"Expense by Type",4,0) ?>
+        <?php echo Table::ibox_table(MyExpense::by_ccy(),"Expense by Currency",4,0) ?>
+</div>
     <div class="row">
-<!--        <div class="col-md-3 text-center" style="background-color: white" >-->
-            <div class="col-lg-3 ">
-                <div class="ibox float-e-margins" >
-                <div class="ibox-content">
-                    <p class="text-center"><b>Expense by Person</b></p>
+        <?php echo Table::ibox_table(MyHouseExpense::by_person(),"House Expense by Person",4,0) ?>
+        <?php echo Table::ibox_table(MyHouseExpense::by_type(),"House Expense by Type",4,0) ?>
+        <?php echo Table::ibox_table(MyHouseExpense::by_ccy(),"House Expense by Currency",4,0) ?>
+ </div>
 
-                    <?php echo MyExpense::by_person() ?>
-    </div></div></div>
-
-    <div class="col-lg-3 col-md-offset-1 ">
-    <div class="ibox float-e-margins" >
-    <div class="ibox-content">
-        <p class="text-center"><b>Expense by CCY</b></p>
-
-        <?php echo MyExpense::by_ccy() ?>
-    </div></div></div>
-
-    <div class="col-lg-4 col-md-offset-1 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>Expense by Person and CCY</b></p>
-            <?php echo MyExpense::by_person_ccy() ?>
-    </div></div></div>
-
-        </div>
-        <div class="row">
-
-    <div class="col-lg-4 col-md-offset-1 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>Expense by Type</b></p>
-            <?php echo MyExpense::by_type() ?>
-        </div></div></div>
+<div class="row">
+    <?php echo Table::ibox_table(MyExpense::by_person_ccy(),"Expense by Person Ccy",4,0) ?>
+    <?php echo Table::ibox_table(MyHouseExpense::by_person_ccy(),"Expense by Person Ccy",4,0) ?>
+</div>
 
 
-
-
-    <div class="col-lg-3 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>House Expense by Person</b></p>
-
-            <?php echo MyHouseExpense::by_person() ?>
-        </div></div></div>
-
-        </div>
-        <div class="row">
-            
-    <div class="col-lg-3 col-md-offset-1 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>Expense by CCY</b></p>
-
-            <?php echo MyHouseExpense::by_ccy() ?>
-        </div></div></div>
-
-    <div class="col-lg-4 col-md-offset-1 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>House Expense by Person and CCY</b></p>
-            <?php echo MyHouseExpense::by_person_ccy() ?>
-        </div></div></div>
-
-
-    <div class="col-lg-4 col-md-offset-1 ">
-        <div class="ibox float-e-margins" >
-        <div class="ibox-content">
-            <p class="text-center"><b>House Expense by Type</b></p>
-            <?php echo MyHouseExpense::by_type() ?>
-        </div></div></div>
-
-    </div>
+<!--    </div>-->
 
 
 <?php  } ?>

@@ -1,12 +1,12 @@
-<script src="js/plugins/blueimp//blueimp-helper.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery-fullscreen.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery-indicator.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery-video.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery-vimeo.js"></script>
-<script src="js/plugins/blueimp/blueimp-gallery-youtube.js"></script>
-<script src="js/plugins/blueimp/vendor/jquery.js"></script>
-<script src="js/plugins/blueimp/jquery.blueimp-gallery.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp//blueimp-helper.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery-fullscreen.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery-indicator.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery-video.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery-vimeo.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/blueimp-gallery-youtube.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/vendor/jquery.js"></script>
+<script src="<?php echo $path;?>js/plugins/blueimp/jquery.blueimp-gallery.js"></script>
 <!--<script src="js/plugins/blueimp/demo.js"></script>-->
 
 

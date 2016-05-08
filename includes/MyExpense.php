@@ -13,7 +13,7 @@ class MyExpense extends DatabaseObject {
 
 // 'currency_id','Account','debitor','creditor'
 
-    protected static $db_fields = array('id','amount','ccy_id','currency','rate','person_id','person_name','expense_type_id','expense_type','expense_date','comment','modification_time');
+    protected static $db_fields = array('id','amount','ccy_id','rate','person_id','expense_type_id','expense_date','comment','modification_time');
 
     protected static $required_fields = array('amount','ccy_id','person_id','expense_type_id','expense_date');
 
@@ -21,12 +21,12 @@ class MyExpense extends DatabaseObject {
 
     protected static $db_fields_table_display_full = array('id','amount','amountCHF','currency','rate','person_id','person_name','expense_type_id','expense_type','expense_date','comment','modification_time');
 
-    protected static $db_field_exclude_table_display_sort=array('amountCHF');
+    protected static $db_field_exclude_table_display_sort=array('amountCHF','person_name','expense_type','currency');
 
-    public static $fields_numeric=array('id','amount','amountCHF','person_id','expense_type_id','rate');
+    public static $fields_numeric=array('id','amount','amountCHF','person_id','expense_type_id','ccy_id','rate');
     public static $fields_numeric_format=array('amount','amountCHF');
 
-    public static $get_form_element=array('amount','ccy_id','rate','expense_date','person_id','person_name','expense_type_id','expense_type','comment','modification_time');
+    public static $get_form_element=array('amount','ccy_id','rate','expense_date','person_id','expense_type_id','comment','modification_time');
 
     public static $get_form_element_others=array();
 
@@ -49,6 +49,7 @@ class MyExpense extends DatabaseObject {
             "label_text"=>"Amount",
             'min'=>0,
             "placeholder"=>"Amount",
+            "step"=>"0.01",
             "required" =>true,
         ),
         "ccy_id"=> array("type"=>"select",
@@ -232,6 +233,7 @@ class MyExpense extends DatabaseObject {
 
     public $itemsCount;
     public $total;
+    public $side;
 
     public static function by_person()
     {
@@ -250,7 +252,7 @@ GROUP BY person_id;";
 
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>No Items".str_repeat("&nbsp;", 4)."</th>
@@ -316,7 +318,7 @@ FROM
 GROUP BY person_id,ccy_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
@@ -381,7 +383,7 @@ FROM
 GROUP BY ccy_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                            <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
                           <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
@@ -445,9 +447,9 @@ FROM
 GROUP BY expense_type_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
-                           <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
+                          <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
                           <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
                           <th class='text-center'>Total Type".str_repeat("&nbsp;", 4)."</th>
                           <th class='text-center'>Total CHF".str_repeat("&nbsp;", 4)."</th>
@@ -517,40 +519,28 @@ GROUP BY expense_type_id;";
 
 
     protected function set_up_display(){
-//        if(isset($this->amount) && isset($this->ccy_id)){
-//            $result=Currency::find_by_id((int) $this->ccy_id);
-//            if($result){
-//                $this->amountCHF=$this->amount * $result->rate;
-//
-//            }
-//
-//        }
 
-//        if(!isset($this->person_id)){
-//            $result=MyExpensePerson::find_by_id($this->person_id);
-//            $this->person_name-=$result->person_name;
-//            unset($result);
-//        }
-//
-//        if(!isset($this->expense_type_id)){
-//            $result=MyExpenseType::find_by_id($this->expense_type_id);
-//            $this->expense_type-=$result->expense_type;
-//            unset($result);
-//        }
-//
-//        if( isset($this->ccy_id)){
-//            $result=Currency::find_by_id($this->ccy_id);
-//            $this->currency-=$result->currency;
-//            unset($result);
-//        }
+        $result=Currency::find_by_id($this->ccy_id);
+        $this->currency=$result->currency;
+
+        $result=MyExpensePerson::find_by_id($this->person_id);
+        $this->person_name=$result->person_name;
+
+        $result=MyExpenseType::find_by_id($this->expense_type_id);
+        $this->expense_type=$result->expense_type;
+        $this->side=$result->side;
+
+
+        if($this->side <0  && $this->amount>0){
+            $this->amount=-$this->amount;
+        }
+        if($this->side >0  && $this->amount <0){
+            $this->amount=-$this->amount;
+        }
 
         if(isset($this->amount ) && isset($this->rate)){
             $this->amountCHF=$this->amount * $this->rate;
         }
-
-//    $this->amount= number_format ( $this->amount ,  2 );
-//    $this->total= number_format ( $this->total ,  2 );
-//    $this->amountCHF= number_format ( $this->amountCHF ,  2 );
 
 
     }

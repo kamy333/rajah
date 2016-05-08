@@ -61,26 +61,29 @@
 
 
 
-
-
-
-<?php $pages=array('class_manage') ?>
-<?php if(in_array($active_menu_clean,$pages) ) { ?>
-
-    <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'DataTable.php');?>
-
-
-
-<?php } unset($pages) ?>
-
-
-
 <?php $pages=array('index') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <!-- Toastr -->
     <script src="<?php echo $path;?>js/plugins/toastr/toastr.min.js"></script>
     <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'toastr.php');?>
 <?php } unset($pages) ?>
+
+
+
+<?php $pages=array('class_manage') ?>
+<?php if(in_array($active_menu_clean,$pages) ) { ?>
+    <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'DataTable.php');?>
+<?php } unset($pages) ?>
+
+
+<?php $pages=array('mailbox') ?>
+<?php if(in_array($active_menu_clean,$pages) ) { ?>
+    <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'mailbox.php');?>
+<?php } unset($pages) ?>
+
+
+
+
 
 </body>
 

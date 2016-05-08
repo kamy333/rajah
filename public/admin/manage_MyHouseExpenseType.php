@@ -3,9 +3,10 @@
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
 if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
-$class_name="MyExpensePerson";
+$class_name="MyHouseExpenseType";
 $class_name1="MyHouseExpense";
-$class_name2="MyHouseExpenseType";
+$class_name2="MyExpensePerson";
+
 
 $table_name=$class_name::get_table_name();
 
@@ -76,12 +77,14 @@ if($view_full_table==1){
 
 
 
+
 <div class="row">
 
     <div class="col-md-7 <?php echo $offset; ?>">
         <?php echo $class_name::display_pagination($pagination,$page) ?>
 
     </div>
+
 
 
 

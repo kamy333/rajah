@@ -25,7 +25,13 @@
 
     <!-- Gritter -->
     <link href="<?php echo $path;?>js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
-    
+
+    <?php $pages=array('mailbox') ?>
+    <?php if(in_array($active_menu_clean,$pages) ) { ?>
+        <!-- iCheck style -->
+        <link href="<?php echo $path;?>css/plugins/iCheck/custom.css" rel="stylesheet">
+    <?php } unset($pages) ?>
+
     <link href="<?php echo $path;?>css/animate.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style_personal.css" rel="stylesheet">

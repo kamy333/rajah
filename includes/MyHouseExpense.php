@@ -13,7 +13,7 @@ class MyHouseExpense extends DatabaseObject {
 
 // 'currency_id','Account','debitor','creditor'
 
-    protected static $db_fields = array('id','amount','ccy_id','currency','rate','person_id','person_name','expense_type_id','expense_type','expense_date','comment','modification_time');
+    protected static $db_fields = array('id','amount','ccy_id','rate','person_id','expense_type_id','expense_date','comment','modification_time');
 
     protected static $required_fields = array('amount','ccy_id','person_id','expense_type_id','expense_date');
 
@@ -21,12 +21,13 @@ class MyHouseExpense extends DatabaseObject {
 
     protected static $db_fields_table_display_full = array('id','amount','amountCHF','currency','rate','person_id','person_name','expense_type_id','expense_type','expense_date','comment','modification_time');
 
-    protected static $db_field_exclude_table_display_sort=array('amountCHF');
+    protected static $db_field_exclude_table_display_sort=array('amountCHF','person_name','expense_type','currency');
 
-    public static $fields_numeric=array('id','amount','amountCHF','person_id','expense_type_id','rate');
+
+    public static $fields_numeric=array('id','amount','amountCHF','person_id','expense_type_id','rate','ccy_id');
     public static $fields_numeric_format=array('amount','amountCHF');
 
-    public static $get_form_element=array('amount','ccy_id','rate','expense_date','person_id','person_name','expense_type_id','expense_type','comment','modification_time');
+    public static $get_form_element=array('amount','ccy_id','rate','expense_date','person_id','expense_type_id','comment','modification_time');
 
     public static $get_form_element_others=array();
 
@@ -49,6 +50,7 @@ class MyHouseExpense extends DatabaseObject {
             "label_text"=>"Amount",
             'min'=>0,
             "placeholder"=>"Amount",
+            "step"=>"0.01",
             "required" =>true,
         ),
         "ccy_id"=> array("type"=>"select",
@@ -89,7 +91,7 @@ class MyHouseExpense extends DatabaseObject {
 //        ),
         "expense_type_id"=> array("type"=>"select",
             "name"=>'expense_type_id',
-            "class"=>"MyExpenseType",
+            "class"=>"MyHouseExpenseType",
             "label_text"=>"Expense Type",
             "select_option_text"=>'Expense Type',
             'field_option_0'=>"id",
@@ -135,7 +137,7 @@ class MyHouseExpense extends DatabaseObject {
         "person_name"=> array("type"=>"select",
             "name"=>'search_person_name',
             "id"=>"search_person_name",
-            "class"=>"MyExpense",
+            "class"=>"MyHouseExpense",
             "label_text"=>"",
             "select_option_text"=>'Person Name',
             'field_option_0'=>"person_name",
@@ -155,7 +157,7 @@ class MyHouseExpense extends DatabaseObject {
         "currency"=> array("type"=>"select",
             "name"=>'search_currency',
             "id"=>"search_person_name",
-            "class"=>"MyExpense",
+            "class"=>"MyHouseExpense",
             "label_text"=>"",
             "select_option_text"=>'Currency',
             'field_option_0'=>"currency",
@@ -174,7 +176,7 @@ class MyHouseExpense extends DatabaseObject {
         "expense_type"=> array("type"=>"select",
             "name"=>'search_expense_type',
             "id"=>"search_expense_type",
-            "class"=>"MyExpense",
+            "class"=>"MyHouseExpense",
             "label_text"=>"",
             "select_option_text"=>'Expense type',
             'field_option_0'=>"expense_type",
@@ -232,6 +234,7 @@ class MyHouseExpense extends DatabaseObject {
 
     public $itemsCount;
     public $total;
+    public $side;
 
     public static function by_person()
     {
@@ -250,7 +253,7 @@ GROUP BY person_id;";
 
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>No Items".str_repeat("&nbsp;", 4)."</th>
@@ -316,7 +319,7 @@ FROM
 GROUP BY person_id,ccy_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
@@ -381,7 +384,7 @@ FROM
 GROUP BY ccy_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
         $output.="<tr>
                            <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
                           <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
@@ -445,9 +448,9 @@ FROM
 GROUP BY expense_type_id;";
 
 
-        $output.="<table class='table-bordered table-responsive table-hover '>";
+        $output.="<table class='table table-condensed table-condensed table-bordered table-responsive table-hover table-striped '>";
         $output.="<tr>
-                           <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
+                          <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
                           <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
                           <th class='text-center'>Total Type".str_repeat("&nbsp;", 4)."</th>
                           <th class='text-center'>Total CHF".str_repeat("&nbsp;", 4)."</th>
@@ -458,8 +461,9 @@ GROUP BY expense_type_id;";
 
             foreach($results as $result){
 
-                $myType=MyExpenseType::find_by_id($result->expense_type_id);
+                $myType=MyHouseExpenseType::find_by_id($result->expense_type_id);
                 $type=$myType->expense_type;
+
 
 //                $myperson=MyExpensePerson::find_by_id($result->person_id);
 //                $person=$myperson->person_name;
@@ -510,49 +514,38 @@ GROUP BY expense_type_id;";
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_new ."\">Add New Person ". " </a><span>&nbsp;</span>";
-            $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_new ."\">Add New Type ". " </a></a><span>&nbsp;</span>";
+            $output.="<a  class=\"btn btn-primary\"  href=\"". MyHouseExpense::$page_new ."\">Add New Type ". " </a></a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_manage ."\">View Person ". " </a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_manage ."\">View Type ". " </a>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyHouseExpense::$page_manage ."\">View Type ". " </a>";
         return $output;
     }
 
 
     protected function set_up_display(){
-//        if(isset($this->amount) && isset($this->ccy_id)){
-//            $result=Currency::find_by_id((int) $this->ccy_id);
-//            if($result){
-//                $this->amountCHF=$this->amount * $result->rate;
-//
-//            }
-//
-//        }
 
-//        if(!isset($this->person_id)){
-//            $result=MyExpensePerson::find_by_id($this->person_id);
-//            $this->person_name-=$result->person_name;
-//            unset($result);
-//        }
-//
-//        if(!isset($this->expense_type_id)){
-//            $result=MyExpenseType::find_by_id($this->expense_type_id);
-//            $this->expense_type-=$result->expense_type;
-//            unset($result);
-//        }
-//
-//        if( isset($this->ccy_id)){
-//            $result=Currency::find_by_id($this->ccy_id);
-//            $this->currency-=$result->currency;
-//            unset($result);
-//        }
+
+        $result=Currency::find_by_id($this->ccy_id);
+        $this->currency=$result->currency;
+
+        $result=MyExpensePerson::find_by_id($this->person_id);
+        $this->person_name=$result->person_name;
+
+        $result=MyHouseExpenseType::find_by_id($this->expense_type_id);
+        $this->expense_type=$result->expense_type;
+        $this->side=$result->side;
+
+
+        if($this->side <0  && $this->amount>0){
+            $this->amount=-$this->amount;
+        }
+
+        if($this->side >0  && $this->amount <0){
+            $this->amount=-$this->amount;
+        }
 
         if(isset($this->amount ) && isset($this->rate)){
             $this->amountCHF=$this->amount * $this->rate;
         }
-
-//    $this->amount= number_format ( $this->amount ,  2 );
-//    $this->total= number_format ( $this->total ,  2 );
-//    $this->amountCHF= number_format ( $this->amountCHF ,  2 );
-
 
     }
 

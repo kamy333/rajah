@@ -8,8 +8,8 @@
  */
 //protected static $db_fields = array('','','','','','','','','','');
 
-class MyExpenseType extends DatabaseObject {
-    protected static $table_name="myexpense_type";
+class MyHouseExpenseType extends DatabaseObject {
+    protected static $table_name="my_house_expense_type";
 
     protected static $db_fields = array('id','expense_type','side','rank','comment');
 
@@ -18,17 +18,18 @@ class MyExpenseType extends DatabaseObject {
     protected static $db_fields_table_display_short =  array('id','expense_type','side','rank','comment');
 
     protected static $db_fields_table_display_full =  array('id','expense_type','side','rank','comment');
+
     protected static $db_field_exclude_table_display_sort=null;
 
     public static $fields_numeric=array('id','rank','side');
 
 
-    public static $get_form_element=array('expense_type','rank','side','comment');
+    public static $get_form_element=array('expense_type','side','rank','comment');
     public static $get_form_element_others=array();
 
     public static $form_default_value=array(
         "rank"=>"1",
-        "side"=>"0"
+        "side"=>"1",
     );
 
 
@@ -84,7 +85,7 @@ class MyExpenseType extends DatabaseObject {
         "expense_type"=> array("type"=>"select",
             "name"=>'search_expense_type',
             "id"=>"search_expense_type",
-            "class"=>"MyExpenseType",
+            "class"=>"MyHouseExpenseType",
             "label_text"=>"",
             "select_option_text"=>'Expense type',
             'field_option_0'=>"expense_type",
@@ -94,7 +95,7 @@ class MyExpenseType extends DatabaseObject {
         "rank"=> array("type"=>"select",
             "name"=>'rank',
             "id"=>"search_rank",
-            "class"=>"MyExpenseType",
+            "class"=>"MyHouseExpenseType",
             "label_text"=>"",
             "select_option_text"=>'rank',
             'field_option_0'=>"rank",
@@ -126,11 +127,11 @@ class MyExpenseType extends DatabaseObject {
     public static $db_field_search =array('search_all','expense_type','download_csv');
 
 
-    public static $page_name="Expense Type";
-    public static $page_manage="manage_MyExpenseType.php";
-    public static $page_new="new_MyExpenseType.php";
-    public static $page_edit="edit_MyExpenseType.php";
-    public static $page_delete="delete_MyExpenseType.php";
+    public static $page_name="House Expense Type";
+    public static $page_manage="manage_MyHouseExpenseType.php";
+    public static $page_new="new_MyHouseExpenseType.php";
+    public static $page_edit="edit_MyHouseExpenseType.php";
+    public static $page_delete="delete_MyHouseExpenseType.php";
 
     public static $per_page;
 
@@ -155,9 +156,9 @@ class MyExpenseType extends DatabaseObject {
 
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpense::$page_new ."\">Add New Expense ". " </a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_new ."\">Add New Person ". " </a></a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpense::$page_manage ."\">View Expense ". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyHouseExpenseType::$page_new ."\">Add New Expense ". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyHouseExpenseType::$page_new ."\">Add New Person ". " </a></a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". MyHouseExpenseType::$page_manage ."\">View Expense ". " </a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_manage ."\">View Person ". " </a>";
         return $output;
     }
