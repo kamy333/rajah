@@ -365,6 +365,7 @@ class User extends DatabaseObject {
     const TYPE_SECRETARY=3;
     const TYPE_EMPLOYEE=4;
     const TYPE_VISITOR=5;
+    const TYPE_CHAUFFEUR=6;
 
 // not used but is method is_valid_user_type_id ()
     static public $valid_user_type_id=array(
@@ -372,7 +373,8 @@ class User extends DatabaseObject {
       self::TYPE_MANAGER=>'manager',
       self::TYPE_SECRETARY=>'secretary',
       self::TYPE_EMPLOYEE=>'employee',
-        self::TYPE_VISITOR=>'visitor',
+      self::TYPE_VISITOR=>'visitor',
+      self::TYPE_CHAUFFEUR=>'chauffeur',
     );
 
     protected static $existing_password;
@@ -544,6 +546,18 @@ class User extends DatabaseObject {
         }
     }
 
+    public static function is_chauffeur()
+    {
+        if (isset($_SESSION) && isset($_SESSION['user_id'])) {
+            $found_user = self::find_by_id($_SESSION["user_id"]);
+            if ($found_user->user_type_id == self::TYPE_CHAUFFEUR) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
     public static function is_visitor()
     {
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -555,6 +569,36 @@ class User extends DatabaseObject {
             }
         }
     }
+
+    public static function is_stricter_access()
+    {
+        if (isset($_SESSION) && isset($_SESSION['user_id'])) {
+            $found_user = self::find_by_id($_SESSION["user_id"]);
+            if ($found_user->user_type_id == self::TYPE_VISITOR ||
+                $found_user->user_type_id == self::TYPE_CHAUFFEUR ||
+                $found_user->user_type_id == self::TYPE_EMPLOYEE ||
+                $found_user->user_type_id == self::TYPE_SECRETARY) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    public static function is_allow_access()
+    {
+        if (isset($_SESSION) && isset($_SESSION['user_id'])) {
+            $found_user = self::find_by_id($_SESSION["user_id"]);
+            if ($found_user->user_type_id == self::TYPE_ADMIN ||
+                $found_user->user_type_id == self::TYPE_MANAGER ) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
 
     public static  function is_kamy()
     {

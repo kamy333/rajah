@@ -88,7 +88,7 @@ if(request_is_post() && request_is_same_domain()) {
     <div class="col-md-4 col-md-offset-4  col-lg-4 col-lg-offset-4 ">
         <form id="myform-signin" class="form-signin " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <?php echo csrf_token_tag(); ?>
-            <h2 class="form-signin-heading text-center">Please sign into <br>Rajah Prod Staff area <small>ikamy.ch</small> </h2>
+            <h2 class="form-signin-heading text-center">Please sign into <br><?php echo $logo;?> Admin area <small>ikamy.ch</small> </h2>
             <h6><a href="login_forgot_password_user.php">Forgot login?</a></h6>
 
             <label for="username" class="sr-only">username</label>

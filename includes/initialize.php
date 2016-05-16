@@ -55,7 +55,7 @@ defined('FOOTER_PUBLIC')? null : define('FOOTER_PUBLIC', SITE_ROOT.DS.'Inspinia'
 
 defined('NAV')? null : define('NAV', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav.php');
 defined('NAV_PUBLIC')? null : define('NAV_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_public.php');
-defined('NAV_CANVAS')? null : define('NAV_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_canvas.php');
+defined('NAV_CANVAS')? null : define('NAV_CANVAS', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'nav_canvas.php');
 
 defined('SIDEBAR')? null : define('SIDEBAR', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'sidebar.php');
 defined('SIDEBAR_CANVAS')? null : define('SIDEBAR_CANVAS', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'sidebar_canvas.php');
@@ -136,12 +136,21 @@ require_once(LIB_PATH.DS.'MyCigarette.php');
 require_once(LIB_PATH.DS.'MyCigaretteByPeriod.php');
 require_once(LIB_PATH.DS.'Currency.php');
 require_once(LIB_PATH.DS.'MyExpensePerson.php');
+require_once(LIB_PATH.DS.'ToDoList.php');
 require_once(LIB_PATH.DS.'MyExpenseType.php');
 require_once(LIB_PATH.DS.'MyHouseExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');
 require_once(LIB_PATH.DS.'MyHouseExpense.php');
 require_once(LIB_PATH.DS.'Chat.php');
 require_once(LIB_PATH.DS.'Notification.php');
+
+
+require_once(LIB_PATH.DS.'transport'.DS.'TransportChauffeur.php');
+require_once(LIB_PATH.DS.'transport'.DS.'TransportClient.php');
+require_once(LIB_PATH.DS.'transport'.DS.'TransportType.php');
+require_once(LIB_PATH.DS.'transport'.DS.'TransportProgramming.php');
+require_once(LIB_PATH.DS.'transport'.DS.'TransportProgrammingModel.php');
+
 
 //require_once(LIB_PATH.DS.'photograph.php');
 //require_once(LIB_PATH.DS.'comment.php');

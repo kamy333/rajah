@@ -182,7 +182,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-blue">
+        <div class="panel panel-palevioletred">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -204,7 +204,7 @@
         </div>
     </div>
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-blue">
+        <div class="panel panel-black">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -227,7 +227,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-primary">
+        <div class="panel panel-darkblue">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -250,7 +250,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-red">
+        <div class="panel panel-darkred">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -297,7 +297,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-purple">
+        <div class="panel panel-darkgreen">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
@@ -437,7 +437,7 @@
     </div>
 
     <div class="col-lg-3 col-md-6">
-        <div class="panel panel-purple">
+        <div class="panel panel-darkgrey">
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">

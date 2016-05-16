@@ -39,13 +39,14 @@
 
     <?php $pages=array('class_manage') ?>
     <?php if(in_array($active_menu_clean,$pages) ) { ?>
-
         <link href="<?php echo $path;?>css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-
     <?php } unset($pages) ?>
 
 
-
+    <?php $pages=array('class_edit','class_new') ?>
+    <?php if(in_array($active_menu_clean,$pages) ) { ?>
+        <?php include_once (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."css_php".DS.'forms_input.php');?>
+    <?php } unset($pages) ?>
 
 
 

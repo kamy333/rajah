@@ -253,7 +253,9 @@ GROUP BY person_id;";
 
 
 
-        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>No Items".str_repeat("&nbsp;", 4)."</th>
@@ -319,7 +321,9 @@ FROM
 GROUP BY person_id,ccy_id;";
 
 
-        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
         $output.="<tr>
                           <th class='text-center'>Name".str_repeat("&nbsp;", 10)."</th>
                           <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
@@ -358,6 +362,8 @@ GROUP BY person_id,ccy_id;";
 
         $sum=number_format(static ::sum_field_where($field="amount * rate"),2);
 
+        
+
         $output.="<tr>";
         $output.="<td class='text-center'><strong>Total</strong></td>";
         $output.=str_repeat("<td></td>", 3);
@@ -384,12 +390,14 @@ FROM
 GROUP BY ccy_id;";
 
 
-        $output.="<table class='table table-condensed table-bordered table-responsive table-hover '>";
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
         $output.="<tr>
-                           <th class='text-center'>CCY".str_repeat("&nbsp;", 4)."</th>     
-                          <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total CCY".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total CHF".str_repeat("&nbsp;", 4)."</th>
+                           <th class='text-center'>CCY"."</th>     
+                          <th class='text-center'>Items"."</th>
+                          <th class='text-center'>Total CCY"."</th>
+                          <th class='text-center'>Total CHF"."</th>
                           </tr>";
 
         $results= static::find_by_sql($sql);
@@ -400,13 +408,8 @@ GROUP BY ccy_id;";
                 $myCurrency=Currency::find_by_id($result->ccy_id);
                 $ccy=$myCurrency->currency;
 
-//                $myperson=MyExpensePerson::find_by_id($result->person_id);
-//                $person=$myperson->person_name;
 
                 $output.="<tr>";
-//                $output.="<td class='text-center'>{$person}</td>";
-//                $output.="<td class='text-center'>{$result->person_name}</td>";
-//                $output.="<td class='text-center'>{$result->person_id}</td>";
                 $output.="<td class='text-center'>{$ccy}</td>";
                 $output.="<td class='text-center'>{$result->itemsCount}</td>";
                 $output.="<td class='text-right'>".number_format($result->amount,2)."</td>";
@@ -448,12 +451,14 @@ FROM
 GROUP BY expense_type_id;";
 
 
-        $output.="<table class='table table-condensed table-condensed table-bordered table-responsive table-hover table-striped '>";
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
         $output.="<tr>
-                          <th class='text-center'>Expense Type".str_repeat("&nbsp;", 4)."</th>     
-                          <th class='text-center'>Items".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total Type".str_repeat("&nbsp;", 4)."</th>
-                          <th class='text-center'>Total CHF".str_repeat("&nbsp;", 4)."</th>
+                          <th class='text-center'>Expense Type"."</th>     
+                          <th class='text-center'>Items"."</th>
+                          <th class='text-center'>Total Type"."</th>
+                          <th class='text-center'>Total CHF"."</th>
                           </tr>";
 
         $results= static::find_by_sql($sql);

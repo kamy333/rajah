@@ -576,9 +576,42 @@ function gallery_button(){
                 </button>
                 <ul class=\"dropdown-menu\">
                     <li><a href=\"index_gallery.php\"><b>Desiree Wedding</b></a></li>
-                    <li><a href=\"index_gallery2.php\">Familly</a></li>
+                    <li><a href=\"index_gallery2.php\">Family</a></li>
                     <li><a href=\"index_gallery3.php\">Friends</a></li>
                     <li><a href=\"index_gallery4.php\">my page</a></li>
+
+                </ul>
+            </div>
+        </div>
+            </div>
+        </div>";
+
+    return $output;
+
+
+}
+function admin_button(){
+    global $session;
+
+    $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
+            <div class=\"text-center m-t-lg\">
+        <div class=\"btn-group\" role=\"group\" aria-label=\"...\">
+<!--            <button type=\"button\" class=\"btn btn-default\">1</button>-->
+<!--            <button type=\"button\" class=\"btn btn-default\">2</button>-->
+
+            <div class=\"btn-group\" role=\"group\">
+                <button type=\"button\" class=\"btn btn-primary dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">
+                    <b>Admin</b>
+                    <span class=\"caret\"></span>
+                </button>
+                <ul class=\"dropdown-menu\">
+                    <li><a href=\"index.php\"><b>Admin</b></a></li>";
+        if(User::is_kamy()){
+            $output.="<li><a href=\"expense_loan.php\">Loan and House</a></li>";
+        }
+
+    $output.="                 <li><a href=\"minor.php\">Minor</a></li>
+                    <li><a href=\"01_test.php\">test 01</a></li>
 
                 </ul>
             </div>

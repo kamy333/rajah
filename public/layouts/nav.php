@@ -133,6 +133,7 @@ if ($layout_context=="public"){
 
                         <ul class="dropdown-menu">
 
+                <li><a href="<?php echo $path_admin;?>manage_ToDoList.php">To Do List</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyHouseExpense.php">House Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyExpense.php">Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>manage_MyExpensePerson.php">Expense Person</a></li>
@@ -171,6 +172,7 @@ if ($layout_context=="public"){
                         <ul class="dropdown-menu">
                 <li><a href="<?php echo $path_admin;?>new_MyCigarette_Add_1.php">Add 1 cig</a></li>
 
+                <li><a href="<?php echo $path_admin;?>new_ToDoList.php">To Do List</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyHouseExpense.php">New House Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpense.php">New Expense</a></li>
                 <li><a href="<?php echo $path_admin;?>new_MyExpensePerson.php">New Expense Person</a></li>
@@ -191,6 +193,26 @@ if ($layout_context=="public"){
                  <li><a href="<?php echo $path_admin;?>new_link.php">New link</a></li>
                 <li><a href="<?php echo $path_admin;?>new_link_category.php">New links Category</a></li>
 
+
+                        </ul>
+                    </li>
+
+                    <li
+                        <?php if ( isset($active_menu) && $active_menu=="transport"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
+                    ><a href="#" data-toggle="dropdown">Transport<span class="caret"></span></a>
+
+                        <ul class="dropdown-menu">
+                <li><a href="<?php echo $path_admin;?>manage_TransportChauffeur.php">Chauffeur</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_TransportType.php">Transport Type</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_TransportClient.php">Client</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_TransportProgramming.php">Course</a></li>
+                <li><a href="<?php echo $path_admin;?>manage_TransportProgrammingModel.php">Model</a></li>
+
+                <li><a href="<?php echo $path_admin;?>new_TransportChauffeur.php">New Chauffeur</a></li>
+                <li><a href="<?php echo $path_admin;?>new_TransportType.php">New Transport Type</a></li>
+                <li><a href="<?php echo $path_admin;?>new_TransportClient.php">New Client</a></li>
+                <li><a href="<?php echo $path_admin;?>new_TransportProgramming.php">New Course</a></li>
+                <li><a href="<?php echo $path_admin;?>new_TransportProgrammingModel.php">New Model</a></li>
 
                         </ul>
                     </li>

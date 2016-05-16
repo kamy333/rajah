@@ -31,10 +31,9 @@ if(User::is_employee() || User::is_visitor() || !User::is_admin() ||  User::is_s
 <!--    </div>-->
 
 <!--<div id="page-wrapper">-->
-
+<?php echo admin_button(); ?>
 
     <?php include("admin_content.php")?>
-
 
     <?php if(User::is_kamy()){ ?>
 

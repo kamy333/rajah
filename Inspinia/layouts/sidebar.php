@@ -126,6 +126,9 @@
                     <?php $class_menu="MyExpense"; $text_menu="Expense"; $active_page="class_manage.php" ?>
                     <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
+                    <?php $class_menu="ToDoList"; $text_menu="ToDoList"; $active_page="class_manage.php" ?>
+                    <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
 
                     <?php $class_menu="MyHouseExpense"; $text_menu="House Expense"; $active_page="class_manage.php" ?>
                     <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
@@ -259,6 +262,9 @@
                             <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
                             <?php $class_menu="MyExpense"; $text_menu="MyExpense"; $active_page="class_manage.php" ?>
+                            <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                            <?php $class_menu="ToDoList"; $text_menu="To Do List"; $active_page="class_manage.php" ?>
                             <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 

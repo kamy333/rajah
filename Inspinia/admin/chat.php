@@ -16,6 +16,20 @@ if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
 
 <div class="wrapper wrapper-content animated fadeInRight">
 
+    <?php
+    $listvals=$_POST['mylist'];
+    $n=count($listvals);
+    echo "User chose $n items from the list.<br>\n";
+   for($i=0;$i<$n;$i++)
+       echo "Item $i=".$listvals[$i]."<br>\n";
+?>
+
+    <form action="" method="post">
+        <select name="mylist[]" size="3">
+    </form>
+
+
+
 
 </div>
 
