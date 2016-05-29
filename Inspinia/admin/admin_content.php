@@ -118,7 +118,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-support fa-5x"></i>
+                        <i class="fa fa-bell fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo  Notification::count_all() ?></div>
@@ -231,7 +231,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-link fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo Links::count_all() ?></div>
@@ -254,7 +254,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-stop fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo MyCigarette::count_all() ?></div>
@@ -278,7 +278,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-user-secret fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo BlacklistIp::count_all() ?></div>
@@ -301,7 +301,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-user-times fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo FailedLogin::count_all() ?></div>
@@ -323,7 +323,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-dollar fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo Currency::count_all() ?></div>
@@ -346,7 +346,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo UserType::count_all() ?></div>
@@ -369,7 +369,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-columns fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo Category::count_all() ?></div>
@@ -441,7 +441,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-xs-3">
-                        <i class="fa fa-adn fa-5x"></i>
+                        <i class="fa fa-sort-amount-desc fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge"><?php echo MyExpensePerson::count_all() ?></div>

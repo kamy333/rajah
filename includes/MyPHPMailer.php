@@ -31,7 +31,7 @@ class MyPHPMailer extends PHPMailer
         $this->SMTPAuth=true;
         $this->Username=EMAIL_USERNAME ;
         $this->Password=EMAIL_PASSWORD;
-        $this->FromName="ikamy.ch Rajah Production";
+        $this->FromName="ikamy.ch";
         $this->From = "ikamy.ch@bluewin.ch";
         $this->From = "kamy@ikamy.ch";
 

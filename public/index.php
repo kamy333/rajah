@@ -1,4 +1,8 @@
 <?php require_once('../includes/initialize.php'); ?>
+<?php
+if(User::is_visitor() ){ redirect_to('/Inspinia/index.php');}
+
+?>
 
 <?php  $layout_context = "public"; ?>
 <?php $active_menu="home"; ?>

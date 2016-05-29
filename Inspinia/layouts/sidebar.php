@@ -9,12 +9,6 @@
 
                     $user->user_path_and_placeholder();
 
-//                        if(file_exists($img_path.$user->username.'.jpg') && isset($_SESSION["user_id"])){
-//                            $username=$user->username;
-//                            echo "<span> <img class='img-circle'  src='{$path}img/{$user->username}.jpg' alt='{$user->username}' style='width:3em; height:3em;' > </span>";
-//                        }else {
-//                            echo "<span><img class='img-circle' src='{$path}img/no_user.jpg' alt='image' style='width:2em;height:2em;'></span>";
-//                        }
 
 
                         $username=$user->username;
@@ -70,14 +64,31 @@
             </li>
 
 
-                <li><a href="<?php echo $path_admin;?>chat.php"><i class="fa fa-th-large"></i> <span class="nav-label">Chat</span> </a></li>
+                <li class="<?php echo $class_transport_active; ?>">
+                    <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-th-large"></i> <span class="nav-label">Transport</span> <span class="fa arrow"></span></a>
 
+            <ul class="nav nav-second-level <?php echo $class_admin_collapse; ?>">
 
+                <?php $class_menu="TransportProgramming"; $text_menu="Course"; $active_page="class_manage.php" ?>
+                <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
-                <?php $class_menu="chat"; $text_menu="Chat"; $active_page="chat.php" ?>
+                <?php $class_menu="TransportProgrammingModel"; $text_menu="Course Model"; $active_page="class_manage.php" ?>                <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                <?php $class_menu="TransportClient"; $text_menu="Client"; $active_page="class_manage.php" ?>
+                <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                <?php $class_menu="TransportChauffeur"; $text_menu="Chauffeur"; $active_page="class_manage.php" ?>
+                <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                <?php $class_menu="TransportType"; $text_menu="Type"; $active_page="class_manage.php" ?>
+                <li class="<?php if($class_name==$class_menu && $active_menu==$active_page && $active_admin){echo 'active';};?>"><a href="<?php echo $path_admin;?>class_manage.php?class_name=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
+
+                <?php $class_menu="Chat"; $text_menu="Chat"; $active_page="chat.php" ?>
                 <li class="<?php if($active_menu_clean==$class_menu ){echo 'active';};?>"><a href="<?php echo $path_admin;?>chat.php?=<?php echo $class_menu;?>"><?php echo $text_menu;?></a></li>
 
 
+            </ul>
+                </li>
             <li class="<?php echo $class_admin_active; ?>">
 
                 <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-th-large"></i> <span class="nav-label">Admin</span> <span class="fa arrow"></span></a>

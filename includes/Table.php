@@ -66,7 +66,6 @@ public static function ibox_table($content="",$title="",$col=4, $col_offset=0){
 
 
 
-
     $output="";
     $output.="<div class=\"$class_col $class_col_offset \">";
     $output.="<div class=\"ibox float-e-margins\" >";

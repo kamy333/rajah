@@ -524,7 +524,7 @@ public static function get_table_name() {
             $type_exception=array('radio','checkbox','textarea') ;
 
 //must be one of the following input to use ->text() todo checkbox
-            $type_no_exception=array("text",'password','email','select','search','date','datetime','datetime-local','color','button','file','hidden','image','month','number','range','reset','search','submit','tel','file','url' );
+            $type_no_exception=array("text",'password','email','select','search','date','datetime','datetime-local','color','button','file','hidden','image','month','number','range','reset','search','submit','tel','file','url','selectchosen' );
 
             $type_text=array("text",'password','email','search','date','datetime','datetime-local','color','button','file','hidden','image','month','number','range','reset','search','submit','tel','url' );
 
@@ -577,6 +577,8 @@ public static function get_table_name() {
                 $output= $form->radio();
             }elseif($type=="select"){
                 $output=  $form->select();
+            }elseif($type=="selectchosen"){
+                $output=  $form->selectchosen();
             }elseif($type=="textarea"){
                 $output=  $form->textarea();
             } else {
@@ -924,7 +926,7 @@ if($long_short==1){
         }
 
         if($edit){
-            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='class_edit?class_name".get_called_class()."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='class_edit?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Edit</a></td>" ;
 
             $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Delete</a></td>" ;
         }

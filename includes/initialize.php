@@ -88,7 +88,7 @@ require_once(LIB_PATH.DS.'session.php');
 //require_once(LIB_PATH.DS.'functions_security.php');
 
 //put functions
-require_once(LIB_PATH.DS . 'functions'.DS. "security_csrf_token_functions.php");
+require_once(LIB_PATH.DS . 'functions'.DS."security_csrf_token_functions.php");
 require_once(LIB_PATH.DS . 'functions'.DS."security_request_forgery_functions.php");
 require_once(LIB_PATH.DS . 'functions'.DS."security_mcrypt_functions.php");
 require_once(LIB_PATH.DS . 'functions'.DS."security_allowed_get.php");

@@ -1,6 +1,8 @@
 <?php require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_visitor() || !User::is_admin() ||  User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || !User::is_admin() ||  User::is_secretary()){ redirect_to('../index.php');}
+//if(User::is_visitor() ){ redirect_to('../index.php');}
+
 ?>
 
 

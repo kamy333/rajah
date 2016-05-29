@@ -47,6 +47,7 @@ if(request_is_post() && request_is_same_domain()) {
                     $failed_login->clear_failed_logins($username);
                     $session->login($found_user);
                     log_action('Login', "{$found_user->username} logged in.");
+                    if(User::is_visitor() ){ redirect_to('/Inspinia/index.php');}
                     redirect_to("index.php");
                 } else {
                     log_action('Login failed', "{$username} logged in failed.");
@@ -111,9 +112,9 @@ if(request_is_post() && request_is_same_domain()) {
                 </div>
                 <button type="submit" name="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-                <a  href="<?php echo $path_admin;?>forgot_password.php"><small>Forgot password?</small></a>
+                <a  href="<?php echo $path_admin;?>login_forgot_password_email.php"><small>Forgot password?</small></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <a  href="<?php echo $path_admin;?>forgot_user.php"><small>Forgot user name?</small></a>
+                <a  href="<?php echo $path_admin;?>login_forgot_password_username.php"><small>Forgot user name?</small></a>
                 <p class="text-muted text-center"><small>Do not have an account?</small></p>
                 <a class="btn btn-sm btn-white btn-block" href="<?php echo $path_admin;?>register.php">Create an account</a>
             </form>

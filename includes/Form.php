@@ -278,6 +278,77 @@ class Form extends DatabaseObject{
     }
 
 
+    public function selectchosen()    {
+        $output="";
+
+
+
+        if (isset($this->name) && isset($this->label_text)){
+            $output.="<div class='form-group'>";
+//            $output.="<label class='col-sm-3 control-label' for='{$this->name}' >{$this->label_text}</label>";
+
+            $output.="<label ";
+            if($this->form_format_type==self::FORM_HORIZONTAL){
+                $output.=" class='col-sm-3 control-label' ";
+            } else {
+                $output.="class='sr-only'";
+            }
+
+            if(isset($this->id)){
+                $output.="for='{$this->id}'";
+            } else {
+                $output.="for='{$this->name}'";
+
+            }
+
+            $output.=">";
+
+            $output.="{$this->label_text}</label>";
+
+            if($this->form_format_type==self::FORM_HORIZONTAL) {
+                $output .= "<div class='col-sm-9'>";
+            }
+
+            $output.="<select  class='select2_demo_3 form-control'  name='{$this->name}' ";
+
+            if(isset($this->id)){
+                $output.="id='{$this->id}'";
+            } else {
+                $output.="id='{$this->name}'";
+
+            }
+
+            if (isset($this->onchange)){
+                $output.=" onchange='{$this->onchange}'";
+            }
+
+            if($this->selected){
+                $output.=" selected";
+            }
+
+            $output.=">";
+            $output.=$this->select_option();
+            $output.="</select>";
+
+            $output.=" </div>";
+
+            if($this->form_format_type==self::FORM_HORIZONTAL) {
+                $output .= "</div>";
+            }
+
+
+
+        } else {
+            $output="Missing properties label text name;";
+        }
+
+        return $output;
+
+
+    }
+
+
+
     private function select_option(){
         if(isset($this->class))  {
          $output="";
@@ -415,5 +486,8 @@ $output.="<textarea name='$this->name'  class='form-control'";
         }
 
     }
+
+
+
 
 }

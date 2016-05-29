@@ -90,8 +90,10 @@ if(request_is_post() && request_is_same_domain()) {
                     if (!$user->save()){
                         $session->message("User: ".$user->username." "."has been created for ID (".$user->id .")");
                         $session->ok(true);
+                        $user-> login_visitor_email('Registration sucessfull');;
                         redirect_to("index.php");
                     } else {
+                        $user-> login_visitor_email('Registration Unsucessfull');;
                         $session->message("User: ".$user->username." "."edit failed");
 
                     }

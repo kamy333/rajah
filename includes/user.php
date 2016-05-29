@@ -70,7 +70,7 @@ class User extends DatabaseObject {
             "required" =>true,
         ),
 
-        "user_type_id"=> array("type"=>"select",
+        "user_type_id"=> array("type"=>"selectchosen",
             "name"=>'user_type_id',
             "class"=>"UserType",
             "label_text"=>"User type",
@@ -804,8 +804,58 @@ public function delete_reset_token() {
 
     }
 
-    public function send_email(){
 
+    public  function login_visitor_email($info){
+        $mail=new MyPHPMailer() ;
+    global $logo;
+    $subject="New visitor login ".$info;
+    $to=$this->email;
+    $message="<p>We have a new visitor that registered into $logo</p>";
+   $mail->AddEmbeddedImage($this->user_path_and_placeholder(), 'logo_2u');
+//    $mail->AltBody="New Visitor.";
+    $message.="<br><p><img   width='110' height='110' src='cid:logo_2u'></p><br><br>";
+
+    $message.="<ul>";
+    $message.="<li>Username: ".$this->username."</li>";
+    $message.="<li>First Name: ".$this->first_name."</li>";
+    $message.="<li>Last Name: ".$this->last_name."</li>";
+    $message.="<li>Nom: ".$this->nom."</li>";
+    $message.="<li>Last Name: ".$this->full_name()."</li>";
+    $message.="<li>Email: ".$this->email."</li>";
+    $message.="<li>User_type: ".$this->user_type."</li>";
+    $message.="<li>Address: ".$this->address."</li>";
+    $message.="<li>CP: ".$this->cp."</li>";
+    $message.="<li>City: ".$this->city."</li>";
+    $message.="<li>Country: ".$this->country."</li>";
+    $message.="<li>Mobile: ".$this->mobile."</li>";
+    $message.="<li>Reset token: ".$this->reset_token."</li>";
+    $message.="<li>Block user: ".$this->block_user."</li>";
+    $message.="<li>Photo path: ".$this->user_path_and_placeholder()."</li>";
+    $message.="</ul>";
+
+        //Send HTML or Plain Text email
+        $mail->addAddress('nafisspour@bluewin.ch');
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+
+        $mail->Body = $message;
+        //   $mail->AltBody = "This is the plain text version of the email content";
+
+        if(!$mail->send())
+        {
+            echo "Mailer Error: " . $mail->ErrorInfo;
+        }
+        else
+        {
+            //     echo "Message has been sent successfully";
+        }
+        
+
+
+    }
+
+    public function send_email(){
+    global $logo;
     $mail=new MyPHPMailer() ;
 
         //CC and BCC
@@ -816,7 +866,8 @@ public function delete_reset_token() {
         $mail->addAddress($this->email, $this->nom);
         $url=MY_URL_ADMIN ."login_reset_password.php?token=". u($this->reset_token);
 
-        $message="<b>Dear $this->nom,</b>,<br><br>";
+        $message=$logo."<br><br>";
+        $message.="<b>Dear $this->nom,</b>,<br><br>";
         $message.="<p>We received a request that you have forgotten your password.<br>";
         $message.="<p>Username: <span style='color: #005fbf'><b>$this->username</b></span> </p>";
         $message.="Please click the below link to reset password </p>";
@@ -824,7 +875,7 @@ public function delete_reset_token() {
         $message.="<p>If you did not make this request,you do not need to take any action. Your password cannot be changed without clicking the above link to verify the request.</p>";
 
         $message.="<p>Many thanks</p><br>";
-        $message.="<p><b>Yours ikamy.ch<b></b></p>";
+        $message.="<p><b>$logo<b></b></p>";
 
 
        //Send HTML or Plain Text email

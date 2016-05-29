@@ -59,9 +59,18 @@ $class_array_setup_admin=array('Currency','Category','Category1','Category2','Us
 
 $class_array_kamy=array('Links','MyExpense','MyCigarette','MyCigaretteDay','MyCigaretteMonth','MyCigaretteYear');
 $class_array_setup_kamy=array('MyExpensePerson','MyExpenseType');
+$class_array_setup_transport=array('TransportChauffeur','TransportClient','TransportType',
+    'TransportProgramming','TransportProgrammingModel');
 
 
 
+if(in_array($class_name,$class_array_setup_transport)){
+    $class_transport_active=" active";
+    $class_transport_collapse="";
+} else {
+    $class_transport_active="";
+    $class_transport_collapse=" collapse";
+}
 
 if(in_array($class_name,$class_array_admin)){
     $class_admin_active=" active";

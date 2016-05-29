@@ -17,13 +17,20 @@
 
 
 <!-- Mainly scripts -->
+
+<?php //$normal_pages=array('index','chat','class_manage','class_contacts','expense_loan','forgot_password_email',
+//    'login','logout','mail_compose','mail_detail','mailbox','minor','register') ?>
+
+
+<?php $pages=array('class_edit','class_new') // if not pages ?>
+<?php if(!in_array($active_menu_clean,$pages) ) { ?>
 <script src="<?php echo $path;?>js/jquery-2.1.1.js"></script>
 <script src="<?php echo $path;?>js/bootstrap.min.js"></script>
 <script src="<?php echo $path;?>js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="<?php echo $path;?>js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<?php } unset($pages) ?>
 
-
-<?php if($javascript=="table"){ ?>
+<?php if($javascript=="class_manage"){ ?>
 <script src="<?php echo $path;?>js/plugins/jeditable/jquery.jeditable.js"></script>
 <script src="<?php echo $path;?>js/plugins/dataTables/datatables.min.js"></script>
 <?php } ?>
@@ -41,24 +48,13 @@
 <!--<script src="--><?php //echo $path;?><!--js/demo/peity-demo.js"></script>-->
 
 <!-- Custom and plugin javascript -->
+<?php $pages=array('class_edit','class_new') // if not pages ?>
+<?php if(!in_array($active_menu_clean,$pages) ) { ?>
 <script src="<?php echo $path;?>js/inspinia.js"></script>
 <script src="<?php echo $path;?>js/plugins/pace/pace.min.js"></script>
-
 <!-- jQuery UI -->
 <script src="<?php echo $path;?>js/plugins/jquery-ui/jquery-ui.min.js"></script>
-
-<!-- GITTER -->
-<script src="<?php echo $path;?>js/plugins/gritter/jquery.gritter.min.js"></script>
-
-<!-- Sparkline -->
-<!--<script src="--><?php //echo $path;?><!--js/plugins/sparkline/jquery.sparkline.min.js"></script>-->
-
-<!-- Sparkline demo data  -->
-<!--<script src="--><?php //echo $path;?><!--js/demo/sparkline-demo.js"></script>-->
-
-<!-- ChartJS-->
-<!--<script src="--><?php //echo $path;?><!--js/plugins/chartJs/Chart.min.js"></script>-->
-
+<?php } unset($pages) ?>
 
 
 <?php $pages=array('index') ?>
@@ -80,6 +76,7 @@
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'mailbox.php');?>
 <?php } unset($pages) ?>
+
 
 <?php $pages=array('class_edit','class_new') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>

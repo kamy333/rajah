@@ -48,14 +48,20 @@
         <?php include_once (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."css_php".DS.'forms_input.php');?>
     <?php } unset($pages) ?>
 
+    <?php $pages=array('login_forgot_password_email') ?>
+    <?php if(in_array($active_menu_clean,$pages) ) {
+         $body="class=\"gray-bg\"";} else {$body="";}
+        ?>
+    <?php  unset($pages) ?>
 
 
 </head>
 
 <?php if ($menu_canvas) {
     echo "<body class=\"canvas-menu\">";
+
 } else {
-    echo "<body>";
+    echo "<body $body>";
 
 }?>
 

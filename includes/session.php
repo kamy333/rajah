@@ -35,7 +35,7 @@ class Session {
 
     function __construct() {
      //   session_save_path(SESSION_PATH);
-        session_name('rajah');
+//        session_name('rajah');
         session_start();
         $this->visitor_count();
 		$this->check_message();
@@ -278,7 +278,7 @@ class Session {
 // access-restricted page.
     function confirmation_protected_page() {
      $this->confirm_user_logged_in();
-      $this->confirm_session_is_valid();
+     $this->confirm_session_is_valid();
     }
 
 }

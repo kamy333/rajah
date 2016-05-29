@@ -26,16 +26,38 @@
 
         <div class="wrapper wrapper-content">
             <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-lg-offset-3">
+                        <div class="ibox float-e-margins" ">
+                        <div class="ibox-content">
+                        <p class="text-justify"><?php// echo str_repeat("&nbsp;", 15); ?>
+                            Full Wedding Part1</p>
+                        <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTOEprTW9WMExlNjA/preview" width="640" height="480"></iframe>
+                    </div>
+                </div>
+                    </div>
+                </div>
 
+                <div class="row">
+<!--                    --><?php //echo str_repeat("&nbsp;", 50); ?>
+                    <div class="col-lg-7 col-lg-offset-3">
+                        <div class="ibox float-e-margins" ">
+                        <div class="ibox-content">
+                        <p class="text-justify"><?php// echo str_repeat("&nbsp;", 15); ?>
+                            Full Wedding Part2</p>
+                        <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTVTJ5RUtqTUVjbHc/preview" width="640" height="480"></iframe>
+                        </div>
+                    </div>
+                    </div>
 
-
-
+                </div>
 
                 <div class="row">
                     <div class="col-lg-12 ">
                         <div class="ibox float-e-margins" ">
                             <div class="ibox-content">
-
+                                <p class="text-justify"><?php// echo str_repeat("&nbsp;", 15); ?>
+                                    Summary Wedding</p>
                                 <div class="fb-video" data-href="https://www.facebook.com/albert.tabibian/videos/vb.1270734952/10206162000150236/?type=2&amp;theater" data-width="5000" data-show-text="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/albert.tabibian/videos/10206162000150236/"><a href="https://www.facebook.com/albert.tabibian/videos/10206162000150236/">Captured by Albert Tabibian</a><p></p>Posted by <a href="#" role="button">Albert Tabibian</a> on Tuesday, April 19, 2016</blockquote></div></div>
 
                             </div>
@@ -56,7 +78,7 @@
             </div>
         </div>
 
-                                <div class="row">
+                <div class="row">
 
 
                     <div class="col-lg-4 ">

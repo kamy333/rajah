@@ -16,6 +16,17 @@ require_once('../../includes/initialize.php');?>
 	<?php echo output_message($message); ?>
 
 <!---->
+<?php
+if(User::is_visitor() ){ redirect_to('../../Inspinia/index.php');}
+
+?>
+
+
+<ul>
+    <li>    <li><a href="../../Inspinia/">Bralia click </a></li>
+
+</ul>
+
 
 
 <ul>
