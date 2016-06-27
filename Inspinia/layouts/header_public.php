@@ -1,5 +1,10 @@
 <?php require_once (CONFIG_HEADER);?>
+<?php 
+$public_menu_gallery=array(
+    
+)
 
+?>
 
 <!DOCTYPE html>
 <html>
@@ -17,7 +22,11 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style_personal.css" rel="stylesheet">
 
-
+    
+    <?php $pages=array('chat') ?>
+    <?php if(in_array($active_menu_clean,$pages) ) { ?>
+        <link href="<?php echo $path;?>css/style_chat.css" rel="stylesheet">
+    <?php } unset($pages) ?>
 
 
     <?php $pages=array('index') ?>
@@ -30,11 +39,16 @@
 
 
 
-    <?php $pages=array('index','index_gallery','index_gallery2','index_gallery3') ?>
+    <?php $pages=array('index','index_gallery','index_gallery2','index_gallery3','index_gallery5','index_gallery6',
+        'index_gallery7') ?>
     <?php if(in_array($active_menu_clean,$pages) ) { ?>
    <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."css_php".DS.'blueimpVideo.php');?>
     <?php } unset($pages) ?>
 
+<!--    --><?php //$pages=array('chat') ?>
+<!--    --><?php //if(in_array($active_menu_clean,$pages) ) { ?>
+<!---->
+<!--    --><?php //} unset($pages) ?>
 
 
 

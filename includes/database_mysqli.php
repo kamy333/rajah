@@ -27,14 +27,15 @@ class MySQLDatabaseMYSQLI extends mysqli
         if ($this->connection->connect_errno) {
             die('Database connection failed: ' . $this->connection->connect_error. " (" . $this->connection->connect_errno . ")");
         }
+        
 
     }
 
     public function close_connection()
     {
         if (isset($this->connection)) {
-//            mysqli_close($this->connection);
-            $this->connection->close();
+            mysqli_close($this->connection);
+//            $this->connection->closefff();
         }
 
     }
@@ -55,7 +56,7 @@ class MySQLDatabaseMYSQLI extends mysqli
 
 //        $escaped_string = mysqli_real_escape_string($this->connection, $string);
         $escaped_string = $this->connection->real_escape_string( $string);
-
+       
         return $escaped_string;
     }
 
@@ -101,7 +102,7 @@ class MySQLDatabaseMYSQLI extends mysqli
         $result->free_result();
     }
 }
-$database= new MySQLDatabaseMYSQLI();
+$database1= new MySQLDatabaseMYSQLI();
 
 
 

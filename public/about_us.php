@@ -84,7 +84,9 @@
 <!--                </li>-->
 
                 <li class="thumbnail col-sm-3 col-xs-6 ">
-                    <a href="#kamran_nafisspour" data-toggle="modal"><img src="img/kamy.JPG" style="width: 65%;height: 25%;" alt="Kamran Nafisspour informaticien"  class="img-responsive">></a>
+                    <a href="#kamran_nafisspour" data-toggle="modal">
+                        <img src="img/kamy.JPG" style="width: 65%;height: 25%;" alt="Kamran Nafisspour informaticien"  class="img-responsive">
+                    </a>
                     <div class="caption">
                         <h3>Kamran Nafisspour</h3>
                         <p>Consultant Informatique</p>

@@ -65,12 +65,11 @@ if ($layout_context=="public"){
                     <?php if ( isset($active_menu) && $active_menu=="about"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
                     ><a href="#" data-toggle="dropdown">About us<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo $path_public;?>about_us.php">About us1</a></li>
-                            <li><a href="<?php echo $path_public;?>about_us_2.php">About us 2</a></li>
-                            <li><a href="<?php echo $path_public;?>angular.php">About Us 3</a></li>
-                            <li><a href="<?php echo $path_public;?>angular2.php">AngularJS Login</a></li>
-                            <li><a href="<?php echo $path_public;?>some_data.php">Your info</a></li>
-
+                            <?php echo $Nav->menu_item('','About us1','about_us.php','admin'); ?>
+                            <?php echo $Nav->menu_item('','About us 2','about_us_2.php','admin'); ?>
+                            <?php echo $Nav->menu_item('','About Us 3','angular.php','admin'); ?>
+                            <?php echo $Nav->menu_item('','AngularJS Login','angular2.php','admin'); ?>
+                            <?php echo $Nav->menu_item('','Your info','some_data.php','admin'); ?>
 
                         </ul>
                 </li>
@@ -80,6 +79,7 @@ if ($layout_context=="public"){
                     <?php /*if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} */?>
                     ><a href="<?php /*echo $path_public;*/?>myLinks.php?category=Others">Links</a></li>
 -->
+                
                 <li
                     <?php if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} ?>
                 ><a href="<?php echo $path_public;?>myLinks.php?category=Others">Links</a></li>
@@ -132,31 +132,35 @@ if ($layout_context=="public"){
                         ><a href="#" data-toggle="dropdown">Administration<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-
-                <li><a href="<?php echo $path_admin;?>manage_ToDoList.php">To Do List</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyHouseExpense.php">House Expense</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyExpense.php">Expense</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyExpensePerson.php">Expense Person</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyExpenseType.php">Expense Type</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_MyHouseExpenseType.php">House Expense Type</a></li>
-
-                <li><a href="<?php echo $path_admin;?>manage_MyCigarette.php">Cigarette</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_currency.php">Currency</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_clients.php">Clients</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_projects.php">Projects</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category.php">Category</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category_1.php">Category 1</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_category_2.php">Category 2</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_invoice_actual.php">Invoice Actual</a></li>
-<!--                <li><a href="--><?php //echo $path_admin;?><!--manage_invoice_estimate.php">Invoice Estimate</a></li>-->
-                <li><a href="<?php echo $path_admin;?>manage_invoice_send.php">Invoice Send</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_user.php">Users</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_links.php">Links</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_links_category.php">Links Category</a></li>
+                <?php echo $Nav->menu_item('','To Do List','manage_ToDoList.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Chat','manage_chat.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Chat Friend','manage_ChatFriend.php','admin'); ?>
+                <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('','House Expense','manage_MyHouseExpense.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Expense','manage_MyExpense.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Expense Person','manage_MyExpensePerson.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Expense Type','manage_MyExpenseType.php','admin'); ?>
+                <?php echo $Nav->menu_item('','House Expense Type','manage_MyHouseExpenseType.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Cigarette','manage_MyCigarette.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Currency','manage_currency.php','admin'); ?>
+                <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('','Clients','manage_clients.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Projects','manage_projects.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Category','manage_category.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Category 1','manage_category_1.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Category 2','manage_category_2.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Invoice Actual','manage_invoice_actual.php','admin'); ?>
+                <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('','Users','manage_user.php','admin'); ?>
+                <?php echo "<li class=\"divider\">Links</li>"; ?>
+                <?php echo $Nav->menu_item('','Links','manage_links.php','admin'); ?>
+                <?php echo $Nav->menu_item('','Links Category','manage_links_category.php','admin'); ?>
+                <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('','Invoice Send','manage_invoice_send.php','admin'); ?>
 
 
                             <?php if(isset($session->user_id) and $user->is_admin() ) { ?>
-                                <li><a href="<?php echo $path_admin;?>logfile.php">Log File</a></li>
+                                <?php echo $Nav->menu_item('','Log File','logfile.php','admin'); ?>
                             <?php } ?>
 
 
@@ -170,28 +174,34 @@ if ($layout_context=="public"){
                         ><a href="#" data-toggle="dropdown">New<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                <li><a href="<?php echo $path_admin;?>new_MyCigarette_Add_1.php">Add 1 cig</a></li>
-
-                <li><a href="<?php echo $path_admin;?>new_ToDoList.php">To Do List</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyHouseExpense.php">New House Expense</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyExpense.php">New Expense</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyExpensePerson.php">New Expense Person</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyExpenseType.php">New Expense Type</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyHouseExpenseType.php">New house Expense Type</a></li>
-                <li><a href="<?php echo $path_admin;?>new_MyCigarette.php">New Cigarette</a></li>
-                <li><a href="<?php echo $path_admin;?>new_currency.php">New Currency</a></li>
-                <li><a href="<?php echo $path_admin;?>new_client.php">New Client</a></li>
-                <li><a href="<?php echo $path_admin;?>new_project.php">New Project</a></li>
-                <li><a href="<?php echo $path_admin;?>new_user.php">New User</a></li>
-                <li><a href="<?php echo $path_admin;?>new_category.php">New Category</a></li>
-                <li><a href="<?php echo $path_admin;?>new_category_1.php">New Category 1</a></li>
-                <li><a href="<?php echo $path_admin;?>new_category_2.php">New Category2</a></li>
-                <li><a href="<?php echo $path_admin;?>new_invoice_actual.php">New Invoice Actual</a></li>
-<!--                <li><a href="--><?php //echo $path_admin;?><!--new_invoice_estimate.php">New Invoice Estimate</a></li>-->
-               <li><a href="<?php echo $path_admin;?>new_invoice_send.php">New Invoice Send</a></li>                        <li><a href="<?php echo $path_admin;?>new_invoice_actual_row.php">New Invoice Actual Row</a></li>
-
-                 <li><a href="<?php echo $path_admin;?>new_link.php">New link</a></li>
-                <li><a href="<?php echo $path_admin;?>new_link_category.php">New links Category</a></li>
+<!--                <li><a href="--><?php //echo $path_admin;?><!--"></a></li>-->
+                <?php echo $Nav->menu_item('','Add 1 cig','new_MyCigarette_Add_1.php','admin'); ?>
+                <?php echo $Nav->menu_item('ToDoList','To Do List','new_ToDoList.php','admin'); ?>
+                <?php echo $Nav->menu_item('Chat','Chat','new_chat.php','admin'); ?>
+                <?php echo $Nav->menu_item('ChatFriend','Chat Friend','new_ChatFriend.php','admin'); ?>
+                <?php echo $Nav->menu_item('MyHouseExpense','New House Expense','new_MyHouseExpense.php','admin'); ?>
+                <?php echo $Nav->menu_item('MyExpense','New Expense','new_MyExpense.php','admin'); ?>
+                <?php echo $Nav->menu_item('','New Expense Person','new_MyExpensePerson.php','admin'); ?>
+                <?php echo $Nav->menu_item('MyExpenseType','New Expense Type','new_MyExpenseType.php','admin'); ?>
+                 <?php echo $Nav->menu_item('MyHouseExpenseType','New house Expense Type','new_MyHouseExpenseType.php','admin'); ?>
+                <?php echo $Nav->menu_item('MyCigarette','New Cigarette','new_MyCigarette.php','admin'); ?>
+                <?php echo $Nav->menu_item('Currency','New Currency','new_currency.php','admin'); ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('Client','New Client','new_client.php','admin'); ?>
+                <?php echo $Nav->menu_item('Project','New Project','new_project.php','admin'); ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('User','New User','new_user.php','admin'); ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('Category','New Category','new_category.php','admin'); ?>
+                <?php echo $Nav->menu_item('Category1','New Category 1','new_category_1.php','admin'); ?>
+                <?php echo $Nav->menu_item('Category2','New Category2','new_category_2.php','admin'); ?>
+                <?php echo $Nav->menu_item('InvoiceActual','New Invoice Actual','new_invoice_actual.php','admin'); ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('Links','New link','new_link.php','admin'); ?>
+                <?php echo $Nav->menu_item('LinksCategory','New links Category','new_link_category.php','admin'); ?>
+                <?php echo "<li class=\"divider\"></li>"; ?>
+                <?php echo $Nav->menu_item('','New Invoice Actual Row','new_invoice_actual_row.php','admin'); ?>
+                <?php echo $Nav->menu_item('InvoiceSend','New Invoice Send','new_invoice_send.php','admin'); ?>
 
 
                         </ul>
@@ -202,17 +212,53 @@ if ($layout_context=="public"){
                     ><a href="#" data-toggle="dropdown">Transport<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                <li><a href="<?php echo $path_admin;?>manage_TransportChauffeur.php">Chauffeur</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_TransportType.php">Transport Type</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_TransportClient.php">Client</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_TransportProgramming.php">Course</a></li>
-                <li><a href="<?php echo $path_admin;?>manage_TransportProgrammingModel.php">Model</a></li>
+                            <?php echo $Nav->menu_item('','Chauffeur','manage_TransportChauffeur.php','admin') ?>
+                            <?php echo $Nav->menu_item('','Transport Type','manage_TransportType.php','admin') ?>
+                            <?php echo $Nav->menu_item('','Client','manage_TransportClient.php','admin') ?>
+                            <?php echo $Nav->menu_item('','Course','manage_TransportProgramming.php','admin') ?>
+                            <?php echo $Nav->menu_item('','Model','manage_TransportProgrammingModel.php','admin') ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                            <?php echo $Nav->menu_item('','New Chauffeur','new_TransportChauffeur.php','admin') ?>
+                            <?php echo $Nav->menu_item('','New Transport Type','new_TransportType.php','admin') ?>
+                            <?php echo $Nav->menu_item('','New Client','new_TransportClient.php','admin') ?>
+                            <?php echo $Nav->menu_item('','New Course','new_TransportProgramming.php','admin') ?>
+                            <?php echo $Nav->menu_item('','New Model','new_TransportProgrammingModel.php','admin') ?>
 
-                <li><a href="<?php echo $path_admin;?>new_TransportChauffeur.php">New Chauffeur</a></li>
-                <li><a href="<?php echo $path_admin;?>new_TransportType.php">New Transport Type</a></li>
-                <li><a href="<?php echo $path_admin;?>new_TransportClient.php">New Client</a></li>
-                <li><a href="<?php echo $path_admin;?>new_TransportProgramming.php">New Course</a></li>
-                <li><a href="<?php echo $path_admin;?>new_TransportProgrammingModel.php">New Model</a></li>
+
+
+                        </ul>
+                    </li>
+
+
+
+                    <li
+                        <?php if ( isset($active_menu) && $active_menu=="photo_gallery"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
+                    ><a href="#" data-toggle="dropdown">Photo Gallery<span class="caret"></span></a>
+
+                        <ul class="dropdown-menu">
+
+
+                 <?php echo $Nav->menu_item('','Photos','manage_photos.php') ?>
+                 <?php echo $Nav->menu_item('','Comments','manage_comments.php') ?>
+                 <?php echo $Nav->menu_item('','Comment Photo','manage_comments_photo.php') ?>
+
+                 <?php echo "<li class=\"divider\"></li>"; ?>
+
+                 <?php echo $Nav->menu_item('','New Comment old','new_Comment_old.php') ?>
+                 <?php echo $Nav->menu_item('','New Photo','new_photo.php') ?>
+
+                 <?php echo "<li class=\"divider\"></li>"; ?>
+                 <?php echo $Nav->menu_item('','Public Photo','photo.php',"public") ?>
+                 <?php echo $Nav->menu_item('','Public Photo Gallery','photo_gallery.php',"public") ?>
+
+
+
+                 <?php echo "<li class=\"divider\"></li>"; ?>
+                 <?php echo $Nav->menu_item('','Photos Old','Manage_Photo.php') ?>
+                 <?php echo $Nav->menu_item('','Comments del?','manage_Comment.php') ?>
+                 <?php echo $Nav->menu_item('','Comment Old ','manage_Comment_old.php') ?>
+                 <?php echo $Nav->menu_item('','New Photo_old','new_photo_old.php') ?>
+
 
                         </ul>
                     </li>

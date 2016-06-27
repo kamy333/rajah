@@ -963,6 +963,8 @@ INSERT INTO `user_type` (`id`, `user_type`, `comment`) VALUES
 
 -- --------------------------------------------------------
 
+
+
 --
 -- Structure for view `mycigarette_view_by_day`
 --
@@ -999,6 +1001,10 @@ CREATE VIEW mycigarette_view_by_year AS (
   FROM mycigarette
   GROUP BY  year(cig_date)
 );
+
+
+
+
 
 
 -- Constraints for dumped tables

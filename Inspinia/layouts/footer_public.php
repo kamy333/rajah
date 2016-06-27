@@ -40,7 +40,7 @@
 <!--<script src="js/demo/peity-demo.js"></script>-->
 
 <?php //--------------------------------------------------------------------------------- ?>
-<?php $pages=array('index_gallery','index_video','index_gallery2','index_gallery3','index_gallery4') ?>
+<?php $pages=array('index_gallery','index_video','index_gallery2','index_gallery3','index_gallery4','index_gallery5','index_gallery6','index_gallery7') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <!-- blueimp gallery -->
     <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'blueimpVideo.php');?>
@@ -73,11 +73,11 @@
 <?php //--------------------------------------------------------------------------------- ?>
 
 
-
-<?php //$pages=array('player') ?>
+<!---->
+<?php //$pages=array('chat') ?>
 <?php //if(in_array($active_menu_clean,$pages) ) { ?>
 <!---->
-<!--    <script src="js/plugins/video_players/player.js"></script>-->
+<!--    --><?php //include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'chat.php');?>
 <!---->
 <?php //} unset($pages) ?>
 <?php //--------------------------------------------------------------------------------- ?>
@@ -93,3 +93,4 @@
 </body>
 
 </html>
+<?php if(isset($database)) { $database->close_connection(); } ?>

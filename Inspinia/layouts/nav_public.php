@@ -8,25 +8,22 @@
         </div>
         <div class="navbar-collapse collapse" id="navbar">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <li class="">
                     <a aria-expanded="false" role="button" href="<?php echo $path_admin;?>index.php">Admin </a>
                 </li>
-                <li class="active">
+                <li class="">
                     <a  aria-expanded="false" role="button" href="<?php echo "/smartAdmin/"//.$path;?>index.php?class=2">SmartAdmin</a></li>
                 <li>
                 <li >
                     <a aria-expanded="false" role="button" href="<?php echo $path_public;?>myLinks.php">Links</a>
                 </li>
 
+
+
                 <li class="dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Public <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php echo $path;?>index.php">New public Layout</a></li>
-                        <li><a href="<?php echo $path;?>index_gallery.php">Photo Gallery</a></li>
-                        <li><a href="<?php echo $path;?>index_gallery2.php">Photo Gallery2</a></li>
-                        <li><a href="<?php echo $path;?>index_gallery3.php">Photo Gallery3</a></li>
-                        <li><a href="<?php echo $path;?>index_gallery4.php">Photo Gallery4</a></li>
-                        <li><a href="<?php echo $path;?>index_old">Old public Layout</a></li>
+                        <li><a href="<?php echo $path;?>index_old.php">Old public Layout</a></li>
                         <li><a href="<?php echo $path_public;?>minor.php">Minor</a></li>
                         <li><a href="<?php echo $path_public;?>landing.php">Landing Page</a></li>
                         <li><a href="<?php echo $path_public;?>off_canvas_menu.php">Canvas view</a></li>
@@ -34,12 +31,34 @@
 
                     </ul>
                 </li>
+
+
                 <li class="dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Desiree's Book <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="<?php echo $path;?>index_gallery.php">Gallery</a></li>
                     </ul>
                 </li>
+
+                    <?php
+                    echo  $Nav->public_menu("public_gallery");
+                    if(User::is_bralia()){
+                        echo $Nav->menu_item('','Bralia','index_gallery6.php','public');
+                        echo $Nav->menu_item('','Chat','chat.php','public');
+
+                    }
+
+//                    echo  $Nav->public_menu("Admin_class");
+                    ?>
+
+<!--                <li class="dropdown">-->
+<!--                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Galleries <span class="caret"></span></a>-->
+<!--                    <ul role="menu" class="dropdown-menu">-->
+<!--                        --><?php //echo  gallery_menu_list();?>
+<!---->
+<!--                    </ul>-->
+<!--                </li>-->
+
                 <!--<li class="dropdown">
                     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">

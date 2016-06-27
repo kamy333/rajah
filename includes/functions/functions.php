@@ -91,6 +91,13 @@ function datetime_to_text($datetime="") {
     return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);
 }
 
+
+function datetime_to_text_day($datetime="") {
+    $unix_datetime = strtotime($datetime);
+    return strftime("%a %B %d, %Y at %I:%M %p", $unix_datetime);
+}
+
+
 function now(){
     return strftime("%B %d, %Y at %I:%M %p", time());
 }
@@ -100,6 +107,8 @@ function now(){
 function now_sql(){
   return strftime("%Y-%m-%d",time());  
 }
+
+
 
 function unixToMySQL($timestamp)
 {
@@ -115,10 +124,11 @@ function dateDifference($date_1 , $date_2 , $differenceFormat = '%a' )
 
     $interval = date_diff($datetime1, $datetime2);
 
-    
     return $interval->format($differenceFormat);
 
 }
+
+
 
 function DateDifferenceFormat($date_1 , $date_2){
 
@@ -483,6 +493,8 @@ if(request_is_post()  && $_POST){
 }
 
 
+
+
 function get_picture_folder_blueimp_gallery($img_folder="",$title="",$default_path="public"){
 //    global $folder_project_name;
     $dir=SITE_ROOT.DS.$default_path.DS."/img/".$img_folder;
@@ -503,7 +515,7 @@ function get_picture_folder_blueimp_gallery($img_folder="",$title="",$default_pa
 }
 
 
-function get_picture_folder_bootstrap_gallery($img_folder="",$alt="image",$default_path="public",$caption=false){
+function get_picture_folder_bootstrap_gallery($img_folder="",$alt="image",$default_path="public",$caption=true){
 //    global $folder_project_name;
     $dir=SITE_ROOT.DS.$default_path.DS."/img/".$img_folder;
 
@@ -514,8 +526,11 @@ function get_picture_folder_bootstrap_gallery($img_folder="",$alt="image",$defau
             if(stripos($file, '.') > 0) {
                 $ext = pathinfo($file, PATHINFO_EXTENSION);
                 $file_no_ext= str_replace(".".$ext, "", $file);;
-                if($caption){$out_caption="<div class=\"carousel-caption\">{$file_no_ext}
-                                </div>";} else {$out_caption="";}
+                if($caption){
+                    $out_caption="<div class=\"carousel-caption\">{$file_no_ext}
+                                </div>";
+                } else {
+                    $out_caption="";}
                 if($ext=='jpg' || $ext=='JPG' || $ext=='png' || $ext=='PNG'){
                     $output.= "<div class=\"item\">
                                 <img alt=\"{$alt}\" class=\"img - responsive thum\"                                                            src='img/$img_folder/{$file}'>
@@ -527,6 +542,59 @@ function get_picture_folder_bootstrap_gallery($img_folder="",$alt="image",$defau
     }
     return $output;
 }
+
+
+function get_picture_array($img_folder=""){
+    global $Nav;
+    $default_path=$Nav->folder;
+    $dir=SITE_ROOT.DS.$default_path.DS."/img/".$img_folder;
+
+    $picture_array=array();
+//    $output="";
+    if(is_dir($dir)) {
+        $dir_array = scandir($dir);
+        foreach($dir_array as $file) {
+            if(stripos($file, '.') > 0) {
+                $ext = pathinfo($file, PATHINFO_EXTENSION);
+                $file_no_ext= str_replace(".".$ext, "", $file);;
+
+
+                $alt=trim(substr($file_no_ext,3,100));
+                $alt = str_replace("_", " ", $alt);
+                $alt = ucfirst($alt);
+
+
+                if($ext=='jpg' || $ext=='JPG' || $ext=='png' || $ext=='PNG'){
+
+                    $img_html="<img alt=\"{$file_no_ext}\" class=\"img-responsive\" src='img/$img_folder/{$file}' style='width: 30em;height: 20em' >";
+
+                $img_src="<img src='img/$img_folder/{$file}' alt='{$alt}' class='img-responsive pull-left'> ";
+
+                    $output=array(
+                        "img_tag"=>$img_html,
+                        'img_file'=>$file,
+                        "img_name"=>$file_no_ext,
+                        "img_ext"=>$ext,
+                        "img_folder"=>$Nav->folder,
+                        "img_path"=>$dir,
+                        "img_src"=>$img_src,
+                        "img_alt"=>$alt,
+                    );
+
+                    
+
+                    array_push($picture_array,$output);
+
+
+                }
+            }
+        }
+    }
+    return $picture_array;
+
+
+}
+
 
 function blueimp_lightBoxGallery($content=""){
     $output="";
@@ -562,7 +630,44 @@ function blueimp_wrapper($h2="",$content){
 }
 
 
+function gallery_menu_list(){
+    global $active_menu_clean;
+    global $session;
+    global $path_public;
+
+$p=$active_menu_clean;
+    $pages=array(
+        'index'=>'Home',
+        'index_gallery6'=>'Bralia',
+        'index_gallery'=>'Desiree Wedding',
+        'index_gallery2'=>'Family',
+        'index_gallery3'=>'Friends',
+        'index_gallery4'=>'myPage',
+        'index_gallery5'=>'Lycée Français de Jérusalem',
+        'index_gallery7'=>'Maman Bozorgue');
+    $output="";
+    foreach ($pages as $page=>$pa){
+        if ($page===$p) { $class="active";} else { $class="";}
+
+if ($page=='index_gallery6' && (User::is_bralia())){
+    $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";
+    } elseif($page=='index_gallery6'){
+    $output.="";
+} else {
+    $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";}
+
+    }
+
+    return $output;
+
+
+
+    }
+
+
 function gallery_button(){
+    global $session;
+
     $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
             <div class=\"text-center m-t-lg\">
         <div class=\"btn-group\" role=\"group\" aria-label=\"...\">
@@ -574,13 +679,13 @@ function gallery_button(){
                     <b>Select Gallery</b>
                     <span class=\"caret\"></span>
                 </button>
-                <ul class=\"dropdown-menu\">
-                    <li><a href=\"index_gallery.php\"><b>Desiree Wedding</b></a></li>
-                    <li><a href=\"index_gallery2.php\">Family</a></li>
-                    <li><a href=\"index_gallery3.php\">Friends</a></li>
-                    <li><a href=\"index_gallery4.php\">my page</a></li>
+                <ul class=\"dropdown-menu\">";
 
-                </ul>
+    $output.=gallery_menu_list();
+
+// if( $session->user_id===28 || User::is_kamy()) {$output.="<li><a href=\"index_gallery6.php\">Bralia</a></li>"; }
+
+    $output.=" </ul>
             </div>
         </div>
             </div>
@@ -591,7 +696,7 @@ function gallery_button(){
 
 }
 function admin_button(){
-    global $session;
+
 
     $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
             <div class=\"text-center m-t-lg\">

@@ -27,12 +27,16 @@
          <?php //if(!$angular){ ?>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+
         <script src="js/respond.js"></script>
 
 
     <?php    } else { ?>
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/custom.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
         <script src="../js/respond.js"></script>
 
          <?php //} ?>

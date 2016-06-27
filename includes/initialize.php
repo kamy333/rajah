@@ -13,32 +13,37 @@
         // (\ for Windows, / for Unix)
 
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
+defined('SITE_URL') ? null : define("SITE_URL", "http://".$_SERVER['SERVER_NAME']);
+defined('SITE_ROOT') ? null : define('SITE_ROOT', realpath(dirname(__FILE__).DS."..".DS));
+defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC',SITE_URL.'/rajah_production/public/');
+defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
+
+
+//----------------------------------------DELETE----------------------------------
 $server_name = $_SERVER['SERVER_NAME'];
 $server_local = "localhost";
 //$server_phpstorm = "PhpStorm 8.0.3";
-$server_phpstorm = "PhpStorm 10.0.3";
+$server_phpstorm = "PhpStorm 2016.1.2";
 
-//http://localhost:63342/rajah_production/public/admin/login.php
     if ($server_name === $server_local || $server_name === $server_phpstorm) {
 
-    defined('SITE_ROOT') ? null : define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS . 'rajah_production');
+//    defined('SITE_ROOT') ? null : define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS . 'rajah_production');
     defined('SESSION_PATH')? null : define('SESSION_PATH', 'C:' . DS . 'xampp' . DS . 'tmp' . DS . 'session_rajah');
 
-    defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://localhost/rajah_production/public/');
-    defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
-
-
-
+//    defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://localhost/rajah_production/public/');
+//    defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
 
     } else {
-            defined('SITE_ROOT') ? null : define('SITE_ROOT', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'web');
-
+//            defined('SITE_ROOT') ? null : define('SITE_ROOT', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'web');
+//
             defined('SESSION_PATH') ? null : define('SESSION_PATH', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'tmp');
 
-            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/');
-            defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
+//            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/');
+//            defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
 
     }
+
+//----------------------------------------DELETE----------------------------------
 
 defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 
@@ -99,9 +104,15 @@ require_once(LIB_PATH.DS . 'functions'.DS."reset_token_functions.php");
 
 require_once(LIB_PATH.DS.'config.php');
 
-$use_database_mysqli=true;
+$use_database_mysqli=false;
 
-if($use_database_mysqli){ require_once(LIB_PATH.DS.'database_mysqli.php'); }else { require_once(LIB_PATH.DS.'database.php');}
+if($use_database_mysqli){
+    $jeeez= "sqli";
+    require_once(LIB_PATH.DS.'database_mysqli.php');
+}else {
+    $jeeez= "normal";
+    require_once(LIB_PATH.DS.'database.php');}
+
 require_once(LIB_PATH.DS.'database_object.php');
 require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'Form.php');
@@ -112,6 +123,7 @@ require_once(LIB_PATH.DS.'phpmailer'.DS.'class.smtp.php');
 require_once(LIB_PATH.DS.'phpmailer'.DS.'language'.DS.'phpmailer.lang-am.php');
 require_once(LIB_PATH.DS.'MyPHPMailer.php');
 
+require_once(LIB_PATH.DS.'Nav.php');
 
             // load database-related classes
 require_once(LIB_PATH.DS.'user.php');
@@ -142,8 +154,12 @@ require_once(LIB_PATH.DS.'MyHouseExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');
 require_once(LIB_PATH.DS.'MyHouseExpense.php');
 require_once(LIB_PATH.DS.'Chat.php');
+require_once(LIB_PATH.DS.'ChatFriend.php');
+
 require_once(LIB_PATH.DS.'Notification.php');
 
+require_once(LIB_PATH.DS.'Photo.php');
+require_once(LIB_PATH.DS.'Comment.php');
 
 require_once(LIB_PATH.DS.'transport'.DS.'TransportChauffeur.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportClient.php');

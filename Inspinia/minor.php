@@ -8,7 +8,7 @@
 <?php $incl_message_error=true; ?>
 
 <?php include(HEADER) ?>
-<?php include(SIDEBAR) ?>
+<?php //include(SIDEBAR) ?>
 <?php include(NAV) ?>
 
 
@@ -19,9 +19,9 @@
                 <div class="text-center m-t-lg">
 
 
-                    <h1>Welcome to <?php // echo $active_menu_clean;?> </h1>
+                    <h1>Welcome to <?php  echo LOGO;?> </h1>
 
-                    <h6>
+                    <p>
 
                             <?php echo "Basename ".$active_menu.'<br>';
                             echo "<b>__DIR__</b> ".__DIR__.'<br>';
@@ -31,11 +31,20 @@
                             echo  "<b>MY_URL_PUBLIC</b>  ".MY_URL_PUBLIC.'<br>';
                             echo  "<b>MY_URL_ADMIN</b>  ".MY_URL_ADMIN.'<br>';
                             echo $_SERVER["PHP_SELF"].'<br>';
-                            ?>
+                            echo  $Nav->public_menu("public_gallery").'<br>';
+                            echo  $Nav->public_menu("Admin_class").'<br>';
+                            echo $Nav;
+                            echo $_SERVER['QUERY_STRING'];
+
+                            echo "<hr>";
+                            echo $Nav->folder."<br>";
+echo $jeeez;
+
+                        ?>
 
 
-                    </h6>
-                    <small>Written in minor.html file.</small>
+                    </p>
+<!--                    <small>Written in minor.html file.</small>-->
                         </div>
 
             </div>

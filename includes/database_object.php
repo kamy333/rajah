@@ -1,7 +1,7 @@
 <?php
 // If it's going to need the database, then it's 
 // probably smart to require it before we start.
-require_once(LIB_PATH.DS.'database.php');
+//require_once(LIB_PATH.DS.'database.php');
 
 class DatabaseObject {
 
@@ -48,9 +48,11 @@ class DatabaseObject {
 
     public static $form_default_value;
 
-    
+    protected static function set_form_default_value(){
+//        static::$form_default_value["user_id"]="5";
+    }
     public static function construct_form($get_item=false,$GET=false){
-        
+        static::set_form_default_value();
         $output="";
         $myvalue ="";
         foreach (static::$get_form_element as $val) {
@@ -107,7 +109,7 @@ class DatabaseObject {
 
 
     // list class case sensitive
-public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType') ;
+public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType','Chat','ChatFriend','ToDoList') ;
 
 
 public static function get_table_name() {
@@ -168,6 +170,16 @@ public static function get_table_name() {
         global $database;
         $table=static::$table_name;
         $result_set=$database->query("SELECT count(*) FROM {$table} {$where} ");
+        $row=$database->fetch_array($result_set);
+        return $row ? array_shift($row): false;
+
+    }
+
+
+    public static function find_max_id(){
+        global $database;
+        $table=static::$table_name;
+        $result_set=$database->query("SELECT MAX(id) FROM {$table} ");
         $row=$database->fetch_array($result_set);
         return $row ? array_shift($row): false;
 
@@ -301,7 +313,7 @@ public static function get_table_name() {
         // - escape all values to prevent SQL injection
         $attributes = $this->sanitized_attributes();
         $sql = "INSERT INTO"." ".static::$table_name." (";
-        $sql .= join(", ", array_keys($attributes));
+        $sql .= join(", ", "`".array_keys($attributes)."`");
         $sql .= ") VALUES ('";
         $sql .= join("', '", array_values($attributes));
         $sql .= "')";
@@ -324,7 +336,7 @@ public static function get_table_name() {
         $attributes = $this->sanitized_attributes();
         $attribute_pairs = array();
         foreach($attributes as $key => $value) {
-            $attribute_pairs[] = "{$key}='{$value}'";
+            $attribute_pairs[] = "`{$key}`='{$value}'";
         }
         $sql = "UPDATE ".static::$table_name." SET ";
         $sql .= join(", ", $attribute_pairs);
@@ -343,7 +355,7 @@ public static function get_table_name() {
         // - escape all values to prevent SQL injection
         // - use LIMIT 1
         $sql = "DELETE FROM"." ".static::$table_name;
-        $sql .= " WHERE id=". $database->escape_value($this->id);
+        $sql .= " WHERE `id`=". $database->escape_value($this->id);
         $sql .= " LIMIT 1";
         $database->query($sql);
         return ($database->affected_rows() == 1) ? true : false;

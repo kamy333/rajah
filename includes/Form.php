@@ -25,9 +25,12 @@ class Form extends DatabaseObject{
     public $required =false;
     public $selected =false;
     public $class ;
+    public $add_class;
     public $value;
 
     public $default;
+
+    public $size;
 
 
     public $max;
@@ -41,6 +44,10 @@ class Form extends DatabaseObject{
     public $select_option_text;
     public $field_option_0;
     public $field_option_1;
+
+    public $disabled=false;
+    public $readonly=false;
+
 
     public $onchange;
 
@@ -62,10 +69,17 @@ class Form extends DatabaseObject{
     public function radio(){
         $output="";
         if (isset($this->radio)){
-            $output.="<div class='form-group'>";
+            $output.="<div ";
+            $output.="class='form-group ";
+
+            if (isset($this->add_class)){
+                $output.=$this->add_class;
+            }
+            $output.="'";
+            $output.=">";
 
 
-                $output.="<label ";
+            $output.="<label ";
             if($this->form_format_type==self::FORM_HORIZONTAL){
                 $output.="< class='col-sm-3 control-label' ";
             } else {
@@ -123,7 +137,17 @@ class Form extends DatabaseObject{
         }
 
         if (isset($this->name) && isset($this->label_text)){
-            $output.="<div class='form-group'>";
+//            $output.="<div class='form-group'>";
+
+            $output.="<div ";
+            $output.="class='form-group ";
+
+            if (isset($this->add_class)){
+                $output.=$this->add_class;
+            }
+            $output.="'";
+            $output.=">";
+
             $output.="<label  ";
 
             if($this->form_format_type==self::FORM_HORIZONTAL){
@@ -181,6 +205,18 @@ class Form extends DatabaseObject{
 
             if(isset($this->placeholder)){
                 $output.="placeholder='{$this->placeholder}' ";
+            }
+
+            if(isset($this->size)){
+                $output.="size='{$this->size}' ";
+            }
+
+            if($this->disabled){
+                $output.="disabled ";
+            }
+
+            if($this->readonly){
+                $output.="readonly ";
             }
 
 //            echo "required";
@@ -325,6 +361,8 @@ class Form extends DatabaseObject{
             if($this->selected){
                 $output.=" selected";
             }
+
+
 
             $output.=">";
             $output.=$this->select_option();

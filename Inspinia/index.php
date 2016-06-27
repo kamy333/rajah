@@ -27,16 +27,16 @@
         <div class="wrapper wrapper-content">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-7 col-lg-offset-3">
+                    <div class="col-lg-8 col-lg-offset-3">
                         <div class="ibox float-e-margins" ">
                         <div class="ibox-content">
                         <p class="text-justify"><?php// echo str_repeat("&nbsp;", 15); ?>
                             Full Wedding Part1</p>
-                        <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTOEprTW9WMExlNjA/preview" width="640" height="480"></iframe>
+                            <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTend4empIc0VIQXc/preview" width="640" height="480"></iframe>
                     </div>
                 </div>
                     </div>
-                </div>
+<!--                </div>-->
 
                 <div class="row">
 <!--                    --><?php //echo str_repeat("&nbsp;", 50); ?>
@@ -45,7 +45,7 @@
                         <div class="ibox-content">
                         <p class="text-justify"><?php// echo str_repeat("&nbsp;", 15); ?>
                             Full Wedding Part2</p>
-                        <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTVTJ5RUtqTUVjbHc/preview" width="640" height="480"></iframe>
+                            <iframe src="https://drive.google.com/file/d/0B71yHaesAeDTSmJxbGluTktGUHc/preview" width="640" height="480"></iframe>
                         </div>
                     </div>
                     </div>

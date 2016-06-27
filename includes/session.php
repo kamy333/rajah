@@ -249,13 +249,14 @@ class Session {
 
     // If user is not logged in, end and redirect to login page.
     function confirm_user_logged_in() {
+        global $Nav;
         if(!$this->is_logged_in()) {
             $this->logged_in=false;
                         $this->end_session();
             // Note that header redirection requires output buffering
             // to be turned on or requires nothing has been output
             // (not even whitespace).
-            header("Location: login.php");
+            header("Location: {$Nav->path_admin}login.php");
             exit;
         }
     }
@@ -264,12 +265,13 @@ class Session {
 
 // If session is not valid, end and redirect to login page.
     function confirm_session_is_valid() {
+        global $Nav;
         if(!$this->is_session_valid()) {
             $this->end_session();
             // Note that header redirection requires output buffering
             // to be turned on or requires nothing has been output
             // (not even whitespace).
-            header("Location: login.php");
+            header("Location: {$Nav->path_admin}login.php");
             exit;
         }
     }

@@ -204,7 +204,7 @@ class MyExpense extends DatabaseObject {
     );
 
 
-    public static $db_field_search =array('search_all','download_csv');
+    public static $db_field_search =array('search_all','download_csv','amount','person_id','expense_type_id','expense_date','comment');
 
 
     public static $page_name="Expense Loan";
@@ -515,6 +515,7 @@ GROUP BY expense_type_id;";
             $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_new ."\">Add New Type ". " </a></a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_manage ."\">View Person ". " </a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpenseType::$page_manage ."\">View Type ". " </a>";
+
         return $output;
     }
 

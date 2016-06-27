@@ -612,6 +612,19 @@ class User extends DatabaseObject {
         }
     }
 
+    public static  function is_bralia()
+    {
+        if (isset($_SESSION) && isset($_SESSION['user_id'])) {
+            $found_user = self::find_by_id($_SESSION["user_id"]);
+            if ($found_user->username == 'Captainbraliaji'||$found_user->username == 'kamy'||$found_user->username == 'admin') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
     public static function is_secretary(){
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
             $found_user = self::find_by_id($_SESSION["user_id"]);

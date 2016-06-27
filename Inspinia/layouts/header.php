@@ -17,7 +17,6 @@
 
     <?php $pages=array('index') ?>
     <?php if(in_array($active_menu_clean,$pages) ) { ?>
-
     <!-- Toastr style -->
     <link href="<?php echo $path;?>css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <?php } unset($pages) ?>
@@ -35,6 +34,7 @@
     <link href="<?php echo $path;?>css/animate.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style.css" rel="stylesheet">
     <link href="<?php echo $path;?>css/style_personal.css" rel="stylesheet">
+
 
 
     <?php $pages=array('class_manage') ?>
