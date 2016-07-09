@@ -107,10 +107,8 @@ require_once(LIB_PATH.DS.'config.php');
 $use_database_mysqli=false;
 
 if($use_database_mysqli){
-    $jeeez= "sqli";
     require_once(LIB_PATH.DS.'database_mysqli.php');
 }else {
-    $jeeez= "normal";
     require_once(LIB_PATH.DS.'database.php');}
 
 require_once(LIB_PATH.DS.'database_object.php');
@@ -118,6 +116,8 @@ require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'Form.php');
 require_once(LIB_PATH.DS.'FormValidation.php');
 require_once(LIB_PATH.DS.'Table.php');
+require_once(LIB_PATH.DS.'Modal.php');
+
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.phpmailer.php');
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.smtp.php');
 require_once(LIB_PATH.DS.'phpmailer'.DS.'language'.DS.'phpmailer.lang-am.php');
@@ -154,7 +154,6 @@ require_once(LIB_PATH.DS.'MyHouseExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');
 require_once(LIB_PATH.DS.'MyHouseExpense.php');
 require_once(LIB_PATH.DS.'Chat.php');
-require_once(LIB_PATH.DS.'ChatFriend.php');
 
 require_once(LIB_PATH.DS.'Notification.php');
 

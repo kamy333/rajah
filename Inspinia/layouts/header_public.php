@@ -1,13 +1,10 @@
 <?php require_once (CONFIG_HEADER);?>
-<?php 
-$public_menu_gallery=array(
-    
-)
 
-?>
 
 <!DOCTYPE html>
 <html>
+
+<?php $body_onload=""; ?>
 
 <head>
 
@@ -23,9 +20,13 @@ $public_menu_gallery=array(
     <link href="css/style_personal.css" rel="stylesheet">
 
     
-    <?php $pages=array('chat') ?>
+    <?php $pages=array('chat','chat2') ?>
     <?php if(in_array($active_menu_clean,$pages) ) { ?>
         <link href="<?php echo $path;?>css/style_chat.css" rel="stylesheet">
+        <?php include_once (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'chat.php');?>
+
+       <?php $body_onload=" onload=\"ajax()\" " ?>
+
     <?php } unset($pages) ?>
 
 
@@ -54,7 +55,7 @@ $public_menu_gallery=array(
 
 </head>
 
-<body class="top-navigation">
+<body class="top-navigation" <?php echo $body_onload;?> >
 
 
 <?php $pages=array('index','index_gallery','index_gallery4') ?>

@@ -29,6 +29,8 @@ if(User::is_visitor() ){ redirect_to('../index.php');}
                     </h1>
                         <?php if(User::is_kamy()){ ?>
                         <div class="row">
+                            <?php echo Table::ibox_table(MyExpense::by_person_receivable(),"Expense by Person Receivable Payable",4,0) ?>
+                            <?php echo Table::ibox_table(MyExpense::by_person_don(),"Expense by Person donation Received paid",4,0) ?>
                             <?php echo Table::ibox_table(MyExpense::by_person(),"Expense by Person",4,0) ?>
                             <?php echo Table::ibox_table(MyExpense::by_type(),"Expense by Type",4,0) ?>
                             <?php echo Table::ibox_table(MyExpense::by_ccy(),"Expense by Currency",4,0) ?>

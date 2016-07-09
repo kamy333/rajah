@@ -468,9 +468,14 @@ class User extends DatabaseObject {
 
     }
 
+   public $no_picture=false;
+
+
+
 
     public function set_files($files){
         if(empty($files) || !$files || !is_array($files)){
+            $this->no_picture=true;
             $this->errors="There was no file uploaded";
             return false;
 
@@ -775,6 +780,9 @@ class User extends DatabaseObject {
 
     public function update() {
         $this->password_encrypt();
+        if($this->no_picture){
+//            static::$db_fields = array_diff(static::$db_fields, array("user_image"));
+        }
         parent::update();
 
     }
@@ -912,9 +920,12 @@ public function delete_reset_token() {
     }
 
 
+
+
     protected function set_up_display(){
         $this->set_user_type();
         $this->set_img();
+
 
     }
 
@@ -986,12 +997,172 @@ class UserUpdate extends User {
 
 
 
+
+
 }
 
 class RegisterUser extends User{
 
     public static $required_fields=array('username','password','first_name','last_name','email','user_type_id');
 }
+
+class UpdatePassword extends User {
+
+    public static $required_fields=array('hashed_password',);
+
+//    public $hashed_password;
+
+    public function crypt_password(){
+    $this->hashed_password=password_hash($this->password,PASSWORD_BCRYPT);
+    }
+
+    public  function match_password()
+    {
+
+     $is_match=password_verify($this->password,$this->hashed_password);
+     return $is_match? true :false;
+    }
+
+    static public function form_change_password(){
+
+        global $session;
+        $user=static::find_by_id($session->user_id);
+        $sm=9;
+        $class_label=" class='col-sm-3 control-label left'";
+
+        $output = "";
+
+
+        $output .= "<form class='form-horizontal'  id='update_password' action='' method='post' >";
+
+//        $output .= "<form type='hidden' class='hidden' name='user_id' id='user_id' value='{$user->id}' ";
+
+        $output .= "<div class=\"form-group has-success\">";
+        $output .= "<label $class_label for=\"password\">Actual Password</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='password' class='form-control' name='password' id='password'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"new_password\">New Password</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='password'  class='form-control' name='new_password' id='new_password'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"confirm_password\">Confirm Password</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='password' class='form-control' name='confirm_password' id='confirm_password'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+        $output .= "<div class='col-sm-$sm col-sm-offset-3'>";
+        $output .="<input type='submit' name='submit' class='btn btn-primary' value='update password'  >";
+        $output .= "</div>";
+
+        $output .= "</form>";
+//        $output .= "</div>";
+        return $output;
+
+    }
+
+    static public function form_additional_info(){
+        global $session;
+        $user=static::find_by_id($session->user_id);
+        $sm=9;
+        $class_label=" class='col-sm-3 control-label left'";
+
+        $output = "";
+        $output .= "<form class='form-horizontal' id='additional_info' action='' method='post' >";
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"email\">email</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='email' id='email' value='{$user->email}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"first_name\">First name</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='first_name' id='first_name'  value='{$user->first_name}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"last_name\">Last name</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text'  class='form-control' name='last_name' id='last_name' value='{$user->last_name}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"address\">Street address</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='address' id='address' value='{$user->address}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"cp\">Postal Code</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='cp' id='cp' value='{$user->cp}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"city\">City</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='city' id='city'  value='{$user->city}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"country\">Country</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='country' id='country'  value='{$user->country}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"phone\">Phone</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='phone' id='phone'  value='{$user->phone}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        $output .= "<div class=\"form-group\">";
+        $output .= "<label $class_label for=\"mobile\">Mobile</label>";
+        $output .= "<div class='col-sm-$sm'>";
+        $output.="<input type='text' class='form-control' name='mobile' id='mobile'  value='{$user->mobile}'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+        $output .= "<div class='col-sm-$sm col-sm-offset-3'>";
+        $output .="<input type='submit' name='submit' class='btn btn-primary' value='update info'  >";
+        $output .= "</div>";
+
+        $output .= "</form>";
+
+        return $output;
+    }
+
+
+
+}
+
 
 
 ?>

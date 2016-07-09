@@ -5011,6 +5011,8 @@ dd.project-people {
 .chat-message {
   padding: 10px 20px;
 }
+
+
 .message-avatar {
   height: 48px;
   width: 48px;
@@ -5035,6 +5037,10 @@ dd.project-people {
   position: relative;
   border-radius: 4px;
 }
+
+
+
+
 .chat-discussion .chat-message.left .message-date {
   float: right;
 }
@@ -5056,6 +5062,8 @@ dd.project-people {
 .message-content {
   display: block;
 }
+
+
 .chat-discussion {
   background: #eee;
   padding: 15px;

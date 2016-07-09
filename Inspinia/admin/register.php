@@ -42,6 +42,8 @@ if(request_is_post() && request_is_same_domain()) {
             $user->email = trim($_POST['email']);
             $user->user_type_id =5;
             $user->block_user=0;
+            $user->unread_message=0;
+            $user->unread_notification=0;
 
 
             if (isset($_POST['first_name'])) {

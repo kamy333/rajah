@@ -108,8 +108,7 @@ class DatabaseObject {
     }
 
 
-    // list class case sensitive
-public static $all_class=array('User','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','user_type','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType','Chat','ChatFriend','ToDoList') ;
+
 
 
 public static function get_table_name() {
@@ -313,7 +312,13 @@ public static function get_table_name() {
         // - escape all values to prevent SQL injection
         $attributes = $this->sanitized_attributes();
         $sql = "INSERT INTO"." ".static::$table_name." (";
-        $sql .= join(", ", "`".array_keys($attributes)."`");
+        
+        if (get_called_class()=="ChatFriendx" || get_called_class()=="ChatFriend2x"){
+            $sql .= join(", ", "`".array_keys($attributes)."`");
+        } else {
+            $sql .= join(", ", array_keys($attributes));
+        }
+
         $sql .= ") VALUES ('";
         $sql .= join("', '", array_values($attributes));
         $sql .= "')";
@@ -948,6 +953,50 @@ if($long_short==1){
 
     }
 
+    // list class case sensitive
+  public static $all_class=array('User','user_type','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType','MyHouseExpense','MyHouseExpenseType','Chat','ChatFriend','ToDoList','Notification','TransportChauffeur','TransportClient','TransportProgramming','TransportProgrammingModel','TransportType') ;
+
+  public static function form_structure() {
+      $classes=static::$all_class;
+      $output="";
+      $output .= "<form  class='form-inline' name='".get_called_class()."' method='get' action=''>";
+      $output .= "<select  class='form-control' name='"."class_name"."' >";
+
+      foreach ($classes as $class){
+      $output .= "<option value='$class'>$class</option>";
+      }
+
+      $output .= "</select>";
+      $output .= "<input class=\"btn btn-primary\" type='submit' name='submit' value='Search'>";
+      $output .= "</form>";
+      return $output;
+  }
+
+ public static function class_structure(){
+        $db_fields = static::$db_fields;
+        $class=get_called_class();
+        $count=count($db_fields);
+        $output = "";
+        $output .= "<div class='col-md-3'>";
+        $output .= "<ul class=\"list-group\">";
+        $output .= "<li  class=\"list-group-item\">";
+        $output .= "<span class=\"badge\">$count</span>";
+        $output.="Count in $class </li>";
+        $output .= "<li  class=\"list-group-item\">";
+        $output .= "mySQL <b>".static::$table_name."</b> ";
+        $output .= "</li>";
+     foreach ($db_fields as $f){
+            $output .= "<li  class=\"list-group-item\">";
+            $output .= $f;
+            $output .= "</li>";
+        }
+        $output .= "</ul>";
+        $output .= "</div>";
+
+        return $output;
+
+
+    }
 
 
 

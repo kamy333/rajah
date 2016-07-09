@@ -33,16 +33,19 @@
 
                         <?php
                         echo "<li><a href='{$path_public}chat.php'>Chat</a></li>";
-                        echo "<li><a href='{$path_admin}profile.php'>profile</a></li>";
                         echo "<li><a href='{$path_admin}mailbox.php'>Mailbox</a></li>";
                         echo "<li><a href='{$path_admin}contacts.php'>Contacts</a></li>";
+                        echo $Nav->menu_item('',"<span style='margin-right: 20%'><i class='fa fa-user'></i></span>Profile",'profile.php','public');
 
 
 
                         echo "<li class='divider'></li>";
 
                         if(isset($_SESSION["user_id"])) {
-                            echo "<li><a href='{$path_admin}logout.php'>Logout</a></li>";
+//                            echo "<li><a href='{$path_admin}logout.php'>Logout</a></li>";
+                            echo $Nav->menu_item('','<span style=\'margin-right: 20%\'>
+                            <i class=\'fa fa-sign-out\'></i></span>logout','logout.php','admin');
+
                         } else {
                             echo "<li><a href='{$path_admin}login.php'>Login</a></li>";
 
@@ -59,6 +62,10 @@
             </li>
 
             <?php if($session->is_logged_in()) { ?>
+
+                <li>
+                    <a href="<?php echo $path_public;?>index.php"><i class="fa fa-home"></i> <span class="nav-label">Public</span></a>
+                </li>
             <li>
                 <a href="<?php echo $path_admin;?>index.php"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>

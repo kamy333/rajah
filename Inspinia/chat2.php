@@ -1,5 +1,5 @@
 <?php require_once('../includes/initialize.php');
-  require_once(LIB_PATH.DS.'ChatFriend.php');
+  require_once(LIB_PATH.DS.'ChatFriend2.php');
     ?>
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(!User::is_bralia()){ redirect_to($Nav->path_admin.'index.php');}
@@ -15,16 +15,16 @@
 <?php
 
 if(isset($_GET['delid'])){
-    $del_chat=ChatFriend::find_by_id($_GET['delid']);
+    $del_chat=ChatFriend2::find_by_id($_GET['delid']);
     $del_chat->delete();
 
     if($del_chat->delete()){
-//        $session->message($del_chat->username." comment successfully deleted") ;
-//        $session->ok(true);
-//        redirect_to("chat.php");
+        $session->message($del_chat->username." comment successfully deleted") ;
+        $session->ok(true);
+        redirect_to("chat2.php");
     } else {
         $session->message($del_chat->username." deletion failed ") ;
-//        redirect_to("chat.php");
+        redirect_to("chat2.php");
     }
 }
 
@@ -33,25 +33,31 @@ if(request_is_post()){
 }
 
 if(isset($_POST['submit_new'])=="Send it"){
-    $chatter=new ChatFriend();
+    $chatter=new ChatFriend2();
     $chatter->user_id=$session->user_id;
     $chatter->message=trim($_POST['message']);
     $chatter->date=strftime("%Y-%m-%d %H:%M:%S",time());
-    $chatter->read1=0;
+    if(isset($_FILES['chat_image'])){
+        $chatter->set_files($_FILES['chat_image']) ;
+        $chatter->upload_photo();
+    }
+
 
    if( $chatter->save()){
        echo "<embed loop='false' src='chat.wav' hidden='true' autoplay='true'>";
 //       unset($_POST);
-//       redirect_to('chat.php');
+       redirect_to(ChatFriend2::$page_public);
    }
 
 
 }if (isset($_POST['submit_edit'])=="Update it"){
-    $chatter=ChatFriend::find_by_id($_POST['id']);
+    $chatter=ChatFriend2::find_by_id($_POST['id']);
     $chatter->message=trim($_POST['message']);
+    $chatter->set_files($_FILES['chat_image']) ;
+    $chatter->upload_photo();
 
     $chatter->save();
-    redirect_to('chat.php');
+    redirect_to(ChatFriend2::$page_public);
 
 } else {
     if(request_is_get()){
@@ -81,7 +87,7 @@ if(isset($_POST['submit_new'])=="Send it"){
 
 <?php //echo output_message($message); ?>
 
-<?php $chats=ChatFriend::get_chat();
+<?php $chats=ChatFriend2::get_chat();
 ?>
 
 
@@ -95,7 +101,11 @@ if(isset($_POST['submit_new'])=="Send it"){
             <div class="ibox chat-view">
 
 
-            <?php echo ChatFriend::chat_title()?>
+
+            <?php
+            echo ChatFriend2::img_viewer();
+
+            echo ChatFriend2::chat_title()?>
 
 
                 <div class="ibox-content">
@@ -103,9 +113,9 @@ if(isset($_POST['submit_new'])=="Send it"){
                     <div class="row">
 
                         
-                     <?php echo ChatFriend::chat_message_wrapper() ?>
+                     <?php echo ChatFriend2::chat_message_wrapper() ?>
 
-                     <?php echo ChatFriend::chat_users_wrappers()?>
+                     <?php echo ChatFriend2::chat_users_wrappers()?>
 
                     </div>
 
@@ -113,9 +123,9 @@ if(isset($_POST['submit_new'])=="Send it"){
                     <?php
 
                     if(isset($_GET['id'])){
-                        echo ChatFriend::chat_input_form($_GET['id']);
+                        echo ChatFriend2::chat_input_form($_GET['id']);
                     } else {
-                        echo ChatFriend::chat_input_form();
+                        echo ChatFriend2::chat_input_form();
 
                     }
                     ?>
@@ -136,6 +146,26 @@ if(isset($_POST['submit_new'])=="Send it"){
             $( document ).tooltip();
         });
     </script>
+
+
+
+<?php
+function small_chat_wrapper(){
+$output="";
+    $output .= "";
+    $output .= "";
+    $output .= "";
+    $output .= "";
+    $output .= "";
+
+
+    return $output .= "";
+
+
+}
+
+?>
+
 
 <div class="small-chat-box fadeInRight animated">
 

@@ -14,23 +14,23 @@ class ChatFriend extends DatabaseObject
 
     protected static $table_name="chat_friend";
 
-    protected static $db_fields = array('id', 'user_id','username', 'message','date','read');
+    protected static $db_fields = array('id', 'user_id','username', 'message','date','read1');
 
     public static $required_fields=array('user_id' ,'message','date');
 
-    protected static $db_fields_table_display_short=array('id', 'user_id','username', 'message','date','read');
+    protected static $db_fields_table_display_short=array('id', 'user_id','username', 'message','date','read1');
 
-    protected static $db_fields_table_display_full=array('id', 'user_id','username', 'message','date','read');
+    protected static $db_fields_table_display_full=array('id', 'user_id','username', 'message','date','read1');
 
     protected static $db_field_exclude_table_display_sort=array();
 
 
-    public static $get_form_element=array( 'user_id','username', 'message','date','read','date');
+    public static $get_form_element=array( 'user_id','username', 'message','date','read1','date');
     public static $get_form_element_others=array();
 
     public static $form_default_value=array(
         "date"=>"nowtime()",
-        "read"=>"0"
+        "read1"=>"0"
     );
 
 
@@ -67,10 +67,10 @@ class ChatFriend extends DatabaseObject
             "required" =>true,
 
         ),
-        "read" =>array("type"=>"radio",
+        "read1" =>array("type"=>"radio",
             array(0,
                 array(
-                    "label_all"=>"Read",
+                    "label_all"=>"read1",
                     "name"=>"read",
                     "label_radio"=>"No",
                     "value"=>"0",
@@ -79,7 +79,7 @@ class ChatFriend extends DatabaseObject
             array(1,
                 array(
                     "label_all"=>"Read",
-                    "name"=>"read",
+                    "name"=>"read1",
                     "label_radio"=>"Yes",
                     "value"=>"1",
                     "id"=>"read_yes",
@@ -148,6 +148,7 @@ class ChatFriend extends DatabaseObject
     public static $page_new="new_ChatFriend.php";
     public static $page_edit="edit_ChatFriend.php";
     public static $page_delete="delete_ChatFriend.php";
+    public static $page_public="chat.php";
 
     public static $per_page;
 
@@ -156,7 +157,7 @@ class ChatFriend extends DatabaseObject
     public $user_id;
     public $message;
     public $date;
-    public $read;
+    public $read1;
 
     public $username;
 
@@ -196,31 +197,31 @@ class ChatFriend extends DatabaseObject
 
 
     public static function chat_users_wrappers(){
-    $output="";
-    $output.="<div class='col-md-3'>";
-    $output.="<div class='chat-users'>";
+        $output="";
+        $output.="<div class='col-md-3'>";
+        $output.="<div class='chat-users'>";
 
-    $output.="<div class='users-list'>";
+        $output.="<div class='users-list'>";
 
 
-    $users=User::find_all();
+        $users=User::find_all();
 
-    foreach ( $users as $user) {
-        if ($user->username == 'Captainbraliaji'||$user->username == 'kamy'||$user->username == 'admin'){
-            $output.=static::chat_users($user);
+        foreach ( $users as $user) {
+            if ($user->username == 'Captainbraliaji'||$user->username == 'kamy'||$user->username == 'admin'){
+                $output.=static::chat_users($user);
 
+            }
         }
+
+
+
+        $output.="</div>";
+        $output.="</div>";
+        $output.="</div>";
+
+
+        return $output;
     }
-
-
-
-    $output.="</div>";
-    $output.="</div>";
-    $output.="</div>";
-
-
-    return $output;
-}
 
 
     public static function chat_users($user){
@@ -228,117 +229,131 @@ class ChatFriend extends DatabaseObject
 
 
 
-     $online=" <span class='pull-right label label-primary'>Online</span>";
-     $output="";
+        $online=" <span class='pull-right label label-primary'>Online</span>";
+        $output="";
 
 
-     $output.="<div class='chat-user'>";
-     $output.=$online;
-     $output.="<img class='chat-avatar' src='";
+        $output.="<div class='chat-user'>";
+        $output.=$online;
+        $output.="<img class='chat-avatar' src='";
 //     $output.="img/a4.jpg'";
-     $output.=$user->user_path_and_placeholder();
+        $output.=$user->user_path_and_placeholder();
 
-     $output.="' alt='' >";
-     $output.="";
-     $output.=" <div class='chat-user-name'>";
-     $output.="<a href='#'>";
+        $output.="' alt='' >";
+        $output.="";
+        $output.=" <div class='chat-user-name'>";
+        $output.="<a href='#'>";
 //     $output.="Karl Jordan";
-     $output.=$user->full_name();
-     $output.="</a>";
-     $output.="";
+        $output.=$user->full_name();
+        $output.="</a>";
+        $output.="";
 
-     $output.="</div>";
-     $output.="</div>";
+        $output.="</div>";
+        $output.="</div>";
 
-     return $output;
+        return $output;
 
- }
+    }
 
 
 
     public static function chat_message_wrapper(){
-     $output="";
-     $output.="<div class='col-md-9 '>";
-     $output.="<div class='chat-discussion'>";
+        $output="";
+        $output.="<div class='col-md-9 '>";
+        $output.="<div class='chat-discussion'>";
 
-     $chats=static::get_chat();
+        $output .= "<div id='chat'>";
 
-     foreach ($chats as $chat) {
 
-     $output.=static::chat_message($chat);
- }
-     $output.="</div>";
-     $output.="</div>";
-     return $output;
+        $output.="</div>";
 
- }
+        $output.="</div>";
+        $output.="</div>";
+        return $output;
 
+    }
+
+
+    public static function get_all_chat_message(){
+        $output="";
+
+        $chats=static::get_chat();
+
+        foreach ($chats as $chat) {
+
+            $output.=static::chat_message($chat);
+        }
+
+        return $output;
+
+    }
 
     public static function chat_message($chat,$direction="left"){
 
 
-    global $session;
-    $chat->set_up_display();
-    $from_user=User::find_by_id($chat->user_id);
-    $when=DateDifferenceFormat($chat->date , unixToMySQL(time()) );
+        global $session;
+        $chat->set_up_display();
+        $from_user=User::find_by_id($chat->user_id);
+        $when=DateDifferenceFormat($chat->date , unixToMySQL(time()) );
+
+        if($from_user->username=="kamy"){$direction="right";}else{$direction="left";}
 
 
+        $output="";
 
-    $output="";
+        $output.=" <div class='chat-message $direction'>";
+        $output.="<img class='message-avatar' ";
+        $output.="src='";
 
-    $output.=" <div class='chat-message $direction'>";
-    $output.="<img class='message-avatar' ";
-    $output.="src='";
-
-    $output.=$from_user->user_path_and_placeholder();
+        $output.=$from_user->user_path_and_placeholder();
 //    $output.="img/a4.jpg";
 
-    $output.="' alt='' >";
+        $output.="' alt='' >";
 
-    $output.="<div class='message'>";
-    $output.="<a class='message-author' href='#'>";
-    $output.=$from_user->full_name();
-    $output.="</a>";
-
-    if($session->user_id===$chat->user_id){
-        $output.="<span class='message-edit'> ";
-        $output.="<a href='chat.php?id={$chat->id}'>";
-
-        $output.=" <i class=\"fa fa-edit\"></i>";
+        $output.="<div class='message '>";
+        $output.="<a class='message-author' href='#'>";
+        $output.=$from_user->full_name();
         $output.="</a>";
+
+        if($session->user_id===$chat->user_id){
+            $output.="<span class='message-edit'> ";
+            $output.="<a title='Edit message'  href='chat.php?id={$chat->id}'>";
+
+            $output.=" <i class=\"fa fa-edit\"></i>";
+            $output.="</a>";
+            $output.="</span>";
+
+            $output.="<span class='message-delete'> ";
+            $output.="<a class='' title='Delete message' href='chat.php?delid={$chat->id}' onclick=\"return confirm('Are you sure you want to delete your message?');\" >";
+            $output.="<i class=\"fa fa-minus-square \" style='color: red'></i>";
+            $output.="</a>";
+            $output.="</span>";
+        }
+
+
+        $output.="<span class='message-date'> ";
+
+        $output.=$when;
+
         $output.="</span>";
 
-        $output.="<span class='message-delete'> ";
-        $output.="<a class=''  href='chat.php?delid={$chat->id}'>";
-        $output.="<button class='alert-delete'> <i class=\"fa fa-minus-square \" style='color: red'></i></button>";
-        $output.="</a>";
+        $output.="<span class='message-content'>";
+
+        $output.=$chat->message;
+
         $output.="</span>";
+
+
+
+        $output.="</div>";
+        $output.=" </div>";
+
+
+
+        return $output;
+
+
     }
-
-
-    $output.="<span class='message-date'> ";
-
-    $output.=$when;
-
-    $output.="</span>";
-
-    $output.="<span class='message-content'>";
-
-    $output.=$chat->message;
-
-    $output.="</span>";
-
-
-
-    $output.="</div>";
-    $output.=" </div>";
-
-
-
-    return $output;
-
-
-}
 
     public static function chat_title(){
 
@@ -412,6 +427,18 @@ class ChatFriend extends DatabaseObject
         $output .= $submit_value;
         $output .= "'>";
         $output .= " </span>";
+
+        if($id) {
+
+            $output .= "<span > ";
+            $output .= "<a class='btn btn-info' href='";
+            $output .= static::$page_public;
+            $output .= "' >";
+            $output .= "Cancel";
+            $output .= "</a>";
+            $output .= " </span>";
+        }
+
         $output .= $form_id;
         $output .= csrf_token_tag();
         $output .= "</div>";

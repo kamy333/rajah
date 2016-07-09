@@ -295,7 +295,129 @@ GROUP BY person_id;";
     }
 
 
+    public static function by_person_receivable()
+    {
+        $output="";
+        array_push(static::$db_fields,'total','itemsCount','amountCHF');
+        $table=static::$table_name;
+        $sql="SELECT 
+    person_id,
+    COUNT($table.id) AS itemsCount,
+    SUM($table.amount) AS amount,
+    SUM($table.amount * $table.rate) AS amountCHF
+FROM
+    $table
+    LEFT JOIN myexpense_type
+ON $table.expense_type_id = myexpense_type.id 
+ WHERE   myexpense_type.expense_type=\"Pret\" or myexpense_type.expense_type=\"Rbt\" 
+GROUP BY $table.person_id;";
 
+
+
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
+        $output.="<tr>
+                          <th class='text-center'>Name"."</th>
+                          <th class='text-center'>No Items"."</th>
+                          <th class='text-center'>Total CHF"."</th>
+                          </tr>";
+
+        $results= static::find_by_sql($sql);
+        if($results){
+
+            foreach($results as $result){
+
+                $myperson=MyExpensePerson::find_by_id($result->person_id);
+                $person=$myperson->person_name;
+
+                $output.="<tr>";
+                $output.="<td class='text-center'>{$person}</td>";
+                $output.="<td class='text-center'>{$result->itemsCount}</td>";
+                $output.="<td class='text-right'>".number_format($result->amountCHF,2)."</td>";
+                $output.="</tr>";
+
+                unset($ccy);
+                unset($person);
+            }
+        }
+
+        unset($results);
+
+        $where=" WHERE expense_type_id=1 OR expense_type_id=3 ";
+        $sum=number_format(static ::sum_field_where($field="amount * rate",$where),2);
+
+        $output.="<tr>";
+        $output.="<td class='text-center'><strong>Total</strong></td>";
+        $output.=str_repeat("<td></td>", 1);
+        $output.="<td class='text-right'><strong>".$sum."</strong></td>";
+        $output.="</tr>";
+
+        $output.="</table>";
+        return $output;
+    }
+
+    public static function by_person_don()
+    {
+        $output="";
+        array_push(static::$db_fields,'total','itemsCount','amountCHF');
+        $table=static::$table_name;
+        $sql="SELECT 
+    person_id,
+    COUNT($table.id) AS itemsCount,
+    SUM($table.amount) AS amount,
+    SUM($table.amount * $table.rate) AS amountCHF
+FROM
+    $table
+    LEFT JOIN myexpense_type
+ON $table.expense_type_id = myexpense_type.id 
+ WHERE   myexpense_type.expense_type=\"Give\" or myexpense_type.expense_type=\"Received\" 
+GROUP BY $table.person_id;";
+
+
+
+        $table_class=Table::full_table_class();
+
+        $output.="<table class='$table_class '>";
+        $output.="<tr>
+                          <th class='text-center'>Name"."</th>
+                          <th class='text-center'>No Items"."</th>
+                          <th class='text-center'>Total CHF"."</th>
+                          </tr>";
+
+        $results= static::find_by_sql($sql);
+        if($results){
+
+            foreach($results as $result){
+
+                $myperson=MyExpensePerson::find_by_id($result->person_id);
+                $person=$myperson->person_name;
+
+                $output.="<tr>";
+                $output.="<td class='text-center'>{$person}</td>";
+                $output.="<td class='text-center'>{$result->itemsCount}</td>";
+                $output.="<td class='text-right'>".number_format($result->amountCHF,2)."</td>";
+                $output.="</tr>";
+
+                unset($ccy);
+                unset($person);
+            }
+        }
+
+        unset($results);
+
+        $where=" WHERE expense_type_id=4 OR expense_type_id=5 ";
+        $sum=number_format(static ::sum_field_where($field="amount * rate",$where),2);
+
+        $output.="<tr>";
+        $output.="<td class='text-center'><strong>Total</strong></td>";
+        $output.=str_repeat("<td></td>", 1);
+        $output.="<td class='text-right'><strong>".$sum."</strong></td>";
+        $output.="</tr>";
+
+        $output.="</table>";
+        return $output;
+    }
 
 
     public static function by_person_ccy()

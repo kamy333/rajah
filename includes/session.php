@@ -30,7 +30,9 @@ class Session {
     public $count;
 
    public function set_referrer(){
-       $this->last_page=$_SERVER['HTTP_REFERER'];
+       if(isset($_SERVER['HTTP_REFERER'])) {
+           $this->referrer = $_SERVER['HTTP_REFERER'];
+       }
    }
 
     function __construct() {

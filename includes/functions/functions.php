@@ -644,7 +644,9 @@ $p=$active_menu_clean;
         'index_gallery3'=>'Friends',
         'index_gallery4'=>'myPage',
         'index_gallery5'=>'Lycée Français de Jérusalem',
-        'index_gallery7'=>'Maman Bozorgue');
+        'index_gallery7'=>'Maman Bozorgue',
+        'index_gallery8'=>'Film');
+
     $output="";
     foreach ($pages as $page=>$pa){
         if ($page===$p) { $class="active";} else { $class="";}
@@ -657,6 +659,8 @@ if ($page=='index_gallery6' && (User::is_bralia())){
     $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";}
 
     }
+
+
 
     return $output;
 

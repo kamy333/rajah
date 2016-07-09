@@ -60,16 +60,18 @@ if ($layout_context=="public"){
 
                 </li>
 
+                <?php echo $Nav->menu_item('','Galleries',SmartNav::$http.'Inspinia/index.php' ,''); ?>
+
 
                 <li
                     <?php if ( isset($active_menu) && $active_menu=="about"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
                     ><a href="#" data-toggle="dropdown">About us<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <?php echo $Nav->menu_item('','About us1','about_us.php','admin'); ?>
-                            <?php echo $Nav->menu_item('','About us 2','about_us_2.php','admin'); ?>
-                            <?php echo $Nav->menu_item('','About Us 3','angular.php','admin'); ?>
-                            <?php echo $Nav->menu_item('','AngularJS Login','angular2.php','admin'); ?>
-                            <?php echo $Nav->menu_item('','Your info','some_data.php','admin'); ?>
+                        <?php echo $Nav->menu_item('','About us1','about_us.php','public'); ?>
+                        <?php echo $Nav->menu_item('','About us 2','about_us_2.php','public'); ?>
+                        <?php echo $Nav->menu_item('','About Us 3','angular.php','public'); ?>
+                        <?php echo $Nav->menu_item('','AngularJS Login','angular2.php','public'); ?>
+                        <?php echo $Nav->menu_item('','Your info','some_data.php','public'); ?>
 
                         </ul>
                 </li>

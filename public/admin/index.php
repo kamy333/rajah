@@ -21,6 +21,52 @@ if(User::is_visitor() ){ redirect_to('../../Inspinia/index.php');}
 
 ?>
 
+<div class="row">
+
+   
+    
+<?php
+echo DatabaseObject::form_structure();
+
+if(isset($_GET['class_name'])){
+    $class_name=$_GET['class_name'];
+    echo $class_name::class_structure();
+}
+
+
+
+//
+//echo Category::class_structure();
+//echo Category1::class_structure();
+//echo Category2::class_structure();
+//
+//echo User::class_structure();
+//echo Chat::class_structure();
+////echo ChatFriend::class_structure();
+//
+//echo Client::class_structure();
+//echo Comment::class_structure();
+//echo Currency::class_structure();
+//
+//echo FailedLogin::class_structure();
+//echo InvoiceActual::class_structure();
+//echo InvoiceEstimate::class_structure();
+//echo InvoiceSend::class_structure();
+//
+//echo Links::class_structure();
+//echo LinksCategory::class_structure();
+//echo MyCigarette::class_structure();
+//echo MyExpense::class_structure();
+
+
+?>
+</div>
+
+<hr>
+
+<div class="row">
+    <div class="col-md-12">
+
 
 <ul>
     <li>    <li><a href="../../Inspinia/">Bralia click </a></li>
@@ -79,7 +125,8 @@ if(User::is_visitor() ){ redirect_to('../../Inspinia/index.php');}
 
     </ul>
 
-
+    </div>
+</div>
 
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
 		

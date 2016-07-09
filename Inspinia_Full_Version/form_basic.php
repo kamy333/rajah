@@ -531,6 +531,8 @@
                         </div>
                     </div>
                 </div>
+
+
                 <div class="col-lg-4">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -553,6 +555,7 @@
                                 </a>
                             </div>
                         </div>
+
                         <div class="ibox-content">
                             <div class="text-center">
                             <a data-toggle="modal" class="btn btn-primary" href="#modal-form">Form in simple modal box</a>

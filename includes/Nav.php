@@ -14,6 +14,7 @@ public static $http="http://www.ikamy.ch/";
 public $path;
 public $path_admin;
 public $path_public;
+
 public $layout_context;
 public $active_admin;
 public $active_public="";
@@ -21,6 +22,7 @@ public $active_public="";
 public  $current_page;
 public  $current_page_php;
 public  $folder;
+
 
 
     function __construct() {
@@ -79,7 +81,10 @@ public  $folder;
              'index_gallery3'=>'Friends',
              'index_gallery4'=>'My Page',
              'index_gallery5'=>'Lycée Français de Jérusalem',
-             'index_gallery7'=>'Maman Bozorgue')
+             'index_gallery7'=>'Maman Bozorgue',
+             'index_gallery8'=>'Film',
+
+         )
  ),
          "admin_public_menu"=>array(
              'name'=>"gallery",
@@ -98,7 +103,9 @@ public  $folder;
                  'index_gallery3'=>'Friends',
                  'index_gallery4'=>'My Page',
                  'index_gallery5'=>'Lycée Français de Jérusalem',
-                 'index_gallery7'=>'Maman Bozorgue')
+                 'index_gallery7'=>'Maman Bozorgue',
+                 'index_gallery8'=>'Film',
+             )
          ),
              "Admin_class"=>array(
                  'name'=>"admin",
@@ -212,10 +219,15 @@ $array_class=array();
         if ($page===$this->current_page) { $class="active";} else { $class="";}
 
 
-        if ($page=='index_gallery6' && ($session->user_id===28 ||User::is_kamy())){
+
+        if ($page=='index_gallery6' && (User::is_bralia())){
             $output.="<li class='$class'><a  href=\"{$path}{$the_page}\">$page_title</a></li>";
-        } elseif($page=='index_gallery6'){
+        } elseif($page=='index_gallery8' &&$session->is_logged_in()){
+            $output.="<li class='$class'><a  href=\"{$path}{$the_page}\">$page_title</a></li>";
+
+        } elseif($page=='index_gallery6'|| $page=='index_gallery8' ){
             $output.="";
+
         } else {
             $output.="<li class='$class'><a  href=\"{$path}{$the_page}\">$page_title</a></li>";}
 
@@ -348,7 +360,10 @@ public function format_menu_public($menu_name="Unknown",$class="")  {
         }
 
 
-        if($area==='admin'){$path=$this->path_admin;}elseif($area==='public'){$path=$this->path_public;}
+        if($area==='admin'){
+            $path=$this->path_admin;
+        }elseif($area==='public'){
+            $path=$this->path_public;}
         else{$path="";}
         
 
