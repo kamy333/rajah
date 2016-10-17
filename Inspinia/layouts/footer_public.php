@@ -73,13 +73,28 @@
 <?php //--------------------------------------------------------------------------------- ?>
 
 
-<!---->
-<?php //$pages=array('chat') ?>
-<?php //if(in_array($active_menu_clean,$pages) ) { ?>
-<!---->
+
+<?php $pages=array('chat') ?>
+<?php if(in_array($active_menu_clean,$pages) ) { ?>
+
 <!--    --><?php //include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'chat.php');?>
-<!---->
-<?php //} unset($pages) ?>
+    <script src="js/plugins/summernote/summernote.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+        });
+        var edit = function() {
+            $('.click2edit').summernote({focus: true});
+        };
+        var save = function() {
+            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
+            $('.click2edit').destroy();
+        };
+    </script>
+<?php } unset($pages) ?>
 <?php //--------------------------------------------------------------------------------- ?>
 
 

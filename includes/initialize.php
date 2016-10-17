@@ -82,6 +82,7 @@ $logo.="<span style='color: darkcyan'><b>h</b></span>";
 defined('LOGO')   ? null : define("LOGO", $logo);
 
 
+
                 // load config file first
 //require_once(LIB_PATH.DS.'config.php');
 
@@ -116,7 +117,7 @@ require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'Form.php');
 require_once(LIB_PATH.DS.'FormValidation.php');
 require_once(LIB_PATH.DS.'Table.php');
-require_once(LIB_PATH.DS.'Modal.php');
+//require_once(LIB_PATH.DS.'Modal.php');
 
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.phpmailer.php');
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.smtp.php');

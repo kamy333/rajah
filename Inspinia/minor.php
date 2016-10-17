@@ -18,11 +18,11 @@
 
             <div class="row">
                 <?php
-                $content=UpdatePassword::form_change_password();
+                $content=UpdateUserProfile::form_change_password();
                 echo Table::ibox_table($content,'Change your password',4,3);
                 unset($content);
 
-                $content=UpdatePassword::form_additional_info();
+                $content=UpdateUserProfile::form_additional_info();
                 echo Table::ibox_table($content,'Change your personal info',6,3);
 
 

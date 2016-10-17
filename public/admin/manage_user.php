@@ -63,7 +63,7 @@ if($view_full_table==1){
 <?php $active_menu="admin" ?>
 <?php $stylesheets="" //custom_form  ?>
 <?php $view_full_table==1? $fluid_view=true :$fluid_view=false; ?>
-<?php $javascript="form_admin" ?>
+<?php $javascript="" ?>
 <?php $sub_menu=false ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>

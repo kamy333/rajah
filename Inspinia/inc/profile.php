@@ -1,3 +1,12 @@
+<?php  $session->confirmation_protected_page(); ?>
+
+
+<?php
+
+
+?>
+
+
 
 
 
@@ -17,7 +26,7 @@
 
 
 <div class="row" style="margin-top: 10%">
-<div class="col-lg-4">
+<div class="col-lg-4 col-lg-offset-1">
     <div class="contact-box">
         <a href="#">
             <div class="col-sm-4">
@@ -87,93 +96,53 @@
 </div>
 
 
-<div class="col-lg-4 col-lg-offset-2">
 
-<!--<div class='panel-group' id='accordion' role='tablist' aria-multiselectable='true'>
-
-    <div class='panel panel-danger'>
-        <div class='panel-heading' role='tab' id='headingOne'>
-            <h4 class='panel-title' style="font-size: larger">
-                <a  role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseOne' aria-expanded='true' aria-controls='collapseOne'>
-                    Change password
-                </a>
-            </h4>
-        </div>
-        <div id='collapseOne' class='panel-collapse collapse in' role='tabpanel' aria-labelledby='headingOne'>
-            <div class='panel-body'  style="margin-left: 15%">
-
-                <?php echo UpdatePassword::form_change_password();?>
-
-            </div>
-        </div>
-    </div>
-
-    <div class='panel panel-success'>
-        <div class='panel-heading' role='tab' id='headingTwo'>
-            <h4 class='panel-title text-justify'  style="font-size: larger">
-                <a class='collapsed' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseTwo' aria-expanded='false' aria-controls='collapseTwo'>
-                    Change your personal info
-                </a>
-            </h4>
-        </div>
-        <div id='collapseTwo' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingTwo'>
-            <div class='panel-body' style="margin-left: 15%">
-
-                <?php   echo UpdatePassword::form_additional_info();?>
-
-
-
-            </div>
-        </div>
-    </div>
-
-    <div class='panel panel-primary'>
-        <div class='panel-heading' role='tab' id='headingThree'>
-            <h4 class='panel-title' style="font-size: larger">
-                <a class='collapsed' role='button' data-toggle='collapse' data-parent='#accordion' href='#collapseThree' aria-expanded='false' aria-controls='collapseThree'>
-                    Change your profile picture
-                </a>
-            </h4>
-        </div>
-        <div id='collapseThree' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headingThree'>
-            <div class='panel-body'>
-
-                coming soon
-
-            </div>
-        </div>
-    </div>
-</div>
-    -->
-</div>
 
 
 
     <div class="row">
-        <div class="col-lg-6 col-lg-offset-1">
+        <div class="col-lg-5 col-lg-offset-1">
             <div class="tabs-container">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#tab-1">Password</a></li>
                     <li class=""><a data-toggle="tab" href="#tab-2">Other info</a></li>
+                    <li class=""><a data-toggle="tab" href="#tab-3">Photo</a></li>
+
                 </ul>
                 <div class="tab-content">
+
                     <div id="tab-1" class="tab-pane active">
                         <div class="panel-body " >
                         <p class="text-center"><strong>Change password here</strong></p>
-                            <?php echo UpdatePassword::form_change_password();?>
+                            <?php echo UpdateUserProfile::form_change_password();?>
 
                             <div class="col-lg-6 col-lg-offset-1" style=" ">
                             </div>
                         </div>
                     </div>
+
+
                     <div id="tab-2" class="tab-pane">
                         <div class="panel-body">
                             <p class="text-center"><strong>Update user info</strong></p>
 
-                            <?php   echo UpdatePassword::form_additional_info();?>
+                            <?php   echo UpdateUserProfile::form_additional_info();?>
 
                         </div>
                     </div>
+
+
+                    <div id="tab-3" class="tab-pane">
+                        <div class="panel-body">
+                            <p class="text-center"><strong>Update your picture</strong></p>
+
+                            <?php   echo UpdateUserProfile::form_photo();?>
+
+                        </div>
+                    </div>
+
+
+
                 </div>
 
 

@@ -49,12 +49,15 @@ class User extends DatabaseObject {
             "name"=>'user_image',
             "label_text"=>"User photo",
             "required" =>false,
+            "autocomplete"=>"off",
+
         ),
         "password"=> array("type"=>"password",
             "name"=>'password',
             "label_text"=>"Password",
             "placeholder"=>"Password",
             "required" =>true,
+            "autocomplete"=>"off",
         ),
         "nom"=> array("type"=>"text",
             "name"=>'nom',
@@ -160,10 +163,10 @@ class User extends DatabaseObject {
             "placeholder"=>"mobile No",
             "required" =>false,
         ),
-
-        "img"=> array("type"=>"file",
-            "name"=>'img',
-         ),
+//
+//        "img"=> array("type"=>"file",
+//            "name"=>'img',
+//         ),
 
 
     );
@@ -468,14 +471,15 @@ class User extends DatabaseObject {
 
     }
 
-   public $no_picture=false;
+//   public $no_picture=false;
 
 
 
 
     public function set_files($files){
         if(empty($files) || !$files || !is_array($files)){
-            $this->no_picture=true;
+//            $this->no_picture=true;
+
             $this->errors="There was no file uploaded";
             return false;
 
@@ -603,8 +607,6 @@ class User extends DatabaseObject {
         }
     }
 
-
-
     public static  function is_kamy()
     {
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -628,7 +630,6 @@ class User extends DatabaseObject {
             }
         }
     }
-
 
     public static function is_secretary(){
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -780,9 +781,7 @@ class User extends DatabaseObject {
 
     public function update() {
         $this->password_encrypt();
-        if($this->no_picture){
-//            static::$db_fields = array_diff(static::$db_fields, array("user_image"));
-        }
+
         parent::update();
 
     }
@@ -972,6 +971,10 @@ if(isset($this->user_type_id))  {
 }
 }
 
+
+
+
+
     }
 
 
@@ -1006,11 +1009,31 @@ class RegisterUser extends User{
     public static $required_fields=array('username','password','first_name','last_name','email','user_type_id');
 }
 
-class UpdatePassword extends User {
+class UpdateUserProfile extends User {
 
-    public static $required_fields=array('hashed_password',);
+//    public static $db_fields=array('');
+//    public static $required_fields=array('password','new_password','confirm_password');
 
 //    public $hashed_password;
+//    public $password;
+    public $new_password;
+    public $confirm_password;
+//    public $hashed_password;
+
+//    public function __construct()
+//    {
+//        $this->csrf=csrf_token_tag();
+//    }
+//
+//    public $csrf;
+
+//    public static function create_csrf(){
+//        return csrf_token_tag();
+//
+//}
+
+
+
 
     public function crypt_password(){
     $this->hashed_password=password_hash($this->password,PASSWORD_BCRYPT);
@@ -1023,6 +1046,13 @@ class UpdatePassword extends User {
      return $is_match? true :false;
     }
 
+   public function get_hashed_password(){
+       return $this->hashed_password;
+    
+}
+
+
+
     static public function form_change_password(){
 
         global $session;
@@ -1033,9 +1063,11 @@ class UpdatePassword extends User {
         $output = "";
 
 
-        $output .= "<form class='form-horizontal'  id='update_password' action='' method='post' >";
+        $output .= "<form class='form-horizontal'  id='update_password' action='".$_SERVER["PHP_SELF"]."' method='post' >";
 
-//        $output .= "<form type='hidden' class='hidden' name='user_id' id='user_id' value='{$user->id}' ";
+        $output .= "<input type='hidden' class='hidden' name='id' id='id' value='{$user->id}'> ";
+        $output .=  csrf_token_tag(1);
+//        $output.=$csrf;
 
         $output .= "<div class=\"form-group has-success\">";
         $output .= "<label $class_label for=\"password\">Actual Password</label>";
@@ -1061,7 +1093,7 @@ class UpdatePassword extends User {
         $output .= "</div>";
 
         $output .= "<div class='col-sm-$sm col-sm-offset-3'>";
-        $output .="<input type='submit' name='submit' class='btn btn-primary' value='update password'  >";
+        $output .="<input type='submit' name='submit' class='btn btn-primary' value='Update Password'  >";
         $output .= "</div>";
 
         $output .= "</form>";
@@ -1077,7 +1109,7 @@ class UpdatePassword extends User {
         $class_label=" class='col-sm-3 control-label left'";
 
         $output = "";
-        $output .= "<form class='form-horizontal' id='additional_info' action='' method='post' >";
+        $output .= "<form class='form-horizontal' id='additional_info' action='".$_SERVER["PHP_SELF"]."' method='post' >";
 
         $output .= "<div class=\"form-group\">";
         $output .= "<label $class_label for=\"email\">email</label>";
@@ -1085,6 +1117,11 @@ class UpdatePassword extends User {
         $output.="<input type='text' class='form-control' name='email' id='email' value='{$user->email}'>";
         $output .= "</div>";
         $output .= "</div>";
+
+        $output .= "<input type='hidden' class='hidden' name='id' id='id' value='{$user->id}'> ";
+        $output .=  csrf_token_tag(2);
+//        $output.=$csrf;
+
 
 
         $output .= "<div class=\"form-group\">";
@@ -1151,7 +1188,7 @@ class UpdatePassword extends User {
         $output .= "</div>";
 
         $output .= "<div class='col-sm-$sm col-sm-offset-3'>";
-        $output .="<input type='submit' name='submit' class='btn btn-primary' value='update info'  >";
+        $output .="<input type='submit' name='submit' class='btn btn-primary' value='Update Info'  >";
         $output .= "</div>";
 
         $output .= "</form>";
@@ -1159,6 +1196,55 @@ class UpdatePassword extends User {
         return $output;
     }
 
+    public static function form_photo(){
+        global $session;
+        $user=static::find_by_id($session->user_id);
+        $sm=9;
+        $class_label=" class='col-sm-3 control-label left'";
+
+        $output = "";
+        $output .= "<form class='form-horizontal' id='update_photo' action='".$_SERVER["PHP_SELF"]."' method='post'  enctype=\"multipart/form-data\" >";
+
+//        $output .= "<div class=\"form-group\">";
+//        $output .= "<label $class_label for=\"email\">email</label>";
+//        $output .= "<div class='col-sm-$sm'>";
+//        $output.="<input type='text' class='form-control' name='email' id='email' value='{$user->email}'>";
+//        $output .= "</div>";
+//        $output .= "</div>";
+//
+
+        $output .= "<input type='hidden' class='hidden' name='id' id='id' value='{$user->id}'> ";
+        $output .=  csrf_token_tag(3);
+
+        $output .= "<div class=\"form-group\">
+    <label for='user_image'>File input</label>
+    <input type='file' name='user_image' id='user_image'>
+    <p class=\"help-block\">choose picture.</p>
+  </div>";
+
+        $output .= "<div class='col-sm-$sm col-sm-offset-3'>";
+        $output .="<input type='submit' name='submit' class='btn btn-primary' value='Update Photo'  >";
+        $output .= "</div>";
+
+        $output .= "</form>";
+
+//        $output .= "<div class='col-sm-4'>
+//                <div class='text-center pull-right '>
+//                    <img alt=\"image\" class=\"img-circle m-t-xs img-responsive\" src=\"";
+//
+//        $output .=  $user->user_path_and_placeholder();
+//        $output .= "            \" >
+//                    <div class=\"m-t-xs font-bold\">";
+//
+//        $output .=  $user->user_type;
+//              $output .= "           </div>
+//                </div>
+//            </div>;";
+
+        return $output;
+
+
+    }
 
 
 }

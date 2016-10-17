@@ -187,6 +187,10 @@ class Form extends DatabaseObject{
                 $output.=" max='{$this->max}' ";
             }
 
+            if (isset($this->autocomplete)){
+                $output.=" autocomplete='{$this->autocomplete}' ";
+            }
+
             if (isset($this->onchange)){
                 $output.=" onchange='{$this->onchange}'";
             }

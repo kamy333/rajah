@@ -9,7 +9,7 @@
 class SmartNav
 {
 
-public static $http="http://www.ikamy.ch/";
+public $http="http://www.ikamy.ch/";
 
 public $path;
 public $path_admin;
@@ -31,6 +31,8 @@ public  $folder;
 
  public function get_path()   {
 
+     global $server_local;
+     global $server_phpstorm;
      $this->current_page_php=basename($_SERVER["PHP_SELF"]) ;
      $this->current_page = str_replace(".php", "", $this->current_page_php);
      $pos1=strpos($_SERVER["PHP_SELF"],"/");
@@ -38,6 +40,15 @@ public  $folder;
      $pos_Dif=$pos2-$pos1;
      $this->folder= substr($_SERVER["PHP_SELF"],$pos1+1,$pos_Dif-1);
      $this->path_relative();
+     if($_SERVER['SERVER_NAME']==$server_local) {
+         $this->http = "http://" . $_SERVER['SERVER_NAME'] . "/" . LOCALHOST_FOLDER . "/";
+     }elseif ($_SERVER['SERVER_NAME']==$server_phpstorm){
+         echo "verify_link class SmartNav";
+     } else {
+         $this->http="http://".$_SERVER['SERVER_NAME']."/";
+
+     }
+     http://localhost/Inspinia/index.php
  }
 
    public function __toString()
@@ -50,7 +61,7 @@ public  $folder;
        $output.="\$folder: ".$this->folder."<br>";
        $output.="\$current_page: = ".$this->current_page."<br>";
        $output.="\$current_page.php: = ".$this->current_page_php."<br>";
-       $output.="\$http =: ".static::$http."<br>";
+       $output.="\$http =: ".$this->http."<br>";
 
 
        $output.="\$layout_context: =  ".$this->layout_context."<br>";

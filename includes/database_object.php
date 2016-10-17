@@ -48,6 +48,8 @@ class DatabaseObject {
 
     public static $form_default_value;
 
+
+
     protected static function set_form_default_value(){
 //        static::$form_default_value["user_id"]="5";
     }
@@ -114,6 +116,54 @@ class DatabaseObject {
 public static function get_table_name() {
         $table=static::$table_name;
         return $table;
+    }
+
+
+
+    public function unset_table_fields($fields=""){
+        if(is_array($fields)){
+            foreach ($fields as $field ){
+                if(in_array($field, static::$db_fields)) {
+                    $i = array_search($field, static::$db_fields);
+                    unset(static::$db_fields[$i]);
+                } else {echo "<br>$field does not exists<br>";}
+            }
+        } else {
+
+            if(in_array($fields, static::$db_fields)){
+                $i=array_search($fields,static::$db_fields);
+                unset(static::$db_fields[$i]);
+            }  else {echo "<br>$fields does not exists<br>";}
+
+        }
+
+        static::$db_fields=array_values(static::$db_fields);
+
+
+    }
+
+
+
+    public function unset_required_fields($fields=""){
+        if(is_array($fields)){
+            foreach ($fields as $field ){
+                if(in_array($field, static::$required_fields)) {
+                    $i = array_search($field, static::$required_fields);
+                    unset(static::$required_fields[$i]);
+                } else {echo "<br>$field does not exists";}
+            }
+        } else {
+
+            if(in_array($fields, static::$required_fields)){
+                $i=array_search($fields,static::$required_fields);
+                unset(static::$required_fields[$i]);
+            }  else {echo "<br>$fields does not exists";}
+
+        }
+
+        static::$required_fields=array_values(static::$required_fields);
+
+
     }
 
     public static function get_table_field() {
@@ -312,13 +362,7 @@ public static function get_table_name() {
         // - escape all values to prevent SQL injection
         $attributes = $this->sanitized_attributes();
         $sql = "INSERT INTO"." ".static::$table_name." (";
-        
-        if (get_called_class()=="ChatFriendx" || get_called_class()=="ChatFriend2x"){
-            $sql .= join(", ", "`".array_keys($attributes)."`");
-        } else {
-            $sql .= join(", ", array_keys($attributes));
-        }
-
+         $sql .= join(", ", array_keys($attributes));
         $sql .= ") VALUES ('";
         $sql .= join("', '", array_values($attributes));
         $sql .= "')";
@@ -370,7 +414,7 @@ public static function get_table_name() {
         // This can be useful, as in:
         //   echo $user->first_name . " was deleted";
         // but, for example, we can't call $user->update()
-        // after calling $user->delete().
+        // after calling $user->delete().d
     }
 
     public static function option_distinct($field0,$field1){
@@ -772,7 +816,7 @@ public static function get_table_name() {
         $fieldname = str_replace("_", " ", $fieldname);
         $fieldname = ucfirst($fieldname);
 
-        $output.= "<th class='text-center'style='vertical-align:middle;background-color:=red;'>".$new_query_ASC."&nbsp;".$fieldname.$new_query_DESC."&nbsp;"."</th>";
+        $output.= "<th class='text-center' style='vertical-align:middle;background-color:=red;'>".$new_query_ASC."&nbsp;".$fieldname.$new_query_DESC."&nbsp;"."</th>";
                 }
 
 

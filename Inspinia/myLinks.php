@@ -12,7 +12,7 @@
 <?php include(HEADER_PUBLIC) ;?>
 <?php include_once(NAV_PUBLIC) ?>
 
-
+<div class="white-bg">
 
 <div class="row">
     <?php echo $session->message(); ?>
@@ -21,7 +21,7 @@
 
 
 
-    <div class="row">
+    <div class="row ">
         <div class="col-lg-11 col-lg-offset-1 col-md-11 col-md-offset-1 col-sm-5">
             <?php echo Links::get_search_category(); ?>
         </div>
@@ -436,6 +436,7 @@ echo "<hr>";
 
 </div>
 </div>  <!--container-->
+</div>
 <?php include(FOOTER_PUBLIC) ;?>
 
 

@@ -22,10 +22,12 @@
     
     <?php $pages=array('chat','chat2') ?>
     <?php if(in_array($active_menu_clean,$pages) ) { ?>
+        <link href="css/plugins/summernote/summernote.css" rel="stylesheet">
+        <link href="css/plugins/summernote/summernote-bs3.css" rel="stylesheet">
         <link href="<?php echo $path;?>css/style_chat.css" rel="stylesheet">
         <?php include_once (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'chat.php');?>
 
-       <?php $body_onload=" onload=\"ajax()\" " ?>
+        <?php $body_onload=" onload=\"ajax()\" " ?>
 
     <?php } unset($pages) ?>
 

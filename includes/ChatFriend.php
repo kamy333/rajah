@@ -14,18 +14,18 @@ class ChatFriend extends DatabaseObject
 
     protected static $table_name="chat_friend";
 
-    protected static $db_fields = array('id', 'user_id','username', 'message','date','read1');
+    protected static $db_fields = array('id', 'user_id','username', 'message','date','read1','img');
 
     public static $required_fields=array('user_id' ,'message','date');
 
-    protected static $db_fields_table_display_short=array('id', 'user_id','username', 'message','date','read1');
+    protected static $db_fields_table_display_short=array('id', 'user_id','username', 'message','date','read1','img');
 
-    protected static $db_fields_table_display_full=array('id', 'user_id','username', 'message','date','read1');
+    protected static $db_fields_table_display_full=array('id', 'user_id','username', 'message','date','read1','img');
 
     protected static $db_field_exclude_table_display_sort=array();
 
 
-    public static $get_form_element=array( 'user_id','username', 'message','date','read1','date');
+    public static $get_form_element=array( 'user_id','username', 'message','date','read1','date','img');
     public static $get_form_element_others=array();
 
     public static $form_default_value=array(
@@ -70,8 +70,8 @@ class ChatFriend extends DatabaseObject
         "read1" =>array("type"=>"radio",
             array(0,
                 array(
-                    "label_all"=>"read1",
-                    "name"=>"read",
+                    "label_all"=>"Read",
+                    "name"=>"read1",
                     "label_radio"=>"No",
                     "value"=>"0",
                     "id"=>"read_no",
@@ -91,6 +91,9 @@ class ChatFriend extends DatabaseObject
             "placeholder"=>"current",
             "required" =>true,
             "add_class"=>"hidden",
+        ),
+        "img"=> array("type"=>"file",
+            "name"=>'img',
         ),
 
     );
@@ -143,7 +146,7 @@ class ChatFriend extends DatabaseObject
     );
 
 
-    public static $page_name="Chat Friend";
+    public static $page_name="Chat Friend2";
     public static $page_manage="manage_ChatFriend.php";
     public static $page_new="new_ChatFriend.php";
     public static $page_edit="edit_ChatFriend.php";
@@ -158,8 +161,93 @@ class ChatFriend extends DatabaseObject
     public $message;
     public $date;
     public $read1;
+    public $img;
 
     public $username;
+
+
+    public $upload_directory="uploads";
+    public $full_path_directory=PATH_UPLOAD;
+    public $image_placeholder="";
+//        "https://www.mountaineers.org/images/placeholder-images/placeholder-400-x-400/image_preview";
+
+
+    public $tmp_path;
+    public $type;
+    public $size;
+    public $errors=array();
+    public $upload_errors_array=array(
+        // http://www.php.net/manual/en/features.file-upload.errors.php
+        UPLOAD_ERR_OK 			=> "No errors.",
+        UPLOAD_ERR_INI_SIZE  	=> "Larger than upload_max_filesize.",
+        UPLOAD_ERR_FORM_SIZE 	=> "Larger than form MAX_FILE_SIZE.",
+        UPLOAD_ERR_PARTIAL 		=> "Partial upload.",
+        UPLOAD_ERR_NO_FILE 		=> "No file  uploaded.",
+        UPLOAD_ERR_NO_TMP_DIR   => "No temporary directory.",
+        UPLOAD_ERR_CANT_WRITE   => "Can't write to disk.",
+        UPLOAD_ERR_EXTENSION 	=> "File upload stopped by extension."
+    );
+
+    public function chat_path_and_placeholder(){
+        $dir=   "../../". $this->upload_directory.DS.$this->img;
+//     $dir=   $this->full_path_directory.DS.$this->user_image;
+
+        return empty($this->img)?$this->image_placeholder :$dir;
+
+
+    }
+
+    public function set_files($files){
+        if(empty($files) || !$files || !is_array($files)){
+//            $this->no_picture=true;
+            $this->errors="There was no file uploaded";
+            return false;
+
+        } elseif ($files['error'] !=0){
+            $this->errors[]=$this->upload_errors_array[$files['error']];
+            return false;
+        }else{
+            $this->img=basename($files['name']);
+            $this->tmp_path=$files['tmp_name'];
+            $this->type=$files['type'];
+            $this->size=$files['size'];
+            return true;
+        }
+    }
+
+    public function upload_photo() {
+
+        if(!empty($this->errors)){
+            return false;
+        }
+
+        if(empty($this->img)|| empty($this->tmp_path)){
+            $this->errors[] ="the file was not available";
+            return false;
+        }
+
+        $target_path=$this->full_path_directory.DS.$this->img;
+//     var_dump($target_path) ;
+
+        if (file_exists($target_path)) {
+            $this->errors[] ="the file {$this->img} already exists";
+            return false;
+        }
+
+        if(move_uploaded_file($this->tmp_path,$target_path)){
+
+            unset($this->tmp_path)  ;
+            return true;
+
+        } else {
+            $this->errors[] ="the folder probably does not have permission ";
+            return false;
+        }
+
+
+    }
+
+
 
 
     public function set_up_display(){
@@ -264,7 +352,7 @@ class ChatFriend extends DatabaseObject
 
         $output .= "<div id='chat'>";
 
-
+        // here is ajax content get_all_chat_message
         $output.="</div>";
 
         $output.="</div>";
@@ -272,6 +360,9 @@ class ChatFriend extends DatabaseObject
         return $output;
 
     }
+
+
+
 
 
     public static function get_all_chat_message(){
@@ -283,6 +374,7 @@ class ChatFriend extends DatabaseObject
 
             $output.=static::chat_message($chat);
         }
+
 
         return $output;
 
@@ -317,14 +409,14 @@ class ChatFriend extends DatabaseObject
 
         if($session->user_id===$chat->user_id){
             $output.="<span class='message-edit'> ";
-            $output.="<a title='Edit message'  href='chat.php?id={$chat->id}'>";
+            $output.="<a title='Edit message'  href='".static::$page_public."?id={$chat->id}'>";
 
             $output.=" <i class=\"fa fa-edit\"></i>";
             $output.="</a>";
             $output.="</span>";
 
             $output.="<span class='message-delete'> ";
-            $output.="<a class='' title='Delete message' href='chat.php?delid={$chat->id}' onclick=\"return confirm('Are you sure you want to delete your message?');\" >";
+            $output.="<a class='' title='Delete message' href='".static::$page_public."?delid={$chat->id}' onclick=\"return confirm('Are you sure you want to delete your message?');\" >";
             $output.="<i class=\"fa fa-minus-square \" style='color: red'></i>";
             $output.="</a>";
             $output.="</span>";
@@ -341,6 +433,18 @@ class ChatFriend extends DatabaseObject
 
         $output.=$chat->message;
 
+        if(!empty($chat->img)){
+            $output .= "<br>";
+            $output .= "<a href='".static::$page_public."?chat_id=".u($chat->id)."'>";
+            $output.="<img class='hover_img' style='width:50px; height:50px' ";
+            $output.="src='";
+
+            $output.=$chat->chat_path_and_placeholder();
+
+            $output.="' alt='' >";
+            $output .= "</a>";
+        }
+
         $output.="</span>";
 
 
@@ -354,6 +458,9 @@ class ChatFriend extends DatabaseObject
 
 
     }
+
+
+
 
     public static function chat_title(){
 
@@ -392,6 +499,17 @@ class ChatFriend extends DatabaseObject
         if($id){
             $chat=static::find_by_id($id);
             $message=$chat->message;
+            $image="";
+            if(!empty($chat->img)){
+
+                $image.="<img class='hover_img' style='width:50px; height:50px' ";
+                $image.="src='";
+
+                $image.=$chat->chat_path_and_placeholder();
+
+                $image.="' alt='' >";
+            }
+
             $header_form="<h4>Edit your message here</h4>";
             $submit_value="Update it";
             $submit_name="submit_edit";
@@ -399,6 +517,7 @@ class ChatFriend extends DatabaseObject
             $form_id=Form::form_id();
         } else {
             $message="";
+            $image="";
             $header_form="";
             $submit_value="Send it";
             $submit_name="submit_new";
@@ -413,13 +532,24 @@ class ChatFriend extends DatabaseObject
         $output.= "<div class='col-lg-9'>";
         $output.=$header_form;
         $output .= "<div class='chat-message-form'>";
-        $output .= "<form action='chat.php";
+        $output .= "<form action='".static::$page_public;
         $output .= $get;
-        $output .= "' method='post'>";
+        $output .= "' method='post' enctype='multipart/form-data'>";
         $output .= "<div class='form-group'>";
-        $output .= " <textarea class='form-control message-input' name='message' placeholder='Enter message text'>";
+        $output .= " <textarea class='summernote form-control message-input' name='message'  placeholder='Enter message text'>";
         $output .= $message;
+
+
         $output .= "</textarea>";
+
+
+
+
+        $output .= "<span class='pull-right' style='margin-right: 50%'>";
+
+
+        $output .= "<input type='file' name='chat_image' id='chat_image'  class='form-control' >";
+        $output .= "</span>";
         $output .= "<span > ";
         $output .= "<input class='btn btn-primary' type='submit' name='";
         $output .= $submit_name;
@@ -427,6 +557,9 @@ class ChatFriend extends DatabaseObject
         $output .= $submit_value;
         $output .= "'>";
         $output .= " </span>";
+
+
+
 
         if($id) {
 
@@ -437,6 +570,10 @@ class ChatFriend extends DatabaseObject
             $output .= "Cancel";
             $output .= "</a>";
             $output .= " </span>";
+
+            $output .= "<span class='pull-right'>";
+            $output.=$image;
+            $output.="</span>";
         }
 
         $output .= $form_id;
@@ -452,6 +589,55 @@ class ChatFriend extends DatabaseObject
 
 
     }
+
+    public static function img_script(){
+        $output = "";
+        $output .= "<script>";
+
+        $output .= " $(\".hover_img\").mouseover(function() {
+            $(this).css(\"width\",\"50em\");
+            $(this).css(\"height\",\"50em\");
+
+        }).mouseout(function() {
+            $(this).css(\"width\",\"3em\");
+            $(this).css(\"height\",\"3em\");
+        });";
+        $output .= "</script>";
+        return $output;
+    }
+
+
+    public static function img_viewer(){
+        $output = "";
+        if(isset($_GET['chat_id'])){
+            $chat=static::find_by_id($_GET['chat_id']);
+            if($chat){
+                $output .= "<div class='row'>";
+                $output .= "<div class='col-lg-8 col-md-offset-2' >";
+                $output .= "<a href='".static::$page_public."'>Back to chat</a>";
+                $output .= "<a href='".static::$page_public."'>";
+                $output.="<img class=\"img-responsive\" alt=\"Responsive image\" style='width:100%; height:100%' ";
+                $output.="src='";
+
+                $output.=$chat->chat_path_and_placeholder();
+
+                $output.="' alt='' >";
+                $output .= "</a>";
+                $output .= "</div>";
+                $output .= "</div>";
+            }
+
+        }
+        $output .= "";
+
+        return $output;
+
+
+    }
+
+
+
+
 
 
 }

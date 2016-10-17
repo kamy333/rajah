@@ -60,7 +60,7 @@ if ($layout_context=="public"){
 
                 </li>
 
-                <?php echo $Nav->menu_item('','Galleries',SmartNav::$http.'Inspinia/index.php' ,''); ?>
+                <?php echo $Nav->menu_item('','Galleries',$Nav->http.'Inspinia/index.php' ,''); ?>
 
 
                 <li

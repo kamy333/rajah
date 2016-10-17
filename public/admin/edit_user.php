@@ -16,7 +16,19 @@ if(isset($_GET['id'])){
 
 ?>
 <?php
+//
+//echo "<pre>";
+//var_dump($_POST);
+//var_dump($_FILES);
+//if (empty($_FILES['user_image'])){
+//    echo "empty file"."<br>";
+//
+//} else {
+//    echo "xxxxxx empty file"."<br>";
+//
+//}
 
+//echo "</pre>";
 
 //echo "<pre>";
 //print_r($_FILES["user_image"]);
@@ -31,12 +43,13 @@ if(request_is_post() && request_is_same_domain()) {
     } else {
 
         if (isset($_POST['submit'])) { // Form has been submitted.
-            $new_this_class = new $class_name();
+//            $new_this_class = new $class_name();
+            $new_this_class=$class_name::find_by_id($_POST['id']);
 
             $expected_fields=$new_this_class::get_table_field();
             foreach($expected_fields as $field){
                 if(isset($_POST[$field])){
-                    $new_this_class->$field=trim($_POST{$field}) ;
+                echo    $new_this_class->$field=trim($_POST{$field}) ;
                 }
             }
 
@@ -61,7 +74,10 @@ if(request_is_post() && request_is_same_domain()) {
 
             if(empty($valid->errors)){
 
-                if (!empty($_FILES['user_image'])){
+
+
+
+                    if (!empty($_FILES['user_image'])){
                     $new_this_class->set_files($_FILES['user_image']) ;
                     $new_this_class->upload_photo();
                                       }
@@ -81,7 +97,7 @@ if(request_is_post() && request_is_same_domain()) {
                     if (!$user->save()){
                         $session->message($class_name.$new_this_class->username." "."has been updated for ID (".$new_this_class->id .")");
                         $session->ok(true);
-//                        redirect_to($class_name::$page_manage);
+                        redirect_to($class_name::$page_manage);
                     } else {
                         $session->message("User: ".$new_this_class->username." "."edit failed");
 
@@ -128,7 +144,7 @@ if(isset($_GET['id'])){
 
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php  echo isset($valid)? $valid->form_warnings():"" ?>
-<?php echo $message; ?>
+<?php if (isset($message)) {echo $message;} ?>
 <?php // echo output_message($message); ?>
 
 <?php
@@ -153,7 +169,7 @@ if(isset($_GET['id'])){
     <div class ="background_light_blue">
 
 
-        <form name="form_client"  class="form-horizontal" method="post" action="<?php echo $post_link;?>" enctype="multipart/form-data">
+        <form name="form_client"  autocomplete="off"   class="form-horizontal" method="post" action="<?php echo $post_link;?>" enctype="multipart/form-data">
 
             <fieldset id="login" title="User">
                 <legend class="text-center" style="color: #0000ff">Update User</legend>
@@ -175,7 +191,7 @@ if(isset($_GET['id'])){
 
 
             <div class="col-sm-offset-3 col-sm-7 col-xs-3">
-                <button type="submit" name="submit" class="btn btn-primary">Updaate</button>
+                <button type="submit" name="submit" class="btn btn-primary">Update</button>
             </div>
 
             <div class="text-right " >

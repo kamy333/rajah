@@ -377,6 +377,27 @@ public $warnings=array();
     }
 
 
+    public function is_equal($value1,$value2){
+        if(isset($_POST[$value1]) &&isset($_POST[$value2]) ){
+            $v1=trim($_POST[$value1]);
+            $v2=trim($_POST[$value2]);
+            if($v1!==$v2){
+                $this->errors["equality"]=$this->fieldname_as_text($value1). " and ". $this->fieldname_as_text($value2)." have different values";
+            }
+
+        } else {
+            $this->errors["equality"]=$this->fieldname_as_text($value1). " and ". $this->fieldname_as_text($value2)." missing value(s) to compare";
+
+
+        }
+
+
+
+
+
+    }
+
+
     public function validate_Date($fields_with_dates, $format = 'YYYY-MM-DD') {
     $year=""; $day=""; $month="";
    // $field="Date" ;
