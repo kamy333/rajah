@@ -105,7 +105,7 @@ function now(){
 
 
 function now_sql(){
-  return strftime("%Y-%m-%d",time());  
+    return strftime("%Y-%m-%d",time());
 }
 
 
@@ -141,7 +141,7 @@ function DateDifferenceFormat($date_1 , $date_2){
     if($day<1){
         if($hour==0) {
             if($minute<2){$minutes="Minute";$now=true;} else {$minutes="Minutes";}
-             $differenceFormat = "%i $minutes ago";
+            $differenceFormat = "%i $minutes ago";
 
 
         }  else {
@@ -351,22 +351,22 @@ function remove_get($remove=array()){
 
     $array=array();
 
-if (isset($_GET)){
-    foreach($_GET as $key=>$val){
-        if(!in_array($key,$remove)){
-            $url_decode=urldecode($val);
-            $array[$key] =$url_decode  ;
+    if (isset($_GET)){
+        foreach($_GET as $key=>$val){
+            if(!in_array($key,$remove)){
+                $url_decode=urldecode($val);
+                $array[$key] =$url_decode  ;
+            }
         }
-    }
 
 //    var_dump($array);
 //   var_dump($_GET);
 
-    return "?".http_build_query($array)."&";
-} else {
+        return "?".http_build_query($array)."&";
+    } else {
 
-    return "?";
-}
+        return "?";
+    }
 
 }
 
@@ -385,13 +385,13 @@ function get_where_string($class_name){
             if(!empty ($_GET['search_all'])  ){
                 $j=0;
 
-            foreach($class_name::get_table_field() as $col){
-            $j++;
-            $value=e (urldecode($_GET['search_all'])) ;
-            $j==1? $where=" WHERE ":$where=" OR ";
-            $where_query.=$where . $col." like '%".$value ."%'";
+                foreach($class_name::get_table_field() as $col){
+                    $j++;
+                    $value=e (urldecode($_GET['search_all'])) ;
+                    $j==1? $where=" WHERE ":$where=" OR ";
+                    $where_query.=$where . $col." like '%".$value ."%'";
 
-            }
+                }
 
 
             } else {
@@ -455,9 +455,9 @@ function forwarded_ip(){
             $ip_array=explode(",",$_SERVER[$key]);
             foreach ($ip_array as $ip) {
                 $ip=trim($ip);
-            if(validate_ip($ip)){
-                return $ip;
-            }
+                if(validate_ip($ip)){
+                    return $ip;
+                }
 
             }
 
@@ -474,17 +474,17 @@ function check_request(){
 //    echo array_count_values($_POST['project_id']);
 
 
-if(request_is_post()  && $_POST){
-    echo "<p>POST Request Value</p>"."<br>";
-    echo "<pre>";
-     print_r($_POST);
-    echo "</pre>";
-}
+    if(request_is_post()  && $_POST){
+        echo "<p>POST Request Value</p>"."<br>";
+        echo "<pre>";
+        print_r($_POST);
+        echo "</pre>";
+    }
 
     if(request_is_get() && $_GET){
         echo "<p>GET Request Value</p>"."<br>";
         echo "<pre>";
-         print_r($_GET);
+        print_r($_GET);
         echo "</pre>";
     }
 
@@ -568,7 +568,7 @@ function get_picture_array($img_folder=""){
 
                     $img_html="<img alt=\"{$file_no_ext}\" class=\"img-responsive\" src='img/$img_folder/{$file}' style='width: 30em;height: 20em' >";
 
-                $img_src="<img src='img/$img_folder/{$file}' alt='{$alt}' class='img-responsive pull-left'> ";
+                    $img_src="<img src='img/$img_folder/{$file}' alt='{$alt}' class='img-responsive pull-left'> ";
 
                     $output=array(
                         "img_tag"=>$img_html,
@@ -581,7 +581,7 @@ function get_picture_array($img_folder=""){
                         "img_alt"=>$alt,
                     );
 
-                    
+
 
                     array_push($picture_array,$output);
 
@@ -629,34 +629,51 @@ function blueimp_wrapper($h2="",$content){
     return $output;
 }
 
+function get_gallery_array($no=1){
+    $pages=array();
+    if ($no===1) {
+        $pages=array(
+            'index'=>'Home',
+            'index_gallery6'=>'Bralia',
+            'index_gallery'=>'Desiree Wedding',
+            'index_gallery2'=>'Family',
+            'index_gallery3'=>'Friends',
+            'index_gallery4'=>'myPage',
+            'index_gallery5'=>'Lycée Français de Jérusalem',
+            'index_gallery7'=>'Maman Bozorgue',
+            'index_gallery8'=>'Film');
+    } elseif($no===2){
+        $pages=array(
+            'index'=>'Home',
+        );
 
-function gallery_menu_list(){
+    }
+
+    return $pages;
+
+}
+
+
+function gallery_menu_list($no=1){
     global $active_menu_clean;
     global $session;
     global $path_public;
 
-$p=$active_menu_clean;
-    $pages=array(
-        'index'=>'Home',
-        'index_gallery6'=>'Bralia',
-        'index_gallery'=>'Desiree Wedding',
-        'index_gallery2'=>'Family',
-        'index_gallery3'=>'Friends',
-        'index_gallery4'=>'myPage',
-        'index_gallery5'=>'Lycée Français de Jérusalem',
-        'index_gallery7'=>'Maman Bozorgue',
-        'index_gallery8'=>'Film');
+    $p=$active_menu_clean;
+
+
+    $pages=get_gallery_array($no);
 
     $output="";
     foreach ($pages as $page=>$pa){
         if ($page===$p) { $class="active";} else { $class="";}
 
-if ($page=='index_gallery6' && (User::is_bralia())){
-    $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";
-    } elseif($page=='index_gallery6'){
-    $output.="";
-} else {
-    $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";}
+        if ($page=='index_gallery6' && (User::is_bralia())){
+            $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";
+        } elseif($page=='index_gallery6'){
+            $output.="";
+        } else {
+            $output.="<li class='$class'><a  href=\"$path_public $page.php\">$pa</a></li>";}
 
     }
 
@@ -666,10 +683,10 @@ if ($page=='index_gallery6' && (User::is_bralia())){
 
 
 
-    }
+}
 
 
-function gallery_button(){
+function gallery_button($no=1){
     global $session;
 
     $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
@@ -685,7 +702,7 @@ function gallery_button(){
                 </button>
                 <ul class=\"dropdown-menu\">";
 
-    $output.=gallery_menu_list();
+    $output.=gallery_menu_list($no);
 
 // if( $session->user_id===28 || User::is_kamy()) {$output.="<li><a href=\"index_gallery6.php\">Bralia</a></li>"; }
 
@@ -715,9 +732,9 @@ function admin_button(){
                 </button>
                 <ul class=\"dropdown-menu\">
                     <li><a href=\"index.php\"><b>Admin</b></a></li>";
-        if(User::is_kamy()){
-            $output.="<li><a href=\"expense_loan.php\">Loan and House</a></li>";
-        }
+    if(User::is_kamy()){
+        $output.="<li><a href=\"expense_loan.php\">Loan and House</a></li>";
+    }
 
     $output.="                 <li><a href=\"minor.php\">Minor</a></li>
                     <li><a href=\"01_test.php\">test 01</a></li>

@@ -14,7 +14,9 @@ if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
-<?php echo $message; ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
 
 

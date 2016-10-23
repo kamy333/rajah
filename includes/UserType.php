@@ -20,7 +20,7 @@ class UserType extends DatabaseObject {
     public static $get_form_element=array('user_type','comment');
     public static $get_form_element_others=array();
 
-  
+
 
     protected static $form_properties= array(
         "user_type"=> array("type"=>"text",
@@ -28,15 +28,15 @@ class UserType extends DatabaseObject {
             "label_text"=>"User type eg employee",
             "placeholder"=>"input user type",
             "required" =>true,
-            ),
+        ),
 
-            "comment"=> array("type"=>"textarea",
-                "name"=>'comment',
-                "label_text"=>"",
-                "placeholder"=>"Comment",
-                "required" =>true,
-            ),
-        );
+        "comment"=> array("type"=>"textarea",
+            "name"=>'comment',
+            "label_text"=>"",
+            "placeholder"=>"Comment",
+            "required" =>true,
+        ),
+    );
 
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
@@ -108,7 +108,7 @@ class UserType extends DatabaseObject {
     }
 
 
-    public function display_table($long_short=0){
+    public function display_table($long_short=0,$edit=""){
 
         $output="";
         $output.= "<tr>";
@@ -128,7 +128,7 @@ class UserType extends DatabaseObject {
             }
         }
 
-   //     $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+        //     $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
 
         $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
         $output.= "</tr>";

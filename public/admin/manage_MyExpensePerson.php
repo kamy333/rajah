@@ -70,7 +70,9 @@ if($view_full_table==1){
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
-<?php echo $message; ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
 <?php echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
 

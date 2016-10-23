@@ -131,8 +131,16 @@ if(isset($_GET['id'])){
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php  echo isset($valid)? $valid->form_warnings():"" ?>
 
-<?php echo $message; ?>
-<?php // echo output_message($message); ?>
+<?php //if (isset($message)) {
+//    echo $message;
+//} ?>
+
+<?php if (!empty($message)) {
+    echo output_message($message);
+} ?>
+
+<?php checking(false);?>
+
 
 <?php
 

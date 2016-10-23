@@ -31,7 +31,6 @@
                         <li><a href="<?php echo $path_public;?>minor.php">Minor</a></li>
                         <li><a href="<?php echo $path_public;?>landing.php">Landing Page</a></li>
                         <li><a href="<?php echo $path_public;?>off_canvas_menu.php">Canvas view</a></li>
-                        <li><a href="<?php echo $path_public;?>player.php">players</a></li>
                         <?php echo $Nav->menu_item('','SmartAdmin','http://www.ikamy.ch/smartAdmin/','none',true) ?>
                         <?php echo $Nav->menu_item('','SmartAdmin full version','http://www.ikamy.ch/SmartAdmin_Full_Version_html/','none',true) ?>
                     </ul>
@@ -39,36 +38,25 @@
                 <?php } ?>
 
                 <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Desiree's Book <span class="caret"></span></a>
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Etis's Book <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="<?php echo $path;?>index_gallery.php">Gallery</a></li>
+                <?php       echo $Nav->menu_item('','Home','index.php','public'); ?>
                     </ul>
                 </li>
 
                     <?php
                     echo  $Nav->public_menu("public_gallery");
                     if(User::is_bralia()){
-                        echo $Nav->menu_item('','Bralia','index_gallery6.php','public');
                         echo $Nav->menu_item('','Chat','chat.php','public');
                         if(User::is_admin()){
-//                            echo $Nav->menu_item('','ChatTest','chat2.php','public');
                         }
 
                     }
 
-//                    echo  $Nav->public_menu("Admin_class");
                     ?>
 
-                <!--
-                <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu item <span class="caret"></span></a>
-                    <ul role="menu" class="dropdown-menu">
-                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
-                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
-                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
-                        <li><a href="<?php /*echo $path;*/?>">Menu item</a></li>
-                    </ul>
-                </li>-->
+
 
             </ul>
             <ul class="nav navbar-top-links navbar-right">
@@ -79,7 +67,6 @@
                  echo Chat::get_chat();
                  echo Notification::get_notification();
 
-//                echo "<li><a href='{$path_admin}logout.php'><i class=\"fa fa-sign-out\"></i> $user->username</a></li>";
                 ?>
 
 

@@ -91,10 +91,11 @@ if(request_is_post() && request_is_same_domain()) {
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php  echo isset($valid)? $valid->form_warnings():"" ?>
 
-<?php echo output_message($message); ?>
+<?php if (!empty($message)) {
+    echo output_message($message);
+} ?>
 
 <?php checking(false);?>
-
 
 
 

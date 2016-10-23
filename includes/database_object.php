@@ -34,7 +34,7 @@ class DatabaseObject {
     public static $page_delete;
 
     public static $fields_numeric;
-    public static $fields_numeric_format;
+    public static $fields_numeric_format=array();
 
     protected static $form_properties;
 
@@ -473,7 +473,7 @@ public static function get_table_name() {
     }
 
 
-    public function get_form_search (){
+    public static function get_form_search (){
 
         $output="";
         $div_class="<div class='col-xs-4'>";
@@ -542,6 +542,7 @@ public static function get_table_name() {
 
 
        $output.= static::get_form_search();
+//        $output.= $this->get_form_search();
 
         $output.="                      </div>";
         $output.="                <div class='modal-footer'>";
@@ -599,9 +600,15 @@ public static function get_table_name() {
                 }
             } elseif($type=="radio") {
                 foreach($vars as $attr =>$val){
-                    foreach($val as $attr2 =>$val2) {
+                    if(is_array($val)){
+                        foreach($val as $attr2 =>$val2) {
+                            $form->radio[(int) $attr] = $val;
+//                        $form->radio[$attr] = $val;
+                        }
+                    } else {
                         $form->radio[(int) $attr] = $val;
                     }
+
                 }
             } elseif($type=="textarea") {
                 foreach($vars as $attr =>$val){
@@ -932,6 +939,8 @@ if($long_short==1){
             if(property_exists($this,$fieldname)){
                 if(in_array($fieldname,static::$fields_numeric_format)){
                     if((float) $this->$fieldname <0) {$style="style='color:red;";}else {$style="";}
+
+
 //                    $output.= "<td $style class='text-right'>".number_format ( $this->$fieldname,2)."</td>";
                     $output.= "<td><span $style class='text-right'>".number_format ( $this->$fieldname,2)."</span></td>";
                 } else {
