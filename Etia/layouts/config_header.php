@@ -4,7 +4,7 @@ $active_menu=basename($_SERVER["PHP_SELF"]) ;
 $active_menu_clean = str_replace(".php", "", $active_menu);
 
 //change this if the folder name of project changes
-$folder_project_name="Inspinia";
+$folder_project_name="Etia";
 
 
 if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){

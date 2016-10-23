@@ -230,7 +230,7 @@ function small_chat_wrapper(){
                     </small>
                 </div>
                 <div class="chat-message active">
-                    I belive that. Lorem Ipsum is simply dummy text.
+                    I believe that. Lorem Ipsum is simply dummy text.
                 </div>
             </div>
 

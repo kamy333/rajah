@@ -15,7 +15,7 @@
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 defined('SITE_URL') ? null : define("SITE_URL", "http://".$_SERVER['SERVER_NAME']);
 defined('SITE_ROOT') ? null : define('SITE_ROOT', realpath(dirname(__FILE__).DS."..".DS));
-defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC',SITE_URL.'/rajah_production/public/');
+defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC',SITE_URL.'/rajah_production/Etia/');
 defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
 
 

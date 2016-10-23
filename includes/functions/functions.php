@@ -629,23 +629,40 @@ function blueimp_wrapper($h2="",$content){
     return $output;
 }
 
+function get_gallery_array($no=1){
+    $pages=array();
+    if ($no===1) {
+        $pages=array(
+            'index'=>'Home',
+            'index_gallery6'=>'Bralia',
+            'index_gallery'=>'Desiree Wedding',
+            'index_gallery2'=>'Family',
+            'index_gallery3'=>'Friends',
+            'index_gallery4'=>'myPage',
+            'index_gallery5'=>'Lycée Français de Jérusalem',
+            'index_gallery7'=>'Maman Bozorgue',
+            'index_gallery8'=>'Film');
+    } elseif($no===2){
+        $pages=array(
+            'index'=>'Home',
+            );
 
-function gallery_menu_list(){
+    }
+
+    return $pages;
+
+}
+
+
+function gallery_menu_list($no=1){
     global $active_menu_clean;
     global $session;
     global $path_public;
 
 $p=$active_menu_clean;
-    $pages=array(
-        'index'=>'Home',
-        'index_gallery6'=>'Bralia',
-        'index_gallery'=>'Desiree Wedding',
-        'index_gallery2'=>'Family',
-        'index_gallery3'=>'Friends',
-        'index_gallery4'=>'myPage',
-        'index_gallery5'=>'Lycée Français de Jérusalem',
-        'index_gallery7'=>'Maman Bozorgue',
-        'index_gallery8'=>'Film');
+
+
+    $pages=get_gallery_array($no);
 
     $output="";
     foreach ($pages as $page=>$pa){
@@ -669,7 +686,7 @@ if ($page=='index_gallery6' && (User::is_bralia())){
     }
 
 
-function gallery_button(){
+function gallery_button($no=1){
     global $session;
 
     $output="<div class=\"col-lg-2 col-md-2 col-md-offset-4\">
@@ -685,7 +702,7 @@ function gallery_button(){
                 </button>
                 <ul class=\"dropdown-menu\">";
 
-    $output.=gallery_menu_list();
+    $output.=gallery_menu_list($no);
 
 // if( $session->user_id===28 || User::is_kamy()) {$output.="<li><a href=\"index_gallery6.php\">Bralia</a></li>"; }
 

@@ -36,7 +36,10 @@ $server_phpstorm = "PhpStorm 2016.1.2";
     } else {
 //            defined('SITE_ROOT') ? null : define('SITE_ROOT', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'web');
 //
-            defined('SESSION_PATH') ? null : define('SESSION_PATH', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'tmp');
+//            defined('SESSION_PATH') ? null : define('SESSION_PATH', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'tmp');
+
+        defined('SESSION_PATH') ? null : define('SESSION_PATH',DS.'home'.DS.'client'.DS.'deb3c60f593dc39b840d3285ba2d7b42'.DS.'tmp')  ;
+
 
 //            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/');
 //            defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');

@@ -108,7 +108,7 @@ class UserType extends DatabaseObject {
     }
 
 
-    public function display_table($long_short=0){
+    public function display_table($long_short=0,$edit=""){
 
         $output="";
         $output.= "<tr>";
