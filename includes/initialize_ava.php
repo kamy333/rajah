@@ -30,17 +30,11 @@ if ($server_name === $server_local || $server_name === $server_phpstorm) {
 //    defined('SITE_ROOT') ? null : define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS . 'rajah_production');
     defined('SESSION_PATH')? null : define('SESSION_PATH', 'C:' . DS . 'xampp' . DS . 'tmp' . DS . 'session_rajah');
 
-//    defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://localhost/rajah_production/public/');
-//    defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
-
 } else {
 //            defined('SITE_ROOT') ? null : define('SITE_ROOT', DS . 'home' . DS . 'www' . DS . '1fe720ae68582bc8524d72e4d0afafcb' . DS . 'web');
 //
     defined('SESSION_PATH') ? null : define('SESSION_PATH',DS.'home'.DS.'client'.DS.'deb3c60f593dc39b840d3285ba2d7b42'.DS.'tmp')  ;
 
-//        deb3c60f593dc39b840d3285ba2d7b42
-//            defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://www.ikamy.ch/public/');
-//            defined('MY_URL_ADMIN') ? null : define('MY_URL_ADMIN',MY_URL_PUBLIC.'admin/');
 
 }
 

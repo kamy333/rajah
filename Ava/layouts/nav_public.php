@@ -12,10 +12,7 @@
                     <a aria-expanded="false" role="button" href="<?php echo $path_admin;?>index.php">Admin </a>
                 </li>
 
-                <?php if (User::is_admin()) {?>
-                <li class="">
-                    <a  aria-expanded="false" role="button" href="<?php echo "/smartAdmin/"//.$path;?>index.php?class=2">SmartAdmin</a></li>
-               <?php } ?>
+
                 <li >
                     <a aria-expanded="false" role="button" href="<?php echo $path_public;?>myLinks.php?category=Others">Links</a>
                 </li>
@@ -38,7 +35,7 @@
                 <?php } ?>
 
                 <li class="dropdown">
-                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Etis's Book <span class="caret"></span></a>
+                    <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Ava's Book <span class="caret"></span></a>
                     <ul role="menu" class="dropdown-menu">
                         <li><a href="<?php echo $path;?>index_gallery.php">Gallery</a></li>
                 <?php       echo $Nav->menu_item('','Home','index.php','public'); ?>
@@ -46,9 +43,9 @@
                 </li>
 
                     <?php
-                    echo  $Nav->public_menu("public_gallery");
+//                    echo  $Nav->public_menu("public_gallery");
                     if(User::is_bralia()){
-                        echo $Nav->menu_item('','Chat','chat.php','public');
+//                        echo $Nav->menu_item('','Chat','chat.php','public');
                         if(User::is_admin()){
                         }
 

@@ -1,4 +1,4 @@
-<?php require_once('../../includes/initialize.php'); ?>
+<?php require_once('../../includes/initialize_ava.php'); ?>
 <?php require_once('../layouts/config_header.php'); ?>
 <?php
 $class_name="User";

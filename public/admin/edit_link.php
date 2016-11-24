@@ -50,7 +50,7 @@ if(request_is_post() && request_is_same_domain()) {
                 $session->ok(true);
                 redirect_to($class_name::$page_manage);
             } else {
-                $message($class_name.$new_item->pseudo." "."$text_post1 failed");
+                $session->message($class_name.$new_item->pseudo." "."$text_post1 failed");
 
             }
 
@@ -92,6 +92,7 @@ if(request_is_post() && request_is_same_domain()) {
 
 <?php if (isset($message)) {
     echo output_message($message);
+    echo $session->message();
 } ?>
 
 <?php checking(false);?>

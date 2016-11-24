@@ -1,4 +1,4 @@
-<?php require_once('../../includes/initialize.php'); ?>
+<?php require_once('../../includes/initialize_ava.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee()){ redirect_to('index.php');}
 if(User::is_visitor() ){ redirect_to('../index.php');}

@@ -27,7 +27,6 @@ $server_phpstorm = "PhpStorm 2016.1.2";
 
     if ($server_name === $server_local || $server_name === $server_phpstorm) {
 
-//    defined('SITE_ROOT') ? null : define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS . 'rajah_production');
     defined('SESSION_PATH')? null : define('SESSION_PATH', 'C:' . DS . 'xampp' . DS . 'tmp' . DS . 'session_rajah');
 
 //    defined('MY_URL_PUBLIC') ? null : define('MY_URL_PUBLIC','http://localhost/rajah_production/public/');

@@ -1,5 +1,5 @@
 <?php
-require_once("../../includes/initialize.php");
+require_once("../../includes/initialize_ava.php");
 $blacklist_ip=new BlacklistIp();
 $blacklist_ip->block_blacklisted_ips();
 

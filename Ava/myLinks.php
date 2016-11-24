@@ -1,5 +1,5 @@
 
-<?php require_once('../includes/initialize.php'); ?>
+<?php require_once('../includes/initialize_ava.php'); ?>
 
 <?php $class_name="Links"; ?>
 

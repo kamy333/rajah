@@ -1,4 +1,4 @@
-<?php require_once('../includes/initialize.php');
+<?php require_once('../includes/initialize_ava.php');
 require_once(LIB_PATH.DS.'ChatFriend.php');
 ?>
 <?php  $session->confirmation_protected_page(); ?>

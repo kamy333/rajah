@@ -1,4 +1,4 @@
-<?php require_once('../includes/initialize.php'); ?>
+<?php require_once('../includes/initialize_ava.php'); ?>
 <?php if(!User::is_admin()){redirect_to("index.php");} ?>
 
 <?php //$active_menu="minor"; ?>
