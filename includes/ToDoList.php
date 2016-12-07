@@ -12,25 +12,31 @@ class ToDoList extends DatabaseObject {
 
     protected static $table_name="to_do_list";
 
-    protected static $db_fields = array('id','user_id','todo','due_date','rank','comment');
+    protected static $db_fields = array('id','user_id','todo','due_date','rank','web_address','comment','done','progress');
 
-    protected static $required_fields =  array('user_id','todo');
+    protected static $required_fields =  array('user_id','todo','done');
 
-    protected static $db_fields_table_display_short =  array('id','user_id','todo','due_date','rank','comment');
+    protected static $db_fields_table_display_short =  array('id','user_id','todo','done','prog','link','due_date','rank','comment');
 
-    protected static $db_fields_table_display_full =  array('id','user_id','todo','due_date','rank','comment');
-    protected static $db_field_exclude_table_display_sort=null;
+    protected static $db_fields_table_display_full =  array('id','user_id','todo','done','prog','progress','link','due_date','rank','web_address','comment','done');
 
-    public static $fields_numeric=array('id','rank','user_id');
+    protected static $db_field_exclude_table_display_sort=array();
+
+    protected static $db_field_include_table_display_sort=array('link'=>'web_address','prog'=>'progress');
 
 
-    public static $get_form_element=array('todo','user_id','due_date','rank','comment');
+    public static $fields_numeric=array('id','rank','user_id','done','progress');
+
+
+    public static $get_form_element=array('todo','user_id','web_address','done','progress','due_date','rank','comment');
     public static $get_form_element_others=array();
 
     public static $form_default_value=array(
         "rank"=>"1",
         "user_id"=>"2",
-        "due_date"=>"now()"
+        "due_date"=>"now()",
+        "done"=>"0",
+        "progress"=>"5"
     );
 
 
@@ -42,7 +48,7 @@ class ToDoList extends DatabaseObject {
             "placeholder"=>"To Do item",
             "required" =>true,
         ),
-        "user_id"=> array("type"=>"select",
+        "user_id"=> array("type"=>"selectchosen",
             "name"=>'user_id',
             "class"=>"User",
             "label_text"=>"User",
@@ -56,6 +62,41 @@ class ToDoList extends DatabaseObject {
             "label_text"=>"Due Date",
             "placeholder"=>"Input Due Date",
             "required" =>true,
+        ),
+        "done" =>array("type"=>"radio",
+            array(0,
+                array(
+                    "label_all"=>"Done/finished",
+                    "name"=>"done",
+                    "label_radio"=>"No",
+                    "value"=>"0",
+                    "id"=>"done_no",
+                    "default"=>true)),
+            array(1,
+                array(
+                    "label_all"=>"Done/finished",
+                    "name"=>"done",
+                    "label_radio"=>"Yes",
+                    "value"=>"1",
+                    "id"=>"done_yes",
+                    "default"=>false)),
+        ),
+        "progress"=> array("type"=>"number",
+            "name"=>'progress',
+            "label_text"=>"Progress",
+            'min'=>0,
+            'max'=>100,
+            'attr_class'=>'dial m-r',
+            'datafgcolor'=>"data-fgColor=\"#1AB394\"",
+            'datawidth'=>"data-width='85'",
+            'dataheight'=>"data-height='85'",
+            "required" =>true,
+        ),
+        "web_address"=> array("type"=>"url",
+            "name"=>'web_address',
+            "label_text"=>"Website address",
+            "placeholder"=>"Website Address",
+            "required" =>false,
         ),
         "comment"=> array("type"=>"textarea",
             "name"=>'comment',
@@ -80,13 +121,23 @@ class ToDoList extends DatabaseObject {
             "required" =>false,
         ),
         "todo"=> array("type"=>"select",
-            "name"=>'search_todo',
+            "name"=>'todo',
             "id"=>"search_todo",
             "class"=>"ToDoList",
             "label_text"=>"",
             "select_option_text"=>'To Do',
             'field_option_0'=>"todo",
             'field_option_1'=>"todo",
+            "required" =>false,
+        ),
+        "done"=> array("type"=>"select",
+            "name"=>'done',
+            "id"=>"search_done",
+            "class"=>"ToDoList",
+            "label_text"=>"",
+            "select_option_text"=>'Done',
+            'field_option_0'=>"done",
+            'field_option_1'=>"done",
             "required" =>false,
         ),
         "rank"=> array("type"=>"select",
@@ -121,14 +172,17 @@ class ToDoList extends DatabaseObject {
     );
 
 
-    public static $db_field_search =array('search_all','todo','download_csv');
+    public static $db_field_search =array('search_all','todo','done','due_date','rank','web_address','download_csv');
 
 
-    public static $page_name="To Do List";
+    public static $page_name="ToDo List";
     public static $page_manage="manage_ToDoList.php";
     public static $page_new="new_ToDoList.php";
     public static $page_edit="edit_ToDoList.php";
     public static $page_delete="delete_ToDoList.php";
+
+    public static $form_class_dependency=array('MyHouseExpense','MyExpensePerson') ;
+
 
     public static $per_page;
 
@@ -139,17 +193,44 @@ class ToDoList extends DatabaseObject {
     public $due_date;
     public $comment;
     public $rank;
+    public $web_address ;
+    public $link;
+    public $done;
+
+    public $progress;
+    public $prog;
 
 
-    public function set_up_display(){
+    protected function set_up_display(){
         global $session;
         $this->user_id=$session->user_id;
+
+        if(!empty($this->web_address) && isset($this->id)){
+            $this->link="<a href='{$this->web_address}'><u>link</u></a>";
+
+        }
+
+        if(isset($this->done) && (int)  $this->done===1){
+            $this->progress=100;
+        }
+
+        if ( isset($this->progress)) {
+            $this->prog="<input type='number' value='".$this->progress."' class='dial m-r disabled' data-fgColor='#1AB394' data-width='60' data-height='60'/>";
+        }
+
     }
 
     public  function form_validation() {
         $valid=new FormValidation();
 
         $valid->validate_presences(self::$required_fields) ;
+
+        if (isset($this->web_address) && !empty($this->web_address)){
+            $valid->validate_website('web_address');
+        }
+        isset($this->done) ? $valid->is_numeric(['done']) : "";
+        isset($this->progress) ? $valid->is_numeric(['progress']) : "";
+
         return $valid;
 
 
@@ -157,13 +238,48 @@ class ToDoList extends DatabaseObject {
     }
 
     public static function  table_nav_additional(){
+
+
+        $order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'id';
+        $order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'ASC';
+        $page= !empty($_GET['page'])? (int) $_GET["page"]:1;
+
+        if(strtoupper($order_type)=='ASC' && !empty($_GET["order_type"])){
+            $order_type='DESC';
+        } else {
+            $order_type='ASC';
+        }
+
+        $qstr="?search_all=&done=0&submit=&page=".$page."&order_name=progress&order_type=".$order_type;
+//        $qstr="?search_all=&done=0&submit=&page=1&order_name=progress&order_type=DESC";
+
+        if(isset($_GET['done']) && (int) $_GET['done'] ==0){
+            $done=1;
+            $done_txt='Show finished';
+        } else {
+            $done=0;
+            $done_txt='Show Open';
+        }
+
         $output="</a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add To Do ". " </a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_new ."\">Add New Person ". " </a></a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpense::$page_manage ."\">View Expense ". " </a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". MyExpensePerson::$page_manage ."\">View Person ". " </a>";
+
+
+
+        $output.="<a  class=\"btn btn-info\"  href=\"". static::$page_manage."?search_all=&done={$done}&submit=" ."\">{$done_txt} ". " </a><span>&nbsp;</span>";
+
+
+        $output.="<a  class=\"btn btn-info\"  href=\"". static::$page_manage.$qstr ."\">progress". " </a><span>&nbsp;</span>";
+
+
+
         return $output;
     }
+
+
+
+
+
+
 
 
 }

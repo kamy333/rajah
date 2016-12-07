@@ -22,39 +22,59 @@
     <title>ikamy.ch <?php if ($layout_context == "admin") { echo "Admin"; } ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php if ($layout_context=="public"){  ?>
-
-         <?php //if(!$angular){ ?>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
-
-        <script src="js/respond.js"></script>
 
 
-    <?php    } else { ?>
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/custom.css">
-    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $Nav->path_public;?>css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $Nav->path_public;?>css/custom.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo $Nav->path_public;?>css/styles.css">
 
-        <script src="../js/respond.js"></script>
 
-         <?php //} ?>
+
+
+    <?php     if (substr($Nav->current_page, 0,7)=="manage_" ||
+                  substr($Nav->current_page, 0,4)=="new_" ||
+                  substr($Nav->current_page, 0,5)=="edit_" ){  ?>
+
+    <link href="<?php echo $Nav->path_public;?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/chosen/chosen.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/cropper/cropper.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/switchery/switchery.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/nouslider/jquery.nouislider.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/ionRangeSlider/ion.rangeSlider.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/select2/select2.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/plugins/touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet">
+    <link href="<?php echo $Nav->path_public;?>css/animate.css" rel="stylesheet">
 
     <?php } ?>
 
+
+
+
+
+
+
+
+
     <?php if($angular) {  ?>
-<!--    <script src= "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>-->
-        <script src="angular/lib/angular/angular.min.js"></script>
-        <script src="angular/js/controllers.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/lib/angular/angular.min.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/js/controllers.js"></script>
 
-        <script src="angular/lib/angular/angular.min.js"></script>
-        <script src="angular/lib/angular/angular-route.min.js"></script>
-        <script src="angular/lib/angular/angular-animate.min.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/lib/angular/angular.min.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/lib/angular/angular-route.min.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/lib/angular/angular-animate.min.js"></script>
 
-        <script src="angular/js/app.js"></script>
-        <script src="angular/js/controllers.js"></script>
-        <link rel="stylesheet" href="js/angular/css/style.css">
+        <script src="<?php echo $Nav->path_public;?>angular/js/app.js"></script>
+        <script src="<?php echo $Nav->path_public;?>angular/js/controllers.js"></script>
+        <link rel="<?php echo $Nav->path_public;?>stylesheet" href="js/angular/css/style.css">
     <?php } ?>
 
 </head>

@@ -8,10 +8,6 @@
 
 
 
-
-
-
-
 <div class="row">
 <div class="col-lg-12  white-bg">
     <div class="text-center m-t-lg">

@@ -1384,6 +1384,9 @@ CREATE TABLE IF NOT EXISTS `to_do_list` (
   `user_id` int(11) unsigned NOT NULL,
   `todo` varchar(255) DEFAULT NULL,
   `rank` int(11) NOT NULL DEFAULT '1',
+  `web_address` text,
+  `done` TINYINT(1) NOT NULL DEFAULT 0,
+  `progress` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
   `comment` text,
   `modification_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `due_date` date NOT NULL,
@@ -1391,13 +1394,12 @@ CREATE TABLE IF NOT EXISTS `to_do_list` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
+ALTER TABLE `to_do_list` ADD `web_address` TEXT AFTER `todo`;
+ALTER TABLE `to_do_list` ADD `done` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `todo`;
+ALTER TABLE `to_do_list` ADD `progress` TINYINT UNSIGNED NOT NULL DEFAULT '0' AFTER `done`;
 --
 -- Dumping data for table `to_do_list`
 --
-
-INSERT INTO `to_do_list` (`id`, `user_id`, `todo`, `rank`, `comment`, `modification_time`, `due_date`) VALUES
-(1, 2, 'Simplon email1', 1, '<p>credit card</p>', '2016-07-02 00:43:14', '2016-05-12'),
-(6, 5, 'xxxxxx', 1, '<p>xxxxx</p>', '2016-07-16 23:54:19', '2016-07-17');
 
 -- --------------------------------------------------------
 

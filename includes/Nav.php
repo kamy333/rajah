@@ -55,18 +55,18 @@ public  $folder;
    {
        // TODO: Implement __toString() method.
        $output="";
-       $output.="\$Path: ".$this->path."<br>";
-       $output.="\$Path admin: ".$this->path_admin."<br>";
-       $output.="\$Path public: ".$this->path_public."<br>";
-       $output.="\$folder: ".$this->folder."<br>";
-       $output.="\$current_page: = ".$this->current_page."<br>";
-       $output.="\$current_page.php: = ".$this->current_page_php."<br>";
-       $output.="\$http =: ".$this->http."<br>";
+       $output.="\$Path: ".$this->path."<br>\n";
+       $output.="\$Path admin: ".$this->path_admin."<br>\n";
+       $output.="\$Path public: ".$this->path_public."<br>\n";
+       $output.="\$folder: ".$this->folder."<br>\n";
+       $output.="\$current_page: = ".$this->current_page."<br>\n";
+       $output.="\$current_page_php: = ".$this->current_page_php."<br>\n";
+       $output.="\$http =: ".$this->http."<br>\n";
 
 
-       $output.="\$layout_context: =  ".$this->layout_context."<br>";
-       $output.="\$active_admin:  =  ".$this->active_admin."<br>";
-       $output.="\$active_public: =  ".$this->active_public."<br>";
+       $output.="\$layout_context: =  ".$this->layout_context."<br>\n";
+       $output.="\$active_admin:  =  ".$this->active_admin."<br>\n";
+       $output.="\$active_public: =  ".$this->active_public."<br>\n";
 
 
        return $output;

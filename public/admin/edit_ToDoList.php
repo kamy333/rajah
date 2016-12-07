@@ -50,7 +50,8 @@ if(request_is_post() && request_is_same_domain()) {
                 $session->ok(true);
                 redirect_to($class_name::$page_manage);
             } else {
-                $message($class_name.$new_item->pseudo." "."$text_post1 failed");
+                $session->message($class_name.$new_item->pseudo." "."$text_post1 failed");
+                redirect_to($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']);
 
             }
 
@@ -91,14 +92,13 @@ if(request_is_post() && request_is_same_domain()) {
 <?php  echo isset($valid)? $valid->form_warnings():"" ?>
 
 <?php if (isset($message)) {
-    echo output_message($message);
+    echo $message;
 } ?>
 
+
+<?php  ?>
+
 <?php checking(false);?>
-
-
-
-
 
 
 
@@ -112,48 +112,17 @@ if(request_is_post() && request_is_same_domain()) {
     <div class ="background_light_blue">
 
 
-        <form name="form_client"  class="form-horizontal" method="post" action="<?php echo $post_link;?>">
-
-            <fieldset id="login" title="Client">
-                <legend class="text-center" style="color: #0000ff"><?php echo $page1 . $class_name::$page_name ?></legend>
-
 
             <?php
-            echo $class_name::construct_form($get_item,$_GET);
 
-//            $name='expense_type';
-//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="";}
-//            echo  $class_name::get_form($name,$value);
-//
-//
-//            $name='rank';
-//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='1';}
-//            echo  $class_name::get_form($name,$value);
-//
-//            $name='comment';
-//            if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='';}
-//            echo  $class_name::get_form($name,$value);
+//            echo   call_user_func(array($class_name, 'Create_form'));
+            echo $class_name::Create_form();
 
-            echo Form::form_id();
-            echo csrf_token_tag();?>
+            ?>
 
 
 
-            </fieldset>
 
-
-
-            <div class="col-sm-offset-3 col-sm-7 col-xs-3">
-                <button type="submit" name="submit" class="btn btn-primary"><?php echo $page ." ".$class_name; ?></button>
-            </div>
-
-            <div class="text-right " >
-                <a href="<?php echo $class_name::$page_manage; ?>" class="btn btn-info " role="button">Cancel</a>
-            </div>
-
-
-
-        </form>
     </div>
 </div>
 

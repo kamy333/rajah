@@ -26,12 +26,17 @@ class Form extends DatabaseObject{
     public $selected =false;
     public $class ;
     public $add_class;
+    public $attr_class; // use for a new css class
     public $value;
 
     public $default;
 
     public $size;
 
+
+    public $datafgcolor;
+    public $datawidth;
+    public $dataheight;
 
     public $max;
     public $min;
@@ -169,7 +174,32 @@ class Form extends DatabaseObject{
             if($this->form_format_type==self::FORM_HORIZONTAL) {
                 $output .= "<div class='col-sm-9'>";
             }
-            $output.="<input  class='form-control'  type='{$this->type}' name='{$this->name}' ";
+
+//            $output.="<input  class='form-control'  type='{$this->type}' name='{$this->name}' ";
+
+            $output.="<input  type='{$this->type}' name='{$this->name}' ";
+
+            if(isset($this->attr_class)){
+                $output.=" class='".$this->attr_class."' ";
+            } else {
+                $output.=" class='form-control' ";
+
+            }
+
+
+            if(isset($this->datafgcolor)){
+                $output.=" ".$this->datafgcolor." ";
+            }
+
+            if(isset($this->datawidth)){
+                $output.=" ".$this->datawidth." ";
+
+            }
+
+            if(isset($this->dataheight)){
+               $output.=" ".$this->dataheight." ";
+
+            }
 
             if(isset($this->id)){
                 $output.="id='{$this->id}' ";
@@ -229,7 +259,7 @@ class Form extends DatabaseObject{
             if($this->required){
                 $output.=" required";
             }
-            $output.=">";
+            $output.=">"; //close input
             $output.=" </div>";
 
             if($this->form_format_type==self::FORM_HORIZONTAL) {
@@ -349,7 +379,7 @@ class Form extends DatabaseObject{
                 $output .= "<div class='col-sm-9'>";
             }
 
-            $output.="<select  class='select2_demo_3 form-control'  name='{$this->name}' ";
+            $output.="<select  class='chosen-select form-control'  name='{$this->name}' style=\"height:60px;\"  tabindex=\"2\" ";
 
             if(isset($this->id)){
                 $output.="id='{$this->id}'";

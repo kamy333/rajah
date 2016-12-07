@@ -4,7 +4,12 @@
     <div class="ibox-title">
         <div class="row">
                      <div class="col-md-2 col-xs-4">
-        <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="class_new.php?class_name=<?php echo $class_name ; ?>">New <?php echo $class_name::$page_name; ?></a></span>
+        <span><a class="btn btn-primary btn-xm" style="width: 7em;" href="class_new.php?class_name=
+<?php if (isset($class_name)) {
+                echo $class_name ;
+            } ?>">New <?php if (isset($class_name)) {
+                    echo $class_name::$page_name;
+                } ?></a></span>
                 </div>
             <div class="col-md-6 col-xs-4">
                 <h2 class="text-center  ">

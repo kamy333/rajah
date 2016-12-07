@@ -13,7 +13,9 @@ require_once('../../includes/initialize.php');?>
 <span><a href="../index.php">&laquo; Public</a></span>
 <h2>Menu</h2>
 
-	<?php echo output_message($message); ?>
+	<?php if (isset($message)) {
+        echo output_message($message);
+    } ?>
 
 <!---->
 <?php
@@ -76,6 +78,7 @@ if(isset($_GET['class_name'])){
 
 
 <ul>
+    <li><a href="manage_custom_form.php">custom</a></li>
     <li><a href="../../smartAdmin/">SmartAdmin</a></li>
     <li><a href="../../SmartAdmin_Full_Version_html/">SmartAdmin Full Version</a></li>
     <li><a href="../../Inspinia/">Inspinia</a></li>

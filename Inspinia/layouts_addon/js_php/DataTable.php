@@ -1,3 +1,5 @@
+<?php if (isset($class_name)) {echo $class_name;} ?>
+
 <script>
     function getUrlVars()
     {
@@ -33,8 +35,8 @@
 <script>
     $(document).ready(function(){
 
-        var $class_name=today + '-'  + decodeURI(getUrlVars()["class_name"]);
-
+//        var $class_name=today + '-'  + decodeURI(getUrlVars()["class_name"]);
+        $class_name='xxxxx';
 
         $('.dataTables-example').DataTable({
             dom: '<"html5buttons"B>lTfgitp',

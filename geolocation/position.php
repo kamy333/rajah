@@ -15,16 +15,18 @@
 
         var watchId=null;
 
-//        function getPosition() {
-//            if (navigator.geolocation) {
-//                navigator.geolocation.getCurrentPosition(successPosition);
-//            } else {
-//                document.getElementById('result').innerHTML = 'Browser not supported!'
-//            }
-//        }
+        function getPosition() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(successPosition);
+            } else {
+                document.getElementById('result').innerHTML = 'Browser not supported!'
+            }
+        }
 
 
         function watchPosition() {
+            alert(1);
+        }
             if (navigator.geolocation) {
                 watchId=navigator.geolocation.watchPosition(successPosition,failurePosition,{
                     enableHighAccuracy:false,
@@ -112,12 +114,16 @@
 
         }
 
+        function test() {
+            alert('hi');
+        }
 
     </script>
 </head>
 <body>
 <div id="result"></div>
-<!--<button id="btnPosition" onclick="getPosition()">Get Current Position</button>-->
+<button id="btnPosition" onclick="getPosition()">Get Current Position</button>
+<button id="btnPosition" onclick="test()">Get Current Position</button>
 
 <button id="btnStartTracking" onclick="watchPosition()">Start Tracking location</button>
 <button id="btnStopTracking" onclick="stopWatching()">Stop tracking</button>

@@ -399,10 +399,16 @@ function get_where_string($class_name){
                 $i=0;
                 foreach($unique_get as $key=>$val) {
                     if(in_array($key,$class_name::get_table_field())){
+//                        echo "a $key -> $val <br>";
 
                         if(in_array($key,$class_name::$fields_numeric)){
                             $_num_val=(int)$val;
-                            if(!empty($val)){
+//                            echo "b {$key} -> {$val} <br>";
+
+
+                            if((!empty($val)) || $_num_val==0){
+//                            echo " {$key} -> {$val} <br>";
+
                                 $i++;
 //                                var_dump($where);
                                 $i==1? $where=" WHERE ":$where=" AND ";

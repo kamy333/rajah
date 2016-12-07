@@ -21,6 +21,8 @@ class DatabaseObject {
     protected static $db_fields_table_display_short ;
     protected static $db_fields_table_display_full ;
     protected static $db_field_exclude_table_display_sort=null;
+    protected static $db_field_include_table_display_sort=null; // array assoc key->format feed see todo
+
 
     // todo not use but too attempt to have sort reference on table head an db field
     protected static $field_replace_display=null;
@@ -32,6 +34,8 @@ class DatabaseObject {
     public static $page_new;
     public static $page_edit;
     public static $page_delete;
+    public static $form_class_dependency=array() ; // used for form new the related links put class dependency in array
+
 
     public static $fields_numeric;
     public static $fields_numeric_format=array();
@@ -53,6 +57,7 @@ class DatabaseObject {
     protected static function set_form_default_value(){
 //        static::$form_default_value["user_id"]="5";
     }
+
     public static function construct_form($get_item=false,$GET=false){
         static::set_form_default_value();
         $output="";
@@ -85,6 +90,120 @@ class DatabaseObject {
 
         return $output;
     }
+
+
+
+
+
+  public static function get_form_new_href($array_classes =[]) {
+        $output="";
+
+//       $array_classes=['MyExpensePerson', 'MyHouseExpense'];
+
+        $span="<span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>";
+//      $output .= get_called_class().BR;
+
+        $output .= "<a href=\"index.php\">Index</a> &nbsp;&nbsp";
+
+        $output .= $span ."<a href=\"".static::$page_manage."\"> Manage ".static::$page_name."</a>";
+
+        foreach ($array_classes as $class){
+            $output .= $span ."<a href=\"".$class::$page_manage."\"> Manage ".$class::$page_name."</a>";
+////           var_dump($class);
+//           $output1 .= $class::$page_manage.BR;
+        }
+        unset($class);
+
+        foreach ($array_classes as $class){
+            $output .= $span."<a href=\"".$class::$page_new."\"> Add New ".$class::$page_name."</a>";
+        }
+//       $output = "";
+//       $arr = array(1, 2, 3, 4);
+//       foreach ($arr as $value) {
+//           $output.= $value ;
+//       }
+        return $output;
+    }
+
+
+    public static function Create_form(){
+
+
+        if(isset($_GET['id'])){
+            $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
+            $page="Update";
+            $page1="Update ";
+            $text_post="Updated";
+            $text_post1="update";
+
+        }else{
+            $post_link=$_SERVER["PHP_SELF"];
+            $page="New";
+            $page1="Add New ";
+            $text_post="created";
+            $text_post1="creation";
+
+        }
+
+//        var_dump($post_link);
+//        echo "<pre>";
+//
+//        print_r($_SERVER['QUERY_STRING']);
+//        echo BR;
+//        print_r($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']);
+//        echo BR;
+//        print_r($_SERVER);
+//
+//        echo "</pre>";
+
+        $output="";
+        $output .= "<div class =\"background_light_blue\">";
+        $output.="<form name='form_ToDo'  class='form-horizontal' method='post' action='{$post_link}'> ";
+
+        $output .= "<fieldset id=\"login\" title=\"Client\"><legend class=\"text-center\" style=\"color: #0000ff\">"
+            . $page1 . static::$page_name."</legend>";
+
+
+        if(request_is_get()) {
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+                $get_item = static::find_by_id($id);
+                $output .= static::construct_form($get_item,$_GET);
+
+            } else {
+
+                $output .= static::construct_form(false,$_GET);
+
+            }
+
+
+        }
+
+        $output .= Form::form_id();
+        $output .=csrf_token_tag();
+
+        $output .= "</fieldset>";
+
+        $output.=" <div class=\"col-sm-offset-3 col-sm-7 col-xs-3\">
+                   <button type=\"submit\" name=\"submit\" class=\"btn btn-primary\">"
+            . $page .' '.get_called_class()."</button></div>";
+
+        $output.="<div class=\"text-right \" ><a href=\""
+            . static::$page_manage."\""." class=\"btn btn-info \" role=\"button\">Cancel</a></div>";
+
+        $output.="";
+
+
+        $output .= "  </form>";
+
+        $output.="</div>";
+
+        return $output;
+
+    }
+
+
+
 
     public static  function   table_nav($page_link_view,$page_link_text,$offset){
         $output="<div class=\"row\" >";
@@ -749,6 +868,12 @@ public static function get_table_name() {
     }
 
 
+
+
+    protected static function table_sort_asc($fieldname){
+
+    }
+
     public static function display_table_head($long_short=0,$edit=true){
 
 
@@ -815,7 +940,21 @@ public static function get_table_name() {
 
                     $output.= "<th class='text-center' style='vertical-align:middle;'>".$fieldname."</th>";
 
-                } else {
+                }
+
+
+
+                else {
+
+                    if (isset(static::$db_field_include_table_display_sort) &&
+                        array_key_exists($fieldname,static::$db_field_include_table_display_sort )){
+
+                        $fieldname=static::$db_field_include_table_display_sort[$fieldname];
+
+
+                    }
+
+
         $new_query_ASC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('ASC')."'>'";
         $new_query_ASC.="<span class='glyphicon glyphicon-triangle-bottom' style='color: white' aria-hidden='true'></span></a>";
         $new_query_DESC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('DESC')."'>'";

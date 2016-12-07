@@ -747,6 +747,7 @@ class User extends DatabaseObject {
   public static function find_by_username($username="") {
       global $database;
       $username = $database->escape_value($username);
+      /** @noinspection SqlResolve */
       $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE username='{$username}' LIMIT 1");
         return !empty($result_array) ? array_shift($result_array) : false;
     }
@@ -754,6 +755,7 @@ class User extends DatabaseObject {
   public static function find_by_email($email="") {
       global $database;
       $email = $database->escape_value($email);
+      /** @noinspection SqlResolve */
       $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE email='{$email}' LIMIT 1");
         return !empty($result_array) ? array_shift($result_array) : false;
     }
@@ -761,6 +763,7 @@ class User extends DatabaseObject {
     public static function find_by_reset_token($token="") {
         global $database;
         $token = $database->escape_value($token);
+        /** @noinspection SqlResolve */
         $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE reset_token='{$token}' LIMIT 1");
         return !empty($result_array) ? array_shift($result_array) : false;
     }

@@ -45,6 +45,8 @@ $server_phpstorm = "PhpStorm 2016.1.2";
 
 //----------------------------------------DELETE----------------------------------
 
+defined('BR') ? null : define('BR','<br>');
+
 defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 
 defined('PATH_UPLOAD') ? null : define('PATH_UPLOAD', SITE_ROOT.DS.'uploads');

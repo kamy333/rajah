@@ -2,24 +2,22 @@
 
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
-if(User::is_employee() || User::is_secretary()){ redirect_to('index.php');}
+if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
+
+
 $class_name="ToDoList";
-//$class_name1="MyExpense";
-//$class_name2="MyExpensePerson";
-
-
 $table_name=$class_name::get_table_name();
 
 $order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'id';
 $order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'ASC';
 
 
-
-//echo get_where_string($class_name);
+//echo "hi".get_where_string($class_name);
 
 $page= !empty($_GET['page'])? (int) $_GET["page"]:1;
 $per_page=20;
 $where=get_where_string($class_name);
+
 $total_count=$class_name::count_all_where($where);
 $pagination= new Pagination($page,$per_page,$total_count);
 
@@ -66,7 +64,7 @@ if($view_full_table==1){
 <?php $active_menu="admin" ?>
 <?php $stylesheets="" //custom_form  ?>
 <?php $view_full_table==1? $fluid_view=true :$fluid_view=false; ?>
-<?php $javascript="form_admin" ?>
+<?php $javascript="" ?>
 <?php $sub_menu=false ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
@@ -75,32 +73,45 @@ if($view_full_table==1){
     echo $message;
 } ?>
 
-<?php echo $class_name::table_nav($page_link_view,$page_link_text,$offset);?>
+<?php
 
+
+echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page_link_text,$offset]);
+
+?>
 
 
 
 <div class="row">
 
     <div class="col-md-7 <?php echo $offset; ?>">
-        <?php echo $class_name::display_pagination($pagination,$page) ?>
+
+        <?php
+
+        echo call_user_func_array(array($class_name, 'display_pagination'),[$pagination,$page]);
+
+        ?>
 
     </div>
 
+</div>
 
 
+<div class="row">
+    <div class="col-md-12  ">
 
 
-
-    <div class="row">
-        <div class="col-md-12  ">
+        <?php
 
 
-            <?php echo $class_name::display_all($result_class,$view_full_table) ?>
+        echo call_user_func_array(array($class_name, 'display_all'),[$result_class,$view_full_table]);
 
-        </div>
+
+        ?>
+
     </div>
+</div>
 
-    <?php  ?>
-    <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
+<?php  ?>
+<?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
 

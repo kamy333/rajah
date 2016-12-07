@@ -3,10 +3,6 @@
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php $class_name="ToDoList" ;
-$class_name2="MyExpensePerson" ;
-$class_name1="MyHouseExpense" ;
-
-
 
 
 if(isset($_GET['id'])){
@@ -53,7 +49,7 @@ if(request_is_post() && request_is_same_domain()) {
                 $session->ok(true);
                 redirect_to($class_name::$page_manage);
             } else {
-                $message($class_name.$new_item->pseudo." "."$text_post1 failed");
+                $message=($class_name.$new_item->pseudo." "."$text_post1 failed");
 
             }
 
@@ -96,11 +92,10 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 <?php if (!empty($message)) {
-    echo output_message($message);
+    echo $message;
 } ?>
 
 <?php checking(false);?>
-
 
 
 
@@ -112,67 +107,17 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
-    <a href="index.php">Index</a> &nbsp;&nbsp;
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name::$page_manage ?>" >Manage <?php echo $class_name::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name1::$page_manage ?>" >Manage <?php echo $class_name1::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name2::$page_manage ?>" >Manage <?php echo $class_name2::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name1::$page_new ?>">Add New <?php echo $class_name1::$page_name ?></a>
-    <span>&nbsp;&nbsp; |&nbsp;&nbsp; </span>
-    <a href="<?php echo $class_name2::$page_new ?>">Add New <?php echo $class_name2::$page_name ?></a>
-
-    <div class ="background_light_blue">
 
 
-        <form name="form_MyExpenseType" id="form_form_MyExpenseType" class="form-horizontal" method="post" action="<?php echo $post_link;?>">
+    <?php
+  echo call_user_func_array(array($class_name, 'get_form_new_href'),array($class_name::$form_class_dependency));
+    ?>
 
-            <fieldset id="login" title="Expense">
-                <legend class="text-center" style="color: #0000ff"><?php echo $page1 . $class_name::$page_name ?></legend>
 
-
-                <?php
-
-                echo $class_name::construct_form($get_item,$_GET);
-
-                //                $name='expense_type';
-                //                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value="Pres";}
-                //                echo  $class_name::get_form($name,$value);
-                //
-                //
-                //                $name='rank';
-                //                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value=1;}
-                //                echo  $class_name::get_form($name,$value);
-                //
-                //                $name='comment';
-                //                if(isset($_GET[$name])){ $value=$_GET[$name]; } else { isset($get_item)? $value=$get_item->$name :$value='';}
-                //                echo  $class_name::get_form($name,$value);
+        <?php echo   call_user_func(array($class_name, 'Create_form'));  ?>
 
 
 
-                echo Form::form_id();
-                echo csrf_token_tag();?>
-
-
-
-            </fieldset>
-
-
-
-            <div class="col-sm-offset-3 col-sm-7 col-xs-3">
-                <button type="submit" name="submit" class="btn btn-primary"><?php echo $page ." ".$class_name; ?></button>
-            </div>
-
-            <div class="text-right " >
-                <a href="<?php echo $class_name::$page_manage; ?>" class="btn btn-info " role="button">Cancel</a>
-            </div>
-
-
-
-        </form>
-    </div>
 </div>
 
 
