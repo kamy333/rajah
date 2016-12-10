@@ -37,6 +37,22 @@ class DatabaseObject {
     public static $form_class_dependency=array() ; // used for form new the related links put class dependency in array
 
 
+//this is for 1 page
+    public static function change_to_unique_data($data='data'){
+
+
+        //        static::$page_name = get_called_class();
+            $data=trim($data);
+
+        static::$page_manage="manage_{$data}.php?class_name=".get_called_class();
+        static::$page_new="new_{$data}.php?class_name=".get_called_class();
+        static::$page_edit="edit_{$data}.php?class_name=".get_called_class();
+        static::$page_delete="delete_{$data}.php?class_name=".get_called_class();
+
+}
+
+
+
     public static $fields_numeric;
     public static $fields_numeric_format=array();
 
@@ -105,17 +121,20 @@ class DatabaseObject {
 
         $output .= "<a href=\"index.php\">Index</a> &nbsp;&nbsp";
 
+        $href=clean_query_string(static::$page_manage);
         $output .= $span ."<a href=\"".static::$page_manage."\"> Manage ".static::$page_name."</a>";
 
         foreach ($array_classes as $class){
-            $output .= $span ."<a href=\"".$class::$page_manage."\"> Manage ".$class::$page_name."</a>";
+            $href=clean_query_string($class::$page_manage);
+            $output .= $span ."<a href=\"".$href."\"> Manage ".$class::$page_name."</a>";
 ////           var_dump($class);
 //           $output1 .= $class::$page_manage.BR;
         }
         unset($class);
 
         foreach ($array_classes as $class){
-            $output .= $span."<a href=\"".$class::$page_new."\"> Add New ".$class::$page_name."</a>";
+            $href=clean_query_string($class::$page_new);
+            $output .= $span."<a href=\"".$href."\"> Add New ".$class::$page_name."</a>";
         }
 //       $output = "";
 //       $arr = array(1, 2, 3, 4);
@@ -127,17 +146,28 @@ class DatabaseObject {
 
 
     public static function Create_form(){
+//        $is_data=false
+//        if($is_data){
+//
+//            $qr_str="?class_name=".get_called_class()."&";
+//        } else {
+//            $qr_str='?';
+//        }
 
 
         if(isset($_GET['id'])){
-            $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
+//            $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id'].$qr_str);
+//            $post_link=$_SERVER["PHP_SELF"].$qr_str."id=".urldecode($_GET['id']);
+            $post_link=clean_query_string(static::$page_edit."?id=".urldecode($_GET['id']));
+
+
             $page="Update";
             $page1="Update ";
             $text_post="Updated";
             $text_post1="update";
 
         }else{
-            $post_link=$_SERVER["PHP_SELF"];
+            $post_link=clean_query_string(static::$page_new);
             $page="New";
             $page1="Add New ";
             $text_post="created";
@@ -155,13 +185,25 @@ class DatabaseObject {
 //        print_r($_SERVER);
 //
 //        echo "</pre>";
-
         $output="";
+
+
+
+            $link="<a href='"
+            .$_SERVER["PHP_SELF"]." '>". ' '.$page1 ."' "
+            .clean_query_string(static::$page_name )."</a>";
+
+            $h4="<h4 class='text-center'>{$link} </h4>";
+
+//        $output.= $h4;
+
+
         $output .= "<div class =\"background_light_blue\">";
         $output.="<form name='form_ToDo'  class='form-horizontal' method='post' action='{$post_link}'> ";
 
         $output .= "<fieldset id=\"login\" title=\"Client\"><legend class=\"text-center\" style=\"color: #0000ff\">"
-            . $page1 . static::$page_name."</legend>";
+
+            .$link."</legend>";
 
 
         if(request_is_get()) {
@@ -188,8 +230,10 @@ class DatabaseObject {
                    <button type=\"submit\" name=\"submit\" class=\"btn btn-primary\">"
             . $page .' '.get_called_class()."</button></div>";
 
+
+
         $output.="<div class=\"text-right \" ><a href=\""
-            . static::$page_manage."\""." class=\"btn btn-info \" role=\"button\">Cancel</a></div>";
+            . clean_query_string(static::$page_manage)."\""." class=\"btn btn-info \" role=\"button\">Cancel</a></div>";
 
         $output.="";
 
@@ -206,11 +250,13 @@ class DatabaseObject {
 
 
     public static  function   table_nav($page_link_view,$page_link_text,$offset){
+        $href=clean_query_string($page_link_view);
+
         $output="<div class=\"row\" >";
         $output.="<div class=\"col-md-10 {$offset}\" > ";
         $output.="<a  class=\"btn btn-success\"  href=\"index.php\">Index</a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\" $page_link_view\"> $page_link_text</a><span>&nbsp;</span>";
-        $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add New ". static::$page_name." </a>";
+        $output.="<a  class=\"btn btn-primary\"  href=\" $href\"> $page_link_text</a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-primary\"  href=\"". clean_query_string(static::$page_new) ."\">Add New ". static::$page_name." </a>";
         $output.=static::table_nav_additional();
         $output.="</div>";
         $output.="</div>";
@@ -785,9 +831,19 @@ public static function get_table_name() {
     static public function display_pagination($pagination,$page){
 
        // $add_view="&view=".u(1);
+//        ,$is_data=false
 
-        $query_string= remove_get(array('page'));
+//        if($is_data){
+//
+//        }else{
+//            $query_string= remove_get(array('page'));
+//
+//        }
 
+        $query_string= remove_get(array('page','class_name'));
+
+
+//        var_dump($query_string);
 
         $output="<div id=''>";
         $output.=" <nav>";
@@ -795,25 +851,38 @@ public static function get_table_name() {
 
         if($pagination->total_pages() > 1) {
 
+
             //     <li><a href="#">Previous</a></li>
             if($pagination->has_previous_page()) {
-                $output.= "<li><a href=\"".static::$page_manage.$query_string."page=";
-                $output.= urlencode($pagination->previous_page());
+                $href=clean_query_string(static::$page_manage.$query_string."page=". urlencode($pagination->previous_page()));
+
+                $output.= "<li><a href=\"";
+                $output.= $href;
                 $output.= "\">&laquo; Previous</a></li> ";
             }
 
             for($i=1; $i <= $pagination->total_pages(); $i++) {
+
                 if($i == $page) {
                     $output.= " <li class=\"active\"><a href='#'>{$i}</a></li> ";
 
                 } else {
-                    $output.= "<li class=\"\"><a href=\"".static::$page_manage.$query_string."page={$i}\">{$i}</a></li> ";
+                    $href=clean_query_string(static::$page_manage.$query_string."page=".$i);
+//                    $output.= "<li class=\"\"><a href=\"".static::$page_manage.$query_string."page={$i}\">{$i}</a></li> ";
+                    $output.= "<li class=\"\"><a href=\"".$href."\">".$i."</a></li> ";
+
                 }
             }
 
             if($pagination->has_next_page()) {
-                $output.= "<li> <a href=\"".static::$page_manage.$query_string."page=";
-                $output.= urlencode($pagination->next_page());;
+                $href=clean_query_string(static::$page_manage.$query_string."page=". urlencode($pagination->next_page()));
+
+//                $output.= "<li> <a href=\"".static::$page_manage.$query_string."page=";
+//                $output.= urlencode($pagination->next_page());
+
+                $output.= "<li> <a href=\"";
+                $output.= $href;
+
                 $output.= "\">Next &raquo;</a></li> ";
             }
 
@@ -835,6 +904,10 @@ public static function get_table_name() {
 
 
     public static function display_all($object_all,$long_short=0,$edit=true){
+//        ,$is_data=false
+//        if($is_data){
+//            static::change_to_unique_data();
+//        }
 
 
         $output="";
@@ -875,11 +948,19 @@ public static function get_table_name() {
     }
 
     public static function display_table_head($long_short=0,$edit=true){
-
+//        ,$is_data=false
 
        // $query_string= urldecode($_SERVER['QUERY_STRING']);
 
-        $query_string= remove_get(array('order_name','order_type','page'));
+//        if($is_data){
+//
+//        } else {
+//            $query_string= remove_get(array('order_name','order_type','page'));
+//
+//        }
+
+        $query_string= remove_get(array('order_name','order_type','page','class_name'));
+
 
         if($long_short==1){
             $table_field=static::$db_fields_table_display_full;
@@ -893,7 +974,9 @@ public static function get_table_name() {
 
         $output.="<div class='panel panel-default text-center'>";
         // <!-- Default panel contents -->
-        $output.="<div class='panel-heading'>"."<a class='btn btn-default' style='color:blue;font-size:1.3em;' href='".static::$page_manage."'>Manage ".static::$page_name."</a> ".static::get_modal_search();
+
+        $output.="<div class='panel-heading'>"
+            ."<a class='btn btn-default' style='color:blue;font-size:1.3em;' href='".clean_query_string(static::$page_manage)."'>Manage ".static::$page_name."</a> ".static::get_modal_search();
 
         $output.="";
         $output.="";
@@ -920,7 +1003,7 @@ public static function get_table_name() {
             $key_clean = ucfirst($key_clean);
 
 
-            if(!empty($_GET[$key]) && !in_array($key,array('page','view'))){
+            if(!empty($_GET[$key]) && !in_array($key,array('page','view','class_name'))){
                 $output.="<b>".h($key_clean)." <span style='color:blue;'> ".h(urldecode($_GET[$key]))."</span></b> | ";
             }
         }
@@ -954,10 +1037,17 @@ public static function get_table_name() {
 
                     }
 
+                 $href=clean_query_string($_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('ASC')."&class_name=".get_called_class());
 
-        $new_query_ASC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('ASC')."'>'";
-        $new_query_ASC.="<span class='glyphicon glyphicon-triangle-bottom' style='color: white' aria-hidden='true'></span></a>";
-        $new_query_DESC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('DESC')."'>'";
+//                    $new_query_ASC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('ASC')."'>'";
+                    $new_query_ASC="<a href='".$href."'>'";
+
+                    $href=clean_query_string($_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('DESC')."&class_name=".get_called_class());
+
+                    $new_query_ASC.="<span class='glyphicon glyphicon-triangle-bottom' style='color: white' aria-hidden='true'></span></a>";
+//        $new_query_DESC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('DESC')."'>'";
+                    $new_query_DESC="<a href='".$href."'>'";
+
         $new_query_DESC.="<span class='glyphicon glyphicon-triangle-top' style='color: white'  aria-hidden='true'></span></a>";
         $fieldname = str_replace("_", " ", $fieldname);
         $fieldname = ucfirst($fieldname);
@@ -1045,12 +1135,17 @@ public static function get_table_name() {
 
     public static function display_table_footer($edit=true){
 
+//        ,$is_data=false
+//        if($is_data){
+//            static::change_to_unique_data();
+//        }
 
         $output="</table>";
         $output.="</div>";
         $output.="</div>";
         if($edit){
-            $output.="<p class='text-right'><a href='". static::$page_new."'>Add New ". static::$page_name."</a></p>";
+
+            $output.="<p class='text-right'><a href='". clean_query_string(static::$page_new)."'>Add New ". static::$page_name."</a></p>";
         }
 
         return $output;
@@ -1059,6 +1154,7 @@ public static function get_table_name() {
 
     public function display_table($long_short=0,$edit){
 
+//        ,$is_data=false
         $this->set_up_display();
 
         $output="";
@@ -1089,9 +1185,22 @@ if($long_short==1){
         }
 
         if($edit){
-            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+//            if($is_data){
+//                $qrstr="&";
+//            }else{
+//                $qrstr='?';
+//            }
 
-            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+//
+            $href=clean_query_string(static::$page_edit."?id=".urlencode($this->id));
+
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' href='".$href."'>Edit</a></td>" ;
+
+
+            $href=clean_query_string(static::$page_delete."?id=".urlencode($this->id));
+
+
+            $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='".$href."'>Delete</a></td>" ;
         }
 
         $output.= "</tr>";
@@ -1135,7 +1244,13 @@ if($long_short==1){
         }
 
         if($edit){
-            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='class_edit?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Edit</a></td>" ;
+            $href=clean_query_string("class_edit?class_name=".get_called_class()."&id=".urlencode($this->id));
+
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='"."class_edit?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Edit</a></td>" ;
+
+            $output.= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='".$href."'>Edit</a></td>" ;
+
+            $href=clean_query_string("class_delete?class_name=".get_called_class()."&id=".urlencode($this->id));
 
             $output.= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete?class_name=".get_called_class()."&id=".urlencode($this->id)."'>Delete</a></td>" ;
         }
@@ -1146,7 +1261,8 @@ if($long_short==1){
     }
 
     // list class case sensitive
-  public static $all_class=array('User','user_type','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType','MyHouseExpense','MyHouseExpenseType','Chat','ChatFriend','ToDoList','Notification','TransportChauffeur','TransportClient','TransportProgramming','TransportProgrammingModel','TransportType') ;
+  public static $all_class=array('ToDoList','User','UserType','Client','Category','BlacklistIp','Links','LinksCategory','Project','Category1','Category2','InvoiceActual','InvoiceEstimate','FailedLogin','MyCigarette','MyExpense','MyExpensePerson','MyExpenseType','MyHouseExpense','MyHouseExpenseType','Chat','ChatFriend','Notification','TransportChauffeur','TransportClient','TransportProgramming','TransportProgrammingModel','TransportType') ;
+
 
   public static function form_structure() {
       $classes=static::$all_class;

@@ -2,9 +2,17 @@
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
-<?php $class_name="User" ?>
+<?php
 
 
+if(isset($_GET['class_name'])) {
+$class_name=$_GET['class_name'];
+    call_user_func_array(array($class_name,'change_to_unique_data'),['ajax']);
+
+} else {
+$class_name="ToDoList";
+}
+?>
 <?php
 if (!isset($_GET["id"])) {
     $id="";
@@ -24,18 +32,17 @@ if($class_found->username=="Admin" &&$class_name=="User"){
     }
 
 } else {
-    if($class_found->delete()){
-//        $session->message($class_found->username." successfully deleted") ;
-        $session->message($class_found->message_form("successfully deleted!")) ;
+
+    if ($class_found->delete()) {
+        $session->message($class_found->pseudo . " successfully deleted");
         $session->ok(true);
         redirect_to($class_name::$page_manage);
     } else {
-//        $session->message($class_found->username." deletion failed ") ;
-        $session->message($class_found->message_form("deletion failed!")) ;
+        $session->message($class_found->pseudo . " deletion failed ");
         redirect_to($class_name::$page_manage);
     }
-}
 
+}
 
 
 }

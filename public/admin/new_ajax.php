@@ -2,9 +2,16 @@
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
-<?php $class_name="ToDoList" ;
+<?php
 
 
+if(isset($_GET['class_name'])) {
+    $class_name=$_GET['class_name'];
+//    $class_name::change_to_unique_data;
+    call_user_func_array(array($class_name,'change_to_unique_data'),['ajax']);
+} else {
+    $class_name="ToDoList";
+}
 
 if(isset($_GET['id'])){
     $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
@@ -31,14 +38,14 @@ if(request_is_post() && request_is_same_domain()) {
         $message = "Sorry, request was not valid.";
     } else {
 
-      $new_item=new $class_name() ;
+        $new_item=new $class_name() ;
         $expected_fields=$class_name::get_table_field();
-       foreach($expected_fields as $field){
+        foreach($expected_fields as $field){
             if(isset($_POST[$field])){
-         $new_item->$field=trim($_POST{$field}) ;
+                $new_item->$field=trim($_POST{$field}) ;
             }
 
-       }
+        }
 
         //todo complete valid like pseudo
 
@@ -50,10 +57,10 @@ if(request_is_post() && request_is_same_domain()) {
                 $session->ok(true);
                 redirect_to($class_name::$page_manage);
             } else {
-                $session->message($class_name.$new_item->pseudo." "."$text_post1 failed");
-                redirect_to($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']);
+                $message=($class_name.$new_item->pseudo." "."$text_post1 failed");
 
             }
+
 
 
 
@@ -79,10 +86,10 @@ if(request_is_post() && request_is_same_domain()) {
 ?>
 
 <?php $layout_context = "admin"; ?>
-<?php $active_menu="admin"; ?>
+<?php $active_menu="newdata"; ?>
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
-<?php $javascript=""; ?>
+<?php $javascript=$class_name; ?>
 <?php $incl_message_error=true; ?>
 <?php //include_layout_template('header_2.php'); ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
@@ -91,24 +98,34 @@ if(request_is_post() && request_is_same_domain()) {
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
 <?php  echo isset($valid)? $valid->form_warnings():"" ?>
 
-<?php if (isset($message)) {
+
+<?php if (!empty($message)) {
     echo $message;
 } ?>
-
-
-<?php  ?>
 
 <?php checking(false);?>
 
 
+
+
+
+
+
+
+
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
 
-    <?php echo call_user_func_array(array($class_name, 'get_form_new_href'),array($class_name::$form_class_dependency));?>
 
-    <?php  echo   call_user_func(array($class_name, 'Create_form')); ?>
+    <?php echo call_user_func_array(array($class_name, 'get_form_new_href'),array($class_name::$form_class_dependency));?>
+    <!--    <h4 class="text-center"><a href="--><?php //echo $_SERVER["PHP_SELF"] ?><!--">--><?php //echo $page ." " .$class_name::$page_name ?><!--</a> </h4>-->
+
+    <?php    echo   call_user_func(array($class_name, 'Create_form'));  ?>
+
+
 
 
 </div>
+
 
 
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>

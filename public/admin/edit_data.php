@@ -1,20 +1,38 @@
+
+<?php //ob_start(); ?>
 <?php require_once('../../includes/initialize.php'); ?>
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
-<?php $class_name="ToDoList" ;
+<?php
 
+if(isset($_GET['class_name'])) {
+    $class_name=$_GET['class_name'];
+    call_user_func_array(array($class_name,'change_to_unique_data'),['data']);
+    $is_data=true;
+} else {
+    $class_name="ToDoList";
+    $is_data=false;
+
+
+}
+
+
+$url= clean_query_string('http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']."?"."class_name=".u($class_name)."&id=".u($_GET['id'])."&test=1");
+//echo $url;
+
+http://localhost/rajah_production/public/admin/edit_data.php?class_name=BlacklistIp&id=12 ;
 
 
 if(isset($_GET['id'])){
-    $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
+    $post_link=$_SERVER["PHP_SELF"]."?class_name=".u($class_name)."&id=".urlencode($_GET['id']);
     $page="Update";
     $page1="Update ";
     $text_post="Updated";
     $text_post1="update";
 
 }else{
-    $post_link=$_SERVER["PHP_SELF"];
+    $post_link=$_SERVER["PHP_SELF"]."?class_name=".u($class_name);
     $page="New";
     $page1="Add New ";
     $text_post="created";
@@ -31,14 +49,14 @@ if(request_is_post() && request_is_same_domain()) {
         $message = "Sorry, request was not valid.";
     } else {
 
-      $new_item=new $class_name() ;
+        $new_item=new $class_name() ;
         $expected_fields=$class_name::get_table_field();
-       foreach($expected_fields as $field){
+        foreach($expected_fields as $field){
             if(isset($_POST[$field])){
-         $new_item->$field=trim($_POST{$field}) ;
+                $new_item->$field=trim($_POST{$field}) ;
             }
 
-       }
+        }
 
         //todo complete valid like pseudo
 
@@ -48,10 +66,19 @@ if(request_is_post() && request_is_same_domain()) {
             if ($new_item->save()){
                 $session->message($class_name.$new_item->pseudo." "."has been $text_post with ID (".$new_item->id .")");
                 $session->ok(true);
+                unset($_POST);
                 redirect_to($class_name::$page_manage);
             } else {
-                $session->message($class_name.$new_item->pseudo." "."$text_post1 failed");
-                redirect_to($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']);
+                $session->message($class_name.$new_item->pseudo." "."$text_post1 failed or maybe nothing changed");
+//                redirect_to($_SERVER['PHP_SELF']."?".$_SERVER['QUERY_STRING']);
+                unset($_POST);
+                redirect_to($url);
+//                echo '<script type="text/javascript">location.reload(true);</script>';
+//                 echo '<script type="text/javascript">alert("hi");</script>';
+//
+//                $secondsWait = 1;
+//                echo date('Y-m-d H:i:s');
+//                echo '<meta http-equiv="refresh" content="'.$secondsWait.'">';
 
             }
 
@@ -112,3 +139,5 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>
+
+<?php //ob_end_flush(); ?>

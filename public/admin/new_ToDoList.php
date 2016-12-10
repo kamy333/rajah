@@ -2,7 +2,7 @@
 <?php  $session->confirmation_protected_page(); ?>
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
-<?php $class_name="ToDoList" ;
+<?php $class_name="todolist" ;
 
 
 if(isset($_GET['id'])){
@@ -103,18 +103,15 @@ if(request_is_post() && request_is_same_domain()) {
 
 
 
-<h4 class="text-center"><a href="<?php echo $_SERVER["PHP_SELF"] ?>"><?php echo $page ." " .$class_name::$page_name ?></a> </h4>
 
 
 <div class="col-md-7 col-md-offset-2 col-lg-7 col-lg-offset-2">
 
 
-    <?php
-  echo call_user_func_array(array($class_name, 'get_form_new_href'),array($class_name::$form_class_dependency));
-    ?>
+     <?php echo call_user_func_array(array($class_name, 'get_form_new_href'),array($class_name::$form_class_dependency));?>
 
+     <?php    echo   call_user_func(array($class_name, 'Create_form'));  ?>
 
-        <?php echo   call_user_func(array($class_name, 'Create_form'));  ?>
 
 
 

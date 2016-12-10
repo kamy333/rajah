@@ -16,13 +16,14 @@ class ToDoList extends DatabaseObject {
 
     protected static $required_fields =  array('user_id','todo','done');
 
-    protected static $db_fields_table_display_short =  array('id','user_id','todo','done','prog','link','due_date','rank','comment');
+    protected static $db_fields_table_display_short =  array('id','user_id','todos','done','prog','due_on','rank','comment');
 
-    protected static $db_fields_table_display_full =  array('id','user_id','todo','done','prog','progress','link','due_date','rank','web_address','comment','done');
+    protected static $db_fields_table_display_full =  array('id','user_id','todos','done','prog','progress','due_date','rank','web_address','comment','done');
 
     protected static $db_field_exclude_table_display_sort=array();
 
-    protected static $db_field_include_table_display_sort=array('link'=>'web_address','prog'=>'progress');
+    protected static $db_field_include_table_display_sort=array(
+        'link'=>'web_address','prog'=>'progress','todos'=>'todo','due_on'=>'due_date');
 
 
     public static $fields_numeric=array('id','rank','user_id','done','progress');
@@ -199,7 +200,8 @@ class ToDoList extends DatabaseObject {
 
     public $progress;
     public $prog;
-
+    public $todos;
+    public $due_on;
 
     protected function set_up_display(){
         global $session;
@@ -207,11 +209,17 @@ class ToDoList extends DatabaseObject {
 
         if(!empty($this->web_address) && isset($this->id)){
             $this->link="<a href='{$this->web_address}'><u>link</u></a>";
-
+            $this->todos="<a href='{$this->web_address}'><u>".$this->todo."</u></a>";
+        } else {
+            $this->todos=$this->todo;
         }
 
         if(isset($this->done) && (int)  $this->done===1){
             $this->progress=100;
+        }
+
+        if(isset($this->due_date)){
+            $this->due_on=date_to_text($this->due_date);
         }
 
         if ( isset($this->progress)) {
@@ -264,11 +272,12 @@ class ToDoList extends DatabaseObject {
         $output="</a><span>&nbsp;</span>";
 
 
+        $href=clean_query_string(static::$page_manage."?search_all=&done={$done}&submit=");
 
-        $output.="<a  class=\"btn btn-info\"  href=\"". static::$page_manage."?search_all=&done={$done}&submit=" ."\">{$done_txt} ". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-info\"  href=\"". $href ."\">{$done_txt} ". " </a><span>&nbsp;</span>";
 
 
-        $output.="<a  class=\"btn btn-info\"  href=\"". static::$page_manage.$qstr ."\">progress". " </a><span>&nbsp;</span>";
+        $output.="<a  class=\"btn btn-info\"  href=\"". clean_query_string(static::$page_manage.$qstr )."\">progress". " </a><span>&nbsp;</span>";
 
 
 

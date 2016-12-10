@@ -60,7 +60,7 @@ class Client extends DatabaseObject {
                        "name"=>'company_name',
                        "label_text"=>"Company name",
                        "placeholder"=>"Company name",
-                        "required" =>true,
+                        "required" =>false,
      ),
 
      "web_view"=> array("type"=>"text",

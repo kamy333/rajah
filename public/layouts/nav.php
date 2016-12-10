@@ -71,16 +71,57 @@ if ($layout_context=="public"){
                         <?php echo $Nav->menu_item('','About us 2','about_us_2.php','public'); ?>
                         <?php echo $Nav->menu_item('','About Us 3','angular.php','public'); ?>
                         <?php echo $Nav->menu_item('','AngularJS Login','angular2.php','public'); ?>
-                        <?php echo $Nav->menu_item('','Your info','some_data.php','public'); ?>
+                        <?php
+                        if(User::is_admin()){
+                            echo $Nav->menu_item('','Your info','some_data.php','public');
+                        }
+                         ?>
 
                         </ul>
                 </li>
 
 
-            <!--    <li
-                    <?php /*if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} */?>
-                    ><a href="<?php /*echo $path_public;*/?>myLinks.php?category=Others">Links</a></li>
--->
+                <?php if(User::is_admin()|| User::is_manager() || User::is_secretary()){ ?>
+                <li
+                    <?php if ( isset($active_menu) && $active_menu=="data"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
+                ><a href="#" data-toggle="dropdown">Data<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                    <?php foreach (DatabaseObject::$all_class as $class) {
+                        if(strtolower($class)!="invoiceestimate"){
+                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
+                        }
+                    }
+                    unset($class);
+
+
+                    ?>
+                    </ul>
+
+
+                <li
+                    <?php if ( isset($active_menu) && $active_menu=="newdata"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
+                ><a href="#" data-toggle="dropdown">New Data<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+
+                        <?php foreach (DatabaseObject::$all_class as $class) {
+                        if(strtolower($class)!="invoiceestimate") {
+                            echo $Nav->menu_item($class, 'New ' . $class, 'New_data.php', 'admin');
+                        }
+                        }
+                        unset($class);
+
+
+                        ?>
+                    </ul>
+
+
+                    <?php } ?>
+
+                    <!--    <li
+                            <?php /*if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} */?>
+                            ><a href="<?php /*echo $path_public;*/?>myLinks.php?category=Others">Links</a></li>
+        -->
                 
                 <li
                     <?php if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} ?>

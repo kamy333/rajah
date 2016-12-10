@@ -92,6 +92,15 @@ function datetime_to_text($datetime="") {
 }
 
 
+function date_to_text($date=""){
+    if(empty($date)){
+        $date=time();
+    }
+    $unix_datetime = strtotime($date);
+    return strftime("%a %b %e, %Y ", $unix_datetime);
+
+}
+
 function datetime_to_text_day($datetime="") {
     $unix_datetime = strtotime($datetime);
     return strftime("%a %B %d, %Y at %I:%M %p", $unix_datetime);
@@ -344,10 +353,38 @@ function e($string){
 
 }
 
+
+function clean_query_string($text_qry_str){
+    if ( substr_count($text_qry_str, '?')>1){
+
+        $occ=substr_count($text_qry_str, '?');
+//        echo "\n"."Number time ? ".$occ."\n";
+        $pos=(int) strpos($text_qry_str,'?');
+//        echo"position ".$pos."\n";
+        $qry_str_part1=substr($text_qry_str,0, $pos+1);
+//        echo "\n";
+        $qry_str_part2=substr($text_qry_str, $pos+1);
+//        echo "\n";
+        $qry_str_part2=str_replace("&?", "&", $qry_str_part2,$count);
+        $qry_str_part2=str_replace("&&", "&", $qry_str_part2,$count);
+        $qry_str_part2=str_replace("??", "&", $qry_str_part2,$count);
+        $qry_str_part2=str_replace("?&", "&", $qry_str_part2,$count);
+
+//        echo $text_qry_str; echo "\n";
+        $new_url= $qry_str_part1. str_replace("?", "&", $qry_str_part2,$count)."\n";
+
+        return $new_url;
+    }   else {
+
+        return $text_qry_str;
+    }
+}
+
 function remove_get($remove=array()){
 //var_dump($remove);
 //var_dump($_GET);
 
+//var_dump($class_name_exist);
 
     $array=array();
 
@@ -363,6 +400,7 @@ function remove_get($remove=array()){
 //   var_dump($_GET);
 
         return "?".http_build_query($array)."&";
+
     } else {
 
         return "?";

@@ -13,9 +13,11 @@ require_once('../../includes/initialize.php');?>
 <span><a href="../index.php">&laquo; Public</a></span>
 <h2>Menu</h2>
 
-	<?php if (isset($message)) {
-        echo output_message($message);
-    } ?>
+	<?php
+if (isset($message)) {
+    echo $message;
+}
+    ?>
 
 <!---->
 <?php
