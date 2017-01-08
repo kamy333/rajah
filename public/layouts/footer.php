@@ -104,6 +104,13 @@ substr($Nav->current_page, 0,5)=="edit_" ){  ?>
     <script src="<?php echo $Nav->path_public;?>myjs/InvoiceActual_Row.js"></script>
 <?php }?>
 
+<?php   if ( isset($javascript) && $javascript=="ajax"){?>
+
+<script src="<?php echo $Nav->path_public;?>myjs/ajax_db.js"></script>
+<!--<script src="--><?php // echo $Nav->path_public."myjs/formKamy.js" ; ?><!--"></script>-->
+
+<?php }?>
+
 
     <?php /*    if ( isset($javascript) && $javascript=="manage_course"){*/?>
 <!--        <script src="js/manage_course_view.js"></script>-->
@@ -116,7 +123,7 @@ substr($Nav->current_page, 0,5)=="edit_" ){  ?>
 
 <!--            testing            -->
 
-    <script src="js/test_tooltips.js"></script>
+    <script src="<?php echo $Nav->path_public;?>js/test_tooltips.js"></script>
 
 
 </body>

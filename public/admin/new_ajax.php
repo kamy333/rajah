@@ -4,6 +4,8 @@
 
 <?php
 
+MyClasses::redirect_disable_class();
+
 
 if(isset($_GET['class_name'])) {
     $class_name=$_GET['class_name'];

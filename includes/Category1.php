@@ -85,6 +85,8 @@ class Category1 extends DatabaseObject {
     public static $page_edit="edit_category_1.php";
     public static $page_delete="delete_category_1.php";
 
+    public static $form_class_dependency=array('InvoiceActual','Category','Category2') ;
+
     public static $per_page;
 
 

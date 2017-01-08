@@ -355,6 +355,26 @@ class User extends DatabaseObject {
 
     public static $db_field_search=array('search_all','id', 'username','nom','email','user_type','user_type_id','block_user','first_name', 'last_name','reset_token','address','cp','city','country','phone','mobile','download_csv');
 
+    public function delete() {
+        global $session;
+        if($this->username=="Admin"){
+            $session->message($this->username." cannot be deleted  ") ;
+            redirect_to(static::$page_manage);
+
+            if($this->id===$_SESSION["user_id"]){
+                $session->message($this->username." you cannot delete the active user logged in !(yourself)  ") ;
+                redirect_to(static::$page_manage);
+            }
+
+        } else {
+            parent::delete();
+        }
+
+    }
+
+
+
+
 
     public static $page_name="User";
     public static $page_manage="manage_user.php";
@@ -362,6 +382,10 @@ class User extends DatabaseObject {
     public static $page_edit="edit_user.php";
     public static $page_delete="delete_user.php";
 
+    public static $form_class_dependency=array('UserType') ;
+
+
+    public $per_page;
 
     const TYPE_ADMIN=1;
     const TYPE_MANAGER=2;

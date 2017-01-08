@@ -182,7 +182,8 @@ class ToDoList extends DatabaseObject {
     public static $page_edit="edit_ToDoList.php";
     public static $page_delete="delete_ToDoList.php";
 
-    public static $form_class_dependency=array('MyHouseExpense','MyExpensePerson') ;
+
+    public static $form_class_dependency=array() ;
 
 
     public static $per_page;

@@ -109,7 +109,7 @@ require_once(LIB_PATH.DS.'config.php');
 
 $use_database_mysqli=false;
 
-require_once(LIB_PATH.DS.'MyClass.php');
+require_once(LIB_PATH.DS.'MyClasses.php');
 
 if($use_database_mysqli){
     require_once(LIB_PATH.DS.'database_mysqli.php');

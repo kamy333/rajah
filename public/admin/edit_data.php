@@ -5,6 +5,7 @@
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php
+MyClasses::redirect_disable_class();
 
 if(isset($_GET['class_name'])) {
     $class_name=$_GET['class_name'];
@@ -18,7 +19,7 @@ if(isset($_GET['class_name'])) {
 }
 
 
-$url= clean_query_string('http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']."?"."class_name=".u($class_name)."&id=".u($_GET['id'])."&test=1");
+$url= clean_query_string('http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']."?"."class_name=".u($class_name)."&id=".u($_GET['id']));
 //echo $url;
 
 http://localhost/rajah_production/public/admin/edit_data.php?class_name=BlacklistIp&id=12 ;

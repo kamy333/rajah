@@ -559,6 +559,11 @@ $output.="<textarea name='$this->name'  class='form-control'";
 
     }
 
+    static public function class_name($class_name){
+        return "<input type='hidden' name='class_name' value='{$class_name}'>";
+
+    }
+
 
 
 

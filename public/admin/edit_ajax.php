@@ -1,10 +1,10 @@
 
-<?php //ob_start(); ?>
-<?php require_once('../../includes/initialize.php'); ?>
-<?php  $session->confirmation_protected_page(); ?>
-<?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
-
 <?php
+
+require_once('../../includes/initialize.php');
+  $session->confirmation_protected_page();
+ if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}
+MyClasses::redirect_disable_class();
 
 if(isset($_GET['class_name'])) {
     $class_name=$_GET['class_name'];
@@ -14,14 +14,10 @@ if(isset($_GET['class_name'])) {
     $class_name="ToDoList";
     $is_data=false;
 
-
 }
 
 
 $url= clean_query_string('http://'.$_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']."?"."class_name=".u($class_name)."&id=".u($_GET['id'])."&test=1");
-//echo $url;
-
-http://localhost/rajah_production/public/admin/edit_data.php?class_name=BlacklistIp&id=12 ;
 
 
 if(isset($_GET['id'])){

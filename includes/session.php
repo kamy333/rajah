@@ -193,6 +193,9 @@ class Session {
 	  }
     }
 
+
+
+
    private function check_message() {
         if (isset($_SESSION["message"])) {
             //$output = "<div class=\"message\" >";
@@ -200,7 +203,7 @@ class Session {
                 $output = "<div class=\"alert alert-success  fade in\"  role='alert' >";
                 $output.="<a href='#' class='close' data-dismiss='alert'>&times;</a>";
                 $output.="<span class=\"glyphicon glyphicon-ok\" aria-hidden='true'></span>";
-                $output.="<span class=\"sr-only\">Error:</span>";
+                $output.="<span class=\"sr-only\">Success:</span>";
             } else {
                 $output = "<div class=\"alert alert-danger fade in\" role='alert' >";
                 $output.="<a href='#' class='close' data-dismiss='alert'>&times;</a>";

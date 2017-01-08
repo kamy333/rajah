@@ -129,11 +129,11 @@ to convert the result of a Variable to variable $$.
         echo '<br> <b>parent::</b>  could be used with instance methods too but not attributes or properties ';
         echo '<hr> ';
         echo '<br> Contruct - Destruct ';
-        echo '<br> <b>function__construct()</b> will initialize or perform things in class when there is intance for ex eg prepare connection';
+        echo '<br> <b>function__construct()</b> will initialize or perform things in class when there is instance for ex eg prepare connection';
         echo '<br> <b>function __destruct()</b> when';
         echo '<br> Cloning';
         echo '<br> Normally if we assign a instance $var2=$var it will make a reference like putting $var2 =&$var but if we want a copy or clone <b>$var2 =clone $var1</b>';
-        echo '<br> So when we clone it does not go to construct method but instead we can use a clone methood <b>function __clone()</b> so when clone a instance instantanly it will perform the clone method';
+        echo '<br> So when we clone it does not go to construct method but instead we can use a clone method <b>function __clone()</b> so when clone a instance instantanly it will perform the clone method';
         echo '<br> to compare 2 object == or stricter ===';
         echo '<br> you can compare 2 instance clone or reference to true or false $var==(=)$var1';
         echo '<br> with stricter only reference is true, non strict unless property change it is true';

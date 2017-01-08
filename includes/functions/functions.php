@@ -86,6 +86,12 @@ function log_action($action, $message="") {
     }
 }
 
+function is_ajax_request() {
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+        $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+}
+
+
 function datetime_to_text($datetime="") {
     $unix_datetime = strtotime($datetime);
     return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);

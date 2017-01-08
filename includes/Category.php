@@ -146,6 +146,9 @@ protected static $db_fields_table_display_full =array('id','category','category_
     public static $page_edit="edit_category.php";
     public static $page_delete="delete_category.php";
 
+    public static $form_class_dependency=array('InvoiceActual','Category1','Category2') ;
+
+
     public static $per_page;
 
 

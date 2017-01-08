@@ -61,3 +61,5 @@ config.php
 config_mail.php
 /includes/config_ava.php
 /sandbox/
+/Minton_full_version/
+/jquery/

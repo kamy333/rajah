@@ -229,6 +229,9 @@ class InvoiceActual extends DatabaseObject{
     public static $page_edit="edit_invoice_actual.php";
     public static $page_delete="delete_invoice_actual.php";
 
+    public static $form_class_dependency=array('Category','Category1','Category2') ;
+
+
     public static $per_page;
 
 

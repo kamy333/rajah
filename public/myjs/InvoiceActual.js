@@ -3,6 +3,7 @@
  */
 
 
+
 function isEmpty(str) {
     return (!str || 0 === str.length);
 }
@@ -15,6 +16,9 @@ $('#category_id').change(function() {
     var beg="";
     var values = {};
     $.each($('#form_invoice_actual').serializeArray(), function(i, field) {
+
+
+
 
        values[field.name] = field.value;
 

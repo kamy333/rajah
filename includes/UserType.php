@@ -93,6 +93,8 @@ class UserType extends DatabaseObject {
     public static $page_edit="edit_user_type.php";
     public static $page_delete="delete_user_type.php";
 
+    public static $form_class_dependency=array('User') ;
+
 
     public $id;
     public $user_type;
@@ -108,33 +110,33 @@ class UserType extends DatabaseObject {
     }
 
 
-    public function display_table($long_short=0,$edit=""){
-
-        $output="";
-        $output.= "<tr>";
-
-        if($long_short==1){
-            $table_field=static::$db_fields_table_display_full;
-
-        } else {
-            $table_field=static::$db_fields_table_display_short;
-
-        }
-
-
-        foreach($table_field as $fieldname){
-            if(property_exists($this,$fieldname)){
-                $output.= "<td class='text-center'>".$this->$fieldname."</td>";
-            }
-        }
-
-        //     $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
-
-        $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
-        $output.= "</tr>";
-        return $output;
-
-    }
+//    public function display_table($long_short=0,$edit=""){
+//
+//        $output="";
+//        $output.= "<tr>";
+//
+//        if($long_short==1){
+//            $table_field=static::$db_fields_table_display_full;
+//
+//        } else {
+//            $table_field=static::$db_fields_table_display_short;
+//
+//        }
+//
+//
+//        foreach($table_field as $fieldname){
+//            if(property_exists($this,$fieldname)){
+//                $output.= "<td class='text-center'>".$this->$fieldname."</td>";
+//            }
+//        }
+//
+//        //     $output.= "<td class='text-center'><a href='".static::$page_edit."?id=".urlencode($this->id)."'>Edit</a></td>" ;
+//
+//        $output.= "<td class='text-center'><a href='".static::$page_delete."?id=".urlencode($this->id)."'>Delete</a></td>" ;
+//        $output.= "</tr>";
+//        return $output;
+//
+//    }
 
 
 

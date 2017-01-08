@@ -1,8 +1,10 @@
 <?php
-
 require_once('../../includes/initialize.php');
 $session->confirmation_protected_page();
 if(User::is_employee() || User::is_secretary() || User::is_visitor()){ redirect_to('index.php');}
+
+MyClasses::redirect_disable_class();
+
 
 if(isset($_GET['class_name'])) {
     $class_name=$_GET['class_name'];
@@ -17,45 +19,8 @@ if(isset($_GET['class_name'])) {
 
 }
 
-//echo $class_name.BR;
-
-$table_name=$class_name::get_table_name();
-
-//echo $table_name.BR;
-
-$order_name= !empty($_GET["order_name"])?$_GET["order_name"] : 'id';
-$order_type= !empty($_GET["order_type"])?$_GET["order_type"] :'ASC';
 
 
-//echo "hi".get_where_string($class_name);
-
-$page= !empty($_GET['page'])? (int) $_GET["page"]:1;
-$per_page=20;
-$where=get_where_string($class_name);
-
-
-$total_count=$class_name::count_all_where($where);
-$pagination= new Pagination($page,$per_page,$total_count);
-
-require_once LIB_PATH.DS.'download'.DS.'download_csv.php';
-
-
-$sql = "SELECT * FROM {$table_name} ";
-
-$sql.= " ".get_where_string($class_name);
-
-if(isset($order_name)){
-    $sql.=" ORDER BY {$order_name} {$order_type} ";
-}
-
-
-$sql .= "LIMIT {$per_page} ";
-$sql .= "OFFSET {$pagination->offset()}";
-
-//echo "<p>$sql</p>";
-//unset($_GET);
-
-$result_class = $class_name::find_by_sql($sql);
 
 $query_string=remove_get(array('view','page',$class_name));
 
@@ -80,17 +45,21 @@ if($view_full_table==1){
 <?php $active_menu="data" ?>
 <?php $stylesheets="" //custom_form  ?>
 <?php $view_full_table==1? $fluid_view=true :$fluid_view=false; ?>
-<?php $javascript="" ?>
+<?php $javascript="ajax" ?>
 <?php $sub_menu=false ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 <?php  echo isset($valid)? $valid->form_errors():"" ?>
-<?php if (isset($message)) {
-    echo $message;
-} ?>
+
+<div id="<?php echo"message-php"; ?>">
+    <?php if (isset($message)) {
+        echo $message;
+    } ?>
+</div>
+
+
 
 <?php
-
 
 echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page_link_text,$offset]);
 
@@ -98,35 +67,57 @@ echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page
 
 
 
-<div class="row">
 
-    <div class="col-md-7 <?php echo $offset; ?>">
 
-        <?php
 
-        echo call_user_func_array(array($class_name, 'display_pagination'),[$pagination,$page]);
 
-        ?>
+<button id="ajax-button-on" class="btn btn-info" style="display: none" >On</button>
+<button id="ajax-button-off" class="btn btn-danger" style="display: none">Off</button>
+
+
+<div class="col-md-12" id="table_view" style="margin-top: 1em" >
+    <div>
+
+        <div id="result" style="border: blue 1px solid">
+
+        </div>
+
+
+
+        <div id="modals-form" style="margin-top: 1em" >
+
+        </div>
+        <div id="spinner">
+          <img src="<?php echo $Nav->path_public;?>img/spinner.gif" width="50" height="50"/>
+        </div>
+        <div id="message-ajax"></div>
+
 
     </div>
-
 </div>
+<?php
 
 
-<div class="row">
-    <div class="col-md-12  ">
+?>
+
+<div id="table_result">
 
 
-        <?php
+    <?php
+    echo "<div class=\"row\">";
+    echo "<div class=\"col-md-7 {$offset}\" id='pagination' >";
+    echo call_user_func_array(array($class_name, 'display_pagination'),[]);
+    echo "</div>";
+    echo "</div>";
+
+    echo "<div class=\"row\">";
+    echo call_user_func_array(array($class_name, 'display_all'),['',$view_full_table]);
+    echo "</div>";
+    ?>
+
+</div><!--end of table_result-->
 
 
-        echo call_user_func_array(array($class_name, 'display_all'),[$result_class,$view_full_table]);
-
-
-        ?>
-
-    </div>
-</div>
 
 <?php  ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."footer.php") ?>

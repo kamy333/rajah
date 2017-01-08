@@ -111,6 +111,9 @@ class MyExpensePerson extends DatabaseObject {
     public static $page_edit="edit_MyExpensePerson.php";
     public static $page_delete="delete_MyExpensePerson.php";
 
+    public static $form_class_dependency=array('MyExpense','MyExpenseType') ;
+
+
     public static $per_page;
 
 

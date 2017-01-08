@@ -224,6 +224,9 @@ class Project extends DatabaseObject {
     public static $page_edit="edit_project.php";
     public static $page_delete="delete_project.php";
 
+    public static $form_class_dependency=array('Client') ;
+
+
     public static $per_page;
 
 
@@ -283,10 +286,10 @@ public $input_date;
             $valid->validate_max_lengths(['currency_iso'=>3]);
         }
 
-        $valid->validate_Date('start_date');
+        $valid->validate_Date(array('start_date'));
 
-        if(!empty($this->end_date) ||!$this->end_date){
-            $valid->validate_Date('end_date');
+        if(!empty($this->end_date) && isset($this->end_date)){
+            $valid->validate_Date(['end_date']);
 
         }
 

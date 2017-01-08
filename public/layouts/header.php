@@ -84,10 +84,10 @@
 
 <?php if (isset($fluid_view) && ($fluid_view)){?>
 <!--<div class="container-fluid">  full page wide-->
-<div class="container-fluid">
+<div id='container-view' class="container-fluid">
     <?php } else {
     ?>
-    <div class="container">
+    <div id='container-view' class="container">
         <?php } ?>
 
 

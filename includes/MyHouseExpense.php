@@ -214,6 +214,10 @@ class MyHouseExpense extends DatabaseObject {
     public static $page_edit="edit_MyHouseExpense.php";
     public static $page_delete="delete_MyHouseExpense.php";
 
+    public static $form_class_dependency=array('MyHouseExpenseType','MyExpensePerson') ;
+
+
+
     public static $per_page;
 
 

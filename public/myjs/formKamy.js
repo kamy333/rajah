@@ -115,12 +115,13 @@ $(document).ready(function(){
 
     $('.demo1').colorpicker();
 
-    var divStyle = $('.back-change')[0].style;
-    $('#demo_apidemo').colorpicker({
-        color: divStyle.backgroundColor
-    }).on('changeColor', function(ev) {
-        divStyle.backgroundColor = ev.color.toHex();
-    });
+    // var divStyle = $('.back-change')[0].style;
+    //
+    // $('#demo_apidemo').colorpicker({
+    //     color: divStyle.backgroundColor
+    // }).on('changeColor', function(ev) {
+    //     divStyle.backgroundColor = ev.color.toHex();
+    // });
 
     $('.clockpicker').clockpicker();
 
@@ -202,12 +203,14 @@ $(document).ready(function(){
 
 
 });
+
 var config = {
     '.chosen-select'           : {},
     '.chosen-select-deselect'  : {allow_single_deselect:true},
     '.chosen-select-no-single' : {disable_search_threshold:10},
     '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-    '.chosen-select-width'     : {width:"95%"}
+    '.chosen-select-width'     : {width:"100%"}
+
 };
 for (var selector in config) {
     $(selector).chosen(config[selector]);
@@ -265,32 +268,32 @@ $("#ionrange_5").ionRangeSlider({
 
 $(".dial").knob();
 
-$("#basic_slider").noUiSlider({
-    start: 40,
-    behaviour: 'tap',
-    connect: 'upper',
-    range: {
-        'min':  20,
-        'max':  80
-    }
-});
+// $("#basic_slider").noUiSlider({
+//     start: 40,
+//     behaviour: 'tap',
+//     connect: 'upper',
+//     range: {
+//         'min':  20,
+//         'max':  80
+//     }
+// });
 
-$("#range_slider").noUiSlider({
-    start: [ 40, 60 ],
-    behaviour: 'drag',
-    connect: true,
-    range: {
-        'min':  20,
-        'max':  80
-    }
-});
+// $("#range_slider").noUiSlider({
+//     start: [ 40, 60 ],
+//     behaviour: 'drag',
+//     connect: true,
+//     range: {
+//         'min':  20,
+//         'max':  80
+//     }
+// });
 
-$("#drag-fixed").noUiSlider({
-    start: [ 40, 60 ],
-    behaviour: 'drag-fixed',
-    connect: true,
-    range: {
-        'min':  20,
-        'max':  80
-    }
-});
+// $("#drag-fixed").noUiSlider({
+//     start: [ 40, 60 ],
+//     behaviour: 'drag-fixed',
+//     connect: true,
+//     range: {
+//         'min':  20,
+//         'max':  80
+//     }
+// });

@@ -205,6 +205,9 @@ class Links extends DatabaseObject {
     public static $page_edit="edit_link.php";
     public static $page_delete="delete_link.php";
 
+    public static $form_class_dependency=array('LinksCategory','MyExpenseType') ;
+
+
     public static $per_page;
 
 

@@ -348,6 +348,9 @@ class Client extends DatabaseObject {
     public static $page_edit="edit_client.php";
     public static $page_delete="delete_client.php";
 
+    public static $form_class_dependency=array('Project','Currency') ;
+
+
     public static $per_page;
 
 

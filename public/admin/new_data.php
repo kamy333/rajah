@@ -3,6 +3,7 @@
 <?php if(User::is_employee() || User::is_visitor()){ redirect_to('index.php');}?>
 
 <?php
+MyClasses::redirect_disable_class();
 
 
 if(isset($_GET['class_name'])) {
@@ -14,7 +15,7 @@ if(isset($_GET['class_name'])) {
 }
 
 if(isset($_GET['id'])){
-    $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']);
+    $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id']&"class_name=".$class_name);
     $page="Update";
     $page1="Update ";
     $text_post="Updated";

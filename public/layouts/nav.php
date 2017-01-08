@@ -73,7 +73,14 @@ if ($layout_context=="public"){
                         <?php echo $Nav->menu_item('','AngularJS Login','angular2.php','public'); ?>
                         <?php
                         if(User::is_admin()){
+                            echo $Nav->menu_item('','Inspinia','../inspinia/index.php','public');
+                            echo $Nav->menu_item('','SmartAdmin','../smartAdmin/index.php','public');
+                            echo $Nav->menu_item('','Minton','../minton/index.php','public');
+                            echo $Nav->menu_item('','Inspinia Full','../inspinia_Full_Version/index.php','public');
+                            echo $Nav->menu_item('','SmartAdmin Full','../SmartAdmin_Full_Version/index.php','public');
+                            echo $Nav->menu_item('','Minton Full','../Minton_Full_Version/index.php','public');
                             echo $Nav->menu_item('','Your info','some_data.php','public');
+
                         }
                          ?>
 
@@ -87,9 +94,11 @@ if ($layout_context=="public"){
                 ><a href="#" data-toggle="dropdown">Data<span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
-                    <?php foreach (DatabaseObject::$all_class as $class) {
-                        if(strtolower($class)!="invoiceestimate"){
+                    <?php foreach (MyClasses::$all_class as $class) {
+                        if(!in_array($class, MyClasses::$disable_db_classes)){
                             echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
+                            echo $Nav->menu_item($class,'Manage Ajax '.$class,'manage_ajax.php','admin');
+
                         }
                     }
                     unset($class);
@@ -104,9 +113,10 @@ if ($layout_context=="public"){
                 ><a href="#" data-toggle="dropdown">New Data<span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
-                        <?php foreach (DatabaseObject::$all_class as $class) {
-                        if(strtolower($class)!="invoiceestimate") {
-                            echo $Nav->menu_item($class, 'New ' . $class, 'New_data.php', 'admin');
+                        <?php foreach (MyClasses::$all_class as $class) {
+                            if(!in_array($class, MyClasses::$disable_db_classes)){
+                            echo $Nav->menu_item($class, 'New ' . $class, 'new_data.php', 'admin');
+                             echo $Nav->menu_item($class, 'New ajax' . $class, 'new_ajax.php', 'admin');
                         }
                         }
                         unset($class);
