@@ -349,7 +349,7 @@ function u($string) {
 }
 
 function h($string){
-    return htmlentities($string,ENT_COMPAT."utf-8");
+    return htmlentities($string,ENT_COMPAT,"utf-8");
 }
 
 function e($string){

@@ -8,11 +8,11 @@
 // In an application, this could be moved to a config file
 $upload_errors = array(
 	// http://www.php.net/manual/en/features.file-upload.errors.php
-  UPLOAD_ERR_OK 				=> "No errors.",
+  UPLOAD_ERR_OK 		=> "No errors.",
   UPLOAD_ERR_INI_SIZE  	=> "Larger than upload_max_filesize.",
   UPLOAD_ERR_FORM_SIZE 	=> "Larger than form MAX_FILE_SIZE.",
-  UPLOAD_ERR_PARTIAL 		=> "Partial upload.",
-  UPLOAD_ERR_NO_FILE 		=> "No file.",
+  UPLOAD_ERR_PARTIAL 	=> "Partial upload.",
+  UPLOAD_ERR_NO_FILE 	=> "No file.",
   UPLOAD_ERR_NO_TMP_DIR => "No temporary directory.",
   UPLOAD_ERR_CANT_WRITE => "Can't write to disk.",
   UPLOAD_ERR_EXTENSION 	=> "File upload stopped by extension."
@@ -24,8 +24,10 @@ if(isset($_POST['submit'])) {
 	$target_file = basename($_FILES['file_upload']['name']);
 	$upload_dir = SITE_ROOT.DS."uploads";
 	$path_filenme = $upload_dir."/".$target_file;
+    $ext = pathinfo($target_file, PATHINFO_EXTENSION);
 
-	chmod($upload_dir,0777);
+
+    chmod($upload_dir,0777);
     chmod($path_filenme,0777);
     chmod($tmp_file,0777);
 
@@ -35,12 +37,22 @@ if(isset($_POST['submit'])) {
 	
 	// move_uploaded_file will return false if $tmp_file is not a valid upload file 
 	// or if it cannot be moved for any other reason
+
+    if ($ext=="php" || $ext=='js'){
+        $session->message("Unable to upload File");
+        log_action('Upload file error extension', "{$_SESSION['username']} uploaded file {$path_filenme} ". " - ".$target_file." - extension: ".$ext);
+
+        redirect_to('upload.php');
+//        return false;
+    }
+
 	if(move_uploaded_file($tmp_file, $upload_dir."/".$target_file)) {
-		log_action('Upload file success', "{$_SESSION['username']} uploaded file {$path_filenme} ". $temp_file." - ".$target_file);
+
+		log_action('Upload file success', $_SESSION['username'] ."uploaded file {$path_filenme} "." - ".$target_file ." - extension: ".$ext);
 		$message = "File uploaded successfully.";
-        chmod($path_filenme,0777);
+//        chmod($path_filenme,0777);
     } else {
-        log_action('Upload file error', "{$_SESSION['username']} uploaded file {$path_filenme} ". $temp_file." - ".$target_file);
+        log_action('Upload file error', "{$_SESSION['username']} uploaded file {$path_filenme} ". " - ".$target_file." - extension: ".$ext);
 
         $error = $_FILES['file_upload']['error'];
 		$message = $upload_errors[$error];
@@ -73,6 +85,13 @@ if(isset($_POST['submit'])) {
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."header.php") ?>
 <?php include(SITE_ROOT.DS.'public'.DS.'layouts'.DS."nav.php") ?>
 
+
+<?php  echo isset($valid)? $valid->form_errors():"" ?>
+<?php  echo isset($valid)? $valid->form_warnings():"" ?>
+
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
 
 <!--		--><?php //if(!empty($message)) { echo "<p>{$message}</p>"; } ?>

@@ -24,14 +24,18 @@ if(isset($_GET['class_name'])) {
 
 $query_string=remove_get(array('view','page',$class_name));
 
-$view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
+$view_full_table=!empty($_GET)? (int) isset($_GET["view"]) :0;
 if($view_full_table==1){
-    $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
+    if (isset($page)) {
+        $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
+    }
     $page_link_text=$class_name::$page_name." short view";
     //$add_view="&view=".u(1);
     $offset="col-md-offset-2";
 } else {
-    $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
+    if (isset($page)) {
+        $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(1);
+    }
     $page_link_text=$class_name::$page_name." full view";
     $offset='';
 
@@ -61,7 +65,9 @@ if($view_full_table==1){
 
 <?php
 
-echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page_link_text,$offset]);
+if (isset($page_link_view)) {
+    echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page_link_text,$offset]);
+}
 
 ?>
 

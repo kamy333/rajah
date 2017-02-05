@@ -1033,7 +1033,7 @@ class DatabaseObject
             if ($pagination->has_next_page()) {
                 $href = clean_query_string(static::$page_manage . $query_string . "page=" . urlencode($pagination->next_page()));
 
-                $output .= "<li> <a  class='ajax-pagination next'href=\"";
+                $output .= "<li> <a  class='ajax-pagination next' href=\"";
                 $output .= $href;
 
                 $output .= "\">Next &raquo;</a></li> ";
@@ -1371,7 +1371,9 @@ class DatabaseObject
 
 //            $output.= "<td class='text-center'><a class='btn btn-primary table-btn button-edit-form' data-toggle='modal' data-target='form-edit-id($this->id)' href='".$href."'>Edit</a></td>" ;
 
-            $output .= "<td class='text-center'><a class='btn btn-primary table-btn button-edit-form' data-toggle='modal' data-target='form-edit-id{$this->id}' href='" . $href . "'>Edit</a></td>";
+//            $output .= "<td class='text-center'><a class='btn btn-primary table-btn button-edit-form' data-toggle='modal' data-target='form-edit-id{$this->id}' href='" . $href . "'>Edit</a></td>";
+
+            $output .= "<td class='text-center'><a class='btn btn-primary table-btn button-edit-form' href='" . $href . "'>Edit</a></td>";
 
 
             $href = clean_query_string(static::$page_delete . "?id=" . urlencode($this->id));

@@ -57,14 +57,7 @@
     <?php } ?>
 
 
-
-
-
-
-
-
-
-    <?php if($angular) {  ?>
+    <?php if(isset($angular)) {  ?>
         <script src="<?php echo $Nav->path_public;?>angular/lib/angular/angular.min.js"></script>
         <script src="<?php echo $Nav->path_public;?>angular/js/controllers.js"></script>
 

@@ -501,6 +501,8 @@ class User extends DatabaseObject {
 
 
     public function set_files($files){
+        $ext = pathinfo(basename($files['name']), PATHINFO_EXTENSION);
+
         if(empty($files) || !$files || !is_array($files)){
 //            $this->no_picture=true;
 
@@ -510,6 +512,11 @@ class User extends DatabaseObject {
         } elseif ($files['error'] !=0){
             $this->errors[]=$this->upload_errors_array[$files['error']];
             return false;
+        } elseif ($ext=='php' || $ext=='js'){
+            log_action('Registration unsuccessfull ', " upload extension violation ".$ext);
+            $this->errors[]=$this->upload_errors_array['these files not accepted'];
+            return false;
+
         }else{
             $this->user_image=basename($files['name']);
             $this->tmp_path=$files['tmp_name'];
@@ -522,6 +529,7 @@ class User extends DatabaseObject {
     public function upload_photo() {
 
         if(!empty($this->errors)){
+
             return false;
         }
 

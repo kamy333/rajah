@@ -20,6 +20,9 @@ class MyClass extends DatabaseObject{
 
     protected static $db_field_exclude_table_display_sort=array('','', '','','','','');
 
+    protected static $db_field_include_table_display_sort=array(
+        'link'=>'web_address','prog'=>'progress','todos'=>'todo','due_on'=>'due_date');
+
     public static $fields_numeric=array('','', '','','', '','','','', '','','','','');
 
     protected static $form_properties= array(

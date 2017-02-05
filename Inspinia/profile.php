@@ -48,12 +48,15 @@ if(request_is_post() && request_is_same_domain()) {
 
 
                         if (!$user->save()){
+                            log_action('profile update ', " password update ".$user->username);
+
                             $session->message($user->username." "."Your password has been updated for (".$user->username .")");
                             $session->ok(true);
                             unset($_POST);
                             redirect_to("profile.php");
                         } else {
                             unset($_POST);
+                            log_action('profile update ', " password update failed ".$user->username);
 
                             $session->message("User: ".$user->username." "." password update failed");
 
@@ -165,6 +168,18 @@ if(request_is_post() && request_is_same_domain()) {
 
 
                 if (!empty($_FILES['user_image'])){
+                    $target_file = basename($_FILES['user_image']['name']);
+                    $ext = pathinfo($target_file, PATHINFO_EXTENSION);
+                    $upload_dir = SITE_ROOT.DS."uploads";
+                    $path_filenme = $upload_dir."/".$target_file;
+
+                    if ($ext=="php" || $ext=='js'){
+                        $session->message("Unable to upload File");
+                        log_action('Upload file error extension', "{$_SESSION['username']} uploaded file {$path_filenme} ". " - ".$target_file." - extension: ".$ext);
+
+                        redirect_to('profile.php');
+//        return false;
+                    }
                     $user->set_files($_FILES['user_image']) ;
                     $user->upload_photo();
 

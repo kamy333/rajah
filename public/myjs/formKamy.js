@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var $image = $(".image-crop > img")
+    var $image = $(".image-crop > img");
     $($image).cropper({
         aspectRatio: 1.618,
         preview: ".img-preview",

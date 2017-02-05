@@ -20,6 +20,7 @@ if(request_is_post() && request_is_same_domain()) {
 
         if (isset($_POST['submit'])) { // Form has been submitted.
 
+            log_action('Registration started ', " as of post submit");
 
             //  echo "<pre>".print_r($_POST)."</pre>";
 
@@ -49,7 +50,7 @@ if(request_is_post() && request_is_same_domain()) {
             if (isset($_POST['first_name'])) {
                 $user->first_name = trim($_POST['first_name']);
             }
-            if (isset($_POST['first_name'])) {
+            if (isset($_POST['last_name'])) {
                 $user->last_name = trim($_POST['last_name']);
             }
 
@@ -90,11 +91,14 @@ if(request_is_post() && request_is_same_domain()) {
 
             if(empty($valid->errors)){
                     if (!$user->save()){
-                        $session->message("User: ".$user->username." "."has been created for ID (".$user->id .")");
+                        log_action('Registration success for ', $user->username." created");
+
+                        $session->message("User: ".$user->username." "." has been created for ID (".$user->id .")");
                         $session->ok(true);
                         $user-> login_visitor_email('Registration sucessfull');;
                         redirect_to("index.php");
                     } else {
+                        log_action('Registration unsuccessfull ', " ");
                         $user-> login_visitor_email('Registration Unsucessfull');;
                         $session->message("User: ".$user->username." "."edit failed");
 
