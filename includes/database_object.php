@@ -1203,6 +1203,8 @@ class DatabaseObject
                 if (isset(static::$db_field_exclude_table_display_sort) && in_array($fieldname, static::$db_field_exclude_table_display_sort)) {
                     $fieldname = str_replace("_", " ", $fieldname);
                     $fieldname = ucfirst($fieldname);
+//                    $text_th='';
+
 
                     $output .= "<th class='text-center' style='vertical-align:middle;white-space:nowrap;'>" . $fieldname . "</th>";
 
@@ -1213,7 +1215,11 @@ class DatabaseObject
                     ) {
 
                         $fieldname = static::$db_field_include_table_display_sort[$fieldname];
-
+//                        var_dump($fieldname);
+//                        var_dump(array_keys(static::$db_field_include_table_display_sort,$fieldname));
+                        $text_th= array_keys(static::$db_field_include_table_display_sort,$fieldname);
+                        $text_th=$text_th[0];
+//                        var_dump($text_th);
 
                     }
 
@@ -1232,6 +1238,13 @@ class DatabaseObject
 
                     $fieldname = str_replace("_", " ", $fieldname);
                     $fieldname = ucfirst($fieldname);
+
+                    if(isset($text_th)){
+                        $fieldname=$text_th;
+                        $fieldname = str_replace("_", " ", $fieldname);
+                        $fieldname = ucfirst($fieldname);
+                        unset($text_th);
+                    }
 
                     $output .= "<th class='text-center' style='vertical-align:middle;background-color:=red;white-space:nowrap;'>" . $new_query_ASC . "&nbsp;" . $fieldname . $new_query_DESC . "&nbsp;" . "</th>";
                 }

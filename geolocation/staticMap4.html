@@ -32,7 +32,10 @@
 
             var latlong = currentLat + "," + currentLong;
 
-            var mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlong + "&zoom=17&size=600x500&maptype=roadmap&key=AIzaSyDuECh_YoiNk2yA38hAhUwHNfV1qs8fEIk";
+//            var mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlong + "&zoom=17&size=600x500&maptype=roadmap&key=AIzaSyDuECh_YoiNk2yA38hAhUwHNfV1qs8fEIk";
+
+            var mapUrl = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlong + "&zoom=17&size=600x500&maptype=roadmap";
+
 
             document.getElementById("staticmap").innerHTML = "<img src='" + mapUrl + "'>";
 

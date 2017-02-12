@@ -21,7 +21,10 @@ class MyExpense extends DatabaseObject {
 
     protected static $db_fields_table_display_full = array('id','amount','amountCHF','currency','rate','person_id','person_name','expense_type_id','expense_type','expense_date','comment','modification_time');
 
-    protected static $db_field_exclude_table_display_sort=array('amountCHF','person_name','expense_type','currency');
+    protected static $db_field_exclude_table_display_sort=array('amountCHF');
+
+    protected static $db_field_include_table_display_sort=array(
+        'person_name'=>'person_id','expense_type'=>'expense_type_id','currency'=>'ccy_id');
 
     public static $fields_numeric=array('id','amount','amountCHF','person_id','expense_type_id','ccy_id','rate');
     public static $fields_numeric_format=array('amount','amountCHF');

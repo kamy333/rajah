@@ -20,11 +20,13 @@ if(isset($_GET['class_name'])) {
 }
 
 
+$page= !empty($_GET['page'])? (int) $_GET["page"]:1;
 
 
 $query_string=remove_get(array('view','page',$class_name));
 
-$view_full_table=!empty($_GET)? (int) isset($_GET["view"]) :0;
+$view_full_table=!empty($_GET)? (int) $_GET["view"] :0;
+
 if($view_full_table==1){
     if (isset($page)) {
         $page_link_view=$class_name::$page_manage.$query_string."page=".u($page)."&view=".u(0);
@@ -65,9 +67,9 @@ if($view_full_table==1){
 
 <?php
 
-if (isset($page_link_view)) {
+//if (isset($page_link_view)) {
     echo call_user_func_array(array($class_name, 'table_nav'),[$page_link_view,$page_link_text,$offset]);
-}
+//}
 
 ?>
 

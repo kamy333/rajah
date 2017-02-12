@@ -209,8 +209,8 @@ class ToDoList extends DatabaseObject {
         $this->user_id=$session->user_id;
 
         if(!empty($this->web_address) && isset($this->id)){
-            $this->link="<a href='{$this->web_address}'><u>link</u></a>";
-            $this->todos="<a href='{$this->web_address}'><u>".$this->todo."</u></a>";
+            $this->link="<a href='{$this->web_address}'  target='_blank'><u>link</u></a>";
+            $this->todos="<a href='{$this->web_address}' target='_blank'><u>".$this->todo."</u></a>";
         } else {
             $this->todos=$this->todo;
         }

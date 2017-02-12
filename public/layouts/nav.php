@@ -128,10 +128,7 @@ if ($layout_context=="public"){
 
                     <?php } ?>
 
-                    <!--    <li
-                            <?php /*if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} */?>
-                            ><a href="<?php /*echo $path_public;*/?>myLinks.php?category=Others">Links</a></li>
-        -->
+
                 
                 <li
                     <?php if ( isset($active_menu) && $active_menu=="links") {echo "class=\"active\"";} ?>
@@ -330,20 +327,6 @@ if ($layout_context=="public"){
                     <?php } ?>
 
 
-                    <li
-                        <?php if ( isset($active_menu) && $active_menu=="myproject"){echo " class=\"dropdown active\"";} else {echo " class=\" dropdown\"";}?>
-                        ><a href="#" data-toggle="dropdown">MyProject<span class="caret"></span></a>
-
-                        <ul class="dropdown-menu">
-                            <li><a href="<?php echo $path_admin;?>rajah_project.php">Rajah Project</a></li>
-
-
-                        </ul>
-                    </li>
-
-
-
-
                     <?php // } ?>
                 <?php } ?>
 
@@ -364,8 +347,8 @@ if ($layout_context=="public"){
                 <?php
                 list ($date_fr,$date_fr_short,$date_fr_long,$date_fr_hr,$date_fr_short_hr,$date_fr_long_hr,$date_fr_full_hr)=date_fr();?>
 
-                <p class="navbar-text " style=""><?php echo now()//echo h($date_fr_long_hr); ?></p>
-
+<!--                <p class="navbar-text " style="">--><?php //echo now()//echo h($date_fr_long_hr); ?><!--</p>-->
+<!---->
                 <?php  if (isset($_SESSION["user_id"])){ ?>
 
                     <li class="active"><a href="<?php echo $path_admin;?>logout.php" data-toggle="dropdown"><?php  echo "&nbsp;&nbsp;" ?><small><strong><?php echo $user->username."&nbsp;&nbsp;"; ?></strong></small>
@@ -382,19 +365,22 @@ if ($layout_context=="public"){
 
                             <?php if(isset($_SESSION["user_id"]) and $user->is_admin() ) { ?>
 
-                                <li><a href="<?php echo $path_admin;?>upload.php">Upload file photo</a></li>
+                                <li><a href="<?php echo $path_admin; ?>upload.php">Upload file photo</a></li>
                                 <li class="divider"></li>
-                                <li><a href="<?php echo $path_admin;?>manage_blacklist_ip.php">Manage Blacklist_ip</a></li>
-                                <li><a href="<?php echo $path_admin;?>manage_failed_logins.php">Manage Failed logins</a></li>
-                                <li><a href="<?php echo $path_admin;?>manage_user_type.php">Manage User Type</a></li>
-                                <li><a href="<?php echo $path_admin;?>logfile.php">Log File</a></li>
+                                <li><a href="<?php echo $path_admin; ?>manage_blacklist_ip.php">Manage Blacklist_ip</a>
+                                </li>
+                                <li><a href="<?php echo $path_admin; ?>manage_failed_logins.php">Manage Failed
+                                        logins</a></li>
+                                <li><a href="<?php echo $path_admin; ?>manage_user_type.php">Manage User Type</a></li>
+                                <li><a href="<?php echo $path_admin; ?>logfile.php">Log File</a></li>
                                 <li class="divider"></li>
-
+                                <li><a href="<?php echo $path_admin;?>rajah_project.php">Rajah Project</a></li>
+                                <li class="divider"></li>
                             <?php } ?>
-                            <li><a href="<?php echo $path_admin;?>manage_admins_my_page.php">My Page</a></li>
-                            <li><a href="<?php echo $path_admin;?>edit_admin_individual.php">Edit Info</a></li>
+                            <li><a href="<?php echo $path_admin; ?>manage_admins_my_page.php">My Page</a></li>
+                            <li><a href="<?php echo $path_admin; ?>edit_admin_individual.php">Edit Info</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo $path_admin;?>logout.php">Logout</a></li>
+                            <li><a href="<?php echo $path_admin; ?>logout.php">Logout</a></li>
 
                         </ul>
 
