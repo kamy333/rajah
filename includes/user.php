@@ -487,9 +487,10 @@ class User extends DatabaseObject {
 
 
     public function user_path_and_placeholder(){
-        $dir=   "../../". $this->upload_directory.DS.$this->user_image;
+        global $Nav;
+//        $dir=   "../../". $this->upload_directory.DS.$this->user_image;
 //     $dir=   $this->full_path_directory.DS.$this->user_image;
-
+        $dir=$Nav->http."/".$this->upload_directory."/".$this->user_image;
         return empty($this->user_image)?$this->image_placeholder :$dir;
 
 

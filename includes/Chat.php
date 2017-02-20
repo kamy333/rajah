@@ -259,7 +259,7 @@ class Chat extends DatabaseObject {
             }
             $output.=" <li>";
             $output.="                 <div class=\"text-center link-block\">";
-            $output.="                     <a href=\"<?php echo $path_admin; ?>chat.php\">";
+            $output.="                     <a href=\"". $path_admin."chat.php\">";
             $output.="                         <i class=\"fa fa-envelope\"></i> <strong>Read All Messages</strong>
                                 </a>
                             </div>
@@ -319,5 +319,109 @@ class Chat extends DatabaseObject {
     }
 
 
+    public static function get_chat_body(){
+        global $session;
+
+        $sql="SELECT * FROM ".static::$table_name.' WHERE to_user_id ='.$session->user_id." ORDER BY input_date DESC";
+        $output="";
+
+        $form="<div class='form-chat'>
+    <div class='input-group input-group-sm'><input type='text' class='form-control'> <span class='input-group-btn'> <button
+                class='btn btn-primary' type='button'>Send
+                </button> </span></div>
+</div>";
+
+        if ($session->is_logged_in()) {
+            $chats=static::find_by_sql($sql);
+            $count_chat=static::count_all_where(' WHERE user_id ='.$session->user_id);
+
+            $output.= "
+<div class='col-lg-4 col-lg-offset-1' style='margin-top: 2em'>
+                                <div class='ibox float-e-margins'>";
+
+            $output.= "          <div class='ibox-title'>
+                                        <h5>Your Messages
+                                        <span class='label label-warning-light pull-right'>$count_chat Messages</span>
+                                        </h5>
+                                      
+                                           
+                                                   <div class=\"ibox-tools\">
+                                                    <a class=\"collapse-link\">
+                                                    <i class=\"fa fa-chevron-up\"></i>
+                                                        </a>
+                                                        <a class=\"close-link\">
+                                                            <i class=\"fa fa-times\"></i>
+                                                        </a>
+                                                    </div>
+                                           
+                                    </div>";
+
+
+            $output.= "             <div class='ibox-content'>
+$form
+                                        <div>
+                                            <div class='feed-activity-list'>";
+
+            foreach($chats as $chat){
+                $output.= $chat->get_message_body($chat);
+
+            }
+
+
+            $output.= "                                </div>
+
+                                            <button class='btn btn-primary btn-block m-t'><i class='fa fa-arrow-down'></i> Show More</button>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+    ";
+        }
+        return $output;
+
+
+    }
+
+    public function get_message_body(Chat $chat){
+        $chat->set_up_display();
+        $from_user=User::find_by_id($chat->user_id);
+
+        $when=DateDifferenceFormat($chat->input_date , unixToMySQL(time()) );
+
+        $user_link=$from_user->user_path_and_placeholder();
+        $datetime= datetime_to_text($chat->input_date);
+        $message=$chat->message;
+        $fullname=$from_user->full_name();
+
+
+
+
+        $output = "";
+
+        $action= "                            <div class='actions'>
+                                                            <a class='btn btn-xs btn-white'><i class='fa fa-thumbs-up'></i> Like </a>
+                                                            <a class='btn btn-xs btn-white'><i class='fa fa-heart'></i> Love</a>
+                                                        </div>";
+
+        $output.= "                           <div class='feed-element'>
+                                                    <a href='profile.php' class='pull-left'>
+                                                        <img alt='image' class='img-circle' src='$user_link'>
+                                                    </a>
+                                                    <div class='media-body '>
+                                                        <small class='pull-right'>$when</small>
+                                                        <strong>$fullname</strong><strong></strong><br>
+                                                        <small class='text-muted'>$datetime</small>
+                                                        <div class='well'>$message</div>
+                                                     </div>
+                                                     $action
+                                                </div>";
+
+
+        return $output;
+
+    }
 
 }

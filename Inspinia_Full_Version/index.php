@@ -274,6 +274,7 @@
                                                         <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
                                                     </div>
                                                 </div>
+
                                                 <div class="feed-element">
                                                     <a href="profile.php" class="pull-left">
                                                         <img alt="image" class="img-circle" src="img/a7.jpg">
@@ -284,6 +285,7 @@
                                                         <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
                                                     </div>
                                                 </div>
+
                                             </div>
 
                                             <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>

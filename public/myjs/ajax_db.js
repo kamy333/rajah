@@ -232,6 +232,8 @@ $(document).ready(function () {
 
 
     function deleteRecord(thisVar) {
+     var resp=confirm('Would you like to clear');
+     if (!resp){return ;}
         alertClear();
       var  href=$(thisVar).attr('href');
       var   id = parseInt(getParameterByName('id',href));
@@ -267,6 +269,7 @@ $(document).ready(function () {
 
         $("a.button-delete-form").on("click", function () {
             event.preventDefault();
+
             deleteRecord(this);
         });
 

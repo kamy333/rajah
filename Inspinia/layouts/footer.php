@@ -83,7 +83,10 @@
     <?php include (SITE_ROOT.DS.$folder_project_name.DS.'layouts_addon'.DS."js_php".DS.'forms_input.php');?>
 <?php } unset($pages) ?>
 
-
+<?php $pages=array('profile') ?>
+<?php if(in_array($active_menu_clean,$pages) ) { ?>
+    <script src="<?php echo $path;?>myjs/profile.js"></script>
+<?php } unset($pages) ?>
 
 
 </body>

@@ -31,6 +31,7 @@
 
 
 
+
     <?php     if (substr($Nav->current_page, 0,7)=="manage_" ||
                   substr($Nav->current_page, 0,4)=="new_" ||
                   substr($Nav->current_page, 0,5)=="edit_" ){  ?>

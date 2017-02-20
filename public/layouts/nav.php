@@ -96,7 +96,7 @@ if ($layout_context=="public"){
 
                     <?php foreach (MyClasses::$all_class as $class) {
                         if(!in_array($class, MyClasses::$disable_db_classes)){
-                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
+//                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
                             echo $Nav->menu_item($class,'Manage Ajax '.$class,'manage_ajax.php','admin');
 
                         }
@@ -115,7 +115,7 @@ if ($layout_context=="public"){
 
                         <?php foreach (MyClasses::$all_class as $class) {
                             if(!in_array($class, MyClasses::$disable_db_classes)){
-                            echo $Nav->menu_item($class, 'New ' . $class, 'new_data.php', 'admin');
+//                            echo $Nav->menu_item($class, 'New ' . $class, 'new_data.php', 'admin');
                              echo $Nav->menu_item($class, 'New ajax' . $class, 'new_ajax.php', 'admin');
                         }
                         }

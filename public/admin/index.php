@@ -21,6 +21,7 @@ if (isset($message)) {
 
 <!---->
 <?php
+
 if(User::is_visitor() ){ redirect_to('../../Inspinia/index.php');}
 
 ?>

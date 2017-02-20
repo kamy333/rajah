@@ -212,6 +212,10 @@ if(request_is_post() && request_is_same_domain()) {
 
 }
 
+if(request_is_get() && isset($_GET['id']) && $_GET['class_name']==='ToDoList' && $_GET['action']=='quickupdate'){
+    ToDoList::quickupdate();
+
+}
 
 
 ?>
@@ -220,7 +224,7 @@ if(request_is_post() && request_is_same_domain()) {
 <?php //$active_menu="minor"; ?>
 <?php $stylesheets="";  ?>
 <?php $fluid_view=true; ?>
-<?php $javascript=""; ?>
+<?php $javascript=["profile.js"]; ?>
 <?php $incl_message_error=true; ?>
 
 <?php
@@ -275,14 +279,45 @@ if(User::is_visitor()){
 
     </div>
 
+<?php
+//echo '<pre>';
+//print_r($_GET);
+//echo $_GET['id'].'<br>';
+//echo '</pre>';
+//// ToDoList::quickupdate();
 
+?>
 
 
 <?php include_once ($Nav->path_public."inc".DS."profile.php")?>
 
 
 
-                <div class="row"></div>
+
+
+
+<?php
+
+
+
+echo "<div id='smallTodolist'>";
+echo ToDoList::smallTodolist();
+echo "</div>";
+
+echo "<div id='messagesChat'>";
+echo Chat::get_chat_body();
+echo "</div>";
+
+?>
+
+
+
+
+
+
+
+
+
 
 
 

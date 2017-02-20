@@ -72,6 +72,10 @@
 <?php } unset($pages) ?>
 <?php //--------------------------------------------------------------------------------- ?>
 
+<?php $pages=array('profile') ?>
+<?php if(in_array($active_menu_clean,$pages) ) { ?>
+    <script src="<?php echo $path;?>myjs/profile.js"></script>
+<?php } unset($pages) ?>
 
 
 <?php $pages=array('chat') ?>
