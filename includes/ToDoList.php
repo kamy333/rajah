@@ -11,28 +11,9 @@
 class ToDoList extends DatabaseObject
 {
 
-    protected static $table_name = "to_do_list";
-
-    protected static $db_fields = array('id', 'user_id', 'todo', 'due_date', 'rank', 'web_address', 'comment', 'done', 'progress');
-
-    protected static $required_fields = array('user_id', 'todo', 'done');
-
-    protected static $db_fields_table_display_short = array('id', 'user_id', 'todos', 'done', 'prog', 'due_on', 'rank', 'comment');
-
-    protected static $db_fields_table_display_full = array('id', 'user_id', 'todos', 'done', 'prog', 'progress', 'due_date', 'rank', 'web_address', 'comment', 'done');
-
-    protected static $db_field_exclude_table_display_sort = array();
-
-    protected static $db_field_include_table_display_sort = array(
-        'link' => 'web_address', 'prog' => 'progress', 'todos' => 'todo', 'due_on' => 'due_date');
-
-
     public static $fields_numeric = array('id', 'rank', 'user_id', 'done', 'progress');
-
-
     public static $get_form_element = array('todo', 'user_id', 'web_address', 'done', 'progress', 'due_date', 'rank', 'comment');
     public static $get_form_element_others = array();
-
     public static $form_default_value = array(
         "rank" => "1",
         "user_id" => "2",
@@ -40,8 +21,22 @@ class ToDoList extends DatabaseObject
         "done" => "0",
         "progress" => "5"
     );
-
-
+    public static $db_field_search = array('search_all', 'todo', 'done', 'due_date', 'rank', 'web_address', 'download_csv');
+    public static $page_name = "ToDo List";
+    public static $page_manage = "manage_ToDoList.php";
+    public static $page_new = "new_ToDoList.php";
+    public static $page_edit = "edit_ToDoList.php";
+    public static $page_delete = "delete_ToDoList.php";
+    public static $form_class_dependency = array();
+    public static $per_page;
+    protected static $table_name = "to_do_list";
+    protected static $db_fields = array('id', 'user_id', 'todo', 'due_date', 'rank', 'web_address', 'comment', 'done', 'progress');
+    protected static $required_fields = array('user_id', 'todo', 'done');
+    protected static $db_fields_table_display_short = array('id', 'user_id', 'todos', 'done', 'prog', 'due_on', 'rank', 'comment');
+    protected static $db_fields_table_display_full = array('id', 'user_id', 'todos', 'done', 'prog', 'progress', 'due_date', 'rank', 'web_address', 'comment', 'done');
+    protected static $db_field_exclude_table_display_sort = array();
+    protected static $db_field_include_table_display_sort = array(
+        'link' => 'web_address', 'prog' => 'progress', 'todos' => 'todo', 'due_on' => 'due_date');
     protected static $form_properties = array(
 
         "todo" => array("type" => "text",
@@ -114,7 +109,6 @@ class ToDoList extends DatabaseObject
             "required" => true,
         ),
     );
-
     protected static $form_properties_search = array(
         "search_all" => array("type" => "text",
             "name" => 'search_all',
@@ -172,24 +166,6 @@ class ToDoList extends DatabaseObject
         ),
 
     );
-
-
-    public static $db_field_search = array('search_all', 'todo', 'done', 'due_date', 'rank', 'web_address', 'download_csv');
-
-
-    public static $page_name = "ToDo List";
-    public static $page_manage = "manage_ToDoList.php";
-    public static $page_new = "new_ToDoList.php";
-    public static $page_edit = "edit_ToDoList.php";
-    public static $page_delete = "delete_ToDoList.php";
-
-
-    public static $form_class_dependency = array();
-
-
-    public static $per_page;
-
-
     public $id;
     public $user_id;
     public $todo;
@@ -208,61 +184,6 @@ class ToDoList extends DatabaseObject
     public $link_edit;
     public $link_delete;
     public $link_all;
-
-    protected function set_up_display()
-    {
-        global $session;
-        $this->user_id = $session->user_id;
-
-        if (!empty($this->web_address) && isset($this->id)) {
-            $this->link = "<a href='{$this->web_address}'  target='_blank'><u>link</u></a>";
-            $this->todos = "<a href='{$this->web_address}' target='_blank' style='text-decoration: none;'><u>" . $this->todo . "</u></a>";
-            $this->link_edit="<a href='".static::$page_edit."?id=".u($this->id)
-                ."&class_name=".get_called_class()."&action=edit"
-                ."' ><i style='color:blue;'  class=\"fa fa-pencil\"></i></a>";
-
-            $this->link_delete="<a href='".static::$page_delete."?id=".u($this->id)
-                ."&class_name=".get_called_class()."&action=delete"
-                ."' ><i style='color:red;' class=\"fa fa-minus-circle\"></i></a>";
-
-            $this->link_all="<span style='display:inline;' class=' pull-right ".get_called_class()." '>".
-                $this->link_edit."&nbsp;&nbsp;".$this->link_delete
-                           ."</span>";
-
-        } else {
-            $this->todos = $this->todo;
-        }
-
-        if (isset($this->done) && (int)$this->done === 1) {
-            $this->progress = 100;
-        }
-
-        if (isset($this->due_date)) {
-            $this->due_on = date_to_text($this->due_date);
-        }
-
-        if (isset($this->progress)) {
-            $this->prog = "<input type='number' value='" . $this->progress . "' class='dial m-r disabled' data-fgColor='#1AB394' data-width='60' data-height='60'/>";
-        }
-
-    }
-
-    public function form_validation()
-    {
-        $valid = new FormValidation();
-
-        $valid->validate_presences(self::$required_fields);
-
-        if (isset($this->web_address) && !empty($this->web_address)) {
-            $valid->validate_website('web_address');
-        }
-        isset($this->done) ? $valid->is_numeric(['done']) : "";
-        isset($this->progress) ? $valid->is_numeric(['progress']) : "";
-
-        return $valid;
-
-
-    }
 
     public static function table_nav_additional()
     {
@@ -302,6 +223,43 @@ class ToDoList extends DatabaseObject
         return $output;
     }
 
+    public static function quickupdate($ajax = false)
+    {
+
+        if (isset($_GET) && isset($_GET['id']) && $_GET['class_name'] === 'ToDoList' && $_GET['action'] == 'quickupdate') {
+
+            $id = $_GET['id'];
+//      if(is_numeric
+            $todo = static::find_by_id($id);
+
+
+            if ($todo) {
+                if ((int)$todo->done == 1) {
+                    $todo->done = 0;
+                } else {
+                    $todo->done = 1;
+                }
+
+                $todo->update();
+
+//  sleep(10);
+
+                if ($ajax == true) {
+                    return static::smallTodolist();
+//    return "'yeahhh'";
+                } else {
+                    redirect_to($_SERVER['PHP_SELF']);
+
+                }
+//      redirect_to('profile.php');
+
+            }
+
+
+        }
+//       return 'hello';
+
+    }
 
     public static function smallTodolist($ajax=false)
     {
@@ -343,8 +301,11 @@ class ToDoList extends DatabaseObject
         $class1 = "fa fa-check-square";
         $class2 = "m-l-xs";
 
+
         $output .= "<div class=\"ibox-content\">";
+
         $output .= "<ul class=\"todo-list m-t small-list\">";
+
 
         foreach ($todos as $todo) {
 
@@ -376,12 +337,19 @@ class ToDoList extends DatabaseObject
 
                     $new_href= "?id={$todo->id}&viewAllTodo=yes&class_name=ToDoList&action=quickupdate";
 
-                    $output .= "<li>";
-                    $output .= "<a href=\"$short_href\" class=\"check-link smallToDoListChecklink\" data-newhref='{$new_href}'  ><i class=\"{$class1}\"></i> </a>";
-                    $output .= "<span class=\"{$class2}\" data-id='{$todo->id}'>";
-                    $output .= $todo->todos . "&nbsp;&nbsp;" . $todo->link_all; //."  ".$href
-                    $output .= "</span>";
-                    $output .= "<li>";
+
+                    if (!empty($todo->id)) {
+                        $output .= "<li class='ul-list-SmallTodo'  data-myid='{$todo->id}' id='ul-list-SmallTodo{$todo->id
+}'>";
+                        $output .= "<a href=\"$short_href\" class=\"check-link smallToDoListChecklink\" data-newhref='{$new_href}'  ><i class=\"{$class1}\"></i> </a>";
+                        $output .= "<span class='{$class2}'>";
+                        $output .= $todo->todos . "&nbsp;&nbsp;" . $todo->link_all; //."  ".$href
+                        $output .= "</span>";
+                        $output .= "</li>";
+
+                    }
+
+
                 }
             }
 
@@ -393,46 +361,83 @@ class ToDoList extends DatabaseObject
                     </div>
                     </div>
                     ";
+//        log_debug($output);
 
         return $output;
 
 
     }
 
-    public static function quickupdate($ajax=false){
+    public function form_validation()
+    {
+        $valid = new FormValidation();
 
-        if(isset($_GET) && isset($_GET['id']) && $_GET['class_name']==='ToDoList' && $_GET['action']=='quickupdate'){
+        $valid->validate_presences(self::$required_fields);
 
-      $id=$_GET['id'];
-//      if(is_numeric
-      $todo=static::find_by_id($id);
+        if (isset($this->web_address) && !empty($this->web_address)) {
+            $valid->validate_website('web_address');
+        }
+        isset($this->done) ? $valid->is_numeric(['done']) : "";
+        isset($this->progress) ? $valid->is_numeric(['progress']) : "";
 
+        return $valid;
 
-      if($todo){
-            if((int)$todo->done==1){
-             $todo->done=0;
-            } else{
-            $todo->done=1;
-            }
-
-         $todo->update();
-
-//  sleep(10);
-
-    if($ajax==true){
-    return static::smallTodolist();
-//    return "'yeahhh'";
-    } else {
-          redirect_to($_SERVER['PHP_SELF']);
 
     }
-//      redirect_to('profile.php');
 
-      }
+    protected function set_up_display()
+    {
+        global $session;
+        global $Nav;
+        $this->user_id = $session->user_id;
+
+        if (!empty($this->web_address) && isset($this->id)) {
+            $this->link = "<a href='{$this->web_address}'  target='_blank'><u>link</u></a>";
+            $this->todos = "<a href='{$this->web_address}' target='_blank' style='text-decoration: none;'><u>" . $this->todo . "</u></a>";
 
 
-}
-//       return 'hello';
+            $class = get_called_class() . "-link-edit";
+            $id = $class . $this->id;
+
+            $nav_edit = $Nav->http . "/public/admin/ajax/ajax_edit.php?id=" . u($this->id) . "&class_name=" . u(get_called_class()) . "";
+            $nav_delete = $Nav->http . "/public/admin/ajax/ajax_delete.php?id=" . u($this->id) . "&class_name=" . u(get_called_class()) . "";
+
+            $nav_edit = "data-myHrefEdit" . get_called_class() . "='" . $nav_edit . "'";
+            $nav_delete = "data-myHrefDelete" . get_called_class() . "='" . $nav_delete . "'";
+
+            $this->link_edit = "<a href='" . static::$page_edit . "?id=" . u($this->id)
+                . "&class_name=" . get_called_class() . "&action=edit" . "'  id='{$id}' $nav_edit class='$class' >"
+                . "<i style='color:blue;'  class='fa fa-pencil'></i></a>";
+
+            $class = get_called_class() . "-link-delete";
+            $id = $class . $this->id;
+
+            $this->link_delete = "<a href='" . static::$page_delete . "?id=" . u($this->id)
+                . "&class_name=" . get_called_class() . "&action=delete" . "'  id='{$id}' $nav_delete class='$class' >"
+                . "<i style='color:red;' class='fa fa-minus-circle'></i></a>";
+
+            $class = get_called_class() . "-link-all";
+            $id = $class . $this->id;
+
+            $this->link_all = "<span style='display:none;' data-id='{$this->id}' id='{$id}' class=' pull-right $class'>" .
+                $this->link_edit . "&nbsp;&nbsp;" . $this->link_delete
+                . "</span>";
+
+        } else {
+            $this->todos = $this->todo;
+        }
+
+        if (isset($this->done) && (int)$this->done === 1) {
+            $this->progress = 100;
+        }
+
+        if (isset($this->due_date)) {
+            $this->due_on = date_to_text($this->due_date);
+        }
+
+        if (isset($this->progress)) {
+            $this->prog = "<input type='number' value='" . $this->progress . "' class='dial m-r disabled' data-fgColor='#1AB394' data-width='60' data-height='60'/>";
+        }
 
     }
 

@@ -54,6 +54,14 @@
         ?>
     <?php  unset($pages) ?>
 
+    <?php $pages = array('profile') ?>
+    <?php if (in_array($active_menu_clean, $pages)) { ?>
+        <link href="<?php echo $Nav->path_public; ?>css/plugins/chosen/chosen.css" rel="stylesheet">
+    <?php }
+    unset($pages) ?>
+
+
+
 
 </head>
 

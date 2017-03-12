@@ -56,6 +56,8 @@ class Form extends DatabaseObject{
 
     public $onchange;
 
+    public $multiple;
+
 //selected option 2 fields normal array which are the fields in the query eg 0 for value,1 for view
     public $select_option_field=array();
 
@@ -68,8 +70,23 @@ class Form extends DatabaseObject{
 
     }
 
+    static public function form_id()
+    {
 
+        if (isset($_GET['id'])) {
+            $value = (int)$_GET['id'];
+            return "<input type='hidden' name='id' value='{$value}'>";
+        } else {
+            return "";
+        }
 
+    }
+
+    static public function class_name($class_name)
+    {
+        return "<input type='hidden' name='class_name' value='{$class_name}'>";
+
+    }
 
     public function radio(){
         $output="";
@@ -130,9 +147,6 @@ class Form extends DatabaseObject{
             return $output;
         }
     }
-
-
-
 
     public function text()    {
         $output="";
@@ -276,8 +290,6 @@ class Form extends DatabaseObject{
         return $output;
     }
 
-
-
     public function select()    {
         $output="";
 
@@ -318,6 +330,10 @@ class Form extends DatabaseObject{
 
             }
 
+            if (isset($this->multiple)) {
+                $output .= " multiple ";
+            }
+
             if (isset($this->onchange)){
                 $output.=" onchange='{$this->onchange}'";
             }
@@ -348,78 +364,10 @@ class Form extends DatabaseObject{
     }
 
 
-    public function selectchosen()    {
-        $output="";
 
+// need to declare $class and select_option_field[0] and select_option_field[1]
 
-
-        if (isset($this->name) && isset($this->label_text)){
-            $output.="<div class='form-group'>";
-//            $output.="<label class='col-sm-3 control-label' for='{$this->name}' >{$this->label_text}</label>";
-
-            $output.="<label ";
-            if($this->form_format_type==self::FORM_HORIZONTAL){
-                $output.=" class='col-sm-3 control-label' ";
-            } else {
-                $output.="class='sr-only'";
-            }
-
-            if(isset($this->id)){
-                $output.="for='{$this->id}'";
-            } else {
-                $output.="for='{$this->name}'";
-
-            }
-
-            $output.=">";
-
-            $output.="{$this->label_text}</label>";
-
-            if($this->form_format_type==self::FORM_HORIZONTAL) {
-                $output .= "<div class='col-sm-9'>";
-            }
-
-            $output.="<select  class='chosen-select form-control'  name='{$this->name}' style=\"height:60px;\"  tabindex=\"2\" ";
-
-            if(isset($this->id)){
-                $output.="id='{$this->id}'";
-            } else {
-                $output.="id='{$this->name}'";
-
-            }
-
-            if (isset($this->onchange)){
-                $output.=" onchange='{$this->onchange}'";
-            }
-
-            if($this->selected){
-                $output.=" selected";
-            }
-
-
-
-            $output.=">";
-            $output.=$this->select_option();
-            $output.="</select>";
-
-            $output.=" </div>";
-
-            if($this->form_format_type==self::FORM_HORIZONTAL) {
-                $output .= "</div>";
-            }
-
-
-
-        } else {
-            $output="Missing properties label text name;";
-        }
-
-        return $output;
-
-
-    }
-
-
+    //todo complete
 
     private function select_option(){
         if(isset($this->class))  {
@@ -494,11 +442,80 @@ class Form extends DatabaseObject{
 
     }
 
+    public function selectchosen()
+    {
+        $output = "";
 
 
-// need to declare $class and select_option_field[0] and select_option_field[1]
+        if (isset($this->name) && isset($this->label_text)) {
+            $output .= "<div class='form-group'>";
+//            $output.="<label class='col-sm-3 control-label' for='{$this->name}' >{$this->label_text}</label>";
 
-    //todo complete
+            $output .= "<label ";
+            if ($this->form_format_type == self::FORM_HORIZONTAL) {
+                $output .= " class='col-sm-3 control-label' ";
+            } else {
+                $output .= "class='sr-only'";
+            }
+
+            if (isset($this->id)) {
+                $output .= "for='{$this->id}'";
+            } else {
+                $output .= "for='{$this->name}'";
+
+            }
+
+            $output .= ">";
+
+            $output .= "{$this->label_text}</label>";
+
+            if ($this->form_format_type == self::FORM_HORIZONTAL) {
+                $output .= "<div class='col-sm-9'>";
+            }
+
+            $output .= "<select  class='chosen-select form-control'  name='{$this->name}' style='height:60px;'  tabindex='2' ";
+
+            if (isset($this->multiple)) {
+                $output .= " multiple ";
+            }
+
+
+            if (isset($this->id)) {
+                $output .= "id='{$this->id}'";
+            } else {
+                $output .= "id='{$this->name}'";
+
+            }
+
+            if (isset($this->onchange)) {
+                $output .= " onchange='{$this->onchange}'";
+            }
+
+            if ($this->selected) {
+                $output .= " selected";
+            }
+
+
+            $output .= ">";
+            $output .= $this->select_option();
+            $output .= "</select>";
+
+            $output .= " </div>";
+
+            if ($this->form_format_type == self::FORM_HORIZONTAL) {
+                $output .= "</div>";
+            }
+
+
+        } else {
+            $output = "Missing properties label text name;";
+        }
+
+        return $output;
+
+
+    }
+
 public function textarea(){
 $output="";
 
@@ -546,23 +563,6 @@ $output.="<textarea name='$this->name'  class='form-control'";
     }
     return $output;
 }
-
-
-    static public function form_id(){
-
-        if(isset($_GET['id'])){
-            $value= (int) $_GET['id'];
-            return "<input type='hidden' name='id' value='{$value}'>";
-        } else {
-            return "";
-        }
-
-    }
-
-    static public function class_name($class_name){
-        return "<input type='hidden' name='class_name' value='{$class_name}'>";
-
-    }
 
 
 

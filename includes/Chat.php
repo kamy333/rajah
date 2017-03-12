@@ -10,38 +10,29 @@
 
 class Chat extends DatabaseObject {
 
-    protected static $table_name="chat";
-
-    protected static $db_fields =  array('id', 'user_id', 'to_user_id', 'read', 'message','input_date');
-
-    protected static $required_fields =  array('user_id', 'to_user_id', 'read', 'message','input_date');
-
-    protected static $db_fields_table_display_short = array('id', 'user_id', 'to_user_id', 'read', 'message','input_date');
-
-    protected static $db_fields_table_display_full =  array('id', 'user_id', 'to_user_id', 'read', 'message','input_date');
-    protected static $db_field_exclude_table_display_sort=null;
-
-    public static $fields_numeric=array('id','user_id', 'to_user_id', 'read',);
-
-
-    public static $get_form_element=array('user_id', 'to_user_id', 'read', 'message','input_date');
+    public static $fields_numeric = array('id', 'user_id', 'to_user_id', 'readit',);
+    public static $get_form_element = array('user_id', 'to_user_id', 'readit', 'message', 'input_date');
     public static $get_form_element_others=array();
-
     public static $form_default_value=array(
         "input_date"=>'nowtime()',
-        "read"=>0
+        "readit" => 0
 
     );
-
-
-    protected static function set_form_default_value(){
-        global $session;
-        static::$form_default_value["user_id"]=$session->user_id;
-
-    }
-
+    public static $db_field_search = array('search_all', 'chat', 'download_csv');
+    public static $form_user_id;
+    public static $page_name = "Chat";
+    public static $page_manage = "manage_chat.php";
+    public static $page_new = "new_chat.php";
+    public static $page_edit = "edit_chat.php";
+    public static $page_delete = "delete_chat.php";
+    protected static $table_name = "chat";
+    protected static $db_fields = array('id', 'user_id', 'to_user_id', 'readit', 'message', 'input_date');
+    protected static $required_fields = array('user_id', 'to_user_id', 'readit', 'message', 'input_date');
+    protected static $db_fields_table_display_short = array('id', 'user_id', 'to_user_id', 'readit', 'message', 'input_date');
+    protected static $db_fields_table_display_full = array('id', 'user_id', 'to_user_id', 'readit', 'message', 'input_date');
+    protected static $db_field_exclude_table_display_sort = null;
     protected static $form_properties= array(
-        "user_id"=> array("type"=>"select",
+        "user_id" => array("type" => "selectchosen",
             "name"=>'user_id',
             "class"=>"User",
             "label_text"=>"User",
@@ -60,13 +51,15 @@ class Chat extends DatabaseObject {
 //
 //        ),
 
-        "to_user_id"=> array("type"=>"select",
-            "name"=>'to_user_id',
+        "to_user_id" => array("type" => "selectchosen",
+            "name" => 'to_user_id[]',
             "class"=>"User",
             "label_text"=>"To",
             'field_option_0'=>"id",
             'field_option_1'=>"username",
             "required" =>true,
+            "multiple" => true,
+
 //            "size"=>"100",
         ),
         "message"=> array("type"=>"textarea",
@@ -75,22 +68,22 @@ class Chat extends DatabaseObject {
             "placeholder"=>"Message here",
             "required" =>true,
         ),
-        "read" =>array("type"=>"radio",
+        "readit" => array("type" => "radio",
             array(0,
                 array(
-                    "label_all"=>"Read",
-                    "name"=>"read",
+                    "label_all" => "read",
+                    "name" => "readit",
                     "label_radio"=>"No",
                     "value"=>"0",
-                    "id"=>"read_no",
+                    "id" => "readit_no",
                     "default"=>true)),
             array(1,
                 array(
                     "label_all"=>"Read",
-                    "name"=>"read",
+                    "name" => "readit",
                     "label_radio"=>"Yes",
                     "value"=>"1",
-                    "id"=>"read_yes",
+                    "id" => "readit_yes",
                     "default"=>false)),
         ),
         "input_date"=> array("type"=>"datetime",
@@ -101,7 +94,6 @@ class Chat extends DatabaseObject {
         ),
 
     );
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -158,69 +150,14 @@ class Chat extends DatabaseObject {
 
 
     );
-
-    
-    
-    
-    
-    
-    
-
-
-
-
-    
-
-    public static $db_field_search =array('search_all','todo','download_csv');
-
-
     public $id;
     public $user_id;
     public $to_user_id;
     public $message;
     public $input_date;
-    public $read;
-
+    public $readit;
     public $username;
     public $to;
-
-    public static $form_user_id;
-
-    public static $page_name="Chat";
-    public static $page_manage="manage_chat.php";
-    public static $page_new="new_chat.php";
-    public static $page_edit="edit_chat.php";
-    public static $page_delete="delete_chat.php";
-
-//    public function set_up_display(){
-//        global $session;
-//        $this->user_id=$session->user_id;
-//    }
-
-    protected function find_username() {
-        $user=User::find_by_id($this->user_id);
-        $this->username=$user->username;
-
-        $user=User::find_by_id($this->to_user_id);
-        $this->to=$user->username;
-        unset($user);
-
-    }
-
-    public function set_up_display(){
-        $this->find_username();
-
-    }
-
-    public  function form_validation() {
-        $valid=new FormValidation();
-
-        $valid->validate_presences(self::$required_fields) ;
-        return $valid;
-
-
-
-    }
 
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
@@ -231,6 +168,10 @@ class Chat extends DatabaseObject {
         return $output;
     }
 
+//    public function set_up_display(){
+//        global $session;
+//        $this->user_id=$session->user_id;
+//    }
 
     public static function  get_chat(){
         global $session;
@@ -277,47 +218,6 @@ class Chat extends DatabaseObject {
         }
         return $output;
     }
-
-    public function get_message_nav($chat){
-        global $path_admin;
-        $chat->set_up_display();
-        $from_user=User::find_by_id($chat->user_id);
-
-        $when=DateDifferenceFormat($chat->input_date , unixToMySQL(time()) );
-
-
-
-        $output="";
-        $output.="<div class=\"dropdown-messages-box\">";
-        $output.="<a href=\" $path_admin profile.php\" class=\"pull-left\">";
-        $output.="   <img alt=\"image\" class=\"img-circle\" src=\"";
-        $output.=$from_user->user_path_and_placeholder();
-        $output.="\" >";
-        $output.="</a>";
-        $output.="<div class=\"media-body\">";
-        $output.="             <small class=\"pull-right\">";
-        $output.=$when;
-        $output.="</small><strong><span style=\"color: blue\">";
-        $output.=$from_user->full_name();
-        $output.="</span></strong> wrote:<br> <strong>";
-        $output.=$chat->message;
-        $output.="</strong>. <br>
-                                    <small class=\"text-muted\">";
-        $output.= datetime_to_text($chat->input_date);
-        $output.="</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class=\"divider\"></li>";
-
-        $output.="";
-        $output.="";
-        $output.="";
-        $output.="";
-
-        return $output;
-    }
-
 
     public static function get_chat_body(){
         global $session;
@@ -385,6 +285,63 @@ $form
 
     }
 
+    protected static function set_form_default_value()
+    {
+        global $session;
+        static::$form_default_value["user_id"] = $session->user_id;
+
+    }
+
+    public function form_validation()
+    {
+        $valid = new FormValidation();
+
+        $valid->validate_presences(self::$required_fields);
+        return $valid;
+
+
+    }
+
+    public function get_message_nav($chat)
+    {
+        global $path_admin;
+        $chat->set_up_display();
+        $from_user = User::find_by_id($chat->user_id);
+
+        $when = DateDifferenceFormat($chat->input_date, unixToMySQL(time()));
+
+
+        $output = "";
+        $output .= "<div class=\"dropdown-messages-box\">";
+        $output .= "<a href=\" $path_admin profile.php\" class=\"pull-left\">";
+        $output .= "   <img alt=\"image\" class=\"img-circle\" src=\"";
+        $output .= $from_user->user_path_and_placeholder();
+        $output .= "\" >";
+        $output .= "</a>";
+        $output .= "<div class=\"media-body\">";
+        $output .= "             <small class=\"pull-right\">";
+        $output .= $when;
+        $output .= "</small><strong><span style=\"color: blue\">";
+        $output .= $from_user->full_name();
+        $output .= "</span></strong> wrote:<br> <strong>";
+        $output .= $chat->message;
+        $output .= "</strong>. <br>
+                                    <small class=\"text-muted\">";
+        $output .= datetime_to_text($chat->input_date);
+        $output .= "</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class=\"divider\"></li>";
+
+        $output .= "";
+        $output .= "";
+        $output .= "";
+        $output .= "";
+
+        return $output;
+    }
+
     public function get_message_body(Chat $chat){
         $chat->set_up_display();
         $from_user=User::find_by_id($chat->user_id);
@@ -421,6 +378,23 @@ $form
 
 
         return $output;
+
+    }
+
+    public function set_up_display()
+    {
+        $this->find_username();
+
+    }
+
+    protected function find_username()
+    {
+        $user = User::find_by_id($this->user_id);
+        $this->username = $user->username;
+
+        $user = User::find_by_id($this->to_user_id);
+        $this->to = $user->username;
+        unset($user);
 
     }
 

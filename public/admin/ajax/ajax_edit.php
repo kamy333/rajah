@@ -11,6 +11,7 @@ if(!is_ajax_request()) {
 
     exit; }
 
-echo  call_user_func(array($_GET['class_name'], 'Create_form'));
-//echo 'wowww go it '. $_GET['class_name'].' '.$_GET['id']
+$result = call_user_func(array($_GET['class_name'], 'Create_form'));
+
+echo $result;
 

@@ -211,7 +211,9 @@ if ($layout_context=="public"){
 
                             <?php if(isset($session->user_id) and $user->is_admin() ) { ?>
                                 <?php echo $Nav->menu_item('','Log File','logfile.php','admin'); ?>
-                            <?php } ?>
+                    <?php echo $Nav->menu_item('', 'Log Debug File', 'logfileDebug.php', 'admin'); ?>
+
+                <?php } ?>
 
 
                         </ul>
@@ -373,6 +375,8 @@ if ($layout_context=="public"){
                                         logins</a></li>
                                 <li><a href="<?php echo $path_admin; ?>manage_user_type.php">Manage User Type</a></li>
                                 <li><a href="<?php echo $path_admin; ?>logfile.php">Log File</a></li>
+                                <?php echo $Nav->menu_item('', 'Log Debug File', 'logfileDebug.php', 'admin'); ?>
+
                                 <li class="divider"></li>
                                 <li><a href="<?php echo $path_admin;?>rajah_project.php">Rajah Project</a></li>
                                 <li class="divider"></li>

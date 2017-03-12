@@ -86,6 +86,23 @@ function log_action($action, $message="") {
     }
 }
 
+function log_debug($action, $message = "")
+{
+    $logfile = SITE_ROOT . DS . 'logs' . DS . 'debug.txt';
+    $new = file_exists($logfile) ? false : true;
+    if ($handle = fopen($logfile, 'a')) { // append
+        $timestamp = strftime("%Y-%m-%d %H:%M:%S", time());
+        $content = "{$timestamp} | {$action}: {$message}\n";
+        fwrite($handle, $content);
+        fclose($handle);
+        if ($new) {
+            chmod($logfile, 0755);
+        }
+    } else {
+        echo "Could not open log debug file for writing.";
+    }
+}
+
 function is_ajax_request() {
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
@@ -801,6 +818,92 @@ function admin_button(){
 }
 
 
+function ibox($content = "Missing content", $col = 5, $h5 = "Header",
+              array $options = ['tools' => true, 'collapse-link' => true, 'dropdown-toggle' => true, 'dropdown-menu' => true, 'close-link' => true]
+)
+{
+
+    if (!isset($options['tools'])) {
+        $options['tools'] = true;
+    }
+
+    if (!isset($options['collapse-link'])) {
+        $options['collapse-link'] = true;
+    }
+
+
+    if (!isset($options['dropdown-toggle'])) {
+        $options['dropdown-toggle'] = true;
+    }
+
+    if (!isset($options['dropdown-menu'])) {
+        $options['dropdown-menu'] = true;
+    }
+
+
+    if (!isset($options['close-link'])) {
+        $options['close-link'] = true;
+    }
+
+
+    $tools = "";
+
+    if (isset($options['tools']) && $options['tools'] == true) {
+
+//    if ($options['collapse-link'] || $options['dropdown-toggle'] || $options['dropdown-menu'] || $options['close-link'] ){
+        $tools = "<div class='ibox-tools'>";
+
+
+        if ($options['collapse-link']) {
+            $tools .= "                   <a class='collapse-link'>
+                                    <i class='fa fa-chevron-up'></i>
+                                </a>";
+        }
+
+
+        if ($options['dropdown-toggle']) {
+            $tools .= "                   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                                    <i class='fa fa-wrench'></i>
+                                </a>";
+        }
+
+
+        if ($options['dropdown-menu']) {
+            $tools .= "                   <ul class='dropdown-menu dropdown-user'>
+                                    <li><a href='#'>Config option 1</a>
+                                    </li>
+                                    <li><a href='#'>Config option 2</a>
+                                    </li>
+                                </ul>";
+        }
+
+
+        if ($options['close-link']) {
+            $tools .= "                   <a class='close-link'>
+                                    <i class='fa fa-times'></i>
+                                </a>";
+        }
+
+        $tools .= "                       </div>";
+//    }
+    }
+
+    $output = "
+<div class='col-lg-{$col} col-lg-offset-2'>";
+    $output .= "                <div class='ibox float-e-margins'>
+                        <div class='ibox-title'>
+                            <h5>{$h5}</h5>
+                            $tools
+                        </div>
+                        <div class='ibox-content'>
+                            {$content}
+                        </div>
+                    </div>
+                </div>
+";
+
+    return $output;
+}
 
 
 
