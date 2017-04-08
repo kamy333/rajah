@@ -2052,3 +2052,116 @@ DROP TABLE IF EXISTS `transport_summary_by_course_date_program`;
 
 CREATE VIEW `transport_summary_by_course_date_program` AS select distinct `transport_programming`.`course_date` AS `course_date`,(`transport_programming`.`course_date` - interval 1 day) AS `day_before`,(`transport_programming`.`course_date` + interval 1 day) AS `day_after`,unix_timestamp(`transport_programming`.`course_date`) AS `date_unix`,cast(now() as date) AS `today`,(to_days(`transport_programming`.`course_date`) - to_days(now())) AS `diff`,(case when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = -(1)) then 'yesterday' when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = 1) then 'tomorrow' when ((to_days(`transport_programming`.`course_date`) - to_days(now())) < 0) then concat((to_days(`transport_programming`.`course_date`) - to_days(now())),' day') when ((to_days(`transport_programming`.`course_date`) - to_days(now())) > 0) then concat('+',(to_days(`transport_programming`.`course_date`) - to_days(now())),' day') when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = 0) then 'now' else 'now' end) AS `str_time`,(case when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = -(1)) then 'hier' when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = 1) then 'demain' when ((to_days(`transport_programming`.`course_date`) - to_days(now())) < 0) then concat('il y a ',-((to_days(`transport_programming`.`course_date`) - to_days(now()))),' jours') when ((to_days(`transport_programming`.`course_date`) - to_days(now())) > 0) then concat('dans ',(to_days(`transport_programming`.`course_date`) - to_days(now())),' jours') when ((to_days(`transport_programming`.`course_date`) - to_days(now())) = 0) then 'aujourd\'hui' else 'now' end) AS `str_time_fr`,date_format(`transport_programming`.`course_date`,get_format(DATE, 'EUR')) AS `date_format`,sec_to_time(((time_to_sec(now()) DIV 900) * 900)) AS `now_round_time`,replace(substr(sec_to_time(((time_to_sec(now()) DIV 900) * 900)),1,5),':','h') AS `now_time_transmed`,monthname(`transport_programming`.`course_date`) AS `monthname`,year(`transport_programming`.`course_date`) AS `year`,week(`transport_programming`.`course_date`,0) AS `week`,count(`transport_programming`.`course_date`) AS `total_course`,sum(if((`transport_programming`.`validated_chauffeur` = 0),1,0)) AS `valid_chauf_0`,sum(if((`transport_programming`.`validated_chauffeur` = 1),1,0)) AS `valid_chauf_1`,sum(if((`transport_programming`.`validated_chauffeur` = 2),1,0)) AS `valid_chauf_2`,sum(if((`transport_programming`.`validated_mgr` = 0),1,0)) AS `valid_mgr_0`,sum(if((`transport_programming`.`validated_mgr` = 1),1,0)) AS `valid_mgr_1`,sum(if((`transport_programming`.`validated_final` = 0),1,0)) AS `valid_fina1_0`,sum(if((`transport_programming`.`validated_final` = 1),1,0)) AS `valid_fina1_1`,sum(if((`transport_programming`.`prix_course` = 0),1,0)) AS `prix_course_0`,sum(((`transport_programming`.`chauffeur_id` = '') or isnull(`transport_programming`.`chauffeur_id`))) AS `erreur_chauffeur`,sum(((`transport_programming`.`depart` = '') or isnull(`transport_programming`.`depart`) or (`transport_programming`.`arrivee` = '') or isnull(`transport_programming`.`arrivee`))) AS `erreur_address`,sum(((`transport_programming`.`pseudo` = 'autres') or ((`transport_programming`.`pseudo` = 'colline') and ((`transport_programming`.`pseudo_autres` = '') or isnull(`transport_programming`.`pseudo_autres`))))) AS `erreur_autres`,sum((((`transport_programming`.`pseudo` = 'tour_patient') or (`transport_programming`.`pseudo` = 'tag') or (`transport_programming`.`pseudo` = 'partners') or (`transport_programming`.`pseudo` = 'mines_icbl') or (`transport_programming`.`pseudo` = 'cash') or (`transport_programming`.`pseudo` = 'aude') or (`transport_programming`.`pseudo` = 'aloha')) and ((`transport_programming`.`nom_patient` = '') or isnull(`transport_programming`.`nom_patient`)))) AS `erreur_patients`,sum(((`transport_programming`.`pseudo` = 'tour_sang') or ((`transport_programming`.`pseudo` = 'carouge_sang') and ((`transport_programming`.`bon_no` = '') or isnull(`transport_programming`.`bon_no`))))) AS `erreur_sang`,sum(((`transport_programming`.`depart` = '') or isnull(`transport_programming`.`depart`) or (`transport_programming`.`arrivee` = '') or isnull(`transport_programming`.`arrivee`) or (((`transport_programming`.`pseudo` = 'tour_patient') or (`transport_programming`.`pseudo` = 'tag') or (`transport_programming`.`pseudo` = 'partners') or (`transport_programming`.`pseudo` = 'mines_icbl') or (`transport_programming`.`pseudo` = 'cash') or (`transport_programming`.`pseudo` = 'aude') or (`transport_programming`.`pseudo` = 'aloha')) and ((`transport_programming`.`nom_patient` = '') or isnull(`transport_programming`.`nom_patient`))) or (`transport_programming`.`pseudo` = 'autres') or ((`transport_programming`.`pseudo` = 'colline') and ((`transport_programming`.`pseudo_autres` = '') or isnull(`transport_programming`.`pseudo_autres`))) or (`transport_programming`.`pseudo` = 'tour_sang') or ((`transport_programming`.`pseudo` = 'carouge_sang') and ((`transport_programming`.`bon_no` = '') or isnull(`transport_programming`.`bon_no`))))) AS `erreur_general` from `transport_programming` group by `transport_programming`.`course_date` order by `transport_programming`.`course_date` desc;
 
+DROP TABLE IF EXISTS heure_presence;
+CREATE TABLE IF NOT EXISTS `heure_presence` (
+  `id`                INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `person_id`         INT(11) UNSIGNED          DEFAULT NULL,
+  `date_presence`     DATE             NOT NULL,
+  `heure_debut`       TIME                      DEFAULT '00:00:00',
+  `heure_fin`         TIME                      DEFAULT '00:00:00',
+  `nbre_horaire`      DECIMAL(2)                DEFAULT 0,
+  `user_id`           INT(11)                   DEFAULT NULL,
+  `username`          VARCHAR(20)               DEFAULT NULL,
+  `commentaire`       TEXT,
+  `input_date`        DATE                      DEFAULT NULL,
+  `modification_time` TIMESTAMP        NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+  #   UNIQUE KEY `chauffeur_name` (`chauffeur_name`),
+  #   UNIQUE KEY `initial` (`initial`),
+  #   KEY `chauffeur_name_2` (`chauffeur_name`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;
+
+
+ALTER TABLE `heure_presence`
+  ADD `hr` INT(11) UNSIGNED NOT NULL DEFAULT '0'
+  AFTER `nbre_horaire`;
+ALTER TABLE `heure_presence`
+  ADD `mn` INT(11) UNSIGNED NOT NULL DEFAULT '0'
+  AFTER `hr`;
+
+ALTER TABLE `heure_presence`
+  ADD CONSTRAINT `heure_presence_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+SELECT month(date_presence)
+FROM heure_presence;
+
+# ByYear
+SELECT DISTINCT
+  year(date_presence) AS Year,
+  sum(nbre_horaire)   AS totalHours
+FROM heure_presence
+GROUP BY Year
+ORDER BY date_presence DESC;
+
+# ByWeek
+SELECT DISTINCT
+  year(date_presence)      AS Year,
+  month(date_presence)     AS Month,
+  monthname(date_presence) AS MonthName,
+  week(date_presence)      AS Week,
+  sum(nbre_horaire)        AS totalHours
+FROM heure_presence
+GROUP BY Year, Month, Week
+ORDER BY date_presence DESC;
+
+# ByMonth
+SELECT DISTINCT
+  year(date_presence)      AS Year,
+  month(date_presence)     AS Month,
+  monthname(date_presence) AS MonthName,
+  sum(nbre_horaire)        AS totalHours
+FROM heure_presence
+GROUP BY Year, Month, Week
+ORDER BY date_presence DESC;
+
+#ByDay
+SELECT DISTINCT
+  date_presence,
+  year(date_presence)      AS Year,
+  monthname(date_presence) AS MonthName,
+  sum(nbre_horaire)        AS totalHours
+FROM heure_presence
+GROUP BY Year, MonthName
+ORDER BY date_presence DESC;
+
+SELECT DISTINCT
+  year(date_presence)      AS Year,
+  month(date_presence)     AS Month,
+  monthname(date_presence) AS MonthName,
+  week(date_presence)      AS Week,
+  sum(nbre_horaire)        AS totalHours
+FROM heure_presence
+GROUP BY Year, Month, Week
+ORDER BY date_presence DESC
+
+SELECT DISTINCT
+  date_presence            AS Date1,
+  year(date_presence)      AS Year,
+  monthname(date_presence) AS MonthName,
+  sum(nbre_horaire)        AS totalHours
+FROM heure_presence
+GROUP BY Year, MonthName
+ORDER BY date_presence DESC
+
+
+DROP TABLE IF EXISTS note;
+CREATE TABLE IF NOT EXISTS `note` (
+  `id`                INT(11)             NOT NULL AUTO_INCREMENT,
+  `user_id`           INT(11) UNSIGNED    NOT NULL,
+  `note`              VARCHAR(255)                 DEFAULT NULL,
+  `rank`              INT(11)             NOT NULL DEFAULT '1',
+  `web_address`       TEXT,
+  `done`              TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `progress`          TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+  `comment`           TEXT,
+  `modification_time` TIMESTAMP           NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `due_date`          DATE                NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8
+  AUTO_INCREMENT = 1;

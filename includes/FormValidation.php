@@ -78,29 +78,6 @@ public $warnings=array();
 
     }
 
-
-
-   private function fieldname_as_text($fieldname) {
-        $fieldname = str_replace("_", " ", $fieldname);
-        $fieldname = ucfirst($fieldname);
-        return $fieldname;
-    }
-
-// * presence
-// use trim() so empty spaces don't count
-// use === to avoid false positives
-// empty() would consider "0" to be empty
-   private function has_presence($value) {
-        return isset($value) && $value !== "";
-    }
-
-
-
-
-
-
-
-
     public function validate_presences($required_fields, $warning_me=false) {
         // second arg to get as warning
 //        $this->errors;
@@ -129,6 +106,23 @@ public $warnings=array();
 
         return $msg_presence;
 
+    }
+
+// * presence
+// use trim() so empty spaces don't count
+// use === to avoid false positives
+// empty() would consider "0" to be empty
+
+    private function has_presence($value)
+    {
+        return isset($value) && $value !== "";
+    }
+
+    private function fieldname_as_text($fieldname)
+    {
+        $fieldname = str_replace("_", " ", $fieldname);
+        $fieldname = ucfirst($fieldname);
+        return $fieldname;
     }
 
    public function validate_presences_non_post($required_fields, $record,$warning_me=false) {
@@ -164,17 +158,6 @@ public $warnings=array();
     }
 
 // taken from W3C used in email
-
-  protected  function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-
-
-
 
     function validate_email($fields_with_email,$warning_me=false){
      //   global $errors;
@@ -216,15 +199,16 @@ public $warnings=array();
 
     }
 
-// * string length
-// max length
- protected   function has_max_length($value, $max) {
-        return strlen($value) <= $max;
+    protected function test_input($data)
+    {
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        return $data;
     }
 
-    protected   function has_min_length($value, $min) {
-        return strlen($value) >= $min;
-    }
+// * string length
+// max length
 
     function validate_max_lengths($fields_with_max_lengths,$warning_me=false) {
 
@@ -242,6 +226,10 @@ public $warnings=array();
         }
     }
 
+    protected function has_max_length($value, $max)
+    {
+        return strlen($value) <= $max;
+    }
 
     function validate_min_lengths($fields_with_min_lengths,$warning_me=false) {
 
@@ -259,7 +247,13 @@ public $warnings=array();
             }
         }
     }
+
+    protected function has_min_length($value, $min)
+    {
+        return strlen($value) >= $min;
+    }
 // * validate value is inclused in a set
+
   public  function has_inclusion_in($value, $set=[]) {
         return in_array($value, $set);
     }
@@ -437,6 +431,45 @@ public $warnings=array();
 
     }
 
+    function validate_time($fields_with_times = [], $warning_me = false)
+    {
+        if (!is_array($fields_with_times)) {
+            $field_time = $fields_with_times;
+            $myTime = trim($_POST[$field_time]);
+            $this->validate_time_individual($myTime, $field_time, $warning_me);
+
+
+        } else {
+            foreach ($fields_with_times as $fields_time) {
+                $myTime = trim($_POST[$fields_time]);
+                $this->validate_time_individual($myTime, $fields_time, $warning_me);
+
+
+            }
+        }
+
+    }
+
+    function validate_time_individual($myTime, $field, $warning_me = false)
+    {
+        $time = preg_match('#^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$#', $myTime);
+        if ($time == 1) {
+
+
+            return true;
+        } else {
+
+            if ($warning_me) {
+                $this->warnings[$field] = $this->fieldname_as_text($field) . "$myTime is not valid time";
+
+            } else {
+                $this->errors[$field] = $this->fieldname_as_text($field) . "$myTime is not valid time";
+            }
+            return false;
+
+            // make a error!
+        }
+    }
 
   public  function validate_website ($field="",$warning_me=false){
 
@@ -670,7 +703,42 @@ public $warnings=array();
    }
 
 
+    public function exist_in_table($table, $field, $criteria, $warning_me = false)
+    {
+        global $database;
 
+        $safe_field = $database->escape_value($field);
+        $safe_criteria = $database->escape_value($criteria);
+
+//    $field = $safe_pseudo;
+
+
+        $query = "SELECT * ";
+        $query .= "FROM {$table} ";
+        $query .= "WHERE {$safe_field} = '{$safe_criteria}' ";
+        $query .= "LIMIT 1";
+
+        $client_set = $database->query($query);
+
+        $txt = " is not included in {$table} table database. Please add if necessary as new {$table}";
+
+        $pseudo_count = $database->num_rows($client_set);
+        if ($pseudo_count == 0) {
+
+            if ($warning_me) {
+                $this->warnings[$field] = $this->fieldname_as_text($field) . $txt;
+                $msg = $this->warnings[$field];
+            } else {
+                $this->errors[$field] = $this->fieldname_as_text($field) . $txt;
+                $msg = $this->errors[$field];
+            }
+
+
+        }
+        $database->free_result($client_set);
+
+        return $txt;
+    }
 
 
 }

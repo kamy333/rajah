@@ -52,6 +52,7 @@ defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 defined('PATH_UPLOAD') ? null : define('PATH_UPLOAD', SITE_ROOT.DS.'uploads');
 
 
+
 defined('CONFIG_HEADER')? null : define('CONFIG_HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'config_header.php');
 defined('HEADER')? null : define('HEADER', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header.php');
 defined('HEADER_PUBLIC')? null : define('HEADER_PUBLIC', SITE_ROOT.DS.'Inspinia'.DS.'layouts'.DS.'header_public.php');
@@ -148,12 +149,15 @@ require_once(LIB_PATH.DS.'InvoiceSend.php');
 require_once(LIB_PATH.DS.'InvoiceEstimate.php');
 require_once(LIB_PATH.DS.'Links.php');
 require_once(LIB_PATH.DS.'LinksCategory.php');
+require_once(LIB_PATH . DS . 'HeurePresence.php');
 
 require_once(LIB_PATH.DS.'MyCigarette.php');
 require_once(LIB_PATH.DS.'MyCigaretteByPeriod.php');
 require_once(LIB_PATH.DS.'Currency.php');
 require_once(LIB_PATH.DS.'MyExpensePerson.php');
 require_once(LIB_PATH.DS.'ToDoList.php');
+require_once(LIB_PATH . DS . 'Note.php');
+
 require_once(LIB_PATH.DS.'MyExpenseType.php');
 require_once(LIB_PATH.DS.'MyHouseExpenseType.php');
 require_once(LIB_PATH.DS.'MyExpense.php');
@@ -171,6 +175,7 @@ require_once(LIB_PATH.DS.'transport'.DS.'TransportClient.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportType.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportProgramming.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportProgrammingModel.php');
+require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModel.php');
 
 
 //require_once(LIB_PATH.DS.'photograph.php');

@@ -1,18 +1,47 @@
-
-<?php require_once ("admin/includes/init.php");?>
 <?php
-$page=!empty($_GET['page'])? (int)$_GET['page']:1;
-$item_per_page=2;
-$item_total_count=Photo::count_all();
+require_once('../includes/initialize.php');
+$session->confirmation_protected_page();
+if (User::is_employee() || User::is_secretary() || User::is_visitor()) {
+    redirect_to('index.php');
+}
 
-$paginate=new Paginate($page,$item_per_page,$item_total_count);
-$sql="SELECT * FROM photos LIMIT {$item_per_page} OFFSET {$paginate->offset()}";
-$photos=Photo::find_by_query($sql);
+?>
+<?php
+$class_name = "Photo";
+$page = !empty($_GET['page']) ? (int)$_GET["page"] : 1;
+$per_page = 20;
+$where = get_where_string($class_name);
+$total_count = $class_name::count_all_where($where);
+$pagination = new Pagination($page, $per_page, $total_count);
+
+//$page=!empty($_GET['page'])? (int)$_GET['page']:1;
+//$item_per_page=2;
+//$item_total_count=Photo::count_all();
+
+//$paginate=new Paginate($page,$item_per_page,$item_total_count);
+$sql = "SELECT * FROM photos LIMIT {$per_page} OFFSET {$pagination->offset()}";
+//$photos=Photo::find_by_query($sql);
+$photos = Photo::find_by_sql($sql);
 
 ?>
 <?php //$photos=Photo::find_all(); ?>
 
-<?php include("includes/header.php"); ?>
+<?php //include("includes/header.php"); ?>
+
+<?php //var_dump($users) ?>
+
+<?php $layout_context = "admin"; ?>
+<?php $active_menu = "admin" ?>
+<?php $stylesheets = "" //custom_form  ?>
+<?php $view_full_table == 1 ? $fluid_view = true : $fluid_view = false; ?>
+<?php $javascript = "form_admin" ?>
+<?php $sub_menu = false ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "header.php") ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "nav.php") ?>
+<?php echo isset($valid) ? $valid->form_errors() : "" ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
 
         <div class="row">
@@ -90,4 +119,7 @@ $photos=Photo::find_by_query($sql);
             </div>
                 </div>
 
-        <?php include("includes/footer.php"); ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "footer.php") ?>
+
+
+<!--        --><?php //include("includes/footer.php"); ?>

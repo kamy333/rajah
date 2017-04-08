@@ -12,120 +12,36 @@ class DatabaseObject
     // the below can be in his own class with php.5.3 move to DatabaseObject and change self to static or get_called_class() to get which object is calling aloo add the
     // protected static $table_name
 
-    protected static $table_name;
-
-    protected static $existing_password;
-    protected static $db_fields;
-
-    protected static $db_fields_update;
-
-    protected static $db_fields_table_display_short;
-    protected static $db_fields_table_display_full;
-    protected static $db_field_exclude_table_display_sort = null;
-    protected static $db_field_include_table_display_sort = null; // array assoc key->format feed see todo
-
-
-    // todo not use but too attempt to have sort reference on table head an db field
-    protected static $field_replace_display = null;
-
-
     public static $page_name;
     public static $page_manage;
     public static $page_new;
     public static $page_edit;
     public static $page_delete;
-    public static $form_class_dependency = array(); // used for form new the related links put class dependency in array
-
+    public static $form_class_dependency = array();
     public static $pagination_per_page = 20;
+    public static $fields_numeric; // array assoc key->format feed see todo
+
+
+    // todo not use but too attempt to have sort reference on table head an db field
+    public static $fields_numeric_format = array();
+    public static $db_field_search;
+    public static $get_form_element;
+    public static $get_form_element_all;
+    public static $form_default_value;
+    public static $all_class = array('ToDoList', 'User', 'UserType', 'Client', 'Category', 'BlacklistIp', 'Links', 'LinksCategory', 'Project', 'Category1', 'Category2', 'InvoiceActual', 'InvoiceEstimate', 'FailedLogin', 'MyCigarette', 'MyExpense', 'MyExpensePerson', 'MyExpenseType', 'MyHouseExpense', 'MyHouseExpenseType', 'Chat', 'ChatFriend', 'Notification', 'TransportChauffeur', 'TransportClient', 'TransportProgramming', 'TransportProgrammingModel', 'TransportType');
+    protected static $table_name; // used for form new the related links put class dependency in array
+    protected static $existing_password;
 
 //this is for 1 page
-    public static function change_to_unique_data($data = 'data')
-    {
-        $data = trim($data);
-        static::$page_manage = "manage_{$data}.php?class_name=" . get_called_class();
-        static::$page_new = "new_{$data}.php?class_name=" . get_called_class();
-        static::$page_edit = "edit_{$data}.php?class_name=" . get_called_class();
-        static::$page_delete = "delete_{$data}.php?class_name=" . get_called_class();
-    }
-
-    public static function getPagePagination()
-    {
-        return !empty($_GET['page']) ? (int)$_GET["page"] : 1;
-
-    }
-
-    public static function NewPagination()
-    {
-        $where = get_where_string(get_called_class());
-        $per_page = static::$pagination_per_page;
-        $total_count = static::count_all_where($where);
-        $page = static::getPagePagination();
-        return new Pagination($page, $per_page, $total_count);
-    }
-
-
-    public static function manage_page_query()
-    {
-        $table_name = static::get_table_name();
-        $order_name = !empty($_GET["order_name"]) ? $_GET["order_name"] : 'id';
-        $order_type = !empty($_GET["order_type"]) ? $_GET["order_type"] : 'DESC';
-
-
-//        $page= !empty($_GET['page'])? (int) $_GET["page"]:1;
-        $per_page = 20;
-        $where = get_where_string(get_called_class());
-
-
-//        $total_count=static::count_all_where($where);
-        $pagination = static::NewPagination();
-
-
-        $sql = "SELECT * FROM {$table_name} ";
-
-//    $sql.= " ".get_where_string($class_name);
-        $sql .= " " . $where;
-
-
-        if (isset($order_name)) {
-            $sql .= " ORDER BY {$order_name} {$order_type} ";
-        }
-
-
-        $sql .= "LIMIT {$per_page} ";
-        $sql .= "OFFSET {$pagination->offset()}";
-
-//echo "<p>$sql</p>";
-//unset($_GET);
-
-        $result_class = static::find_by_sql($sql);
-
-//        $query_string=remove_get(array('view','page',get_called_class()));
-
-        return $result_class;
-
-    }
-
-
-    public static $fields_numeric;
-    public static $fields_numeric_format = array();
-
+    protected static $db_fields;
+    protected static $db_fields_update;
+    protected static $db_fields_table_display_short;
+    protected static $db_fields_table_display_full;
+    protected static $db_field_exclude_table_display_sort = null;
+    protected static $db_field_include_table_display_sort = null;
+    protected static $field_replace_display = null;
     protected static $form_properties;
-
     protected static $form_properties_search;
-
-    public static $db_field_search;
-
-    public static $get_form_element;
-
-    public static $get_form_element_all;
-
-    public static $form_default_value;
-
-
-    protected static function set_form_default_value()
-    {
-//        static::$form_default_value["user_id"]="5";
-    }
 
     public static function post_form_class()
     {
@@ -239,38 +155,111 @@ class DatabaseObject
         }
     }
 
-    public static function construct_form($get_item = false, $GET = false)
+    public static function change_to_unique_data($data = 'data', $pages = ['manage', 'new', 'edit', 'delete'])
     {
-        static::set_form_default_value();
-        $output = "";
-        $myvalue = "";
-        foreach (static::$get_form_element as $val) {
 
-
-            if (isset($GET[$val])) {
-                $myvalue = $_GET[$val];
-            } elseif (isset(static::$form_default_value)) {
-                if (array_key_exists($val, static::$form_default_value)) {
-                    if (static::$form_default_value[$val] === "now()") {
-                        $myvalue = strftime("%Y-%m-%d", time());
-                    } elseif (static::$form_default_value[$val] === "nowtime()") {
-                        $myvalue = strftime("%Y-%m-%d %H:%M:%S", time());
-                    } else {
-                        $myvalue = static::$form_default_value[$val];
-                    }
-
-                }
-            }
-
-            $get_item ? $value = $get_item->$val : $value = $myvalue;
-            $output .= static::get_form($val, $value);
-            $myvalue = "";
+        $data = trim($data);
+        if (is_array($pages)) {
+            static::$page_manage = $pages[0] . "_{$data}.php?class_name=" . get_called_class();
+            static::$page_new = $pages[1] . "_{$data}.php?class_name=" . get_called_class();
+            static::$page_edit = $pages[2] . "_{$data}.php?class_name=" . get_called_class();
+            static::$page_delete = $pages[3] . "_{$data}.php?class_name=" . get_called_class();
 
         }
 
-        return $output;
+//
+//        static::$page_manage = "manage_{$data}.php?class_name=" . get_called_class();
+//        static::$page_new = "new_{$data}.php?class_name=" . get_called_class();
+//        static::$page_edit = "edit_{$data}.php?class_name=" . get_called_class();
+//        static::$page_delete = "delete_{$data}.php?class_name=" . get_called_class();
     }
 
+    public static function get_table_field()
+    {
+        $table = static::$db_fields;
+        return $table;
+    }
+
+    public function save()
+    {
+        // if the id is set then we update and prevent to create another same user
+        // if(isset($this->id)){$this->update();} else {$this->create();}
+        return isset($this->id) ? $this->update() : $this->create();
+
+    }
+
+    public function update()
+    {
+        $this->set_up_display();
+        global $database;
+        // Don't forget your SQL syntax and good habits:
+        // - UPDATE table SET key='value', key='value' WHERE condition
+        // - single-quotes around all values
+        // - escape all values to prevent SQL injection
+        $attributes = $this->sanitized_attributes();
+        $attribute_pairs = array();
+        foreach ($attributes as $key => $value) {
+            $attribute_pairs[] = "`{$key}`='{$value}'";
+        }
+        $sql = "UPDATE " . static::$table_name . " SET ";
+        $sql .= join(", ", $attribute_pairs);
+        $sql .= " WHERE id=" . $database->escape_value($this->id);
+        $database->query($sql);
+        return ($database->affected_rows() == 1) ? true : false;
+    }
+
+    protected function set_up_display()
+    {
+
+
+    }
+
+    protected function sanitized_attributes()
+    {
+        global $database;
+        $clean_attributes = array();
+        // sanitize the values before submitting
+        // Note: does not alter the actual value of each attribute
+        foreach ($this->attributes() as $key => $value) {
+            $clean_attributes[$key] = $database->escape_value($value);
+        }
+        return $clean_attributes;
+    }
+
+    private function attributes()
+    {
+        // return an array of attribute names and their values
+        $attributes = array();
+        foreach (static::$db_fields as $field) {
+            if (property_exists($this, $field)) {
+                $attributes[$field] = $this->$field;
+            }
+        }
+        return $attributes;
+    }
+
+    public function create()
+    {
+        $this->set_up_display();
+
+        global $database;
+        // Don't forget your SQL syntax and good habits:
+        // - INSERT INTO table (key, key) VALUES ('value', 'value')
+        // - single-quotes around all values
+        // - escape all values to prevent SQL injection
+        $attributes = $this->sanitized_attributes();
+        $sql = "INSERT INTO" . " " . static::$table_name . " (";
+        $sql .= join(", ", array_keys($attributes));
+        $sql .= ") VALUES ('";
+        $sql .= join("', '", array_values($attributes));
+        $sql .= "')";
+        if ($database->query($sql)) {
+            $this->id = $database->insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static function get_form_new_href($array_classes = [])
     {
@@ -309,7 +298,6 @@ class DatabaseObject
 //       }
         return $output;
     }
-
 
     public static function Create_form()
     {
@@ -393,111 +381,6 @@ class DatabaseObject
 
     }
 
-
-    public static function table_nav($page_link_view, $page_link_text, $offset)
-    {
-        $href = clean_query_string($page_link_view);
-
-        $output = "<div class=\"row\" >";
-        $output .= "<div class=\"col-md-10 {$offset}\" > ";
-        $output .= "<a  class=\"btn btn-info\"  href=\"index.php\">Index</a><span>&nbsp;</span>";
-        $output .= "<a  class=\"btn btn-primary\"  href=\" $href\"> $page_link_text</a><span>&nbsp;</span>";
-        $output .= "<a  class=\"btn btn-primary button-add-form\"  href=\"" . clean_query_string(static::$page_new) . "\">Add New " . static::$page_name . " </a>";
-        $output .= static::table_nav_additional();
-        $output .= "</div>";
-        $output .= "</div>";
-//     $output.="";
-        return $output;
-
-    }
-
-    public static function table_nav_additional()
-    {
-        $output = "";
-        return $output;
-    }
-
-    public function message_form($msg = 'done')
-    {
-        return " " . $this->id . " with ID" . $this->id . $msg;
-    }
-
-
-    public static function get_table_name()
-    {
-        $table = static::$table_name;
-        return $table;
-    }
-
-
-    public function unset_table_fields($fields = "")
-    {
-        if (is_array($fields)) {
-            foreach ($fields as $field) {
-                if (in_array($field, static::$db_fields)) {
-                    $i = array_search($field, static::$db_fields);
-                    unset(static::$db_fields[$i]);
-                } else {
-                    echo "<br>$field does not exists<br>";
-                }
-            }
-        } else {
-
-            if (in_array($fields, static::$db_fields)) {
-                $i = array_search($fields, static::$db_fields);
-                unset(static::$db_fields[$i]);
-            } else {
-                echo "<br>$fields does not exists<br>";
-            }
-
-        }
-
-        static::$db_fields = array_values(static::$db_fields);
-
-
-    }
-
-
-    public function unset_required_fields($fields = "")
-    {
-        if (is_array($fields)) {
-            foreach ($fields as $field) {
-                if (in_array($field, static::$required_fields)) {
-                    $i = array_search($field, static::$required_fields);
-                    unset(static::$required_fields[$i]);
-                } else {
-                    echo "<br>$field does not exists";
-                }
-            }
-        } else {
-
-            if (in_array($fields, static::$required_fields)) {
-                $i = array_search($fields, static::$required_fields);
-                unset(static::$required_fields[$i]);
-            } else {
-                echo "<br>$fields does not exists";
-            }
-
-        }
-
-        static::$required_fields = array_values(static::$required_fields);
-
-
-    }
-
-    public static function get_table_field()
-    {
-        $table = static::$db_fields;
-        return $table;
-    }
-
-
-    public static function find_all()
-    {
-        $table = static::$table_name;
-        return static::find_by_sql("SELECT * FROM {$table} ");
-    }
-
     public static function find_by_id($id = 0)
     {
         global $database;
@@ -515,48 +398,6 @@ class DatabaseObject
             $object_array[] = static::instantiate($row);
         }
         return $object_array;
-    }
-
-    public static function count_all()
-    {
-        global $database;
-        $table = static::$table_name;
-        $result_set = $database->query("SELECT count(*) FROM {$table} ");
-        $row = $database->fetch_array($result_set);
-        return $row ? array_shift($row) : false;
-
-    }
-
-
-    public static function sum_field_where($field = "", $where = "")
-    {
-        global $database;
-        $table = static::$table_name;
-        $result_set = $database->query("SELECT sum({$field}) FROM {$table} {$where} ");
-        $row = $database->fetch_array($result_set);
-        return $row ? array_shift($row) : false;
-
-    }
-
-    public static function count_all_where($where = '')
-    {
-        global $database;
-        $table = static::$table_name;
-        $result_set = $database->query("SELECT count(*) FROM {$table} {$where} ");
-        $row = $database->fetch_array($result_set);
-        return $row ? array_shift($row) : false;
-
-    }
-
-
-    public static function find_max_id()
-    {
-        global $database;
-        $table = static::$table_name;
-        $result_set = $database->query("SELECT MAX(id) FROM {$table} ");
-        $row = $database->fetch_array($result_set);
-        return $row ? array_shift($row) : false;
-
     }
 
     private static function instantiate($record)
@@ -585,7 +426,6 @@ class DatabaseObject
         return $object;
     }
 
-
     private function has_attribute($attribute)
     {
         // We don't care about the value, we just want to know if the key exists
@@ -593,307 +433,64 @@ class DatabaseObject
         return array_key_exists($attribute, $this->attributes());
     }
 
-    private function attributes()
+    public static function construct_form($get_item = false, $GET = false)
     {
-        // return an array of attribute names and their values
-        $attributes = array();
-        foreach (static::$db_fields as $field) {
-            if (property_exists($this, $field)) {
-                $attributes[$field] = $this->$field;
-            }
-        }
-        return $attributes;
-    }
-
-    protected function sanitized_attributes()
-    {
-        global $database;
-        $clean_attributes = array();
-        // sanitize the values before submitting
-        // Note: does not alter the actual value of each attribute
-        foreach ($this->attributes() as $key => $value) {
-            $clean_attributes[$key] = $database->escape_value($value);
-        }
-        return $clean_attributes;
-    }
-
-
-    // form multi
-    public static function form_text($name, $type = "text", $value = "")
-    {
-
-//        $name="";
-//        $type="text";
-//        $value="";
-
-
+        static::set_form_default_value();
         $output = "";
-        $output .= "";
-        $output .= "<input type='{$type}' class='form-control {$name}' name='{$name}[]' value='{$value}' placeholder=''  >";
+        $myvalue = "";
+
+        foreach (static::$get_form_element as $val) {
 
 
-        return $output;
-
-    }
-
-
-    public static function form_select_option($input_name, $field_1, $field_2)
-    {
-//
-//        $input_name='project_id';
-////        $class_name="Project";
-//        $field_1='id';
-//        $field_2='project_code';
-
-
-        $objects = static::find_all();
-
-
-        $output = "";
-
-        $output .= "<select class='form-control {$input_name}' name='{$input_name}[]' id=''>";
-        $output .= "<option value='' selected></option>";
-
-        foreach ($objects as $object) {
-
-            foreach ($object as $k => $v) {
-                if ($k === $field_1 || $k === $field_2) {
-
-                    if ($k === $field_1) {
-                        $output .= " <option value='{$v}'>";
-                    }
-
-                    if ($k === $field_2) {
-                        $output .= "{$v}</option>";
+            if (isset($GET[$val])) {
+                $myvalue = $_GET[$val];
+            } elseif (isset(static::$form_default_value)) {
+                if (array_key_exists($val, static::$form_default_value)) {
+                    if (static::$form_default_value[$val] === "now()") {
+                        $myvalue = strftime("%Y-%m-%d", time());
+                    } elseif (static::$form_default_value[$val] === "nowtime()") {
+                        $myvalue = strftime("%Y-%m-%d %H:%M:%S", time());
+                    } elseif (static::$form_default_value[$val] === "time()") {
+                        $myvalue = strftime("%H:%M:%S", time());
+                    } elseif (static::$form_default_value[$val] === "timeNoSecond()") {
+                        $myvalue = strftime("%H:%M", time());
+                    } else {
+                        $myvalue = static::$form_default_value[$val];
                     }
 
                 }
             }
-        }
-        $output .= "</select>";
-        return $output;
-    }
 
-
-    public function save()
-    {
-        // if the id is set then we update and prevent to create another same user
-        // if(isset($this->id)){$this->update();} else {$this->create();}
-        return isset($this->id) ? $this->update() : $this->create();
-
-    }
-
-
-    public function create()
-    {
-        $this->set_up_display();
-
-        global $database;
-        // Don't forget your SQL syntax and good habits:
-        // - INSERT INTO table (key, key) VALUES ('value', 'value')
-        // - single-quotes around all values
-        // - escape all values to prevent SQL injection
-        $attributes = $this->sanitized_attributes();
-        $sql = "INSERT INTO" . " " . static::$table_name . " (";
-        $sql .= join(", ", array_keys($attributes));
-        $sql .= ") VALUES ('";
-        $sql .= join("', '", array_values($attributes));
-        $sql .= "')";
-        if ($database->query($sql)) {
-            $this->id = $database->insert_id();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    public function update()
-    {
-        $this->set_up_display();
-        global $database;
-        // Don't forget your SQL syntax and good habits:
-        // - UPDATE table SET key='value', key='value' WHERE condition
-        // - single-quotes around all values
-        // - escape all values to prevent SQL injection
-        $attributes = $this->sanitized_attributes();
-        $attribute_pairs = array();
-        foreach ($attributes as $key => $value) {
-            $attribute_pairs[] = "`{$key}`='{$value}'";
-        }
-        $sql = "UPDATE " . static::$table_name . " SET ";
-        $sql .= join(", ", $attribute_pairs);
-        $sql .= " WHERE id=" . $database->escape_value($this->id);
-        $database->query($sql);
-        return ($database->affected_rows() == 1) ? true : false;
-    }
-
-
-    public function delete()
-    {
-        global $database;
-        // Don't forget your SQL syntax and good habits:
-        // - DELETE FROM table WHERE condition LIMIT 1
-        // - escape all values to prevent SQL injection
-        // - use LIMIT 1
-        $sql = "DELETE FROM" . " " . static::$table_name;
-        $sql .= " WHERE `id`=" . $database->escape_value($this->id);
-        $sql .= " LIMIT 1";
-        $database->query($sql);
-        return ($database->affected_rows() == 1) ? true : false;
-
-        // NB: After deleting, the instance of User still
-        // exists, even though the database entry does not.
-        // This can be useful, as in:
-        //   echo $user->first_name . " was deleted";
-        // but, for example, we can't call $user->update()
-        // after calling $user->delete().d
-    }
-
-    public static function option_distinct($field0, $field1)
-    {
-        //   global $database;
-        $sql = "";
-
-        if (empty($field0) || empty($field1)) {
-            echo "Error:no defined fields, need at least 2";
-
-        } else {
-            $table = static::$table_name;
-            $sql = "SELECT DISTINCT {$field0} , {$field1} FROM {$table}";
-            return static::find_by_sql($sql);
-        }
-
-    }
-
-
-    public static function get_distinct($name)
-    {
-        $option = "";
-        if (empty($name) || empty($field1)) {
-            echo "Error:no defined fields, need at field";
-
-        } else {
-            $table = static::$table_name;
-            $sql = "SELECT DISTINCT {$name} FROM {$table}";
-            $results = static::find_by_sql($sql);
-            if ($results) {
-
-                foreach ($results as $result) {
-                    $safe_result = h($result);
-                    $option .= "<option value='{$safe_result}'>{$safe_result}</option>";
-                }
-            }
-
+            $get_item ? $value = $get_item->$val : $value = $myvalue;
+            $output .= static::get_form($val, $value);
+            $myvalue = "";
 
         }
-
-    }
-
-
-    public static function get_form_properties($name)
-    {
-        return static::$form_properties[$name];
-        //   return $form_prop;
-    }
-
-    public static function get_form_properties_search($name)
-    {
-        return static::$form_properties_search[$name];
-        //   return $form_prop;
-    }
-
-
-    public static function get_form_search()
-    {
-
-        $output = "";
-        $div_class = "<div class='col-xs-4'>";
-        $value = null;
-
-        $output .= "<div class ='background_light_pink'>";
-        $output .= "<form name='form_client_search'  class='form-horizontal' method='get' action='" . $_SERVER["PHP_SELF"] . "?page=1&class_name=".get_called_class() . "'>";
-
-        $output .= " <fieldset id='' title=''>";
-        $output .= " <legend class='text-center' style='color: #0000ff'> Search " . static::$page_name . "</legend>";
-
-
-        $output .= "<div class='row'>";
-        if (static::$db_field_search) {
-            foreach (static::$db_field_search as $name_search) {
-                $output .= $div_class;
-                $output .= static::get_form($name_search, $value, 'search');
-                $output .= "</div>";
-
-
-            }
-        }
-
-        $output .= "</div>";
-
-        $output .= " <div class='col-sm-offset-3 col-sm-7 col-xs-3'>";
-
-        $output .= "<button type='submit' name='submit' class='btn btn-info btn-block btn-group-lg'>" . 'Search  ' . "</button>";
-
-        $output .= "</div>";
-
-
-        $output .= "<div class='text-right ' >";
-
-        $output .= " <button type='reset'  class='btn btn-default '> 'Reset  '</button>";
-
-
-        $output .= " </div>";
-
-
-        $output .= "</fieldset>";
-        $output .= "</form>";
-        $output .= "</div>";
 
         return $output;
     }
 
-
-    public static function get_modal_search()
+    protected static function set_form_default_value()
     {
-        $output = "";
-        $output .= "      <button id='form-table-search-origin' style='display: inline' type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='.bs-example-modal-lg'>";
-        $output .= "           <span class='glyphicon glyphicon-search' style='color: whitesmoke' aria-hidden='true'></span>";
-        $output .= "        </button>";
-
-
-        $output .= "       <div class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'>";
-        $output .= "          <div class='modal-dialog modal-lg'>";
-        $output .= "             <div class='modal-content'>";
-        $output .= "                  <div class='modal-header'>";
-        $output .= "                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
-        $output .= "                      <h4 class='modal-title' id='myModalLabel'>";
-        $output .= static::$page_name;
-        $output .= "                    </h4>";
-        $output .= "                 </div>";
-        $output .= "                 <div class='modal-body'>";
-
-
-        $output .= static::get_form_search();
-//        $output.= $this->get_form_search();
-
-        $output .= "                      </div>";
-        $output .= "                <div class='modal-footer'>";
-        $output .= "                    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
-        $output .= "                   <button type='button' class='btn btn-primary'>Save changes</button>";
-        $output .= "              </div>";
-        $output .= "           </div>";
-        $output .= "        </div>";
-        $output .= "   </div>";
-
-        return $output;
-
+//        static::$form_default_value["user_id"]="5";
     }
-
 
     static function get_form($name, $value = '', $type_form = '')
     {
         //to move to Database Object
+
+//        if($name=="chauffeur_id"){
+//            echo "found  ".$name."   ".$value."<br>";}
+//        if($name=="client_id"){
+//            echo "found  ".$name."   ".$value."<br>";}
+//
+
+//        echo gettype($name) ."<br>";
+//
+//        echo "<pre>";
+//        print_r(static::get_form_properties("chauffeur_id")) ;
+//       echo "</pre>";
+
         if (isset(static::$form_properties)) {
 
 
@@ -913,11 +510,11 @@ class DatabaseObject
 
             }
 
-
+// clockwise special hour format
             $type_exception = array('radio', 'checkbox', 'textarea');
 
 //must be one of the following input to use ->text() todo checkbox
-            $type_no_exception = array("text", 'password', 'email', 'select', 'search', 'date', 'datetime', 'datetime-local', 'color', 'button', 'file', 'hidden', 'image', 'month', 'number', 'range', 'reset', 'search', 'submit', 'tel', 'file', 'url', 'selectchosen');
+            $type_no_exception = array("text", 'password', 'email', 'select', 'search', 'date', 'datetime', 'datetime-local', 'color', 'button', 'file', 'hidden', 'image', 'month', 'number', 'range', 'reset', 'search', 'submit', 'tel', 'file', 'url', 'selectchosen', 'time', 'datetime-local', 'clockwise');
 
             $type_text = array("text", 'password', 'email', 'search', 'date', 'datetime', 'datetime-local', 'color', 'button', 'file', 'hidden', 'image', 'month', 'number', 'range', 'reset', 'search', 'submit', 'tel', 'url');
 
@@ -979,6 +576,8 @@ class DatabaseObject
                 $output = $form->selectchosen();
             } elseif ($type == "textarea") {
                 $output = $form->textarea();
+            } elseif ($type == "clockwise") {
+                $output = $form->clockwise();
             } else {
 
             }
@@ -992,6 +591,162 @@ class DatabaseObject
         return $output;
     }
 
+    public static function get_form_properties_search($name)
+    {
+        return static::$form_properties_search[$name];
+        //   return $form_prop;
+    }
+
+    public static function get_form_properties($name)
+    {
+        return static::$form_properties[$name];
+        //   return $form_prop;
+    }
+
+    public static function table_nav($page_link_view, $page_link_text, $offset)
+    {
+        $href = clean_query_string($page_link_view);
+
+        $output = "<div class=\"row\" >";
+        $output .= "<div class=\"col-md-10 {$offset}\" > ";
+        $output .= "<a  class=\"btn btn-info\"  href=\"index.php\">Index</a><span>&nbsp;</span>";
+        $output .= "<a  class=\"btn btn-primary\"  href=\" $href\"> $page_link_text</a><span>&nbsp;</span>";
+        $output .= "<a  class=\"btn btn-primary button-add-form\"  href=\"" . clean_query_string(static::$page_new) . "\">Add New " . static::$page_name . " </a>";
+        $output .= static::table_nav_additional();
+        $output .= "</div>";
+        $output .= "</div>";
+//     $output.="";
+        return $output;
+
+    }
+
+    public static function table_nav_additional()
+    {
+        $output = "";
+        return $output;
+    }
+
+    public static function sum_field_where($field = "", $where = "")
+    {
+        global $database;
+        $table = static::$table_name;
+        $result_set = $database->query("SELECT sum({$field}) FROM {$table} {$where} ");
+        $row = $database->fetch_array($result_set);
+        return $row ? array_shift($row) : false;
+
+    }
+
+    public static function find_max_id()
+    {
+        global $database;
+        $table = static::$table_name;
+        $result_set = $database->query("SELECT MAX(id) FROM {$table} ");
+        $row = $database->fetch_array($result_set);
+        return $row ? array_shift($row) : false;
+
+    }
+
+    public static function form_text($name, $type = "text", $value = "")
+    {
+
+//        $name="";
+//        $type="text";
+//        $value="";
+
+
+        $output = "";
+        $output .= "";
+        $output .= "<input type='{$type}' class='form-control {$name}' name='{$name}[]' value='{$value}' placeholder=''  >";
+
+
+        return $output;
+
+    }
+
+    public static function form_select_option($input_name, $field_1, $field_2)
+    {
+//
+//        $input_name='project_id';
+////        $class_name="Project";
+//        $field_1='id';
+//        $field_2='project_code';
+
+
+        $objects = static::find_all();
+
+
+        $output = "";
+
+        $output .= "<select class='form-control {$input_name}' name='{$input_name}[]' id=''>";
+        $output .= "<option value='' selected></option>";
+
+        foreach ($objects as $object) {
+
+            foreach ($object as $k => $v) {
+                if ($k === $field_1 || $k === $field_2) {
+
+                    if ($k === $field_1) {
+                        $output .= " <option value='{$v}'>";
+                    }
+
+                    if ($k === $field_2) {
+                        $output .= "{$v}</option>";
+                    }
+
+                }
+            }
+        }
+        $output .= "</select>";
+        return $output;
+    }
+
+
+    // form multi
+
+    public static function find_all()
+    {
+        $table = static::$table_name;
+        return static::find_by_sql("SELECT * FROM {$table} ");
+    }
+
+    public static function option_distinct($field0, $field1)
+    {
+        //   global $database;
+        $sql = "";
+
+        if (empty($field0) || empty($field1)) {
+            echo "Error:no defined fields, need at least 2";
+
+        } else {
+            $table = static::$table_name;
+            $sql = "SELECT DISTINCT {$field0} , {$field1} FROM {$table}";
+            return static::find_by_sql($sql);
+        }
+
+    }
+
+    public static function get_distinct($name)
+    {
+        $option = "";
+        if (empty($name) || empty($field1)) {
+            echo "Error:no defined fields, need at field";
+
+        } else {
+            $table = static::$table_name;
+            $sql = "SELECT DISTINCT {$name} FROM {$table}";
+            $results = static::find_by_sql($sql);
+            if ($results) {
+
+                foreach ($results as $result) {
+                    $safe_result = h($result);
+                    $option .= "<option value='{$safe_result}'>{$safe_result}</option>";
+                }
+            }
+
+
+        }
+
+    }
 
     static public function display_pagination($pagination = "", $page = "")
     {
@@ -1050,12 +805,30 @@ class DatabaseObject
 
     }
 
-    protected function set_up_display()
+    public static function NewPagination()
     {
+        $where = get_where_string(get_called_class());
+        $per_page = static::$pagination_per_page;
+        $total_count = static::count_all_where($where);
+        $page = static::getPagePagination();
+        return new Pagination($page, $per_page, $total_count);
+    }
 
+    public static function count_all_where($where = '')
+    {
+        global $database;
+        $table = static::$table_name;
+        $result_set = $database->query("SELECT count(*) FROM {$table} {$where} ");
+        $row = $database->fetch_array($result_set);
+        return $row ? array_shift($row) : false;
 
     }
 
+    public static function getPagePagination()
+    {
+        return !empty($_GET['page']) ? (int)$_GET["page"] : 1;
+
+    }
 
     public static function display_all($object_all = "", $long_short = 0, $edit = true)
     {
@@ -1078,28 +851,51 @@ class DatabaseObject
 
     }
 
-    public static function display_all_new($long_short = 0, $edit = true)
+    public static function manage_page_query()
     {
+        $table_name = static::get_table_name();
+        $order_name = !empty($_GET["order_name"]) ? $_GET["order_name"] : 'id';
+        $order_type = !empty($_GET["order_type"]) ? $_GET["order_type"] : 'DESC';
 
 
-        $object_all = static::find_all();
+//        $page= !empty($_GET['page'])? (int) $_GET["page"]:1;
+        $per_page = 20;
+        $where = get_where_string(get_called_class());
 
-        $output = "";
-//        $output.=static::display_table_head($long_short,$edit);
 
-        foreach ($object_all as $object) {
-            $output .= $object->display_table_new($long_short, $edit);
+//        $total_count=static::count_all_where($where);
+        $pagination = static::NewPagination();
+
+
+        $sql = "SELECT * FROM {$table_name} ";
+
+//    $sql.= " ".get_where_string($class_name);
+        $sql .= " " . $where;
+
+
+        if (isset($order_name)) {
+            $sql .= " ORDER BY {$order_name} {$order_type} ";
         }
 
-//        $output.=static::display_table_footer($edit);
-        return $output;
+
+        $sql .= "LIMIT {$per_page} ";
+        $sql .= "OFFSET {$pagination->offset()}";
+
+//echo "<p>$sql</p>";
+//unset($_GET);
+
+        $result_class = static::find_by_sql($sql);
+
+//        $query_string=remove_get(array('view','page',get_called_class()));
+
+        return $result_class;
 
     }
 
-
-    protected static function table_sort_asc($fieldname)
+    public static function get_table_name()
     {
-
+        $table = static::$table_name;
+        return $table;
     }
 
     public static function display_table_head($long_short = 0, $edit = true)
@@ -1226,14 +1022,14 @@ class DatabaseObject
                     $href = clean_query_string($_SERVER["PHP_SELF"] . "" . $query_string . "page=" . u(1) . "&order_name=" . u($fieldname) . "&order_type=" . u('ASC') . "&class_name=" . get_called_class());
 
 //                    $new_query_ASC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('ASC')."'>'";
-                    $new_query_ASC = "<a class='ajax-pagination' href='" . $href . "'>'";
+                    $new_query_ASC = "<a class='ajax-pagination' href='" . $href . "'>";
 
                     $href = clean_query_string($_SERVER["PHP_SELF"] . "" . $query_string . "page=" . u(1) . "&order_name=" . u($fieldname) . "&order_type=" . u('DESC') . "&class_name=" . get_called_class());
 
                     $new_query_ASC .= "<span class='glyphicon glyphicon-triangle-bottom' style='color: white' aria-hidden='true'></span></a>";
 
 //        $new_query_DESC="<a href='".$_SERVER["PHP_SELF"]."".$query_string."page=".u(1)."&order_name=".u($fieldname)."&order_type=".u('DESC')."'>'";
-                    $new_query_DESC = "<a class='ajax-pagination' href='" . $href . "'>'";
+                    $new_query_DESC = "<a class='ajax-pagination' href='" . $href . "'>";
                     $new_query_DESC .= "<span class='glyphicon glyphicon-triangle-top' style='color: white'  aria-hidden='true'></span></a>";
 
                     $fieldname = str_replace("_", " ", $fieldname);
@@ -1259,6 +1055,141 @@ class DatabaseObject
 
         $output .= "</tr>";
         return $output;
+    }
+
+    public static function get_modal_search()
+    {
+        $output = "";
+        $output .= "      <button id='form-table-search-origin' style='display: inline' type='button' class='btn btn-primary btn-lg' data-toggle='modal' data-target='.bs-example-modal-lg'>";
+        $output .= "           <span class='glyphicon glyphicon-search' style='color: whitesmoke' aria-hidden='true'></span>";
+        $output .= "        </button>";
+
+
+        $output .= "       <div class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'>";
+        $output .= "          <div class='modal-dialog modal-lg'>";
+        $output .= "             <div class='modal-content'>";
+        $output .= "                  <div class='modal-header'>";
+        $output .= "                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>";
+        $output .= "                      <h4 class='modal-title' id='myModalLabel'>";
+        $output .= static::$page_name;
+        $output .= "                    </h4>";
+        $output .= "                 </div>";
+        $output .= "                 <div class='modal-body'>";
+
+
+        $output .= static::get_form_search();
+//        $output.= $this->get_form_search();
+
+        $output .= "                      </div>";
+        $output .= "                <div class='modal-footer'>";
+        $output .= "                    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>";
+        $output .= "                   <button type='button' class='btn btn-primary'>Save changes</button>";
+        $output .= "              </div>";
+        $output .= "           </div>";
+        $output .= "        </div>";
+        $output .= "   </div>";
+
+        return $output;
+
+    }
+
+    public static function get_form_search()
+    {
+
+        $output = "";
+        $div_class = "<div class='col-xs-4'>";
+        $value = null;
+
+        $output .= "<div class ='background_light_pink'>";
+        $output .= "<form name='form_client_search'  class='form-horizontal' method='get' action='" . $_SERVER["PHP_SELF"] . "?page=1&class_name=" . get_called_class() . "'>";
+
+        $output .= " <fieldset id='' title=''>";
+        $output .= " <legend class='text-center' style='color: #0000ff'> Search " . static::$page_name . "</legend>";
+
+
+        $output .= "<div class='row'>";
+        if (static::$db_field_search) {
+            foreach (static::$db_field_search as $name_search) {
+                $output .= $div_class;
+                $output .= static::get_form($name_search, $value, 'search');
+                $output .= "</div>";
+
+
+            }
+        }
+
+        $output .= "</div>";
+
+        $output .= " <div class='col-sm-offset-3 col-sm-7 col-xs-3'>";
+
+        $output .= "<button type='submit' name='submit' class='btn btn-info btn-block btn-group-lg'>" . 'Search  ' . "</button>";
+
+        $output .= "</div>";
+
+
+        $output .= "<div class='text-right ' >";
+
+        $output .= " <button type='reset'  class='btn btn-default '> 'Reset  '</button>";
+
+
+        $output .= " </div>";
+
+
+        $output .= "</fieldset>";
+        $output .= "</form>";
+        $output .= "</div>";
+
+        return $output;
+    }
+
+    public static function count_all()
+    {
+        global $database;
+        $table = static::$table_name;
+        $result_set = $database->query("SELECT count(*) FROM {$table} ");
+        $row = $database->fetch_array($result_set);
+        return $row ? array_shift($row) : false;
+
+    }
+
+    public static function display_table_footer($edit = true)
+    {
+
+//        ,$is_data=false
+//        if($is_data){
+//            static::change_to_unique_data();
+//        }
+
+        $output = "</table>";
+        $output .= "</div>";
+        $output .= "</div>";
+        if ($edit) {
+
+            $output .= "<p class='text-right ' ><a class='button-add-form' href='" . clean_query_string(static::$page_new) . "'>Add New " . static::$page_name . "</a></p>";
+        }
+
+        return $output;
+
+    }
+
+    public static function display_all_new($long_short = 0, $edit = true)
+    {
+
+
+//        $object_all = static::find_all();
+
+        $object_all = static::manage_page_query();
+
+        $output = "";
+//        $output.=static::display_table_head($long_short,$edit);
+
+        foreach ($object_all as $object) {
+            $output .= $object->display_table_new($long_short, $edit);
+        }
+
+//        $output.=static::display_table_footer($edit);
+        return $output;
+
     }
 
     public static function display_table_head_new($long_short = 0, $edit = true)
@@ -1322,23 +1253,189 @@ class DatabaseObject
         return $output;
     }
 
-
-    public static function display_table_footer($edit = true)
+    public static function form_structure()
     {
+        $classes = static::$all_class;
+        $output = "";
+        $output .= "<form  class='form-inline' name='" . get_called_class() . "' method='get' action=''>";
+        $output .= "<select  class='form-control' name='" . "class_name" . "' >";
 
-//        ,$is_data=false
-//        if($is_data){
-//            static::change_to_unique_data();
-//        }
-
-        $output = "</table>";
-        $output .= "</div>";
-        $output .= "</div>";
-        if ($edit) {
-
-            $output .= "<p class='text-right ' ><a class='button-add-form' href='" . clean_query_string(static::$page_new) . "'>Add New " . static::$page_name . "</a></p>";
+        foreach ($classes as $class) {
+            $output .= "<option value='$class'>$class</option>";
         }
 
+        $output .= "</select>";
+        $output .= "<input class=\"btn btn-primary\" type='submit' name='submit' value='Search'>";
+        $output .= "</form>";
+        return $output;
+    }
+
+    public static function class_structure()
+    {
+        $db_fields = static::$db_fields;
+        $class = get_called_class();
+        $count = count($db_fields);
+        $output = "";
+        $output .= "<div class='col-md-3'>";
+        $output .= "<ul class=\"list-group\">";
+        $output .= "<li  class=\"list-group-item\">";
+        $output .= "<span class=\"badge\">$count</span>";
+        $output .= "Count in $class </li>";
+        $output .= "<li  class=\"list-group-item\">";
+        $output .= "mySQL <b>" . static::$table_name . "</b> ";
+        $output .= "</li>";
+        foreach ($db_fields as $f) {
+            $output .= "<li  class=\"list-group-item\">";
+            $output .= $f;
+            $output .= "</li>";
+        }
+        $output .= "</ul>";
+        $output .= "</div>";
+
+        return $output;
+
+
+    }
+
+    protected static function table_sort_asc($fieldname)
+    {
+
+    }
+
+    public function message_form($msg = 'done')
+    {
+        return " " . $this->id . " with ID" . $this->id . $msg;
+    }
+
+    public function unset_table_fields($fields = "")
+    {
+        if (is_array($fields)) {
+            foreach ($fields as $field) {
+                if (in_array($field, static::$db_fields)) {
+                    $i = array_search($field, static::$db_fields);
+                    unset(static::$db_fields[$i]);
+                } else {
+                    echo "<br>$field does not exists<br>";
+                }
+            }
+        } else {
+
+            if (in_array($fields, static::$db_fields)) {
+                $i = array_search($fields, static::$db_fields);
+                unset(static::$db_fields[$i]);
+            } else {
+                echo "<br>$fields does not exists<br>";
+            }
+
+        }
+
+        static::$db_fields = array_values(static::$db_fields);
+
+
+    }
+
+    public function unset_required_fields($fields = "")
+    {
+        if (is_array($fields)) {
+            foreach ($fields as $field) {
+                if (in_array($field, static::$required_fields)) {
+                    $i = array_search($field, static::$required_fields);
+                    unset(static::$required_fields[$i]);
+                } else {
+                    echo "<br>$field does not exists";
+                }
+            }
+        } else {
+
+            if (in_array($fields, static::$required_fields)) {
+                $i = array_search($fields, static::$required_fields);
+                unset(static::$required_fields[$i]);
+            } else {
+                echo "<br>$fields does not exists";
+            }
+
+        }
+
+        static::$required_fields = array_values(static::$required_fields);
+
+
+    }
+
+    // list class case sensitive
+
+    public function delete()
+    {
+        global $database;
+        // Don't forget your SQL syntax and good habits:
+        // - DELETE FROM table WHERE condition LIMIT 1
+        // - escape all values to prevent SQL injection
+        // - use LIMIT 1
+        $sql = "DELETE FROM" . " " . static::$table_name;
+        $sql .= " WHERE `id`=" . $database->escape_value($this->id);
+        $sql .= " LIMIT 1";
+        $database->query($sql);
+        return ($database->affected_rows() == 1) ? true : false;
+
+        // NB: After deleting, the instance of User still
+        // exists, even though the database entry does not.
+        // This can be useful, as in:
+        //   echo $user->first_name . " was deleted";
+        // but, for example, we can't call $user->update()
+        // after calling $user->delete().d
+    }
+
+    public function display_table_new($long_short = 0, $edit)
+    {
+
+
+        return static::display_table($long_short, $edit);
+
+        $this->set_up_display();
+
+        $output = "";
+        $output .= "<tr class=\"gradeX\">";
+
+        if ($long_short == 1) {
+            $table_field = static::$db_fields_table_display_full;
+
+        } else {
+            $table_field = static::$db_fields_table_display_short;
+
+        }
+
+
+        foreach ($table_field as $fieldname) {
+            if (property_exists($this, $fieldname)) {
+
+                if (in_array($fieldname, static::$fields_numeric_format)) {
+                    if ((float)$this->$fieldname < 0) {
+                        $style = "color:red;";
+                    } else {
+                        $style = "";
+                    }
+//                    $output.= "<td $style class='text-right'>".number_format ( $this->$fieldname,2)."</td>";
+                    $output .= "<td><span style='{$style}' class='text-right'>" . number_format($this->$fieldname, 2) . "</span></td>";
+                } else {
+                    $output .= "<td  class='text-center text-capitalize'>" . $this->$fieldname . "</td>";
+                }
+
+
+            }
+        }
+
+        if ($edit) {
+            $href = clean_query_string("class_edit.php?class_name=" . get_called_class() . "&id=" . urlencode($this->id));
+
+//            $output .= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='" . "class_edit?class_name=" . get_called_class() . "&id=" . urlencode($this->id) . "'>Edit</a></td>";
+
+            $output .= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='" . $href . "'>Edit</a></td>";
+
+            $href = clean_query_string("class_delete.php?class_name=" . get_called_class() . "&id=" . urlencode($this->id));
+
+            $output .= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete?class_name=" . get_called_class() . "&id=" . urlencode($this->id) . "'>Delete</a></td>";
+        }
+
+        $output .= "</tr>";
         return $output;
 
     }
@@ -1397,108 +1494,6 @@ class DatabaseObject
 
         $output .= "</tr>";
         return $output;
-
-    }
-
-
-    public function display_table_new($long_short = 0, $edit)
-    {
-
-        $this->set_up_display();
-
-        $output = "";
-        $output .= "<tr class=\"gradeX\">";
-
-        if ($long_short == 1) {
-            $table_field = static::$db_fields_table_display_full;
-
-        } else {
-            $table_field = static::$db_fields_table_display_short;
-
-        }
-
-
-        foreach ($table_field as $fieldname) {
-            if (property_exists($this, $fieldname)) {
-
-                if (in_array($fieldname, static::$fields_numeric_format)) {
-                    if ((float)$this->$fieldname < 0) {
-                        $style = "color:red;";
-                    } else {
-                        $style = "";
-                    }
-//                    $output.= "<td $style class='text-right'>".number_format ( $this->$fieldname,2)."</td>";
-                    $output .= "<td><span style='{$style}' class='text-right'>" . number_format($this->$fieldname, 2) . "</span></td>";
-                } else {
-                    $output .= "<td  class='text-center text-capitalize'>" . $this->$fieldname . "</td>";
-                }
-
-
-            }
-        }
-
-        if ($edit) {
-            $href = clean_query_string("class_edit?class_name=" . get_called_class() . "&id=" . urlencode($this->id));
-
-            $output .= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='" . "class_edit?class_name=" . get_called_class() . "&id=" . urlencode($this->id) . "'>Edit</a></td>";
-
-            $output .= "<td class='text-center'><a class='btn btn-primary table-btn' style='width: 5em' href='" . $href . "'>Edit</a></td>";
-
-            $href = clean_query_string("class_delete?class_name=" . get_called_class() . "&id=" . urlencode($this->id));
-
-            $output .= "<td class='text-center'><a class='btn btn-danger table-btn' href='class_delete?class_name=" . get_called_class() . "&id=" . urlencode($this->id) . "'>Delete</a></td>";
-        }
-
-        $output .= "</tr>";
-        return $output;
-
-    }
-
-    // list class case sensitive
-    public static $all_class = array('ToDoList', 'User', 'UserType', 'Client', 'Category', 'BlacklistIp', 'Links', 'LinksCategory', 'Project', 'Category1', 'Category2', 'InvoiceActual', 'InvoiceEstimate', 'FailedLogin', 'MyCigarette', 'MyExpense', 'MyExpensePerson', 'MyExpenseType', 'MyHouseExpense', 'MyHouseExpenseType', 'Chat', 'ChatFriend', 'Notification', 'TransportChauffeur', 'TransportClient', 'TransportProgramming', 'TransportProgrammingModel', 'TransportType');
-
-
-    public static function form_structure()
-    {
-        $classes = static::$all_class;
-        $output = "";
-        $output .= "<form  class='form-inline' name='" . get_called_class() . "' method='get' action=''>";
-        $output .= "<select  class='form-control' name='" . "class_name" . "' >";
-
-        foreach ($classes as $class) {
-            $output .= "<option value='$class'>$class</option>";
-        }
-
-        $output .= "</select>";
-        $output .= "<input class=\"btn btn-primary\" type='submit' name='submit' value='Search'>";
-        $output .= "</form>";
-        return $output;
-    }
-
-    public static function class_structure()
-    {
-        $db_fields = static::$db_fields;
-        $class = get_called_class();
-        $count = count($db_fields);
-        $output = "";
-        $output .= "<div class='col-md-3'>";
-        $output .= "<ul class=\"list-group\">";
-        $output .= "<li  class=\"list-group-item\">";
-        $output .= "<span class=\"badge\">$count</span>";
-        $output .= "Count in $class </li>";
-        $output .= "<li  class=\"list-group-item\">";
-        $output .= "mySQL <b>" . static::$table_name . "</b> ";
-        $output .= "</li>";
-        foreach ($db_fields as $f) {
-            $output .= "<li  class=\"list-group-item\">";
-            $output .= $f;
-            $output .= "</li>";
-        }
-        $output .= "</ul>";
-        $output .= "</div>";
-
-        return $output;
-
 
     }
 

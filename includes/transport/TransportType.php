@@ -9,19 +9,7 @@
 class TransportType extends DatabaseObject
 {
 
-    protected static $table_name="transport_type";
-
-    protected static $db_fields = array('id','type_transport','input_date','modification_time','username');
-
-    public static $required_fields=array('id','type_transport','input_date','modification_time','username');
-
-    protected static $db_fields_table_display_short=array('type_transport','input_date','modification_time','username');
-
-
-    protected static $db_fields_table_display_full=array('type_transport','input_date','modification_time','username');
-
-    protected static $db_field_exclude_table_display_sort=null;
-
+    public static $required_fields = array('type_transport');
     public static $get_form_element=array('type_transport','input_date','modification_time','username');
     public static $get_form_element_others=array();
     public static $form_default_value=array(
@@ -29,7 +17,18 @@ class TransportType extends DatabaseObject
         "modification_time"=>"nowtime()",
 
     );
-
+    public static $db_field_search = array('search_all', 'id', 'username', 'login_attempt', 'last_time', 'ip', 'host', 'download_csv');
+    public static $page_name = "Transport type";
+    public static $page_manage = "manage_TransportType.php";
+    public static $page_new = "new_TransportType.php";
+    public static $page_edit = "edit_TransportType.php";
+    public static $page_delete = "delete_TransportType.php";
+    public static $per_page;
+    protected static $table_name = "transport_type";
+    protected static $db_fields = array('id', 'type_transport', 'remarque', 'input_date', 'modification_time', 'username');
+    protected static $db_fields_table_display_short = array('id', 'type_transport', 'input_date', 'modification_time', 'username');
+    protected static $db_fields_table_display_full = array('id', 'type_transport', 'input_date', 'modification_time', 'username');
+    protected static $db_field_exclude_table_display_sort = null;
     protected static $form_properties= array(
         "type_transport"=> array("type"=>"text",
             "name"=>'type_transport',
@@ -38,8 +37,6 @@ class TransportType extends DatabaseObject
             "required" =>true,
         ),
     );
-
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -86,37 +83,11 @@ class TransportType extends DatabaseObject
         ),
 
     );
-
-
     public $id;
     public $type_transport;
     public $input_date;
     public $modification_time;
     public $username;
-
-
-    public static $db_field_search= array('search_all','id', 'username', 'login_attempt', 'last_time','ip','host','download_csv');
-
-    public static $page_name="Transport type";
-    public static $page_manage="manage_TransportType.php";
-    public static $page_new="new_TransportType.php";
-    public static $page_edit="edit_TransportType.php";
-    public static $page_delete="delete_TransportType.php";
-
-
-    public static $per_page;
-
-
-
-    public  function form_validation() {
-        $valid=new FormValidation();
-
-        $valid->validate_presences(self::$required_fields) ;
-        return $valid;
-
-
-
-    }
 
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
@@ -127,6 +98,32 @@ class TransportType extends DatabaseObject
         return $output;
     }
 
+    public function form_validation()
+    {
+        $valid = new FormValidation();
+
+        $valid->validate_presences(self::$required_fields);
+        return $valid;
+
+
+    }
+
+    protected function set_up_display()
+    {
+        global $session;
+
+        if (!isset($this->input_date)) {
+            $this->input_date = now_sql();
+        }
+
+
+        $this->modification_time = now_sql() . " " . now_time();
+
+        $user = User::find_by_id((int)$session->user_id);
+        $this->username = $user->username;
+
+
+    }
 
 
 }

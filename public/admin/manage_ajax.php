@@ -11,6 +11,9 @@ if(isset($_GET['class_name'])) {
 //    $is_data=true;
     call_user_func_array(array($class_name,'change_to_unique_data'),['ajax']);
 
+    HeurePresence::quickaddhours();
+    HeurePresence::quicksubstracthours();
+
 } else {
     $session->message('Error message contact your admin ');
     redirect_to('index.php');

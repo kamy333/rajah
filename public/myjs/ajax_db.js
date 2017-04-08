@@ -330,7 +330,7 @@ $(document).ready(function () {
         var output='<div  class="alert alert-danger  fade in"  role="alert" >';
         output +='<a href="#" class="close" data-dismiss="alert">&times;</a>';
         output +='<span  class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>';
-        output+=' <span  class="sr-only">Success:</span>';
+        output += ' <span  class="sr-only">Error:</span>';
         output +=data;
         output+='</div>';
 

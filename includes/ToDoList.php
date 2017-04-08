@@ -37,6 +37,7 @@ class ToDoList extends DatabaseObject
     protected static $db_field_exclude_table_display_sort = array();
     protected static $db_field_include_table_display_sort = array(
         'link' => 'web_address', 'prog' => 'progress', 'todos' => 'todo', 'due_on' => 'due_date');
+
     protected static $form_properties = array(
 
         "todo" => array("type" => "text",
@@ -261,7 +262,7 @@ class ToDoList extends DatabaseObject
 
     }
 
-    public static function smallTodolist($ajax=false)
+    public static function smallTodolist($ajax = false, $ibox = true)
     {
         global $session;
 
@@ -282,6 +283,7 @@ class ToDoList extends DatabaseObject
 
 
         $output = "";
+
         $output .= "
     <div class=\"col-lg-4 col-lg-offset-1\"  style='margin-top: 2em'>
     <div class=\"ibox float-e-margins\">
@@ -362,6 +364,7 @@ class ToDoList extends DatabaseObject
                     </div>
                     ";
 //        log_debug($output);
+
 
         return $output;
 

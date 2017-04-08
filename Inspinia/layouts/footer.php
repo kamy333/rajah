@@ -93,6 +93,7 @@
 
 
     <script src="<?php echo $path;?>myjs/profile.js"></script>
+    <script src="<?php echo $path; ?>myjs/profile2.js"></script>
 
     <script>
         $(".select2_demo_1").select2();

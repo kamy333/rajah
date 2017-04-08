@@ -9,56 +9,51 @@
 class TransportProgrammingModel extends DatabaseObject
 {
 
-    protected static $table_name="transport_programming_model";
-
-    protected static $db_fields = array('id','visible','week_day_rank_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque','input_date','modification_time','username');
-
-
-
-    protected static $required_fields =  array('visible','week_day_rank_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque','input_date','modification_time','username');
-
-    protected static $db_fields_table_display_short =   array('id','visible','week_day_rank_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque');
-
-
-    protected static $db_fields_table_display_full =   array('id','visible','week_day_rank_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque','input_date','modification_time','username');
-
-
-    protected static $db_field_exclude_table_display_sort=array();
-
     public static $fields_numeric=array('id','user_id','week_day_rank_id','client_id','chauffeur_id','type_transport_id','prix_course');
     public static $fields_numeric_format=array('prix_course');
-
-    public static $get_form_element=array('id','visible','week_day_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque');
-
-
-    public static $get_form_element_chauffeur=array('id','visible','week_day_id','client_habituel','client_id','heure','inverse_address','depart','arrivee','prix_course','chauffeur_id ','type_transport_id','remarque');
-
+    public static $get_form_element = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque');
+    public static $get_form_element_chauffeur = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque');
     public static $get_form_element_others=array();
-
     public static $form_default_value=array(
         "modification_time"=>"nowtime()",
         "type_transport_id"=>"1",
         "chauffeur_id"=>"1",
-        "aller_retour"=>"AllerSimple"
+        "aller_retour" => "AllerSimple",
+        "inverse_address" => "0",
+        "visible" => "Yes",
+        "week_day_rank_id" => "1",
+        "client_habituel" => "1",
+        "prix_course" => "0"
 
     );
-
-
+    public static $db_field_search = array('search_all', 'download_csv');
+    public static $page_name = "Course Model";
+    public static $page_manage = "manage_TransportProgrammingModel.php";
+    public static $page_new = "new_TransportProgrammingModel.php";
+    public static $page_edit = "edit_TransportProgrammingModel.php";
+    public static $page_delete = "delete_TransportProgrammingModel.php";
+    public static $per_page;
+    protected static $table_name = "transport_programming_model";
+    protected static $db_fields = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque', 'input_date', 'modification_time', 'username');
+    protected static $required_fields = array('visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'chauffeur_id', 'type_transport_id',);
+    protected static $db_fields_table_display_short = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque');
+    protected static $db_fields_table_display_full = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque', 'input_date', 'modification_time', 'username');
+    protected static $db_field_exclude_table_display_sort = array();
     protected static $form_properties= array(
         "visible" =>array("type"=>"radio",
             array(0,
                 array(
                     "label_all"=>"Visible",
                     "name"=>"visible",
-                    "label_radio"=>"non",
+                    "label_radio" => "Non",
                     "value"=>"No",
                     "id"=>"visible_no",
                     "default"=>true)),
             array(1,
                 array(
                     "label_all"=>"Validation chauffeur",
-                    "name"=>"Visible",
-                    "label_radio"=>"oui",
+                    "name" => "visible",
+                    "label_radio" => "Oui",
                     "value"=>"Yes",
                     "id"=>"visible_yes",
                     "default"=>false)),
@@ -124,22 +119,22 @@ class TransportProgrammingModel extends DatabaseObject
         "client_habituel" =>array("type"=>"radio",
             array(0,
                 array(
-                    "label_all"=>"client_habituel",
+                    "label_all" => "Client_habituel",
                     "name"=>"client_habituel",
-                    "label_radio"=>"non",
+                    "label_radio" => "Non",
                     "value"=>"0",
                     "id"=>"client_habituel_no",
                     "default"=>true)),
             array(1,
                 array(
                     "label_all"=>"Client habituel",
-                    "name"=>"validated_chauffeur",
-                    "label_radio"=>"oui",
+                    "name" => "client habituel",
+                    "label_radio" => "Oui",
                     "value"=>"1",
                     "id"=>"client_habituel_yes",
                     "default"=>false)),
         ),
-        "client_id"=> array("type"=>"select",
+        "client_id" => array("type" => "selectchosen",
             "name"=>'client_id',
             "class"=>"TransportClient",
             "label_text"=>"Client",
@@ -148,11 +143,16 @@ class TransportProgrammingModel extends DatabaseObject
             'field_option_1'=>"pseudo",
             "required" =>true,
         ),
-        "heure"=> array("type"=>"time",
+        "heure" => array("type" => "clockwise",
             "name"=>'heure',
             "label_text"=>"Heure départ",
             "placeholder"=>"Heure",
-            "required" =>false,
+            "script" => "
+<script type=\"text/javascript\">
+$('.clockpicker').clockpicker({    placement:'top',    align: 'bottom',    donetext: 'Done'});
+</script>
+",
+            "required" => false,
         ),
         "inverse_address" =>array("type"=>"radio",
             array(0,
@@ -172,7 +172,7 @@ class TransportProgrammingModel extends DatabaseObject
                     "id"=>"inverse_address_yes",
                     "default"=>false)),
         ),
-        "chauffeur_id"=> array("type"=>"select",
+        "chauffeur_id" => array("type" => "selectchosen",
             "name"=>'chauffeur_id',
             "class"=>"TransportChauffeur",
             "label_text"=>"Chauffeur",
@@ -181,10 +181,10 @@ class TransportProgrammingModel extends DatabaseObject
             'field_option_1'=>"chauffeur_name",
             "required" =>false,
         ),
-        "type_transport_id"=> array("type"=>"select",
+        "type_transport_id" => array("type" => "selectchosen",
             "name"=>'type_transport_id',
             "class"=>"TransportType",
-            "label_text"=>"Transport_type",
+            "label_text" => "Transport type",
             "select_option_text"=>'Transport Type',
             'field_option_0'=>"id",
             'field_option_1'=>"type_transport",
@@ -247,14 +247,13 @@ class TransportProgrammingModel extends DatabaseObject
             "required" =>false,
         ),
         "remarque"=> array("type"=>"textarea",
-            "name"=>'comment',
-            "label_text"=>"Comment",
-            "placeholder"=>"input Comment",
+            "name" => 'remarque',
+            "label_text" => "Commentaire",
+            "placeholder" => "Votre Commentaire",
             "required" =>false,
         ),
 
     );
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -270,8 +269,6 @@ class TransportProgrammingModel extends DatabaseObject
             "placeholder"=>"ID",
             "required" =>false,
         ),
-
-
         "download_csv" =>array("type"=>"radio",
             array(0,
                 array(
@@ -290,7 +287,6 @@ class TransportProgrammingModel extends DatabaseObject
                     "id"=>"visible_yes",
                     "default"=>true)),
         ),
-
         "depart"=> array("type"=>"select",
             "name"=>'depart',
             "id"=>"search_depart",
@@ -301,7 +297,6 @@ class TransportProgrammingModel extends DatabaseObject
             'field_option_1'=>"depart",
             "required" =>false,
         ),
-
         "arrivee"=> array("type"=>"select",
             "name"=>'arrivee',
             "id"=>"search_arrivee",
@@ -324,13 +319,11 @@ class TransportProgrammingModel extends DatabaseObject
         ),
 
     );
-
-
 public $id ;
 public $visible ;
 public $week_day_rank_id ;
 public $client_habituel;
-public $client_id;   
+    public $client_id;
 public $heure ;
 public $inverse_address ;
 public $depart ;
@@ -343,27 +336,6 @@ public $input_date;
 public $modification_time;
 public $username;
 
-
-    public static $db_field_search =array('search_all','download_csv');
-
-
-    public static $page_name="Course Model";
-    public static $page_manage="manage_TransportProgrammingModel.php";
-    public static $page_new="new_TransportProgrammingModel.php";
-    public static $page_edit="edit_TransportProgrammingModel.php";
-    public static $page_delete="delete_TransportProgrammingModel.php";
-
-    public static $per_page;
-    public  function form_validation() {
-        $valid=new FormValidation();
-
-        $valid->validate_presences(self::$required_fields) ;
-        return $valid;
-
-
-
-    }
-
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add Model ". " </a><span>&nbsp;</span>";
@@ -372,5 +344,185 @@ public $username;
         $output.="<a  class=\"btn btn-primary\"  href=\"". TransportType::$page_manage ."\">View Type ". " </a>";
         return $output;
     }
+
+    public static function main_display()
+    {
+        return static::create_calendar_french();
+    }
+
+    public static function create_calendar_french()
+    {
+        $output = "";
+
+        $output .= "<div class='col-lg-12  white-bg'>";
+        $output .= "<div class='text-center m-t-lg'>";
+
+
+//        $output .= static::table_nav_additional();
+
+        /** @noinspection SqlResolve */
+        $sql = "SELECT * FROM " . self::$table_name . " ORDER BY heure ASC";
+        $items = self::find_by_sql($sql);
+//        var_dump($items);
+//        var_dump(self::$table_name);
+
+
+        $output .= "<div class='table-responsive'>";
+        $output .= "<table class='table table-striped table-bordered table-hover table-condensed '>";
+
+//        $output .= "<table class='table'>";
+        $day_wk_fr = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+        $day_full_wk_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+        $day_wk_en = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+        $day_full_wk_en = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+
+        $output .= "<thead class='thead-inverse'>";
+        $output .= "<tr>";
+        $output .= "<th  class='text-center'>Heure</th>";
+
+        foreach ($day_full_wk_fr as $day) {
+            $output .= "<th  class='text-center'>$day</th>";
+        }
+
+        $output .= "<th class='text-center'>Action</th>";
+
+
+        $output .= "</tr>";
+        $output .= "</thead>";
+
+        $output .= "<tbody>";
+        foreach ($items as $item) {
+            $client = TransportClient::find_by_id((int)$item->client_id);
+            $chauffeur = TransportChauffeur::find_by_id((int)$item->chauffeur_id);
+            $transport_type = TransportType::find_by_id((int)$item->type_transport_id);
+
+            $a = strtotime("next " . $day_full_wk_en[$item->week_day_rank_id]);
+            $day_full_wk_en[$a];
+            $date = strftime("%Y-%m-%d", $a);
+
+            $a1 = strtotime($date . " " . $item->heure);
+            $date = strftime("%H:%M", $a1);
+
+
+            $output .= "<tr>";
+
+//            $output.="<td>".$item->heure.$date."</td>";
+            $output .= "<td>" . $date . "</td>";
+
+            for ($x = 0; $x <= 6; $x++) {
+
+                if ($x == (int)$item->week_day_rank_id) {
+                    $output .= "<td>$client->pseudo</td>";
+                } else {
+                    $output .= "<td></td>";
+                }
+
+            }
+
+            $output .= "<td class='text-right'>
+                                        <div class='btn-group'>
+                                            <button class='btn-white btn btn-xs'>View</button>
+                                            <button class='btn-primary btn btn-xs'>Edit</button>
+                                            <button class='btn-danger btn btn-xs'>Delete</button>
+                                        </div>
+</td>";
+
+            $output .= "</tr>";
+        }
+        $output .= "</tbody>";
+
+        $output .= "</table>";
+        $output .= "</div>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+
+        return $output;
+
+    }
+
+    public static function insert_javascript()
+    {
+        $output = "";
+        $output .= "";
+
+    }
+
+    public function form_validation()
+    {
+        $valid = new FormValidation();
+
+
+        $valid->validate_presences(self::$required_fields);
+        $valid->validate_time(['heure']);
+
+        $table = TransportChauffeur::get_table_name();
+        $field = "id";
+        $criteria = $_POST["chauffeur_id"];
+        $valid->exist_in_table($table, $field, $criteria);
+
+        $table = TransportClient::get_table_name();
+        $field = "id";
+        $criteria = $_POST["client_id"];
+        $valid->exist_in_table($table, $field, $criteria);
+
+
+        $table = TransportType::get_table_name();
+        $field = "id";
+        $criteria = $_POST["type_transport_id"];
+        $valid->exist_in_table($table, $field, $criteria);
+
+        $valid->is_numeric("prix_course");
+
+
+//        validate heure
+// validate client chauffeur
+//
+
+
+        return $valid;
+
+
+    }
+
+    protected function set_up_display()
+    {
+        global $session;
+
+        if (!isset($this->input_date)) {
+            $this->input_date = now_sql();
+        }
+
+        if (!isset($this->depart)) {
+            $this->depart = "TBD";
+        }
+
+        if (!isset($this->arrivee)) {
+            $this->arrivee = "TBD";
+        }
+
+        if (!isset($this->chauffeur_id)) {
+            $this->chauffeur_id = 1;
+        }
+
+        if (!isset($this->type_transport_id)) {
+            $this->type_transport_id = 1;
+        }
+
+        if (!isset($this->heure)) {
+            $this->heure = now_time();
+        }
+
+
+        $this->modification_time = now_sql() . " " . now_time();
+
+        $user = User::find_by_id((int)$session->user_id);
+        $this->username = $user->username;
+
+
+    }
+
 
 }

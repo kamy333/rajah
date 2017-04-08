@@ -1,6 +1,10 @@
 <?php require_once('../includes/initialize.php'); ?>
-<?php // confirm_logged_in(); ?>
-
+<?php // confirm_logged_in();
+$session->confirmation_protected_page();
+if (User::is_employee() || User::is_secretary() || User::is_visitor()) {
+    redirect_to('index.php');
+}
+?>
 <?php $layout_context = "public"; ?>
 <?php $active_menu="about"; ?>
 <?php $stylesheets="";  ?>

@@ -9,70 +9,6 @@
 class SmartNav
 {
 
-public $http="http://www.ikamy.ch/";
-
-public $path;
-public $path_admin;
-public $path_public;
-
-public $layout_context;
-public $active_admin;
-public $active_public="";
-
-public  $current_page;
-public  $current_page_php;
-public  $folder;
-
-
-
-    function __construct() {
- $this->get_path();
-    }
-
- public function get_path()   {
-
-     global $server_local;
-     global $server_phpstorm;
-     $this->current_page_php=basename($_SERVER["PHP_SELF"]) ;
-     $this->current_page = str_replace(".php", "", $this->current_page_php);
-     $pos1=strpos($_SERVER["PHP_SELF"],"/");
-     $pos2=strpos($_SERVER["PHP_SELF"],"/",1);
-     $pos_Dif=$pos2-$pos1;
-     $this->folder= substr($_SERVER["PHP_SELF"],$pos1+1,$pos_Dif-1);
-     $this->path_relative();
-     if($_SERVER['SERVER_NAME']==$server_local) {
-         $this->http = "http://" . $_SERVER['SERVER_NAME'] . "/" . LOCALHOST_FOLDER . "/";
-     }elseif ($_SERVER['SERVER_NAME']==$server_phpstorm){
-         echo "verify_link class SmartNav";
-     } else {
-         $this->http="http://".$_SERVER['SERVER_NAME']."/";
-
-     }
-     http://localhost/Inspinia/index.php
- }
-
-   public function __toString()
-   {
-       // TODO: Implement __toString() method.
-       $output="";
-       $output.="\$Path: ".$this->path."<br>\n";
-       $output.="\$Path admin: ".$this->path_admin."<br>\n";
-       $output.="\$Path public: ".$this->path_public."<br>\n";
-       $output.="\$folder: ".$this->folder."<br>\n";
-       $output.="\$current_page: = ".$this->current_page."<br>\n";
-       $output.="\$current_page_php: = ".$this->current_page_php."<br>\n";
-       $output.="\$http =: ".$this->http."<br>\n";
-
-
-       $output.="\$layout_context: =  ".$this->layout_context."<br>\n";
-       $output.="\$active_admin:  =  ".$this->active_admin."<br>\n";
-       $output.="\$active_public: =  ".$this->active_public."<br>\n";
-
-
-       return $output;
-
-   }
-
     public static $menus=
      array(
          "public_gallery"=>array(
@@ -152,12 +88,113 @@ public  $folder;
          ),
 
      );
+    public $http = "http://www.ikamy.ch/";
+    public $path;
+    public $path_admin;
+    public $path_public;
+    public $layout_context;
+    public $active_admin;
+    public $active_public = "";
+    public $current_page;
+    public $current_page_php;
+    public $folder;
+
+    function __construct()
+    {
+        $this->get_path();
+    }
+
+    public function get_path()
+    {
+
+        global $server_local;
+        global $server_phpstorm;
+        $this->current_page_php = basename($_SERVER["PHP_SELF"]);
+        $this->current_page = str_replace(".php", "", $this->current_page_php);
+        $pos1 = strpos($_SERVER["PHP_SELF"], "/");
+        $pos2 = strpos($_SERVER["PHP_SELF"], "/", 1);
+        $pos_Dif = $pos2 - $pos1;
+
+        $pos3 = strpos($_SERVER["PHP_SELF"], "/", $pos1 + 1);
+        $pos4 = strpos($_SERVER["PHP_SELF"], "/", $pos3 + 1);
+
+//     echo "  \$pos1 $pos1"."<br>";
+//     echo "  \$pos2 $pos2"."<br>";
+//     echo "  \$pos3 $pos3"."<br>";
+//     echo "  \$pos4 $pos4"."<br>";
+        $pos_Dif2 = $pos4 - $pos3;
 
 
+        if ($_SERVER['SERVER_NAME'] == $server_local) {
+            $this->folder = substr($_SERVER["PHP_SELF"], $pos3 + 1, $pos_Dif2 - 1);
+        } elseif ($_SERVER['SERVER_NAME'] == $server_phpstorm) {
+            echo "verify_link class SmartNav";
+        } else {
+            $this->folder = substr($_SERVER["PHP_SELF"], $pos1 + 1, $pos_Dif - 1);
+
+        }
+
+
+        $this->path_relative();
+        if ($_SERVER['SERVER_NAME'] == $server_local) {
+            $this->http = "http://" . $_SERVER['SERVER_NAME'] . "/" . LOCALHOST_FOLDER . "/";
+        } elseif ($_SERVER['SERVER_NAME'] == $server_phpstorm) {
+            echo "verify_link class SmartNav";
+        } else {
+            $this->http = "http://" . $_SERVER['SERVER_NAME'] . "/";
+
+        }
+        http://localhost/Inspinia/index.php
+    }
+
+    public function path_relative()
+    {
+
+        if (basename(dirname($_SERVER['SCRIPT_FILENAME'])) == "admin") {
+            $this->path_admin = "";
+            $this->path_public = "../";
+            $this->path = "../";
+            $this->layout_context = "admin";
+            $this->active_admin = "active";
+            $this->active_public = "";
+
+        } else {
+            $this->path_admin = "admin/";
+            $this->path_public = "";
+            $this->path = "";
+            $this->layout_context = "public";
+            $this->active_admin = "";
+            $this->active_public = "active";
+        }
+
+
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        $output = "";
+        $output .= "\$Path: " . $this->path . "<br>\n";
+        $output .= "\$Path admin: " . $this->path_admin . "<br>\n";
+        $output .= "\$Path public: " . $this->path_public . "<br>\n";
+        $output .= "\$folder: " . $this->folder . "<br>\n";
+        $output .= "\$current_page: = " . $this->current_page . "<br>\n";
+        $output .= "\$current_page_php: = " . $this->current_page_php . "<br>\n";
+        $output .= "\$http =: " . $this->http . "<br>\n";
+
+
+        $output .= "\$layout_context: =  " . $this->layout_context . "<br>\n";
+        $output .= "\$active_admin:  =  " . $this->active_admin . "<br>\n";
+        $output .= "\$active_public: =  " . $this->active_public . "<br>\n";
+
+        $output .= $this->http . $this->folder;
+        return $output;
+
+    }
 
 public  function  public_menu($name="public_gallery",$env='public'){
     global $session;
-    
+
 //    $p=$active_menu_clean;
 
 $array_class=array();
@@ -251,12 +288,6 @@ $array_class=array();
 
 }
 
-public function find_top_active($name="public_gallery"){
-
-
-}
-
-
 public function format_menu_public($menu_name="Unknown",$class="")  {
  $output="";
 
@@ -295,31 +326,12 @@ public function format_menu_public($menu_name="Unknown",$class="")  {
         return $output;
     }
 
-
-
-    public function path_relative(){
-
-        if (basename(dirname($_SERVER['SCRIPT_FILENAME']))=="admin"){
-            $this->path_admin="";
-            $this->path_public="../";
-            $this->path="../";
-            $this->layout_context="admin";
-            $this->active_admin="active";
-            $this->active_public="";
-
-        } else {
-            $this->path_admin="admin/";
-            $this->path_public=""  ;
-            $this->path="";
-            $this->layout_context="public";
-            $this->active_admin="";
-            $this->active_public="active";
-        }
+    public function find_top_active($name = "public_gallery")
+    {
 
 
     }
 
-    
     public function path_script()
     {
         $output = "";

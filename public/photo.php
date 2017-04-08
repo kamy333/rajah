@@ -1,6 +1,30 @@
-<?php include("admin/includes/header.php"); ?>
+<?php
+require_once('../includes/initialize.php');
+$session->confirmation_protected_page();
+if (User::is_employee() || User::is_secretary() || User::is_visitor()) {
+    redirect_to('index.php');
+}
 
-        <?php include("includes/header.php"); ?>
+?>
+
+    <!---->
+<?php //include("admin/includes/header.php"); ?>
+    <!---->
+    <!--        --><?php //include("includes/header.php"); ?>
+
+<?php $layout_context = "admin"; ?>
+<?php $active_menu = "admin" ?>
+<?php $stylesheets = "" //custom_form  ?>
+<?php $view_full_table == 1 ? $fluid_view = true : $fluid_view = false; ?>
+<?php $javascript = "form_admin" ?>
+<?php $sub_menu = false ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "header.php") ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "nav.php") ?>
+<?php echo isset($valid) ? $valid->form_errors() : "" ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
+
 
 <?php if(isset($_SESSION["user_id"])) {$user=User::find_by_id($_SESSION['user_id']);} else {$user="";} ?>
    <?php
@@ -9,14 +33,15 @@
 
 if(empty($_GET['id']) || !isset($_GET['id']) ){
     $session->message("The photo was not selected");
-    redirect("index.php");
+    redirect_to("index.php");
 }
 
 $photo=Photo::find_by_id($_GET['id']);
 
 if (!$photo) {
     $session->message("This photo does not exists or have been removed");
-    redirect("index.php");}
+    redirect_to("index.php");
+}
 
    if(isset($_POST['submit'])){
 
@@ -25,7 +50,7 @@ if (!$photo) {
 
 $new_comment=Comment::create_comment($photo->id,$author,$body);
 if($new_comment &&$new_comment->save()){
-    redirect("photo.php?id=".urlencode($photo->id));
+    redirect_to("photo.php?id=" . urlencode($photo->id));
 } else {
     $message="not able to save comment";
 }
@@ -198,4 +223,6 @@ $comments=Comment::find_the_comment($photo->id);
 
         <hr>
 
-        <?php include("includes/footer.php"); ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "footer.php") ?>
+
+    <!--        --><?php //include("includes/footer.php"); ?>

@@ -58,6 +58,13 @@ class Form extends DatabaseObject{
 
     public $multiple;
 
+    public $script;
+
+
+//    formatting
+    public $col_sm_label = "col-sm-3";
+    public $col_sm_input = "col-sm-9";
+
 //selected option 2 fields normal array which are the fields in the query eg 0 for value,1 for view
     public $select_option_field=array();
 
@@ -103,7 +110,7 @@ class Form extends DatabaseObject{
 
             $output.="<label ";
             if($this->form_format_type==self::FORM_HORIZONTAL){
-                $output.="< class='col-sm-3 control-label' ";
+                $output .= "< class='{$this->col_sm_label} control-label' ";
             } else {
                 $output.="class='sr-only'";
             }
@@ -170,7 +177,7 @@ class Form extends DatabaseObject{
             $output.="<label  ";
 
             if($this->form_format_type==self::FORM_HORIZONTAL){
-                $output.="< class='col-sm-3 control-label' ";
+                $output .= "< class='{$this->col_sm_label} control-label' ";
             } else {
                 $output.="class='sr-only'";
             }
@@ -186,7 +193,7 @@ class Form extends DatabaseObject{
             $output.=">{$this->label_text}</label>";
 
             if($this->form_format_type==self::FORM_HORIZONTAL) {
-                $output .= "<div class='col-sm-9'>";
+                $output .= "<div class='{$this->col_sm_input}'>";
             }
 
 //            $output.="<input  class='form-control'  type='{$this->type}' name='{$this->name}' ";
@@ -285,10 +292,40 @@ class Form extends DatabaseObject{
             $output="Missing properties label text name;";
         }
 
-
+        if (isset($this->script)) {
+            $output .= $this->script;
+        }
 
         return $output;
     }
+
+
+    public function clockwise()
+    {
+        $output = "";
+        $output .= " <div class='form-group'>";
+
+        $output .= "<label class='{$this->col_sm_label} control-label' for='{$this->id}'>{$this->label_text}</label>";
+        $output .= "<div class='input-group clockpicker {$this->col_sm_input}'>";
+        $output .= "<input type='text' name='{$this->name}' id='{$this->id}' class='form-control'";
+
+        if (isset($this->value)) {
+            $output .= " value='" . h($this->value) . "' ";
+        }
+
+        $output .= "'>";
+        $output .= "</div>";
+        $output .= "</div>";
+
+        if (isset($this->script)) {
+            $output .= $this->script;
+        }
+
+
+        return $output;
+
+    }
+
 
     public function select()    {
         $output="";
@@ -297,11 +334,11 @@ class Form extends DatabaseObject{
 
         if (isset($this->name) && isset($this->label_text)){
             $output.="<div class='form-group'>";
-//            $output.="<label class='col-sm-3 control-label' for='{$this->name}' >{$this->label_text}</label>";
+//            $output.="<label class='{$this->col_sm_label} control-label' for='{$this->name}' >{$this->label_text}</label>";
 
             $output.="<label ";
             if($this->form_format_type==self::FORM_HORIZONTAL){
-                $output.=" class='col-sm-3 control-label' ";
+                $output .= " class='{$this->col_sm_label} control-label' ";
             } else {
                 $output.="class='sr-only'";
             }
@@ -318,7 +355,7 @@ class Form extends DatabaseObject{
             $output.="{$this->label_text}</label>";
 
             if($this->form_format_type==self::FORM_HORIZONTAL) {
-                $output .= "<div class='col-sm-9'>";
+                $output .= "<div class='{$this->col_sm_input}'>";
             }
 
             $output.="<select  class='form-control'  name='{$this->name}' ";
@@ -449,11 +486,11 @@ class Form extends DatabaseObject{
 
         if (isset($this->name) && isset($this->label_text)) {
             $output .= "<div class='form-group'>";
-//            $output.="<label class='col-sm-3 control-label' for='{$this->name}' >{$this->label_text}</label>";
+//            $output.="<label class='{$this->col_sm_label} control-label' for='{$this->name}' >{$this->label_text}</label>";
 
             $output .= "<label ";
             if ($this->form_format_type == self::FORM_HORIZONTAL) {
-                $output .= " class='col-sm-3 control-label' ";
+                $output .= " class='{$this->col_sm_label} control-label' ";
             } else {
                 $output .= "class='sr-only'";
             }
@@ -470,7 +507,7 @@ class Form extends DatabaseObject{
             $output .= "{$this->label_text}</label>";
 
             if ($this->form_format_type == self::FORM_HORIZONTAL) {
-                $output .= "<div class='col-sm-9'>";
+                $output .= "<div class='{$this->col_sm_input}'>";
             }
 
             $output .= "<select  class='chosen-select form-control'  name='{$this->name}' style='height:60px;'  tabindex='2' ";
@@ -523,7 +560,7 @@ $output.="<div class='form-group'>";
 
 $output.="<label ";
     if($this->form_format_type==self::FORM_HORIZONTAL){
-        $output.="<label class='col-sm-3 control-label' ";
+        $output .= "<label class='{$this->col_sm_label} control-label' ";
     } else {
         $output.="class='sr-only'";
     }
@@ -538,7 +575,7 @@ $output.=" >$this->label_text</label>";
 
 
     if($this->form_format_type==self::FORM_HORIZONTAL) {
-        $output .= "<div class='col-sm-9'>";
+        $output .= "<div class='{$this->col_sm_input}'>";
     }
 $output.="<textarea name='$this->name'  class='form-control'";
 

@@ -5,21 +5,14 @@ require_once(LIB_PATH.DS.'database.php');
 
 class User extends DatabaseObject {
 
-	protected static $table_name="users";
-
-    protected static $db_fields = array('id', 'username', 'hashed_password', 'nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
-
-    protected static $db_fields_no_password=array('id', 'username','nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
-
+    const TYPE_ADMIN = 1;
+    const TYPE_MANAGER = 2;
+    const TYPE_SECRETARY = 3;
+    const TYPE_EMPLOYEE = 4;
+    const TYPE_VISITOR = 5;
+    const TYPE_CHAUFFEUR = 6;
     public static $required_fields=array('username','password','nom','email','user_type_id');
     public static $required_fields_no_password=array('username','nom','email','user_type_id');
-
-    protected static $db_fields_table_display_short = array('id', 'username', 'nom','email','user_type','user_type_id','block_user','photo','reset_token');
-
-    protected static $db_fields_table_display_full = array('id', 'username', 'nom','email','user_type','user_type_id','block_user','unread_message','unread_notification','first_name', 'last_name','user_image','reset_token','address','cp','city','country','phone','mobile');
-
-    protected static $db_field_exclude_table_display_sort=array('photo');
-
     public static $fields_numeric=array('id','user_type','block_user','unread_message','unread_notification',);
 
     public static $get_form_element=array('user_image','username','password','nom','email','user_type_id','first_name','last_name','block_user');
@@ -32,12 +25,27 @@ class User extends DatabaseObject {
     );
 
     // todo message per class
-
-    public function message_form($msg='done'){
-//        return " ".$this->id. " with ID".$this->id.$msg;
-        return "User: ".$this->username. " with ID (".$this->id.") ".$msg;
-    }
-
+    public static $db_field_search = array('search_all', 'id', 'username', 'nom', 'email', 'user_type', 'user_type_id', 'block_user', 'first_name', 'last_name', 'reset_token', 'address', 'cp', 'city', 'country', 'phone', 'mobile', 'download_csv');
+    public static $page_name = "User";
+    public static $page_manage = "manage_user.php";
+    public static $page_new = "new_user.php";
+    public static $page_edit = "edit_user.php";
+    public static $page_delete = "delete_user.php";
+    public static $form_class_dependency = array('UserType');
+    static public $valid_user_type_id = array(
+        self::TYPE_ADMIN => 'admin',
+        self::TYPE_MANAGER => 'manager',
+        self::TYPE_SECRETARY => 'secretary',
+        self::TYPE_EMPLOYEE => 'employee',
+        self::TYPE_VISITOR => 'visitor',
+        self::TYPE_CHAUFFEUR => 'chauffeur',
+    );
+    protected static $table_name = "users";
+    protected static $db_fields = array('id', 'username', 'hashed_password', 'nom', 'email', 'user_type', 'user_type_id', 'block_user', 'unread_message', 'unread_notification', 'first_name', 'last_name', 'user_image', 'reset_token', 'address', 'cp', 'city', 'country', 'phone', 'mobile');
+    protected static $db_fields_no_password = array('id', 'username', 'nom', 'email', 'user_type', 'user_type_id', 'block_user', 'unread_message', 'unread_notification', 'first_name', 'last_name', 'user_image', 'reset_token', 'address', 'cp', 'city', 'country', 'phone', 'mobile');
+    protected static $db_fields_table_display_short = array('id', 'username', 'nom', 'email', 'user_type', 'user_type_id', 'block_user', 'photo', 'reset_token');
+    protected static $db_fields_table_display_full = array('id', 'username', 'nom', 'email', 'user_type', 'user_type_id', 'block_user', 'unread_message', 'unread_notification', 'first_name', 'last_name', 'user_image', 'reset_token', 'address', 'cp', 'city', 'country', 'phone', 'mobile');
+    protected static $db_field_exclude_table_display_sort = array('photo');
     protected static $form_properties= array(
         "username"=> array("type"=>"text",
             "name"=>'username',
@@ -170,7 +178,6 @@ class User extends DatabaseObject {
 
 
     );
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -352,63 +359,13 @@ class User extends DatabaseObject {
 
 
     );
-
-    public static $db_field_search=array('search_all','id', 'username','nom','email','user_type','user_type_id','block_user','first_name', 'last_name','reset_token','address','cp','city','country','phone','mobile','download_csv');
-
-    public function delete() {
-        global $session;
-        if($this->username=="Admin"){
-            $session->message($this->username." cannot be deleted  ") ;
-            redirect_to(static::$page_manage);
-
-            if($this->id===$_SESSION["user_id"]){
-                $session->message($this->username." you cannot delete the active user logged in !(yourself)  ") ;
-                redirect_to(static::$page_manage);
-            }
-
-        } else {
-            parent::delete();
-        }
-
-    }
-
-
-
-
-
-    public static $page_name="User";
-    public static $page_manage="manage_user.php";
-    public static $page_new="new_user.php";
-    public static $page_edit="edit_user.php";
-    public static $page_delete="delete_user.php";
-
-    public static $form_class_dependency=array('UserType') ;
-
-
+    protected static $existing_password;
     public $per_page;
 
-    const TYPE_ADMIN=1;
-    const TYPE_MANAGER=2;
-    const TYPE_SECRETARY=3;
-    const TYPE_EMPLOYEE=4;
-    const TYPE_VISITOR=5;
-    const TYPE_CHAUFFEUR=6;
-
 // not used but is method is_valid_user_type_id ()
-    static public $valid_user_type_id=array(
-      self::TYPE_ADMIN=>'admin',
-      self::TYPE_MANAGER=>'manager',
-      self::TYPE_SECRETARY=>'secretary',
-      self::TYPE_EMPLOYEE=>'employee',
-      self::TYPE_VISITOR=>'visitor',
-      self::TYPE_CHAUFFEUR=>'chauffeur',
-    );
-
-    protected static $existing_password;
     public $id;
 	public $username;
     public $password;
-	protected $hashed_password;
     public $nom;
     public $email;
     public $user_type;
@@ -423,19 +380,14 @@ class User extends DatabaseObject {
     public $country;
     public $phone;
     public $mobile;
-//    public $img;
     public $user_image;
-
     public $photo;
-
     public $unread_message;
+//    public $img;
     public $unread_notification;
-
-
     public $upload_directory="uploads";
     public $full_path_directory=PATH_UPLOAD;
     public $image_placeholder="https://www.mountaineers.org/images/placeholder-images/placeholder-400-x-400/image_preview";
-
     public $tmp_path;
     public $errors=array();
     public $upload_errors_array=array(
@@ -449,24 +401,7 @@ class User extends DatabaseObject {
         UPLOAD_ERR_CANT_WRITE   => "Can't write to disk.",
         UPLOAD_ERR_EXTENSION 	=> "File upload stopped by extension."
     );
-
-    public function ajax_save_user_image($user_image,$user_id){
-        global $database;
-
-        $this->user_image=$user_image;
-        $this->id=$user_id;
-
-
-//     $this->save();
-
-        $sql="UPDATE ".self::$table_name." SET user_image = '{$this->user_image}'";
-        $sql.=" WHERE id={$this->id}";
-        $update_image=$database->query($sql);
-
-        echo $this->user_path_and_placeholder();
-
-    }
-
+    protected $hashed_password;
 
     public static function add_soustract_message( $user_id,$operator=1){
 //
@@ -484,97 +419,6 @@ class User extends DatabaseObject {
         return ($database->affected_rows() == 1) ? true : false;
 
     }
-
-
-    public function user_path_and_placeholder(){
-        global $Nav;
-//        $dir=   "../../". $this->upload_directory.DS.$this->user_image;
-//     $dir=   $this->full_path_directory.DS.$this->user_image;
-        $dir=$Nav->http."/".$this->upload_directory."/".$this->user_image;
-        return empty($this->user_image)?$this->image_placeholder :$dir;
-
-
-    }
-
-//   public $no_picture=false;
-
-
-
-
-    public function set_files($files){
-        $ext = pathinfo(basename($files['name']), PATHINFO_EXTENSION);
-
-        if(empty($files) || !$files || !is_array($files)){
-//            $this->no_picture=true;
-
-            $this->errors="There was no file uploaded";
-            return false;
-
-        } elseif ($files['error'] !=0){
-            $this->errors[]=$this->upload_errors_array[$files['error']];
-            return false;
-        } elseif ($ext=='php' || $ext=='js'){
-            log_action('Registration unsuccessfull ', " upload extension violation ".$ext);
-            $this->errors[]=$this->upload_errors_array['these files not accepted'];
-            return false;
-
-        }else{
-            $this->user_image=basename($files['name']);
-            $this->tmp_path=$files['tmp_name'];
-            $this->type=$files['type'];
-            $this->size=$files['size'];
-            return true;
-        }
-    }
-
-    public function upload_photo() {
-
-        if(!empty($this->errors)){
-
-            return false;
-        }
-
-        if(empty($this->user_image)|| empty($this->tmp_path)){
-            $this->errors[] ="the file was not available";
-            return false;
-        }
-
-        $target_path=$this->full_path_directory.DS.$this->user_image;
-//     var_dump($target_path) ;
-
-        if (file_exists($target_path)) {
-            $this->errors[] ="the file {$this->user_image} already exists";
-            return false;
-        }
-
-        if(move_uploaded_file($this->tmp_path,$target_path)){
-
-            unset($this->tmp_path)  ;
-            return true;
-
-        } else {
-            $this->errors[] ="the folder probably does not have permission ";
-            return false;
-        }
-
-
-    }
-
-
-
-
-    // not used but can be validated to see that is valid and then use magic set and get (property $user_type id must be protected
-    public static function is_valid_user_type_id($user_type_id){
-    return array_key_exists($user_type_id,self::$valid_user_type_id);
-    }
-
-    // not used but could be set ny magic set and get
-   public function set_user_type_id($user_type_id){
-     if(self::is_valid_user_type_id($user_type_id))  {
-         $this->user_type_id=$user_type_id;
-     }
-   }
-
 
     public static function is_employee()
     {
@@ -627,6 +471,8 @@ class User extends DatabaseObject {
         }
     }
 
+//   public $no_picture=false;
+
     public static function is_allow_access()
     {
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -652,6 +498,9 @@ class User extends DatabaseObject {
         }
     }
 
+
+    // not used but can be validated to see that is valid and then use magic set and get (property $user_type id must be protected
+
     public static  function is_bralia()
     {
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -663,6 +512,8 @@ class User extends DatabaseObject {
             }
         }
     }
+
+    // not used but could be set ny magic set and get
 
     public static function is_secretary(){
         if (isset($_SESSION) && isset($_SESSION['user_id'])) {
@@ -699,6 +550,201 @@ class User extends DatabaseObject {
 
     }
 
+    public static function authenticate($username = "", $password = "")
+    {
+        $record_user = self::find_by_username($username);
+        $check = self::password_check($password);
+        if ($check) {
+            return $record_user;
+        } else {
+            return false;
+        }
+
+        //  return $exiting_password;
+
+    }
+
+    public static function find_by_username($username = "")
+    {
+        global $database;
+        $username = $database->escape_value($username);
+        /** @noinspection SqlResolve */
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE username='{$username}' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
+    private static function password_check($password)
+    {
+        // new function password_verify($password,$existing_password)
+        // existing hash contains format and salt at start
+        $existing_hash = self::$existing_password;
+        $hash = crypt($password, $existing_hash);
+        if ($hash === $existing_hash) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function find_by_email($email = "")
+    {
+        global $database;
+        $email = $database->escape_value($email);
+        /** @noinspection SqlResolve */
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE email='{$email}' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
+    public static function find_by_reset_token($token = "")
+    {
+        global $database;
+        $token = $database->escape_value($token);
+        /** @noinspection SqlResolve */
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE reset_token='{$token}' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
+    }
+
+    public function message_form($msg = 'done')
+    {
+//        return " ".$this->id. " with ID".$this->id.$msg;
+        return "User: " . $this->username . " with ID (" . $this->id . ") " . $msg;
+    }
+
+    public function delete()
+    {
+        global $session;
+        if ($this->username == "Admin") {
+            $session->message($this->username . " cannot be deleted  ");
+            redirect_to(static::$page_manage);
+
+            if ($this->id === $_SESSION["user_id"]) {
+                $session->message($this->username . " you cannot delete the active user logged in !(yourself)  ");
+                redirect_to(static::$page_manage);
+            }
+
+        } else {
+            parent::delete();
+        }
+
+    }
+
+    public function ajax_save_user_image($user_image, $user_id)
+    {
+        global $database;
+
+        $this->user_image = $user_image;
+        $this->id = $user_id;
+
+
+//     $this->save();
+
+        $sql = "UPDATE " . self::$table_name . " SET user_image = '{$this->user_image}'";
+        $sql .= " WHERE id={$this->id}";
+        $update_image = $database->query($sql);
+
+        echo $this->user_path_and_placeholder();
+
+    }
+
+    public function user_path_and_placeholder()
+    {
+        global $Nav;
+//        $dir=   "../../". $this->upload_directory.DS.$this->user_image;
+//     $dir=   $this->full_path_directory.DS.$this->user_image;
+        $dir = $Nav->http . "/" . $this->upload_directory . "/" . $this->user_image;
+        return empty($this->user_image) ? $this->image_placeholder : $dir;
+
+
+    }
+
+    public function set_files($files)
+    {
+        $ext = strtolower(pathinfo(basename($files['name']), PATHINFO_EXTENSION));
+        $ext_accept = ['jpg', 'png'];
+
+//        if(!in_array($ext, $ext_accept)){
+//            log_action('Registration unsuccessfull ', " upload extension violation ".$ext);
+//            $this->errors[]=$this->upload_errors_array['these files not accepted'];
+//            return false;
+//
+//
+//        }
+
+        if (empty($files) || !$files || !is_array($files)) {
+//            $this->no_picture=true;
+
+            $this->errors = "There was no file uploaded";
+            return false;
+
+        } elseif ($files['error'] != 0) {
+            $this->errors[] = $this->upload_errors_array[$files['error']];
+            return false;
+        } elseif ($ext == 'php' || $ext == 'js' || $ext == 'html' || $ext == 'phtml') {
+            log_action('Registration unsuccessfull ', " upload extension violation " . $ext);
+            $this->errors[] = $this->upload_errors_array['these files not accepted'];
+            return false;
+
+        } elseif (!in_array($ext, $ext_accept)) {
+            log_action('Registration unsuccessfull ', " upload extension violation array " . $ext);
+            $this->errors[] = $this->upload_errors_array['these files not accepted'];
+            return false;
+
+
+        } else {
+            $this->user_image = basename($files['name']);
+            $this->tmp_path = $files['tmp_name'];
+            $this->type = $files['type'];
+            $this->size = $files['size'];
+            return true;
+        }
+    }
+
+    public function upload_photo()
+    {
+
+        if (!empty($this->errors)) {
+
+            return false;
+        }
+
+        if (empty($this->user_image) || empty($this->tmp_path)) {
+            $this->errors[] = "the file was not available";
+            return false;
+        }
+
+        $target_path = $this->full_path_directory . DS . $this->user_image;
+//     var_dump($target_path) ;
+
+        if (file_exists($target_path)) {
+            $this->errors[] = "the file {$this->user_image} already exists";
+            return false;
+        }
+
+        if (move_uploaded_file($this->tmp_path, $target_path)) {
+
+            unset($this->tmp_path);
+            return true;
+
+        } else {
+            $this->errors[] = "the folder probably does not have permission ";
+            return false;
+        }
+
+
+    }
+
+    public function set_user_type_id($user_type_id)
+    {
+        if (self::is_valid_user_type_id($user_type_id)) {
+            $this->user_type_id = $user_type_id;
+        }
+    }
+
+    public static function is_valid_user_type_id($user_type_id)
+    {
+        return array_key_exists($user_type_id, self::$valid_user_type_id);
+    }
+
     public  function kamy_debug(){
         var_dump(get_object_vars($this));
         var_dump(  get_defined_vars());
@@ -706,18 +752,6 @@ class User extends DatabaseObject {
         var_dump(get_class_methods($this));
 
     }
-
-    public function full_name() {
-    if($this->first_name.$this->last_name ==""){
-        return $this->username;
-    }
-
-    if(isset($this->first_name) && isset($this->last_name)) {
-      return $this->first_name . " " . $this->last_name;
-    } else {
-      return $this->username;
-    }
-  }
 
     public function password_set($value){
         $this->password=trim($value);
@@ -752,53 +786,11 @@ class User extends DatabaseObject {
         return $salt;
     }
 
-  private static function  password_check($password) {
-      // new function password_verify($password,$existing_password)
-        // existing hash contains format and salt at start
-       $existing_hash=self::$existing_password;
-        $hash = crypt($password, $existing_hash);
-        if ($hash === $existing_hash) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public function create()
+    {
+        $this->password_encrypt();
+        parent::create();
 
-  public static function authenticate($username="", $password="") {
-        $record_user=self::find_by_username($username);
-        $check= self::password_check($password);
-        if ($check){
-            return $record_user;
-        }else {
-            return false;
-        }
-
-      //  return $exiting_password;
-
-    }
-
-  public static function find_by_username($username="") {
-      global $database;
-      $username = $database->escape_value($username);
-      /** @noinspection SqlResolve */
-      $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE username='{$username}' LIMIT 1");
-        return !empty($result_array) ? array_shift($result_array) : false;
-    }
-
-  public static function find_by_email($email="") {
-      global $database;
-      $email = $database->escape_value($email);
-      /** @noinspection SqlResolve */
-      $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE email='{$email}' LIMIT 1");
-        return !empty($result_array) ? array_shift($result_array) : false;
-    }
-
-    public static function find_by_reset_token($token="") {
-        global $database;
-        $token = $database->escape_value($token);
-        /** @noinspection SqlResolve */
-        $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE reset_token='{$token}' LIMIT 1");
-        return !empty($result_array) ? array_shift($result_array) : false;
     }
 
 // Common Database Methods
@@ -809,23 +801,12 @@ class User extends DatabaseObject {
 //
 //    }
 
-    public function create() {
-        $this->password_encrypt();
-        parent::create();
-
-    }
-
     public function update() {
         $this->password_encrypt();
 
         parent::update();
 
     }
-
-
-
-
-
 
 public function create_reset_token() {
 //    self::find_by_username($username);
@@ -839,6 +820,15 @@ public function create_reset_token() {
     }
 }
 
+    public function update_no_password()
+    {
+        $value = self::$db_fields;
+        self::$db_fields = self::$db_fields_no_password;
+        parent::update();
+        self::$db_fields = $value;
+
+    }
+
 public function delete_reset_token() {
   //  self::find_by_username($username);
     $token = null;
@@ -851,15 +841,6 @@ public function delete_reset_token() {
         return false;
     }
 }
-
-    public function update_no_password(){
-        $value=self::$db_fields;
-        self::$db_fields=self::$db_fields_no_password;
-        parent::update();
-        self::$db_fields=$value;
-
-    }
-
 
     public  function login_visitor_email($info){
         $mail=new MyPHPMailer() ;
@@ -905,9 +886,22 @@ public function delete_reset_token() {
         {
             //     echo "Message has been sent successfully";
         }
-        
 
 
+
+    }
+
+    public function full_name()
+    {
+        if ($this->first_name . $this->last_name == "") {
+            return $this->username;
+        }
+
+        if (isset($this->first_name) && isset($this->last_name)) {
+            return $this->first_name . " " . $this->last_name;
+        } else {
+            return $this->username;
+        }
     }
 
     public function send_email(){
@@ -964,24 +958,6 @@ public function delete_reset_token() {
 
     }
 
-
-
-protected function set_img(){
-if(isset($this->username)){
-    if(file_exists("../img/{$this->username}.JPG")){
-        $this->photo= "<a href='photo.php?username=".urlencode($this->username)."'> <span><img class='img-thumbnail img-responsive img-circle'  src='../img/{$this->username}.JPG' alt='{$this->username}'style='width:2em;height:2em;'</span></a>";
-    }
-}
-
-}
-
-
-
-
-
-
-
-
     public function set_user_type() {
 if(isset($this->user_type_id))  {
     switch ($this->user_type_id) {
@@ -1006,6 +982,16 @@ if(isset($this->user_type_id))  {
 
 }
 }
+
+    protected function set_img()
+    {
+        if (isset($this->username)) {
+            if (file_exists("../img/{$this->username}.JPG")) {
+                $this->photo = "<a href='photo.php?username=" . urlencode($this->username) . "'> <span><img class='img-thumbnail img-responsive img-circle'  src='../img/{$this->username}.JPG' alt='{$this->username}'style='width:2em;height:2em;'</span></a>";
+            }
+        }
+
+    }
 
 
 
@@ -1067,27 +1053,6 @@ class UpdateUserProfile extends User {
 //        return csrf_token_tag();
 //
 //}
-
-
-
-
-    public function crypt_password(){
-    $this->hashed_password=password_hash($this->password,PASSWORD_BCRYPT);
-    }
-
-    public  function match_password()
-    {
-
-     $is_match=password_verify($this->password,$this->hashed_password);
-     return $is_match? true :false;
-    }
-
-   public function get_hashed_password(){
-       return $this->hashed_password;
-    
-}
-
-
 
     static public function form_change_password(){
 
@@ -1279,6 +1244,24 @@ class UpdateUserProfile extends User {
 
         return $output;
 
+
+    }
+
+    public function crypt_password()
+    {
+        $this->hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
+    }
+
+    public function match_password()
+    {
+
+        $is_match = password_verify($this->password, $this->hashed_password);
+        return $is_match ? true : false;
+    }
+
+    public function get_hashed_password()
+    {
+        return $this->hashed_password;
 
     }
 

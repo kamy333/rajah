@@ -264,9 +264,26 @@ if ($layout_context=="public"){
                     ><a href="#" data-toggle="dropdown">Transport<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                            <?php echo $Nav->menu_item('','Chauffeur','manage_TransportChauffeur.php','admin') ?>
+                            <!-- --><?php //echo $Nav->menu_item('','transmed','manage_ajax.php?class_name=TransportChauffeur','../transmed/admin') ?>
+                            <li><a href="<?php echo $Nav->http . "transmed/"; ?>index.php">Public Transmed</a></li>
+                            <li><a href="<?php echo $Nav->http . "transmed/admin/"; ?>index.php">Admin Transmed</a></li>
+                            <?php echo $Nav->menu_item('', 'Chauffeur', 'manage_ajax.php?class_name=TransportChauffeur', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'Transport Type', 'manage_ajax.php?class_name=TransportType', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'Client', 'manage_ajax.php?class_name=Client', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'Course', 'manage_ajax.php?class_name=TransportProgramming', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'Model', 'manage_ajax.php?class_name=TransportProgrammingModel', 'admin') ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+                            <?php echo $Nav->menu_item('', 'New Chauffeur', 'new_ajax.php?class_name=TransportChauffeur', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'New Transport Type', 'new_ajax.php?class_name=TransportType', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'New Client', 'new_ajax.php?class_name=Client', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'New Course', 'new_ajax.php?class_name=TransportProgramming', 'admin') ?>
+                            <?php echo $Nav->menu_item('', 'New Model', 'new_ajax.php?class_name=TransportProgrammingModel', 'admin') ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+
+
+                            <?php echo $Nav->menu_item('', 'Chauffeur', 'manage_TransportChauffeur.php', 'admin') ?>
                             <?php echo $Nav->menu_item('','Transport Type','manage_TransportType.php','admin') ?>
-                            <?php echo $Nav->menu_item('','Client','manage_TransportClient.php','admin') ?>
+                            <?php echo $Nav->menu_item('', 'Client', 'manage_Client.php', 'admin') ?>
                             <?php echo $Nav->menu_item('','Course','manage_TransportProgramming.php','admin') ?>
                             <?php echo $Nav->menu_item('','Model','manage_TransportProgrammingModel.php','admin') ?>
                             <?php echo "<li class=\"divider\"></li>"; ?>
@@ -366,6 +383,7 @@ if ($layout_context=="public"){
                         <ul class="dropdown-menu">
 
                             <?php if(isset($_SESSION["user_id"]) and $user->is_admin() ) { ?>
+                                <li><a href="<?php echo $path_admin; ?>profile.php">Profile</a></li>
 
                                 <li><a href="<?php echo $path_admin; ?>upload.php">Upload file photo</a></li>
                                 <li class="divider"></li>

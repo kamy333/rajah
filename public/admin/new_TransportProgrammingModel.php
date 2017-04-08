@@ -5,7 +5,8 @@
 <?php $class_name="TransportProgrammingModel" ;
 $class_name2="MyExpensePerson" ;
 $class_name1="MyHouseExpense" ;
-
+?>
+<?php checking(true);
 
 
 
@@ -98,7 +99,8 @@ if(request_is_post() && request_is_same_domain()) {
     echo output_message($message);
 } ?>
 
-<?php checking(false);?>
+<?php checking(true);
+?>
 
 
 

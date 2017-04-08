@@ -29,12 +29,19 @@
     <link rel="stylesheet" type="text/css" href="<?php echo $Nav->path_public;?>css/styles.css">
 
 
+    <?php if ($Nav->current_page == 'profile') { ?>
+
+        <link href="<?php echo $Nav->path_public; ?>css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+    <?php } ?>
+
 
 
 
     <?php     if (substr($Nav->current_page, 0,7)=="manage_" ||
                   substr($Nav->current_page, 0,4)=="new_" ||
-                  substr($Nav->current_page, 0,5)=="edit_" ){  ?>
+        substr($Nav->current_page, 0, 5) == "edit_"
+//                    ||  $Nav->current_page=='profile'
+    ) { ?>
 
     <link href="<?php echo $Nav->path_public;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $Nav->path_public;?>font-awesome/css/font-awesome.css" rel="stylesheet">

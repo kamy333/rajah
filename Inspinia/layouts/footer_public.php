@@ -75,6 +75,8 @@
 <?php $pages=array('profile') ?>
 <?php if(in_array($active_menu_clean,$pages) ) { ?>
     <script src="<?php echo $path;?>myjs/profile.js"></script>
+    <script src="<?php echo $path; ?>myjs/profile2.js"></script>
+
 <?php } unset($pages) ?>
 
 

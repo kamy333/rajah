@@ -16,12 +16,12 @@ $query_string=remove_get(array('view','page'));
 $view_full_table=!empty($_GET)? (int) $_GET["view"]:0;
 if($view_full_table==1){
 
-    $page_link_view="class_manage".$query_string."page=".u($page)."&view=".u(0);
+    $page_link_view = "class_manage.php" . $query_string . "page=" . u($page) . "&view=" . u(0);
     $page_link_text="Short view";
     $menu_canvas= true;
 } else {
     // View with offset
-    $page_link_view="class_manage".$query_string."page=".u($page)."&view=".u(1);
+    $page_link_view = "class_manage.php" . $query_string . "page=" . u($page) . "&view=" . u(1);
     $page_link_text="Full View";
 
 }

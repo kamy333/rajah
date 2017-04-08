@@ -26,10 +26,10 @@
 <?php
 
 
-$username= $_GET['username'];
-if(file_exists("../img/{$username}.JPG")){
-    echo "<span><img class='img-responsive'  src='../img/{$username}.JPG' alt='{$username}'</span>";
-}
+//$username= $_GET['username'];
+//if(file_exists("../img/{$username}.JPG")){
+//    echo "<span><img class='img-responsive'  src='../img/{$username}.JPG' alt='{$username}'</span>";
+//}
     ?>
 
     </div>

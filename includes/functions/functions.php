@@ -134,12 +134,31 @@ function now(){
     return strftime("%B %d, %Y at %I:%M %p", time());
 }
 
+function now_monthname()
+{
+    return strftime("%B", time());
+}
 
-
-function now_sql(){
+function now_sql($date = false)
+{
+    if ($date == false) {
+        $date = time();
+    }
     return strftime("%Y-%m-%d",time());
 }
 
+function now_time()
+{
+    return date('H:i:s', time());
+}
+
+function date_sql($date = false)
+{
+    if ($date == false) {
+        $date = time();
+    }
+    return strftime("%Y-%m-%d", $date);
+}
 
 
 function unixToMySQL($timestamp)
@@ -819,12 +838,16 @@ function admin_button(){
 
 
 function ibox($content = "Missing content", $col = 5, $h5 = "Header",
-              array $options = ['tools' => true, 'collapse-link' => true, 'dropdown-toggle' => true, 'dropdown-menu' => true, 'close-link' => true]
+              array $options = ['tools' => true, 'collapse-link' => true, 'dropdown-toggle' => true, 'dropdown-menu' => true, 'close-link' => true, 'fullscreen-link' => false]
 )
 {
 
     if (!isset($options['tools'])) {
         $options['tools'] = true;
+    }
+
+    if (!isset($options['fullscreen-link'])) {
+        $options['fullscreen-link'] = false;
     }
 
     if (!isset($options['collapse-link'])) {
@@ -860,6 +883,12 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
                                 </a>";
         }
 
+        if ($options['fullscreen-link']) {
+            $tools .= "  <a class='fullscreen-link'>
+                <i class='fa fa-expand'></i>
+            </a>";
+        }
+
 
         if ($options['dropdown-toggle']) {
             $tools .= "                   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
@@ -878,6 +907,7 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
         }
 
 
+
         if ($options['close-link']) {
             $tools .= "                   <a class='close-link'>
                                     <i class='fa fa-times'></i>
@@ -888,8 +918,14 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
 //    }
     }
 
+    if ($col > 12) {
+        $class = "col-lg-12";
+    } else {
+        $class = "col-lg-{$col} col-lg-offset-2";
+    }
+
     $output = "
-<div class='col-lg-{$col} col-lg-offset-2'>";
+<div class='$class'>";
     $output .= "                <div class='ibox float-e-margins'>
                         <div class='ibox-title'>
                             <h5>{$h5}</h5>

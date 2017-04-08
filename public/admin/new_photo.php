@@ -1,7 +1,15 @@
+<!---->
+<?php //include("includes/header.php"); ?>
+<?php //if(!$session->is_signed_in()){redirect('login.php');} ?>
+<!---->
 
-<?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()){redirect('login.php');} ?>
+<?php require_once('../../includes/initialize.php'); ?>
+<?php $session->confirmation_protected_page(); ?>
+<?php if (User::is_employee() || User::is_visitor()) {
+    redirect_to('index.php');
+} ?>
 
+<?php //var_dump($users) ?>
 
 <?php
 
@@ -49,61 +57,64 @@ if (isset($_POST['submit'])){
 //    }
 
 
-
-
-
 } else {
- //   $the_message="";
+    //   $the_message="";
 }
 
 
-
-
-
-
-
-
 ?>
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!-- Navigation -->
+<!--    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+<!---->
+<!---->
+<!--        --><?php //include("includes/top_nav.php")?>
+<!--        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->-->
+<!---->
+<!--        --><?php //include("includes/side_nav.php")?>
+<!---->
+<!---->
+<!--    </nav>-->
 
 
-        <?php include("includes/top_nav.php")?>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+<?php $layout_context = "admin"; ?>
+<?php $active_menu = "admin" ?>
+<?php $stylesheets = "" //custom_form  ?>
+<?php $view_full_table == 1 ? $fluid_view = true : $fluid_view = false; ?>
+<?php $javascript = "form_admin" ?>
+<?php $sub_menu = false ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "header.php") ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "nav.php") ?>
+<?php echo isset($valid) ? $valid->form_errors() : "" ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
+<div id="page-wrapper">
 
-        <?php include("includes/side_nav.php")?>
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    Upload
+                    <small>Subheading</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li>
+                        <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
+                    </li>
+                    <li class="active">
+                        <i class="fa fa-file"></i> Blank Page
+                    </li>
+                </ol>
+            </div>
 
 
-    </nav>
+        </div><!-- Page Heading -->
 
-    <div id="page-wrapper">
+        <div class="row">
 
-        <div class="container-fluid">
-
-            <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Upload
-                        <small>Subheading</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li>
-                            <i class="fa fa-dashboard"></i>  <a href="index.php">Dashboard</a>
-                        </li>
-                        <li class="active">
-                            <i class="fa fa-file"></i> Blank Page
-                        </li>
-                    </ol>
-                </div>
-
-
-            </div><!-- Page Heading -->
-
-            <div class="row">
-
-<div class="col-md-2 ">
-
+            <div class="col-md-2 ">
 
 
                 <form action="<?php  echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data" method="post">
@@ -111,32 +122,33 @@ if (isset($_POST['submit'])){
 
                     <h2><?php echo $the_message;?></h2>
 
-                 <div class="form-group">
-                     <label for="title"></label>
-                     <input class="form-control" type="text" id="title" name="title" placeholder="Title">
-                 </div>
+                    <div class="form-group">
+                        <label for="title"></label>
+                        <input class="form-control" type="text" id="title" name="title" placeholder="Title">
+                    </div>
 
-                <div class="form-group">
-                    <label for="file_upload"></label>
-                    <input type="file"  id="file_upload" name="file_upload" " >
+                    <div class="form-group">
+                        <label for="file_upload"></label>
+                        <input type="file" id="file_upload" name="file_upload" " >
 
-                </div>
+                    </div>
 
 
-                <div class="form-group">
-                    <input type="submit" name="submit" value="Submit" class="btn btn-primary">
+                    <div class="form-group">
+                        <input type="submit" name="submit" value="Submit" class="btn btn-primary">
 
-                </div>
+                    </div>
 
-            <!-- /.row -->
+                    <!-- /.row -->
                 </form>
 </div>
 
-        <!-- /.container-fluid -->
+            <!-- /.container-fluid -->
 
-            </div>
+        </div>
 </div>
-    </div>
-    <!-- /#page-wrapper -->
+</div>
+<!-- /#page-wrapper -->
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "footer.php") ?>
 
-<?php include("includes/footer.php"); ?>
+<?php //include("includes/footer.php"); ?>

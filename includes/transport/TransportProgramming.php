@@ -6,34 +6,14 @@
  * Date: 12-May-16
  * Time: 9:24 AM
  */
-
-
-
 class TransportProgramming extends DatabaseObject
 {
 
-    protected static $table_name="transport_programming";
-
-
-    protected static $db_fields = array('id','validated_chauffeur','validated_mgr','validated_final','course_date','model_id','client_id','pseudo','pseudo_autres','heure','aller_retour','chauffeur_id','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course','remarque','input_date','modification_time');
-
-    protected static $required_fields = array('validated_chauffeur','validated_mgr','validated_final','course_date','client_id','pseudo_autres','heure','aller_retour','chauffeur_id','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course');
-
-    protected static $db_fields_table_display_short =  array('id','validated_chauffeur','validated_mgr','validated_final','course_date','model_id','client_id','pseudo','pseudo_autres','heure','aller_retour','chauffeur_id','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course','remarque','input_date','modification_time');
-
-    protected static $db_fields_table_display_full =  array('id','validated_chauffeur','validated_mgr','validated_final','course_date','model_id','client_id','pseudo','pseudo_autres','heure','aller_retour','chauffeur_id','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course','remarque','input_date','modification_time');
-
-    protected static $db_field_exclude_table_display_sort=array();
-
     public static $fields_numeric=array('id','user_id','model_id','client_id','chauffeur_id','type_transport_id','prix_course');
     public static $fields_numeric_format=array('prix_course');
-
     public static $get_form_element=array('chauffeur_id','course_date','type_transport_id','client_id','pseudo_autres','heure','aller_retour','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course');
-
     public static $get_form_element_chauffeur=array('chauffeur_id','course_date','type_transport_id','client_id','pseudo_autres','heure','aller_retour','depart','arrivee','type_transport_id','nom_patient','bon_no','prix_course');
-
     public static $get_form_element_others=array();
-
     public static $form_default_value=array(
         "course_date"=>"now()",
         "modification_time"=>"nowtime()",
@@ -45,8 +25,19 @@ class TransportProgramming extends DatabaseObject
         "aller_retour"=>"AllerSimple"
 
     );
-
-
+    public static $db_field_search = array('search_all', 'download_csv');
+    public static $page_name = "Course";
+    public static $page_manage = "manage_TransportProgramming.php";
+    public static $page_new = "new_TransportProgramming.php";
+    public static $page_edit = "edit_TransportProgramming.php";
+    public static $page_delete = "delete_TransportProgramming.php";
+    public static $per_page;
+    protected static $table_name = "transport_programming";
+    protected static $db_fields = array('id', 'validated_chauffeur', 'validated_mgr', 'validated_final', 'course_date', 'model_id', 'client_id', 'pseudo', 'pseudo_autres', 'heure', 'aller_retour', 'chauffeur_id', 'depart', 'arrivee', 'type_transport_id', 'nom_patient', 'bon_no', 'prix_course', 'remarque', 'input_date', 'modification_time');
+    protected static $required_fields = array('validated_chauffeur', 'validated_mgr', 'validated_final', 'course_date', 'client_id', 'pseudo_autres', 'heure', 'aller_retour', 'chauffeur_id', 'depart', 'arrivee', 'type_transport_id', 'nom_patient', 'bon_no', 'prix_course');
+    protected static $db_fields_table_display_short = array('id', 'validated_chauffeur', 'validated_mgr', 'validated_final', 'course_date', 'model_id', 'client_id', 'pseudo', 'pseudo_autres', 'heure', 'aller_retour', 'chauffeur_id', 'depart', 'arrivee', 'type_transport_id', 'nom_patient', 'bon_no', 'prix_course', 'remarque', 'input_date', 'modification_time');
+    protected static $db_fields_table_display_full = array('id', 'validated_chauffeur', 'validated_mgr', 'validated_final', 'course_date', 'model_id', 'client_id', 'pseudo', 'pseudo_autres', 'heure', 'aller_retour', 'chauffeur_id', 'depart', 'arrivee', 'type_transport_id', 'nom_patient', 'bon_no', 'prix_course', 'remarque', 'input_date', 'modification_time');
+    protected static $db_field_exclude_table_display_sort = array();
     protected static $form_properties= array(
         "validated_chauffeur" =>array("type"=>"radio",
             array(0,
@@ -205,7 +196,6 @@ class TransportProgramming extends DatabaseObject
         ),
 
     );
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -275,7 +265,6 @@ class TransportProgramming extends DatabaseObject
         ),
 
     );
-
    public $id;
    public $validated_chauffeur;
    public $validated_mgr;
@@ -298,18 +287,6 @@ class TransportProgramming extends DatabaseObject
    public $input_date;
    public $modification_time;
    public $username;
-
-
-    public static $db_field_search =array('search_all','download_csv');
-
-
-    public static $page_name="Course";
-    public static $page_manage="manage_TransportProgramming.php";
-    public static $page_new="new_TransportProgramming.php";
-    public static $page_edit="edit_TransportProgramming.php";
-    public static $page_delete="delete_TransportProgramming.php";
-
-    public static $per_page;
 
 
 }

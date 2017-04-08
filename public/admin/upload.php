@@ -25,6 +25,7 @@ if(isset($_POST['submit'])) {
 	$upload_dir = SITE_ROOT.DS."uploads";
 	$path_filenme = $upload_dir."/".$target_file;
     $ext = pathinfo($target_file, PATHINFO_EXTENSION);
+    $ext_accept = ['jpg', 'png'];
 
 
     chmod($upload_dir,0777);
@@ -44,6 +45,15 @@ if(isset($_POST['submit'])) {
 
         redirect_to('upload.php');
 //        return false;
+    }
+
+    if (!in_array($ext, $ext_accept)) {
+        $session->message("Unable to upload File");
+        log_action('Upload file error extension', "{$_SESSION['username']} uploaded file {$path_filenme} " . " - " . $target_file . " - extension: " . $ext);
+//        $this->errors[]=$this->upload_errors_array['these files not accepted'];
+        redirect_to('upload.php');
+
+
     }
 
 	if(move_uploaded_file($tmp_file, $upload_dir."/".$target_file)) {

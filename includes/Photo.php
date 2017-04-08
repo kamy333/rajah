@@ -9,7 +9,8 @@
 class Photo extends DatabaseObject
 {
 
-    protected static $db_table="photos";
+    protected static $table_name = "photos";
+//    protected static $db_table="photos";
     protected static $db_table_fields=array('id','title','caption','alternate_text','description','filename','type','size','creation_date','modified_date')  ;
     public $id;
     public $title;
@@ -39,7 +40,29 @@ class Photo extends DatabaseObject
         UPLOAD_ERR_EXTENSION 	=> "File upload stopped by extension."
     );
 
+    public static function display_sidebar_data($photo_id)
+    {
+        $photo = Photo::find_by_id($photo_id);
+        $output = "<a class='thumbnail' href='#'><img width='100' src='{$photo->picture_path()}'></a> ";
+        $output .= "<p>{$photo->filename}</p>";
+        $output .= "<p>{$photo->type}</p>";
+        $output .= "<p>{$photo->size}</p>";
+        return $output;
+
+    }
+
     public function set_files($files){
+        $ext = strtolower(pathinfo(basename($files['name']), PATHINFO_EXTENSION));
+        $ext_accept = ['jpg', 'png'];
+
+//        if(!in_array($ext, $ext_accept)){
+//            log_action('Registration unsuccessfull ', " upload extension violation ".$ext);
+//            $this->errors[]=$this->upload_errors_array['these files not accepted'];
+//            return false;
+//
+//
+//        }
+
         if(empty($files) || !$files || !is_array($files)){
             $this->errors="There was no file uploaded";
             return false;
@@ -47,6 +70,17 @@ class Photo extends DatabaseObject
         } elseif ($files['error'] !=0){
             $this->errors[]=$this->upload_errors_array[$files['error']];
             return false;
+        } elseif ($ext == 'php' || $ext == 'js' || $ext == 'pdf') {
+            log_action('Registration unsuccessfull ', " upload extension violation " . $ext);
+            $this->errors[] = $this->upload_errors_array['these files not accepted'];
+            return false;
+
+        } elseif (!in_array($ext, $ext_accept)) {
+            log_action('Registration unsuccessfull ', " upload extension violation array " . $ext);
+            $this->errors[] = $this->upload_errors_array['these files not accepted'];
+            return false;
+
+
         }else{
             $this->filename=basename($files['name']);
             $this->tmp_path=$files['tmp_name'];
@@ -64,16 +98,6 @@ class Photo extends DatabaseObject
     public function picture_public_path(){
 
         return  $this->upload_directory.DS.$this->filename;
-    }
-
-
-    public function before_create(){
-//        $this->creation_date=strftime("%Y-%m-%d %H:%M:%S",time());
-
-    }
-
-    public function before_update(){
-//        $this->modified_date=strftime("%Y-%m-%d %H:%M:%S",time());
     }
 
     public function save() {
@@ -112,15 +136,14 @@ class Photo extends DatabaseObject
 
     }
 
+    public function before_update()
+    {
+//        $this->modified_date=strftime("%Y-%m-%d %H:%M:%S",time());
+    }
 
-
-    public static function display_sidebar_data($photo_id){
-        $photo=Photo::find_by_id($photo_id) ;
-        $output="<a class='thumbnail' href='#'><img width='100' src='{$photo->picture_path()}'></a> ";
-        $output.="<p>{$photo->filename}</p>" ;
-        $output.="<p>{$photo->type}</p>" ;
-        $output.="<p>{$photo->size}</p>" ;
-        return $output;
+    public function before_create()
+    {
+//        $this->creation_date=strftime("%Y-%m-%d %H:%M:%S",time());
 
     }
 

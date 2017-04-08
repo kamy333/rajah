@@ -1,9 +1,17 @@
-<?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()){redirect('login.php');} ?>
+<?php //include("includes/header.php"); ?>
+<?php //if(!$session->is_signed_in()){redirect('login.php');} ?>
 
+<?php
+require_once('../../includes/initialize.php');
+$session->confirmation_protected_page();
+if (User::is_employee() || User::is_secretary() || User::is_visitor()) {
+    redirect_to('index.php');
+}
+
+?>
 
 <?php if(empty($_GET['id']) || !isset($_GET['id']) ){
-    redirect("photo.php");
+    redirect_to("photo.php");
 }
 
 $comments=Comment::find_the_comment($_GET['id']);
@@ -12,17 +20,32 @@ $picture="<img  class='admin-photo-comment' src=\"{$photo->picture_path()}\" alt
 ?>
 
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<!--    <!-- Navigation -->-->
+<!--    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+<!---->
+<!---->
+<!--        --><?php //include("includes/top_nav.php")?>
+<!--        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->-->
+<!---->
+<!--        --><?php //include("includes/side_nav.php")?>
+<!---->
+<!---->
+<!--    </nav>-->
+
+<?php $layout_context = "admin"; ?>
+<?php $active_menu = "admin" ?>
+<?php $stylesheets = "" //custom_form  ?>
+<?php $view_full_table == 1 ? $fluid_view = true : $fluid_view = false; ?>
+<?php $javascript = "form_admin" ?>
+<?php $sub_menu = false ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "header.php") ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "nav.php") ?>
+<?php echo isset($valid) ? $valid->form_errors() : "" ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
 
-        <?php include("includes/top_nav.php")?>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-
-        <?php include("includes/side_nav.php")?>
-
-
-    </nav>
 
     <div id="page-wrapper">
 
@@ -90,4 +113,6 @@ $picture="<img  class='admin-photo-comment' src=\"{$photo->picture_path()}\" alt
     </div>
     <!-- /#page-wrapper -->
 
-<?php include("includes/footer.php"); ?>
+        <?php //include("includes/footer.php"); ?>
+        <?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "footer.php") ?>
+

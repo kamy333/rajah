@@ -24,9 +24,12 @@
 
 
 
+
 <?php     if (substr($Nav->current_page, 0,7)=="manage_" ||
 substr($Nav->current_page, 0,4)=="new_" ||
-substr($Nav->current_page, 0,5)=="edit_" ){  ?>
+    substr($Nav->current_page, 0, 5) == "edit_"
+    || $Nav->current_page == 'profile'
+) { ?>
 
     <script src="<?php echo $Nav->path_public;?>js/plugins/pace/pace.min.js"></script>
     <script src="<?php echo $Nav->path_public;?>js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -81,6 +84,7 @@ substr($Nav->current_page, 0,5)=="edit_" ){  ?>
 
     <script src="<?php  echo $Nav->path_public."myjs/formKamy.js" ; ?>"></script>
 
+    <!--    <script>  $('.clockpicker').clockpicker();</script>-->
 
 <?php } ?>
 

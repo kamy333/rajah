@@ -1,16 +1,37 @@
-<?php include("includes/header.php"); ?>
-<?php if(!$session->is_signed_in()){redirect('login.php');} ?>
+<?php require_once('../../includes/initialize.php'); ?>
+<?php $session->confirmation_protected_page(); ?>
+<?php if (User::is_employee() || User::is_visitor()) {
+    redirect_to('index.php');
+} ?>
+
+<?php //include("includes/header.php"); ?>
+<?php //if(!$session->is_signed_in()){redirect('login.php');} ?>
     <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!--    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+    <!---->
+    <!---->
+    <!--        --><?php //include("includes/top_nav.php")?>
+    <!--        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->-->
+    <!---->
+    <!--        --><?php //include("includes/side_nav.php")?>
+    <!---->
+    <!---->
+    <!--    </nav>-->
 
+<?php //var_dump($users) ?>
 
-        <?php include("includes/top_nav.php")?>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-
-        <?php include("includes/side_nav.php")?>
-
-
-    </nav>
+<?php $layout_context = "admin"; ?>
+<?php $active_menu = "admin" ?>
+<?php $stylesheets = "" //custom_form  ?>
+<?php $view_full_table == 1 ? $fluid_view = true : $fluid_view = false; ?>
+<?php $javascript = "form_admin" ?>
+<?php $sub_menu = false ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "header.php") ?>
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "nav.php") ?>
+<?php echo isset($valid) ? $valid->form_errors() : "" ?>
+<?php if (isset($message)) {
+    echo $message;
+} ?>
 
     <div id="page-wrapper">
 
@@ -81,5 +102,6 @@ $output.="</td>" ;
 
     </div>
     <!-- /#page-wrapper -->
+<?php include(SITE_ROOT . DS . 'public' . DS . 'layouts' . DS . "footer.php") ?>
 
-<?php include("includes/footer.php"); ?>
+<?php //include("includes/footer.php"); ?>

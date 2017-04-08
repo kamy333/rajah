@@ -7,27 +7,20 @@
  * Time: 10:00 PM
  */
 class FailedLogin extends DatabaseObject {
-public $id;
-public $username;
-public $login_attempt;
-public $last_time;
-public $ip;
-public $host;
-
-    protected static $table_name="failed_logins";
-    protected static $db_fields = array('id', 'username', 'login_attempt', 'last_time','ip','host');
-
     public static $required_fields=array('username','login_attempt','last_time');
-
-    protected static $db_fields_table_display_short=array('id', 'username', 'login_attempt', 'last_time','ip','host');
-
-    protected static $db_fields_table_display_full=array('id', 'username', 'login_attempt', 'last_time','ip','host');
-
-    protected static $db_field_exclude_table_display_sort=null;
-
     public static $get_form_element=array('username','login_attempt','last_time','ip','host');
     public static $get_form_element_others=array();
-
+    public static $db_field_search = array('search_all', 'id', 'username', 'login_attempt', 'last_time', 'ip', 'host', 'download_csv');
+    public static $page_name = "FailedLogin";
+    public static $page_manage = "manage_failed_logins.php";
+    public static $page_new = "new_failed_logins.php";
+    public static $page_edit = "edit_failed_logins.php";
+    public static $page_delete = "delete_failed_logins.php";
+    protected static $table_name = "failed_logins";
+    protected static $db_fields = array('id', 'username', 'login_attempt', 'last_time', 'ip', 'host', 'input_date');
+    protected static $db_fields_table_display_short = array('id', 'username', 'login_attempt', 'last_time', 'ip', 'host', 'input_date');
+    protected static $db_fields_table_display_full = array('id', 'username', 'login_attempt', 'last_time', 'ip', 'host', 'input_date');
+    protected static $db_field_exclude_table_display_sort = null;
     protected static $form_properties= array(
         "username"=> array("type"=>"text",
             "name"=>'username',
@@ -57,8 +50,6 @@ public $host;
             "required" =>true,
         ),
     );
-
-
     protected static $form_properties_search=array(
         "search_all"=> array("type"=>"text",
             "name"=>'search_all',
@@ -137,25 +128,13 @@ public $host;
         ),
 
     );
-
-    public static $db_field_search= array('search_all','id', 'username', 'login_attempt', 'last_time','ip','host','download_csv');
-
-    public static $page_name="FailedLogin";
-    public static $page_manage="manage_failed_logins.php";
-    public static $page_new="new_failed_logins.php";
-    public static $page_edit="edit_failed_logins.php";
-    public static $page_delete="delete_failed_logins.php";
-
-
-
-    public static function find_by_username($username="") {
-        global $database;
-        $username = $database->escape_value($username);
-        $result_array = self::find_by_sql("SELECT * FROM ".self::$table_name." WHERE username='{$username}' LIMIT 1");
-        return !empty($result_array) ? array_shift($result_array) : false;
-    }
-
-
+    public $id;
+    public $username;
+    public $login_attempt;
+    public $last_time;
+    public $ip;
+    public $host;
+    public $input_date;
 
    public function record_failed_login($username) {
   //      $failed_login = find_one_in_fake_db('failed_logins', 'username', sql_prep($username));
@@ -189,6 +168,14 @@ public $host;
 
        $this->save();
         return true;
+    }
+
+    public static function find_by_username($username = "")
+    {
+        global $database;
+        $username = $database->escape_value($username);
+        $result_array = self::find_by_sql("SELECT * FROM " . self::$table_name . " WHERE username='{$username}' LIMIT 1");
+        return !empty($result_array) ? array_shift($result_array) : false;
     }
 
    public function clear_failed_logins($username) {
@@ -233,6 +220,11 @@ public $host;
         }
     }
 
+    protected function set_up_display()
+    {
+//        $this->last_time=datetime_to_text_day($this->last_time);
+
+    }
 
 
 
