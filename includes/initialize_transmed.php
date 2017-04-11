@@ -102,7 +102,7 @@ require_once(LIB_PATH.DS.'pagination.php');
 require_once(LIB_PATH.DS.'Form.php');
 require_once(LIB_PATH.DS.'FormValidation.php');
 require_once(LIB_PATH.DS.'Table.php');
-//require_once(LIB_PATH.DS.'Modal.php');
+require_once(LIB_PATH . DS . 'Modal.php');
 
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.phpmailer.php');
 require_once(LIB_PATH.DS.'phpmailer'.DS.'class.smtp.php');
@@ -155,14 +155,16 @@ require_once(LIB_PATH.DS.'transport'.DS.'TransportClient.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportType.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportProgramming.php');
 require_once(LIB_PATH.DS.'transport'.DS.'TransportProgrammingModel.php');
-require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModel.php');
 
+
+require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModel.php');
 require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelVisibleNo.php');
 require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelVisibleYes.php');
-require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivotVisible.php');
 
-require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivotVisibleNo.php');
-require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivotVisibleYes.php');
+require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivot.php');
+
+require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivotNo.php');
+require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportModelPivotYes.php');
 require_once(LIB_PATH . DS . 'transport' . DS . 'ViewTransportSummaryCourseDateProgram.php');
 
 

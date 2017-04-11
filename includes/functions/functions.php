@@ -114,6 +114,21 @@ function datetime_to_text($datetime="") {
     return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);
 }
 
+function hr_mn_to_text($time_sql, $semicolon = ":")
+{
+//  $semicolon=="h"
+//  $semicolon=="full"
+
+//  $time_sql format is 03:00:00.00000
+
+
+    if ($semicolon === 'full' || strlen($semicolon) > 1) {
+        return substr($time_sql, 0, 8);
+    }
+    return str_replace(":", $semicolon, substr($time_sql, 0, 5));
+
+
+}
 
 function date_to_text($date=""){
     if(empty($date)){
@@ -838,7 +853,7 @@ function admin_button(){
 
 
 function ibox($content = "Missing content", $col = 5, $h5 = "Header",
-              array $options = ['tools' => true, 'collapse-link' => true, 'dropdown-toggle' => true, 'dropdown-menu' => true, 'close-link' => true, 'fullscreen-link' => false]
+              array $options = ['tools' => true, 'collapse-link' => true, 'dropdown-toggle' => true, 'dropdown-menu' => false, 'close-link' => true, 'fullscreen-link' => true]
 )
 {
 
@@ -847,7 +862,7 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
     }
 
     if (!isset($options['fullscreen-link'])) {
-        $options['fullscreen-link'] = false;
+        $options['fullscreen-link'] = true;
     }
 
     if (!isset($options['collapse-link'])) {
@@ -855,12 +870,12 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
     }
 
 
-    if (!isset($options['dropdown-toggle'])) {
-        $options['dropdown-toggle'] = true;
-    }
+//    if (!isset($options['dropdown-toggle'])) {
+//        $options['dropdown-toggle'] = false;
+//    }
 
     if (!isset($options['dropdown-menu'])) {
-        $options['dropdown-menu'] = true;
+        $options['dropdown-menu'] = false;
     }
 
 
@@ -877,60 +892,60 @@ function ibox($content = "Missing content", $col = 5, $h5 = "Header",
         $tools = "<div class='ibox-tools'>";
 
 
-        if ($options['collapse-link']) {
-            $tools .= "                   <a class='collapse-link'>
-                                    <i class='fa fa-chevron-up'></i>
-                                </a>";
+        if ($options['collapse-link'] == true) {
+            $tools .= "<a class='collapse-link'>
+                         <i class='fa fa-chevron-up'></i>
+                       </a>";
         }
 
-        if ($options['fullscreen-link']) {
-            $tools .= "  <a class='fullscreen-link'>
-                <i class='fa fa-expand'></i>
-            </a>";
-        }
-
-
-        if ($options['dropdown-toggle']) {
-            $tools .= "                   <a class='dropdown-toggle' data-toggle='dropdown' href='#'>
-                                    <i class='fa fa-wrench'></i>
-                                </a>";
+        if ($options['fullscreen-link'] == true) {
+            $tools .= "<a class='fullscreen-link'>
+                          <i class='fa fa-expand'></i>
+                       </a>";
         }
 
 
-        if ($options['dropdown-menu']) {
-            $tools .= "                   <ul class='dropdown-menu dropdown-user'>
-                                    <li><a href='#'>Config option 1</a>
-                                    </li>
-                                    <li><a href='#'>Config option 2</a>
-                                    </li>
-                                </ul>";
+//        if ($options['dropdown-toggle']==true) {
+//
+//        }
+
+
+        if ($options['dropdown-menu'] == true) {
+            $tools .= "<a class='dropdown-toggle' data-toggle='dropdown' href='#'>
+                           <i class='fa fa-wrench'></i>
+                       </a>";
+            $tools .= "<ul class='dropdown-menu dropdown-user'>
+                            <li><a href='#'>Config option 1</a></li>
+                            <li><a href='#'>Config option 2</a></li>
+                       </ul>";
         }
 
 
-
-        if ($options['close-link']) {
-            $tools .= "                   <a class='close-link'>
-                                    <i class='fa fa-times'></i>
-                                </a>";
+        if ($options['close-link'] == true) {
+            $tools .= "<a class='close-link'>
+                           <i class='fa fa-times'></i>
+                       </a>";
         }
 
         $tools .= "                       </div>";
 //    }
     }
 
-    if ($col > 12) {
+    if ($col >= 12) {
         $class = "col-lg-12";
     } else {
         $class = "col-lg-{$col} col-lg-offset-2";
     }
 
-    $output = "
-<div class='$class'>";
-    $output .= "                <div class='ibox float-e-margins'>
-                        <div class='ibox-title'>
-                            <h5>{$h5}</h5>
-                            $tools
-                        </div>
+    $output = "<div class='$class'>";
+
+    $output .= "   <div class='ibox float-e-margins'>
+                        <div class='ibox-title'>";
+    if ($h5) {
+        $output .= "  <h5>{$h5}</h5>";
+    }
+    $output .= $tools;
+    $output .= "                    </div>
                         <div class='ibox-content'>
                             {$content}
                         </div>

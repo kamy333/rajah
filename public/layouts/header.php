@@ -42,6 +42,7 @@
         substr($Nav->current_page, 0, 5) == "edit_"
 //                    ||  $Nav->current_page=='profile'
     ) { ?>
+        <link href="<?php echo $Nav->path_public; ?>css/style_chosen.css" rel="stylesheet">
 
     <link href="<?php echo $Nav->path_public;?>css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $Nav->path_public;?>font-awesome/css/font-awesome.css" rel="stylesheet">

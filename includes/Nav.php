@@ -365,7 +365,18 @@ public function format_menu_public($menu_name="Unknown",$class="")  {
 
 
         if($class){
-            if(isset($_GET['class_name'])){
+//            if(isset($_GET['class_name']) || isset($_GET['cl'])  ){
+
+            if (isset($_GET['class_name'])) {
+
+//                if(isset($_GET['cl'])) {
+//                    if (MyClasses::find_short_class($_GET['cl'])) {
+//                        $_GET['class_name'] = MyClasses::find_short_class($_GET['cl']);
+//                    } else {
+//                        $_GET['class_name'] = $_GET['cl'];
+//                    }
+//                }
+
                 $class_name=$_GET['class_name'];
                 if($class_name==$class && $page==$this->current_page_php ){$active= 'active';}
 

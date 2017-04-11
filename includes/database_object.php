@@ -159,6 +159,14 @@ class DatabaseObject
     {
 
         $data = trim($data);
+        if ($data === "transport") {
+            static::$page_manage = "{$data}.php?class_name=" . get_called_class();
+            static::$page_new = "{$data}.php?class_name=" . get_called_class();
+            static::$page_edit = "{$data}.php?class_name=" . get_called_class();
+            static::$page_delete = "{$data}.php?class_name=" . get_called_class();
+            return;
+        }
+
         if (is_array($pages)) {
             static::$page_manage = $pages[0] . "_{$data}.php?class_name=" . get_called_class();
             static::$page_new = $pages[1] . "_{$data}.php?class_name=" . get_called_class();
@@ -1494,6 +1502,73 @@ class DatabaseObject
 
         $output .= "</tr>";
         return $output;
+
+    }
+
+
+    public static function main_display()
+    {
+        return static::this_class_table();
+    }
+
+
+    public static function this_class_table()
+    {
+        $ibox = true;
+
+        $sql = "SELECT * FROM " . static::$table_name;
+        $items = self::find_by_sql($sql);
+
+        $title = "<b>Table Name</b>  " . static::$table_name . "   <b>Page Name</b>  " . static::$page_name;
+        $output = "";
+
+        $output .= "<h1 class='text-center'>" . $title . "</h1>";
+
+        if (!$ibox) {
+            $output .= "<div class='col-lg-12  white-bg'>";
+            $output .= "<div class='text-center m-t-lg'>";
+        }
+
+        $output .= "<div class='table-responsive'>";
+        $output .= "<table class='table table-striped table-bordered table-hover table-condensed '>";
+
+
+        $output .= "<thead>";
+        $output .= "<tr>";
+        foreach (static::$db_fields as $field) {
+            $output .= "<th>" . $field . "</th>";
+        }
+        $output .= "</tr>";
+        $output .= "</thead>";
+
+        $output .= "<tbody>";
+
+
+        foreach ($items as $item) {
+            $output .= "<tr>";
+            foreach (static::$db_fields as $field) {
+                $output .= "<td>" . $item->$field . "</td>";
+            }
+            $output .= "</tr>";
+        }
+
+        $output .= "</tbody>";
+
+        $output .= "</table>";
+        $output .= "</div>";
+
+        if (!$ibox) {
+            $output .= "</div>";
+            $output .= "</div>";
+        }
+
+        if (!$ibox) {
+            return $output;
+        } else {
+            return ibox($output, 12, '');
+
+        }
+
 
     }
 

@@ -1,5 +1,5 @@
 <?php
-require_once('../../includes/initialize.php');
+require_once('../../includes/initialize_transmed.php');
 require_once(LIB_PATH . DS . 'ChatFriend.php');
 
 

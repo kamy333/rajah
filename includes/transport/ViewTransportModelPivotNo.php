@@ -6,7 +6,7 @@
  * Date: 4/8/2017
  * Time: 6:55 PM
  */
-class ViewTransportModelPivotVisibleNo extends ViewTransportModelPivotVisible
+class ViewTransportModelPivotNo extends ViewTransportModelPivot
 {
 
 

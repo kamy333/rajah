@@ -41,6 +41,51 @@
                             <?php echo $Nav->menu_item('', 'SmartAdmin full version', 'http://www.ikamy.ch/SmartAdmin_Full_Version_html/', 'none', true) ?>
                         </ul>
                     </li>
+
+
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Transport <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+
+
+                            <?php echo $Nav->menu_item('', 'Model', 'transport.php?cl=Model', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'Courses', 'transport.php?cl=Course', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'Clients', 'transport.php?cl=tClient', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'Chauffeur', 'transport.php?cl=Chauffeur', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'Transport Type', 'transport.php?cl=TransportType', 'none', false) ?>
+                            <?php echo "<li class=\"divider\"></li>"; ?>
+
+                            <?php echo $Nav->menu_item('', 'View Model', 'transport.php?cl=ViewModel', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'View VisibleNo', 'transport.php?cl=ViewVisibleNo', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'View VisibleYes', 'transport.php?cl=ViewVisibleYes', 'none', false) ?>
+
+                            <?php echo $Nav->menu_item('', 'View Pivot all', 'transport.php?cl=ViewPivot', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'View PivotNo', 'transport.php?cl=ViewPivotNo', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'View PivotYes', 'transport.php?cl=ViewPivotYes', 'none', false) ?>
+                            <?php echo $Nav->menu_item('', 'View Summary', 'transport.php?cl=ViewSummary', 'none', false) ?>
+
+
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Classes <span class="caret"></span></a>
+                        <ul role="menu" class="dropdown-menu">
+
+
+                            <?php foreach (MyClasses::$all_class as $class) {
+                                if (!in_array($class, MyClasses::$disable_db_classes)) {
+//                            echo $Nav->menu_item($class, 'New ' . $class, 'new_data.php', 'admin');
+                                    echo $Nav->menu_item($class, '' . $class, 'manage_ajax.php', 'admin');
+                                }
+                            }
+                            unset($class);
+                            ?>
+                        </ul>
+                    </li>
+
                 <?php } ?>
 
 

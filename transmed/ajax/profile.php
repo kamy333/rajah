@@ -1,5 +1,5 @@
 <?php
-require_once('../../includes/initialize.php');
+require_once('../../includes/initialize_transmed.php');
 $session->confirmation_protected_page();
 MyClasses::redirect_disable_class();
 

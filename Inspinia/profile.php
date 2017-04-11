@@ -307,7 +307,7 @@ $output .= "</div>";
 
 
 echo ibox($output, 12, 'Forms ToDoList',
-    $options = ['tools' => true, 'dropdown-menu' => false, 'close-link' => false]
+    $options = ['tools' => true, 'close-link' => false, 'fullscreen-link' => true]
 );
 
 

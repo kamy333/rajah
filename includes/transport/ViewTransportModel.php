@@ -16,6 +16,12 @@ class ViewTransportModel extends TransportProgrammingModel
         'inverse_address', 'depart', 'arrivee', 'liste_restrictive', 'prix_course',
         'default_depart', 'default_arrivee', 'default_price', 'remarque', 'chauffeur_id', 'client_habituel', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi',);
 
+
+    protected static $db_fields_table_display_short = array(
+        'PrimaryKey', 'heure', 'jour', 'client_id', 'pseudo', 'client_sort', 'web_view', 'modele_id',
+        'inverse_address', 'depart', 'arrivee', 'liste_restrictive', 'prix_course',
+        'default_depart', 'default_arrivee', 'default_price', 'remarque', 'chauffeur_id', 'client_habituel', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi',);
+
     protected static $required_fields = [];
 
 
@@ -46,34 +52,70 @@ class ViewTransportModel extends TransportProgrammingModel
     public $Vendredi;
     public $Samedi;
 
+    public $color;
+
     public static function main_display()
     {
-        return static::create_calendar_french();
+        return static::this_class_table();
     }
 
-    public static function create_calendar_french()
-    {
 
-        /** @noinspection SqlResolve */
-        $sql = "SELECT * from " . self::$table_name . " ORDER BY heure ASC";
+    public static function this_class_table()
+    {
+        $ibox = true;
+
+        $sql = "SELECT * FROM " . static::$table_name;
         $items = self::find_by_sql($sql);
 
+        $title = "<b>Table Name</b>  " . static::$table_name . "   <b>Page Name</b>  " . static::$page_name;
         $output = "";
 
-        $output .= "<div class='col-lg-12  white-bg'>";
-        $output .= "<div class='text-center m-t-lg'>";
+        $output .= "<h1 class='text-center'>" . $title . "</h1>";
+
+        if (!$ibox) {
+            $output .= "<div class='col-lg-12  white-bg'>";
+            $output .= "<div class='text-center m-t-lg'>";
+        }
+        $output .= "<div class='table-responsive'>";
+        $output .= "<table class='table table-striped table-bordered table-hover table-condensed '>";
+
+
+        $output .= "<thead>";
+        $output .= "<tr>";
+        foreach (static::$db_fields as $field) {
+            $output .= "<th>" . $field . "</th>";
+        }
+        $output .= "</tr>";
+        $output .= "</thead>";
+
+        $output .= "<tbody>";
 
 
         foreach ($items as $item) {
-
+            $output .= "<tr>";
             foreach (static::$db_fields as $field) {
-                $output .= $item->$field . "<br>";
+                $output .= "<td>" . $item->$field . "</td>";
             }
+            $output .= "</tr>";
+        }
+
+        $output .= "</tbody>";
+
+        $output .= "</table>";
+        $output .= "</div>";
+
+        if (!$ibox) {
+            $output .= "</div>";
+            $output .= "</div>";
+        }
+
+        if (!$ibox) {
+            return $output;
+        } else {
+            return ibox($output, 12, '');
 
         }
-        $output .= "</div>";
-        $output .= "</div>";
-        return $output;
+
 
     }
 

@@ -100,55 +100,6 @@ if ($layout_context == "public") {
                 </li>
 
 
-                <?php if (User::is_admin() || User::is_manager() || User::is_secretary()){ ?>
-                <li
-                    <?php if (isset($active_menu) && $active_menu == "data") {
-                        echo " class=\"dropdown active\"";
-                    } else {
-                        echo " class=\" dropdown\"";
-                    } ?>
-                ><a href="#" data-toggle="dropdown">Data<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-
-                        <?php foreach (MyClasses::$all_class as $class) {
-                            if (!in_array($class, MyClasses::$disable_db_classes)) {
-//                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
-                                echo $Nav->menu_item($class, 'Manage Ajax ' . $class, 'manage_ajax.php', 'admin');
-
-                            }
-                        }
-                        unset($class);
-
-
-                        ?>
-                    </ul>
-
-
-                <li
-                    <?php if (isset($active_menu) && $active_menu == "newdata") {
-                        echo " class=\"dropdown active\"";
-                    } else {
-                        echo " class=\" dropdown\"";
-                    } ?>
-                ><a href="#" data-toggle="dropdown">New Data<span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-
-                        <?php foreach (MyClasses::$all_class as $class) {
-                            if (!in_array($class, MyClasses::$disable_db_classes)) {
-//                            echo $Nav->menu_item($class, 'New ' . $class, 'new_data.php', 'admin');
-                                echo $Nav->menu_item($class, 'New ajax' . $class, 'new_ajax.php', 'admin');
-                            }
-                        }
-                        unset($class);
-
-
-                        ?>
-                    </ul>
-
-
-                    <?php } ?>
-
-
                 <li
                     <?php if (isset($active_menu) && $active_menu == "links") {
                         echo "class=\"active\"";
@@ -215,31 +166,18 @@ if ($layout_context == "public") {
                     ><a href="#" data-toggle="dropdown">Administration<span class="caret"></span></a>
 
                         <ul class="dropdown-menu">
-                            <?php echo $Nav->menu_item('', 'To Do List', 'manage_ToDoList.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Chat', 'manage_chat.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Chat Friend', 'manage_ChatFriend.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('', 'House Expense', 'manage_MyHouseExpense.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Expense', 'manage_MyExpense.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Expense Person', 'manage_MyExpensePerson.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Expense Type', 'manage_MyExpenseType.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'House Expense Type', 'manage_MyHouseExpenseType.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Cigarette', 'manage_MyCigarette.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Currency', 'manage_currency.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('', 'Clients', 'manage_clients.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Projects', 'manage_projects.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Category', 'manage_category.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Category 1', 'manage_category_1.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Category 2', 'manage_category_2.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Invoice Actual', 'manage_invoice_actual.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('', 'Users', 'manage_user.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\">Links</li>"; ?>
-                            <?php echo $Nav->menu_item('', 'Links', 'manage_links.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'Links Category', 'manage_links_category.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('', 'Invoice Send', 'manage_invoice_send.php', 'admin'); ?>
+
+                            <?php foreach (MyClasses::$all_class as $class) {
+                                if (!in_array($class, MyClasses::$disable_db_classes)) {
+//                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
+                                    echo $Nav->menu_item($class, 'Manage ' . $class, 'manage_ajax.php', 'admin');
+
+                                }
+                            }
+                            unset($class);
+
+
+                            ?>
 
 
                             <?php if (isset($session->user_id) and $user->is_admin()) { ?>
@@ -263,34 +201,16 @@ if ($layout_context == "public") {
 
                         <ul class="dropdown-menu">
                             <!--                <li><a href="--><?php //echo $path_admin;?><!--"></a></li>-->
-                            <?php echo $Nav->menu_item('', 'Add 1 cig', 'new_MyCigarette_Add_1.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('ToDoList', 'To Do List', 'new_ToDoList.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('Chat', 'Chat', 'new_chat.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('ChatFriend', 'Chat Friend', 'new_ChatFriend.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('MyHouseExpense', 'New House Expense', 'new_MyHouseExpense.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('MyExpense', 'New Expense', 'new_MyExpense.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('', 'New Expense Person', 'new_MyExpensePerson.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('MyExpenseType', 'New Expense Type', 'new_MyExpenseType.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('MyHouseExpenseType', 'New house Expense Type', 'new_MyHouseExpenseType.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('MyCigarette', 'New Cigarette', 'new_MyCigarette.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('Currency', 'New Currency', 'new_currency.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('Client', 'New Client', 'new_client.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('Project', 'New Project', 'new_project.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('User', 'New User', 'new_user.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('Category', 'New Category', 'new_category.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('Category1', 'New Category 1', 'new_category_1.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('Category2', 'New Category2', 'new_category_2.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('InvoiceActual', 'New Invoice Actual', 'new_invoice_actual.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('Links', 'New link', 'new_link.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('LinksCategory', 'New links Category', 'new_link_category.php', 'admin'); ?>
-                            <?php echo "<li class=\"divider\"></li>"; ?>
-                            <?php echo $Nav->menu_item('', 'New Invoice Actual Row', 'new_invoice_actual_row.php', 'admin'); ?>
-                            <?php echo $Nav->menu_item('InvoiceSend', 'New Invoice Send', 'new_invoice_send.php', 'admin'); ?>
 
+                            <?php foreach (MyClasses::$all_class as $class) {
+                                if (!in_array($class, MyClasses::$disable_db_classes)) {
+//                            echo $Nav->menu_item($class,'Manage '.$class,'manage_data.php','admin');
+                                    echo $Nav->menu_item($class, 'New ' . $class, 'new_ajax.php', 'admin');
+
+                                }
+                            }
+                            unset($class);
+                            ?>
 
                         </ul>
                     </li>
@@ -305,6 +225,8 @@ if ($layout_context == "public") {
 
                         <ul class="dropdown-menu">
                             <!-- --><?php //echo $Nav->menu_item('','transmed','manage_ajax.php?class_name=TransportChauffeur','../transmed/admin') ?>
+                            <li><a href="<?php echo $Nav->http . "transmed/"; ?>index.php">Public Transmed</a></li>
+                            <li><a href="<?php echo $Nav->http . "transmed/admin/"; ?>index.php">Admin Transmed</a></li>
 
                             <li><a href="<?php echo $Nav->http . "transmed/admin/"; ?>index.php">Transmed</a></li>
                             <?php echo $Nav->menu_item('', 'Chauffeur', 'manage_ajax.php?class_name=TransportChauffeur', 'admin') ?>

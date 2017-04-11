@@ -50,6 +50,8 @@
 
         <link href="<?php echo $Nav->path_public; ?>css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo $Nav->path_public; ?>font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="<?php echo $Nav->path_public; ?>css/style_chosen.css" rel="stylesheet">
+
         <link href="<?php echo $Nav->path_public; ?>css/plugins/iCheck/custom.css" rel="stylesheet">
         <link href="<?php echo $Nav->path_public; ?>css/plugins/chosen/chosen.css" rel="stylesheet">
         <link href="<?php echo $Nav->path_public; ?>css/plugins/colorpicker/bootstrap-colorpicker.min.css"

@@ -20,19 +20,21 @@ class TransportProgrammingModel extends DatabaseObject
         "chauffeur_id"=>"1",
         "aller_retour" => "AllerSimple",
         "inverse_address" => "0",
-        "visible" => "Yes",
+        "visible" => "1",
         "week_day_rank_id" => "1",
         "client_habituel" => "1",
         "prix_course" => "0"
 
     );
     public static $db_field_search = array('search_all', 'download_csv');
-    public static $page_name = "Course Model";
+    public static $page_name = "Model";
     public static $page_manage = "manage_TransportProgrammingModel.php";
     public static $page_new = "new_TransportProgrammingModel.php";
     public static $page_edit = "edit_TransportProgrammingModel.php";
     public static $page_delete = "delete_TransportProgrammingModel.php";
     public static $per_page;
+
+
     protected static $table_name = "transport_programming_model";
     protected static $db_fields = array('id', 'visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'prix_course', 'chauffeur_id', 'type_transport_id', 'remarque', 'input_date', 'modification_time', 'username');
     protected static $required_fields = array('visible', 'week_day_rank_id', 'client_habituel', 'client_id', 'heure', 'inverse_address', 'depart', 'arrivee', 'chauffeur_id', 'type_transport_id',);
@@ -46,7 +48,7 @@ class TransportProgrammingModel extends DatabaseObject
                     "label_all"=>"Visible",
                     "name"=>"visible",
                     "label_radio" => "Non",
-                    "value"=>"No",
+                    "value" => "0",
                     "id"=>"visible_no",
                     "default"=>true)),
             array(1,
@@ -54,7 +56,7 @@ class TransportProgrammingModel extends DatabaseObject
                     "label_all"=>"Validation chauffeur",
                     "name" => "visible",
                     "label_radio" => "Oui",
-                    "value"=>"Yes",
+                    "value" => "1",
                     "id"=>"visible_yes",
                     "default"=>false)),
         ),
@@ -145,7 +147,7 @@ class TransportProgrammingModel extends DatabaseObject
         ),
         "heure" => array("type" => "clockwise",
             "name"=>'heure',
-            "label_text"=>"Heure départ",
+            "label_text" => "Heure depart",
             "placeholder"=>"Heure",
             "script" => "
 <script type=\"text/javascript\">
@@ -336,6 +338,11 @@ public $input_date;
 public $modification_time;
 public $username;
 
+//public $chauffeur_name;
+//public $type_transport;
+//public $client_pseudo;
+
+
     public static function  table_nav_additional(){
         $output="</a><span>&nbsp;</span>";
         $output.="<a  class=\"btn btn-primary\"  href=\"". static::$page_new ."\">Add Model ". " </a><span>&nbsp;</span>";
@@ -352,25 +359,31 @@ public $username;
 
     public static function create_calendar_french()
     {
-        $output = "";
-
-        $output .= "<div class='col-lg-12  white-bg'>";
-        $output .= "<div class='text-center m-t-lg'>";
-
-
-//        $output .= static::table_nav_additional();
-
+        global $Nav;
+        $ibox = true;
         /** @noinspection SqlResolve */
         $sql = "SELECT * FROM " . self::$table_name . " ORDER BY heure ASC";
         $items = self::find_by_sql($sql);
-//        var_dump($items);
-//        var_dump(self::$table_name);
+
+        $href = $Nav->http . $Nav->folder . "/transport.php?class_name=" . get_called_class();
+
+        $title = "<b>Table Name</b>&nbsp;&nbsp;  " . static::$table_name . "   <b>Page Name</b>&nbsp;&nbsp;  " . static::$page_name;
+
+        $output = "$href";
+
+        $output .= "<h1 class='text-center'>" . $title . "</h1>";
+
+        if (!$ibox) {
+            $output .= "<div class='col-lg-12  white-bg'>";
+            $output .= "<div class='text-center m-t-lg'>";
+        }
+
+//        $output .= static::table_nav_additional();
 
 
         $output .= "<div class='table-responsive'>";
         $output .= "<table class='table table-striped table-bordered table-hover table-condensed '>";
 
-//        $output .= "<table class='table'>";
         $day_wk_fr = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
         $day_full_wk_fr = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
 
@@ -378,7 +391,7 @@ public $username;
         $day_full_wk_en = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 
-        $output .= "<thead class='thead-inverse'>";
+        $output .= "<thead>";
         $output .= "<tr>";
         $output .= "<th  class='text-center'>Heure</th>";
 
@@ -413,19 +426,27 @@ public $username;
 
             for ($x = 0; $x <= 6; $x++) {
 
-                if ($x == (int)$item->week_day_rank_id) {
-                    $output .= "<td>$client->pseudo</td>";
+                if ($x === (int)$item->week_day_rank_id) {
+                    $output .= "<td>$client->pseudo $item->week_day_rank_id</td>";
                 } else {
                     $output .= "<td></td>";
                 }
 
             }
+            $href_id_view = "href='" . $href . "&id=" . $item->id . "&action=view" . "'";
+            $href_id_edit = "href='" . $href . "&id=" . $item->id . "&action=edit" . "'";
+            $href_id_delete = "href='" . $href . "&id=" . $item->id . "&action=delete" . "'";
+
 
             $output .= "<td class='text-right'>
+            
                                         <div class='btn-group'>
-                                            <button class='btn-white btn btn-xs'>View</button>
-                                            <button class='btn-primary btn btn-xs'>Edit</button>
-                                            <button class='btn-danger btn btn-xs'>Delete</button>
+                                                                   
+                   
+                           
+                    <a $href_id_view class='btn-white btn btn-xs'>View</a><span>&emsp;</span>
+                    <a $href_id_edit class='btn-primary btn btn-xs'>Edit</a>&emsp;
+                    <a $href_id_delete class='btn-danger btn btn-xs'>Delete</a>
                                         </div>
 </td>";
 
@@ -435,11 +456,17 @@ public $username;
 
         $output .= "</table>";
         $output .= "</div>";
-        $output .= "</div>";
-        $output .= "</div>";
+        if (!$ibox) {
+            $output .= "</div>";
+            $output .= "</div>";
+        }
 
+        if (!$ibox) {
+            return $output;
+        } else {
+            return ibox($output, 12, '');
 
-        return $output;
+        }
 
     }
 
@@ -513,6 +540,10 @@ public $username;
 
         if (!isset($this->heure)) {
             $this->heure = now_time();
+        }
+
+        if (isset($this->heure)) {
+            $this->heure = hr_mn_to_text($this->heure, 'full');
         }
 
 

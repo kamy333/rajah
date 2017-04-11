@@ -48,34 +48,10 @@ class ViewTransportSummaryCourseDateProgram extends DatabaseObject
 
     public static function main_display()
     {
-        return static::create_calendar_french();
+        return parent:: main_display();
     }
 
-    public static function create_calendar_french()
-    {
 
-        /** @noinspection SqlResolve */
-        $sql = "SELECT * FROM " . self::$table_name . " ORDER BY course_date ASC";
-        $items = self::find_by_sql($sql);
-
-        $output = "";
-
-        $output .= "<div class='col-lg-12  white-bg'>";
-        $output .= "<div class='text-center m-t-lg'>";
-
-
-        foreach ($items as $item) {
-
-            foreach (static::$db_fields as $field) {
-                $output .= $item->$field . "<br>";
-            }
-
-        }
-        $output .= "</div>";
-        $output .= "</div>";
-        return $output;
-
-    }
 
 
 }

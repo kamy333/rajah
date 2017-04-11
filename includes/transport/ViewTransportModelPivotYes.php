@@ -6,7 +6,7 @@
  * Date: 4/8/2017
  * Time: 6:55 PM
  */
-class ViewTransportModelPivotVisibleYes extends ViewTransportModelPivotVisible
+class ViewTransportModelPivotYes extends ViewTransportModelPivot
 {
 
     protected static $table_name = "transport_model_pivot_visible_yes";

@@ -102,6 +102,71 @@ unset($pages) ?>
     </script>
 <?php }
 unset($pages) ?>
+
+
+
+
+<?php if ($Nav->current_page == 'transport') { ?>
+
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/pace/pace.min.js"></script>
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Chosen -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/chosen/chosen.jquery.js"></script>
+
+    <!-- JSKnob -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/jsKnob/jquery.knob.js"></script>
+
+    <!-- Input Mask-->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+    <!-- Data picker -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+    <!-- NouSlider -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+    <!-- Switchery -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/switchery/switchery.js"></script>
+
+    <!-- IonRangeSlider -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+    <!-- iCheck -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/iCheck/icheck.min.js"></script>
+
+    <!-- MENU -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+    <!-- Color picker -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <!-- Clock picker -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/clockpicker/clockpicker.js"></script>
+
+    <!-- Image cropper -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/cropper/cropper.min.js"></script>
+
+    <!-- Date range use moment.js same as full calendar plugin -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/fullcalendar/moment.min.js"></script>
+
+    <!-- Date range picker -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Select2 -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/select2/select2.full.min.js"></script>
+
+    <!-- TouchSpin -->
+    <script src="<?php echo $Nav->path_public; ?>js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+    <script src="<?php echo $Nav->path_public . "myjs/formKamy.js"; ?>"></script>
+
+    <!--    <script>  $('.clockpicker').clockpicker();</script>-->
+
+<?php } ?>
+
+
+
 <?php //--------------------------------------------------------------------------------- ?>
 
 

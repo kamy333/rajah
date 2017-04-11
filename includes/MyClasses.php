@@ -27,9 +27,9 @@ class MyClasses
         'ViewTransportModel',
         "ViewTransportModelVisibleNo",
         "ViewTransportModelVisibleYes",
-        'ViewTransportModelPivotVisible', //parent
-        "ViewTransportModelPivotVisibleNo",
-        "ViewTransportModelPivotVisibleYes",
+        'ViewTransportModelPivot', //parent
+        "ViewTransportModelPivotNo",
+        "ViewTransportModelPivotYes",
         "ViewTransportSummaryCourseDateProgram",
 
         'Comment','Photos') ;
@@ -48,8 +48,9 @@ class MyClasses
         "ViewModel" => "ViewTransportModel",
         "ViewVisibleNo" => "ViewTransportModelVisibleNo",
         "ViewVisibleYes" => "ViewTransportModelVisibleYes",
-        "ViewPivotNo" => "ViewTransportModelPivotVisibleNo",
-        "ViewPivotYes" => "ViewTransportModelPivotVisibleYes",
+        "ViewPivot" => "ViewTransportModelPivot",
+        "ViewPivotNo" => "ViewTransportModelPivotNo",
+        "ViewPivotYes" => "ViewTransportModelPivotYes",
         "ViewSummary" => "ViewTransportSummaryCourseDateProgram"
 
 
@@ -57,6 +58,17 @@ class MyClasses
 
 
     ];
+
+    public static function find_short_class($short_cl)
+    {
+
+        if (array_key_exists($short_cl, static::$short_class)) {
+            return static::$short_class[$short_cl];
+        } else {
+            return "";
+        }
+
+    }
 
     public static $disable_db_classes=array(
 //        'User',
@@ -71,6 +83,7 @@ class MyClasses
 
 
     public static $helpers_class=array('DatabaseObject','Database','SmartNav','Pagination','Session','Table','Form','FormValidation','Modal','MyPHPMailer');
+
     public static $menu_data_manage=[];
 
 

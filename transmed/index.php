@@ -45,23 +45,24 @@ function button_color($color, $txt = "xxx", $href = false, $href_env = "")
                 <!--                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
                 <div class="row bg-white">
                     <p class="text-center">Model</p>
-                    <?php echo button_color('primary', 'ViewModel N', 'transport.php?cl=ViewModel', ''); ?>
-                    <?php echo button_color('primary', 'ViewVisibleNo', 'transport.php?cl=ViewVisibleNo', ''); ?>
-                    <?php echo button_color('success', 'ViewVisibleYes', 'transport.php?cl=ViewVisibleYes', ''); ?>
-                    <?php echo button_color('primary', 'ViewPivotNo', 'transport.php?cl=ViewPivotNo', ''); ?>
-                    <?php echo button_color('danger', 'ViewPivotYes', 'transport.php?cl=ViewPivotYes', ''); ?>
-                    <?php echo button_color('warning', 'ViewSummary', 'transport.php?cl=ViewSummary', ''); ?>
+                    <?php echo button_color('primary', 'View Model', 'transport.php?cl=ViewModel', ''); ?>
+                    <?php echo button_color('primary', 'View VisibleNo', 'transport.php?cl=ViewVisibleNo', ''); ?>
+                    <?php echo button_color('success', 'View VisibleYes', 'transport.php?cl=ViewVisibleYes', ''); ?>
+                    <?php echo button_color('primary', 'View Pivot all', 'transport.php?cl=ViewPivot', ''); ?>
+
+                    <?php echo button_color('primary', 'View PivotNo', 'transport.php?cl=ViewPivotNo', ''); ?>
+                    <?php echo button_color('danger', 'View PivotYes', 'transport.php?cl=ViewPivotYes', ''); ?>
+                    <?php echo button_color('warning', 'View Summary', 'transport.php?cl=ViewSummary', ''); ?>
                     <hr style="background-color: blue;">
                 </div>
 
                 <div class="row bg-white">
                     <p class="text-center">Transport</p>
-                    <?php echo button_color('primary', 'ViewModel N', 'transport.php?cl=ViewModel', ''); ?>
-                    <?php echo button_color('primary', 'Courses N', 'transport.php?cl=Course', ''); ?>
-                    <?php echo button_color('success', 'Model N', 'transport.php?cl=Model', ''); ?>
-                    <?php echo button_color('primary', 'Clients N', 'transport.php?cl=tClient', ''); ?>
-                    <?php echo button_color('danger', 'Chauffeur N', 'transport.php?cl=Chauffeur', ''); ?>
-                    <?php echo button_color('warning', 'Transport Type N', 'transport.php?cl=TransportType', ''); ?>
+                    <?php echo button_color('success', 'Model', 'transport.php?cl=Model', ''); ?>
+                    <?php echo button_color('primary', 'Courses', 'transport.php?cl=Course', ''); ?>
+                    <?php echo button_color('primary', 'Clients', 'transport.php?cl=tClient', ''); ?>
+                    <?php echo button_color('danger', 'Chauffeur', 'transport.php?cl=Chauffeur', ''); ?>
+                    <?php echo button_color('warning', 'Transport Type', 'transport.php?cl=TransportType', ''); ?>
                     <hr style="background-color: blue;">
                 </div>
 
