@@ -292,7 +292,7 @@
             endprotoent: 1,     // - be done using protocols file
             endpwent: 1,     // - be done using passwd file
             endservent: 1,     // - be done using services file
-            eof: 1,     // - test a filehandle for its end
+            eof: 1,     // - test.sql a filehandle for its end
             'eval': 1,     // - catch exceptions or compile and run code
             'exec': 1,     // - abandon this program to run another
             exists: 1,     // - test whether a hash key is present

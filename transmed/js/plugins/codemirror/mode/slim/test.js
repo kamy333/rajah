@@ -27,7 +27,7 @@
         "[attribute&qualifier .hello] Hey There");
 
     MT("tagWithIdAndClassShortcuts",
-        "[tag h1][attribute&def #test][attribute&qualifier .hello] Hey There");
+        "[tag h1][attribute&def #test.sql][attribute&qualifier .hello] Hey There");
 
     MT("docType",
         "[keyword doctype] xml");
@@ -92,7 +92,7 @@
         "   [string \"World\"]");
 
     MT("interpolationInHashAttribute",
-        "[tag div]{[attribute id] = [string \"]#{[variable test]}[string _]#{[variable ting]}[string \"]} test");
+        "[tag div]{[attribute id] = [string \"]#{[variable test.sql]}[string _]#{[variable ting]}[string \"]} test.sql");
 
     MT("interpolationInHTMLAttribute",
         "[tag div]([attribute title]=[string \"]#{[variable test]}[string _]#{[variable ting]()}[string \"]) Test");

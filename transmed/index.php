@@ -53,9 +53,9 @@ function button_color($color, $txt = "xxx", $href = false, $href_env = "")
                     <?php echo button_color('primary', 'View PivotNo', 'transport.php?cl=ViewPivotNo', ''); ?>
                     <?php echo button_color('danger', 'View PivotYes', 'transport.php?cl=ViewPivotYes', ''); ?>
                     <?php echo button_color('warning', 'View Summary', 'transport.php?cl=ViewSummary', ''); ?>
-                    <hr style="background-color: blue;">
-                </div>
 
+                </div>
+                <div class="hr-line-dashed"></div>
                 <div class="row bg-white">
                     <p class="text-center">Transport</p>
                     <?php echo button_color('success', 'Model', 'transport.php?cl=Model', ''); ?>
@@ -63,9 +63,9 @@ function button_color($color, $txt = "xxx", $href = false, $href_env = "")
                     <?php echo button_color('primary', 'Clients', 'transport.php?cl=tClient', ''); ?>
                     <?php echo button_color('danger', 'Chauffeur', 'transport.php?cl=Chauffeur', ''); ?>
                     <?php echo button_color('warning', 'Transport Type', 'transport.php?cl=TransportType', ''); ?>
-                    <hr style="background-color: blue;">
-                </div>
 
+                </div>
+                <div class="hr-line-dashed"></div>
 
                 <div class="row bg-white">
                     <p class="text-center">Transport</p>
@@ -74,8 +74,8 @@ function button_color($color, $txt = "xxx", $href = false, $href_env = "")
                     <?php echo button_color('primary', 'Clients', 'manage_ajax.php?class_name=TransportClient', 'admin'); ?>
                     <?php echo button_color('danger', 'Chauffeur', 'manage_ajax.php?class_name=TransportChauffeur', 'admin'); ?>
                     <?php echo button_color('warning', 'Transport Type', 'manage_ajax.php?class_name=TransportType', 'admin'); ?>
-                    <hr style="background-color: blue;">
                 </div>
+                <div class="hr-line-dashed"></div>
 
 
                 <div class="row bg-white">
@@ -96,8 +96,8 @@ function button_color($color, $txt = "xxx", $href = false, $href_env = "")
                     <?php echo button_color('warning', 'Heure presences', 'manage_ajax.php?class_name=HeurePresence', 'admin'); ?>
 
 
-                    <hr>
                 </div>
+                <div class="hr-line-dashed"></div>
 
 
             </div>

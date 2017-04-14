@@ -46,7 +46,7 @@
      "[keyword declare] [keyword variable] [variable $\"http://www.example.com/ns/my\":var] [keyword :=] [atom 12][variable ;]",
      "[tag <out>]{[variable $\"http://www.example.com/ns/my\":var]}[tag </out>]");
 
-  MT("test EQName function",
+  MT("test.sql EQName function",
      "[keyword declare] [keyword function] [def&variable \"http://www.example.com/ns/my\":fn] ([variable $a] [keyword as] [atom xs:integer]) [keyword as] [atom xs:integer] {",
      "   [variable $a] [keyword +] [atom 2]",
      "}[variable ;]",

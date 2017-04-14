@@ -9,7 +9,7 @@
     }
 
     MT('url_with_quotation',
-        "[tag foo] { [property background]:[atom url]([string test.jpg]) }");
+        "[tag foo] { [property background]:[atom url]([string test.sql.jpg]) }");
 
     MT('url_with_double_quotes',
         "[tag foo] { [property background]:[atom url]([string \"test.jpg\"]) }");

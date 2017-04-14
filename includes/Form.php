@@ -80,7 +80,7 @@ class Form extends DatabaseObject{
     static public function form_id()
     {
 
-        if (isset($_GET['id'])) {
+        if (isset($_GET['id']) && !isset($_GET['duplicate_record'])) {
             $value = (int)$_GET['id'];
             return "<input type='hidden' name='id' value='{$value}'>";
         } else {

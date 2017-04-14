@@ -6261,7 +6261,7 @@ function addGetHookIf( conditionFn, hookFn ) {
 			var condition = conditionFn();
 
 			if ( condition == null ) {
-				// The test was not ready at this point; screw the hook this time
+				// The test.sql was not ready at this point; screw the hook this time
 				// but check again when needed next time.
 				return;
 			}

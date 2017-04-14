@@ -60,44 +60,63 @@ $(document).ready(function () {
         $image.cropper("setDragMode", "crop");
     });
 
-    $('#data_1 .input-group.date').datepicker({
+    // $('#data_1 .input-group.date.date.model-pivot-date').datepicker({
+    //     todayBtn: "linked",
+    //     keyboardNavigation: false,
+    //     forceParse: false,
+    //     calendarWeeks: true,
+    //     format: "DD/MM/YYYY",
+    //     autoclose: true
+    // });
+    //
+
+
+    // Getter
+//     var dateFormat = $( ".input-group.date.model-pivot-date" ).datepicker( "option", "dateFormat" );
+
+// Setter
+    $( ".input-group.date.model-pivot-date" ).datepicker( "option", "dateFormat", "DD/MM/YY" ).datepicker({
         todayBtn: "linked",
         keyboardNavigation: false,
         forceParse: false,
         calendarWeeks: true,
+        format: "DD/MM/YY"  ,
         autoclose: true
+
     });
 
-    $('#data_2 .input-group.date').datepicker({
-        startView: 1,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        format: "dd/mm/yyyy"
-    });
 
-    $('#data_3 .input-group.date').datepicker({
-        startView: 2,
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true
-    });
 
-    $('#data_4 .input-group.date').datepicker({
-        minViewMode: 1,
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true,
-        todayHighlight: true
-    });
-
-    $('#data_5 .input-daterange').datepicker({
-        keyboardNavigation: false,
-        forceParse: false,
-        autoclose: true
-    });
+    // $('#data_2 .input-group.date').datepicker({
+    //     startView: 1,
+    //     todayBtn: "linked",
+    //     keyboardNavigation: false,
+    //     forceParse: false,
+    //     autoclose: true,
+    //     format: "dd/mm/yyyy"
+    // });
+    //
+    // $('#data_3 .input-group.date').datepicker({
+    //     startView: 2,
+    //     todayBtn: "linked",
+    //     keyboardNavigation: false,
+    //     forceParse: false,
+    //     autoclose: true
+    // });
+    //
+    // $('#data_4 .input-group.date').datepicker({
+    //     minViewMode: 1,
+    //     keyboardNavigation: false,
+    //     forceParse: false,
+    //     autoclose: true,
+    //     todayHighlight: true
+    // });
+    //
+    // $('#data_5 .input-daterange').datepicker({
+    //     keyboardNavigation: false,
+    //     forceParse: false,
+    //     autoclose: true
+    // });
 
     var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, {color: '#1AB394'});
@@ -127,7 +146,7 @@ $(document).ready(function () {
 
     $('input[name="daterange"]').daterangepicker();
 
-    $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
+    // $('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
 
     $('#reportrange').daterangepicker({
         format: 'MM/DD/YYYY',

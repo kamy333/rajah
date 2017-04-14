@@ -1,5 +1,6 @@
 a > button.index-page {
     width: 10em;
+    /*height: 10em;*/
     margin-left: 1em;
     margin-top: 2em;
 
@@ -8,7 +9,11 @@ a > button.index-page {
 .kamy-navbar-inverse {
     background-color: blue;
     color: white;
+    /*border-bottom-style: ridge;*/
+
 }
+
+
 
 .huge {
     font-size: 50px;

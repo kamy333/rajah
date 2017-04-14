@@ -16,7 +16,7 @@
 require_once '../PHPMailerAutoload.php';
 
 /**
- * PHPMailer - PHP email transport unit test class
+ * PHPMailer - PHP email transport unit test.sql class
  * Performs authentication tests
  */
 class PHPMailerTest extends PHPUnit_Framework_TestCase
@@ -63,7 +63,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
     private $pids = array();
 
     /**
-     * Run before each test is started.
+     * Run before each test.sql is started.
      */
     public function setUp()
     {
@@ -118,7 +118,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Run after each test is completed.
+     * Run after each test.sql is completed.
      */
     public function tearDown()
     {
@@ -295,7 +295,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Check that we have loaded default test params.
+     * Check that we have loaded default test.sql params.
      * Pretty much everything will fail due to unset recipient if this is not done.
      */
     public function testBootstrap()
@@ -371,29 +371,29 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             'dclo@us.ibm.com',
             'peter.piper@iana.org',
             '"Doug \"Ace\" L."@iana.org',
-            'test@iana.org',
+            'test.sql@iana.org',
             'TEST@iana.org',
             '1234567890@iana.org',
-            'test+test@iana.org',
-            'test-test@iana.org',
+            'test.sql+test.sql@iana.org',
+            'test.sql-test.sql@iana.org',
             't*est@iana.org',
             '+1~1+@iana.org',
             '{_test_}@iana.org',
-            '"[[ test ]]"@iana.org',
-            'test.test@iana.org',
-            '"test.test"@iana.org',
-            'test."test"@iana.org',
-            '"test@test"@iana.org',
-            'test@123.123.123.x123',
-            'test@123.123.123.123',
-            'test@[123.123.123.123]',
-            'test@example.iana.org',
-            'test@example.example.iana.org',
-            '"test\test"@iana.org',
-            'test@example',
-            '"test\blah"@iana.org',
-            '"test\blah"@iana.org',
-            '"test\"blah"@iana.org',
+            '"[[ test.sql ]]"@iana.org',
+            'test.sql.test.sql@iana.org',
+            '"test.sql.test.sql"@iana.org',
+            'test.sql."test.sql"@iana.org',
+            '"test.sql@test.sql"@iana.org',
+            'test.sql@123.123.123.x123',
+            'test.sql@123.123.123.123',
+            'test.sql@[123.123.123.123]',
+            'test.sql@example.iana.org',
+            'test.sql@example.example.iana.org',
+            '"test.sql\test.sql"@iana.org',
+            'test.sql@example',
+            '"test.sql\blah"@iana.org',
+            '"test.sql\blah"@iana.org',
+            '"test.sql\"blah"@iana.org',
             'customer/department@iana.org',
             '_Yosemite.Sam@iana.org',
             '~@iana.org',
@@ -411,14 +411,14 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             '"first..last"@iana.org',
             '"first\"last"@iana.org',
             'first."mid\dle"."last"@iana.org',
-            '"test blah"@iana.org',
+            '"test.sql blah"@iana.org',
             '(foo)cal(bar)@(baz)iamcal.com(quux)',
             'cal@iamcal(woo).(yay)com',
             'cal(woo(yay)hoopla)@iamcal.com',
             'cal(foo\@bar)@iamcal.com',
             'cal(foo\)bar)@iamcal.com',
             'first().last@iana.org',
-            'pete(his account)@silly.test(his host)',
+            'pete(his account)@silly.test.sql(his host)',
             'c@(Chris\'s host.)public.example',
             'jdoe@machine(comment). example',
             '1234 @ local(blah) .machine .example',
@@ -446,7 +446,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             'HM2Kinsists@(that comments are allowed)this.is.ok',
             'user%uucp!path@berkeley.edu',
             'first.last @iana.org',
-            'cdburgess+!#$%&\'*-/=?+_{}|~test@gmail.com',
+            'cdburgess+!#$%&\'*-/=?+_{}|~test.sql@gmail.com',
             'first.last@[IPv6:::a2:a3:a4:b1:b2:b3:b4]',
             'first.last@[IPv6:a1:a2:a3:a4:b1:b2:b3::]',
             'first.last@[IPv6:::]',
@@ -466,9 +466,9 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             'first.last@[IPv6:0123:4567:89ab:cdef::11.22.33.44]',
             'first.last@[IPv6:0123:4567:89ab:CDEF::11.22.33.44]',
             'first.last@[IPv6:a1::b2:11.22.33.44]',
-            'test@test.com',
-            'test@xn--example.com',
-            'test@example.com'
+            'test.sql@test.sql.com',
+            'test.sql@xn--example.com',
+            'test.sql@example.com'
         );
         $invalidaddresses = array(
             'first.last@sub.do,com',
@@ -520,26 +520,26 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             'hello world@iana.org',
             //'helloworld@iana .org',
             'gatsby@f.sc.ot.t.f.i.tzg.era.l.d.',
-            'test.iana.org',
-            'test.@iana.org',
-            'test..test@iana.org',
-            '.test@iana.org',
-            'test@test@iana.org',
-            'test@@iana.org',
-            '-- test --@iana.org',
-            '[test]@iana.org',
-            '"test"test"@iana.org',
+            'test.sql.iana.org',
+            'test.sql.@iana.org',
+            'test.sql..test.sql@iana.org',
+            '.test.sql@iana.org',
+            'test.sql@test.sql@iana.org',
+            'test.sql@@iana.org',
+            '-- test.sql --@iana.org',
+            '[test.sql]@iana.org',
+            '"test.sql"test.sql"@iana.org',
             '()[]\;:,><@iana.org',
-            'test@.',
-            'test@example.',
-            'test@.org',
-            'test@12345678901234567890123456789012345678901234567890123456789012345678901234567890' .
+            'test.sql@.',
+            'test.sql@example.',
+            'test.sql@.org',
+            'test.sql@12345678901234567890123456789012345678901234567890123456789012345678901234567890' .
                 '12345678901234567890 [...]',
-            'test@[123.123.123.123',
-            'test@123.123.123.123]',
+            'test.sql@[123.123.123.123',
+            'test.sql@123.123.123.123]',
             'NotAnEmail',
             '@NotAnEmail',
-            '"test"blah"@iana.org',
+            '"test.sql"blah"@iana.org',
             '.wooly@iana.org',
             'wo..oly@iana.org',
             'pootietang.@iana.org',
@@ -578,7 +578,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             '-@..com',
             '-@a..com',
             'invalid@about.museum-',
-            'test@...........com',
+            'test.sql@...........com',
             '"Unicode NULL' . chr(0) . '"@char.com',
             'Unicode NULL' . chr(0) . '@char.com',
             'first.last@[IPv6::]',
@@ -636,15 +636,15 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEmpty($err, $err);
         //For coverage
-        $this->assertTrue(PHPMailer::validateAddress('test@example.com', 'auto'));
-        $this->assertFalse(PHPMailer::validateAddress('test@example.com.', 'auto'));
-        $this->assertTrue(PHPMailer::validateAddress('test@example.com', 'pcre'));
-        $this->assertFalse(PHPMailer::validateAddress('test@example.com.', 'pcre'));
-        $this->assertTrue(PHPMailer::validateAddress('test@example.com', 'pcre8'));
-        $this->assertFalse(PHPMailer::validateAddress('test@example.com.', 'pcre8'));
-        $this->assertTrue(PHPMailer::validateAddress('test@example.com', 'php'));
-        $this->assertFalse(PHPMailer::validateAddress('test@example.com.', 'php'));
-        $this->assertTrue(PHPMailer::validateAddress('test@example.com', 'noregex'));
+        $this->assertTrue(PHPMailer::validateAddress('test.sql@example.com', 'auto'));
+        $this->assertFalse(PHPMailer::validateAddress('test.sql@example.com.', 'auto'));
+        $this->assertTrue(PHPMailer::validateAddress('test.sql@example.com', 'pcre'));
+        $this->assertFalse(PHPMailer::validateAddress('test.sql@example.com.', 'pcre'));
+        $this->assertTrue(PHPMailer::validateAddress('test.sql@example.com', 'pcre8'));
+        $this->assertFalse(PHPMailer::validateAddress('test.sql@example.com.', 'pcre8'));
+        $this->assertTrue(PHPMailer::validateAddress('test.sql@example.com', 'php'));
+        $this->assertFalse(PHPMailer::validateAddress('test.sql@example.com.', 'php'));
+        $this->assertTrue(PHPMailer::validateAddress('test.sql@example.com', 'noregex'));
         $this->assertFalse(PHPMailer::validateAddress('bad', 'noregex'));
     }
 
@@ -708,7 +708,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Simple plain file attachment test.
+     * Simple plain file attachment test.sql.
      */
     public function testMultiplePlainFileAttachment()
     {
@@ -720,7 +720,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
             return;
         }
 
-        if (!$this->Mail->addAttachment(__FILE__, 'test.txt')) {
+        if (!$this->Mail->addAttachment(__FILE__, 'test.sql.txt')) {
             $this->assertTrue(false, $this->Mail->ErrorInfo);
             return;
         }
@@ -730,7 +730,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Simple plain string attachment test.
+     * Simple plain string attachment test.sql.
      */
     public function testPlainStringAttachment()
     {
@@ -760,7 +760,7 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($this->Mail->send(), $this->Mail->ErrorInfo);
 
         //Check that a quoted printable encode and decode results in the same as went in
-        $t = file_get_contents(__FILE__); //Use this file as test content
+        $t = file_get_contents(__FILE__); //Use this file as test.sql content
         //Force line breaks to UNIX-style
         $t = str_replace(array("\r\n", "\r"), "\n", $t);
         $this->assertEquals(
@@ -793,11 +793,11 @@ class PHPMailerTest extends PHPUnit_Framework_TestCase
         $this->Mail->Body = <<<EOT
 <html>
     <head>
-        <title>HTML email test</title>
+        <title>HTML email test.sql</title>
     </head>
     <body>
         <h1>PHPMailer does HTML!</h1>
-        <p>This is a <strong>test message</strong> written in HTML.<br>
+        <p>This is a <strong>test.sql message</strong> written in HTML.<br>
         Go to <a href="https://github.com/PHPMailer/PHPMailer/">https://github.com/PHPMailer/PHPMailer/</a>
         for new versions of PHPMailer.</p>
         <p>Thank you!</p>
@@ -854,7 +854,7 @@ EOT;
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>HTML email test</title>
+        <title>HTML email test.sql</title>
     </head>
     <body>
         <p>Chinese text: 郵件內容為空</p>
@@ -883,7 +883,7 @@ EOT;
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>HTML email test</title>
+        <title>HTML email test.sql</title>
     </head>
     <body>
         <p>Chinese text: 郵件內容為空</p>
@@ -955,7 +955,7 @@ EOT;
     }
 
     /**
-     * Simple HTML and attachment test
+     * Simple HTML and attachment test.sql
      */
     public function testHTMLAttachment()
     {
@@ -1001,7 +1001,7 @@ EOT;
     }
 
     /**
-     * Simple HTML and multiple attachment test
+     * Simple HTML and multiple attachment test.sql
      */
     public function testHTMLMultiAttachment()
     {
@@ -1024,7 +1024,7 @@ EOT;
     }
 
     /**
-     * An embedded attachment test.
+     * An embedded attachment test.sql.
      */
     public function testEmbeddedImage()
     {
@@ -1053,7 +1053,7 @@ EOT;
     }
 
     /**
-     * An embedded attachment test.
+     * An embedded attachment test.sql.
      */
     public function testMultiEmbeddedImage()
     {
@@ -1074,7 +1074,7 @@ EOT;
             return;
         }
 
-        if (!$this->Mail->addAttachment(__FILE__, 'test.txt')) {
+        if (!$this->Mail->addAttachment(__FILE__, 'test.sql.txt')) {
             $this->assertTrue(false, $this->Mail->ErrorInfo);
             return;
         }
@@ -1084,7 +1084,7 @@ EOT;
     }
 
     /**
-     * Simple multipart/alternative test.
+     * Simple multipart/alternative test.sql.
      */
     public function testAltBody()
     {
@@ -1101,7 +1101,7 @@ EOT;
     }
 
     /**
-     * Simple HTML and attachment test
+     * Simple HTML and attachment test.sql
      */
     public function testAltBodyAttachment()
     {
@@ -1125,19 +1125,19 @@ EOT;
     }
 
     /**
-     * iCal event test.
+     * iCal event test.sql.
      */
     public function testIcal()
     {
         //Standalone ICS tests
         require_once '../extras/EasyPeasyICS.php';
-        $ICS = new EasyPeasyICS("PHPMailer test calendar");
+        $ICS = new EasyPeasyICS("PHPMailer test.sql calendar");
         $this->assertNotEmpty(
             $ICS->addEvent(
                 strtotime('tomorrow 10:00 Europe/Paris'),
                 strtotime('tomorrow 11:00 Europe/Paris'),
-                'PHPMailer iCal test',
-                'A test of PHPMailer iCal support',
+                'PHPMailer iCal test.sql',
+                'A test.sql of PHPMailer iCal support',
                 'https://github.com/PHPMailer/PHPMailer'
             ),
             'Generated event string is empty'
@@ -1145,8 +1145,8 @@ EOT;
         $ICS->addEvent(
             strtotime('tomorrow 10:00 Europe/Paris'),
             strtotime('tomorrow 11:00 Europe/Paris'),
-            'PHPMailer iCal test',
-            'A test of PHPMailer iCal support',
+            'PHPMailer iCal test.sql',
+            'A test.sql of PHPMailer iCal support',
             'https://github.com/PHPMailer/PHPMailer'
         );
         $events = $ICS->getEvents();
@@ -1157,7 +1157,7 @@ EOT;
         $ICS->setName('test');
         $this->assertEquals('test', $ICS->getName(), 'Setting ICS name failed');
         $this->assertNotEmpty($ICS->render(false), 'Empty calendar');
-        //Need to test generated output but PHPUnit isn't playing nice
+        //Need to test.sql generated output but PHPUnit isn't playing nice
         //$rendered = $ICS->render();
 
         //Test sending an ICS
@@ -1311,7 +1311,7 @@ EOT;
      */
     public function testSmtpKeepAlive()
     {
-        $this->Mail->Body = 'SMTP keep-alive test.';
+        $this->Mail->Body = 'SMTP keep-alive test.sql.';
         $this->buildBody();
         $subject = $this->Mail->Subject;
 
@@ -1356,7 +1356,7 @@ EOT;
      */
     public function testError()
     {
-        $this->Mail->Subject .= ': Error handling test - this should be sent ok';
+        $this->Mail->Subject .= ': Error handling test.sql - this should be sent ok';
         $this->buildBody();
         $this->Mail->clearAllRecipients(); // no addresses should cause an error
         $this->assertTrue($this->Mail->isError() == false, 'Error found');
@@ -1610,7 +1610,7 @@ EOT;
 
     /**
      * S/MIME Signing tests using a CA chain cert.
-     * To test that a generated message is signed correctly, save the message in a file
+     * To test.sql that a generated message is signed correctly, save the message in a file
      * and use openssl along with the certs generated by this script:
      * `openssl smime -verify -in signed.eml -signer certfile.pem -CAfile cacertfile.pem`
      * @requires extension openssl
@@ -1751,7 +1751,7 @@ EOT;
         );
         $this->assertFalse(PHPMailer::hasLineLongerThanMax($oklen), 'Long line false positive');
         $this->Mail->isHTML(false);
-        $this->Mail->Subject .= ": Line length test";
+        $this->Mail->Subject .= ": Line length test.sql";
         $this->Mail->CharSet = 'UTF-8';
         $this->Mail->Encoding = '8bit';
         $this->Mail->Body = $oklen . $badlen . $oklen . $badlen;
@@ -1775,7 +1775,7 @@ EOT;
     }
 
     /**
-     * Miscellaneous calls to improve test coverage and some small tests.
+     * Miscellaneous calls to improve test.sql coverage and some small tests.
      */
     public function testMiscellaneous()
     {
@@ -1817,7 +1817,7 @@ EOT;
     }
 
     /**
-     * Use a fake POP3 server to test POP-before-SMTP auth.
+     * Use a fake POP3 server to test.sql POP-before-SMTP auth.
      * With a known-good login
      */
     public function testPopBeforeSmtpGood()
@@ -1838,7 +1838,7 @@ EOT;
     }
 
     /**
-     * Use a fake POP3 server to test POP-before-SMTP auth.
+     * Use a fake POP3 server to test.sql POP-before-SMTP auth.
      * With a known-bad login
      */
     public function testPopBeforeSmtpBad()
@@ -1860,7 +1860,7 @@ EOT;
 
     /**
      * Test SMTP host connections.
-     * This test can take a long time, so run it last
+     * This test.sql can take a long time, so run it last
      */
     public function testSmtpConnect()
     {
@@ -1913,7 +1913,7 @@ EOT;
 }
 
 /**
- * This is a sample form for setting appropriate test values through a browser
+ * This is a sample form for setting appropriate test.sql values through a browser
  * These values can also be set using a file called testbootstrap.php (not in svn) in the same folder as this script
  * which is probably more useful if you run these tests a lot
  * <html>

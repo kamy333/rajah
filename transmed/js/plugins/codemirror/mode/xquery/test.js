@@ -19,7 +19,7 @@
         "      [keyword let] [variable $joe][keyword :=][atom 1]",
         "      [keyword return] [keyword element] [variable element] {",
         "          [keyword attribute] [variable attribute] { [atom 1] },",
-        "          [keyword element] [variable test] { [variable &#39;a&#39;] },           [keyword attribute] [variable foo] { [variable &quot;bar&quot;] },",
+        "          [keyword element] [variable test.sql] { [variable &#39;a&#39;] },           [keyword attribute] [variable foo] { [variable &quot;bar&quot;] },",
         "          [def&variable fn:doc]()[[ [variable foo][keyword /][variable @bar] [keyword eq] [variable $let] ]],",
         "          [keyword //][variable x] }                 [comment (: a more 'evil' test :)]",
         "      [comment (: Modified Blakeley example (: with nested comment :) ... :)]",
@@ -49,13 +49,13 @@
         "[keyword declare] [keyword variable] [variable $\"http://www.example.com/ns/my\":var] [keyword :=] [atom 12][variable ;]",
         "[tag <out>]{[variable $\"http://www.example.com/ns/my\":var]}[tag </out>]");
 
-    MT("test EQName function",
+    MT("test.sql EQName function",
         "[keyword declare] [keyword function] [def&variable \"http://www.example.com/ns/my\":fn] ([variable $a] [keyword as] [atom xs:integer]) [keyword as] [atom xs:integer] {",
         "   [variable $a] [keyword +] [atom 2]",
         "}[variable ;]",
         "[tag <out>]{[def&variable \"http://www.example.com/ns/my\":fn]([atom 12])}[tag </out>]");
 
-    MT("test EQName function with single quotes",
+    MT("test.sql EQName function with single quotes",
         "[keyword declare] [keyword function] [def&variable 'http://www.example.com/ns/my':fn] ([variable $a] [keyword as] [atom xs:integer]) [keyword as] [atom xs:integer] {",
         "   [variable $a] [keyword +] [atom 2]",
         "}[variable ;]",

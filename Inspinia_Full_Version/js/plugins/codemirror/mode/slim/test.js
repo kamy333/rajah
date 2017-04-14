@@ -18,7 +18,7 @@
      "[attribute&def #test] Hey There");
 
   MT("tagWithIdShortcuts",
-     "[tag h1][attribute&def #test] Hey There");
+     "[tag h1][attribute&def #test.sql] Hey There");
 
   MT("classShortcut",
      "[attribute&qualifier .hello] Hey There");
@@ -36,7 +36,7 @@
      "[tag h1] This is not a / comment ");
 
   MT("attributes",
-     "[tag a]([attribute title]=[string \"test\"]) [attribute href]=[string \"link\"]}");
+     "[tag a]([attribute title]=[string \"test.sql\"]) [attribute href]=[string \"link\"]}");
 
   MT("multiLineAttributes",
      "[tag a]([attribute title]=[string \"test\"]",
@@ -49,7 +49,7 @@
      "[operator&special =][variable-2 @item]");
 
   MT("selectorRubyBlock",
-     "[tag a][attribute&qualifier .test][operator&special =] [variable-2 @item]");
+     "[tag a][attribute&qualifier .test.sql][operator&special =] [variable-2 @item]");
 
   MT("nestedRubyBlock",
       "[tag a]",
@@ -89,7 +89,7 @@
      "   [string \"World\"]");
 
   MT("interpolationInHashAttribute",
-     "[tag div]{[attribute id] = [string \"]#{[variable test]}[string _]#{[variable ting]}[string \"]} test");
+     "[tag div]{[attribute id] = [string \"]#{[variable test.sql]}[string _]#{[variable ting]}[string \"]} test.sql");
 
   MT("interpolationInHTMLAttribute",
      "[tag div]([attribute title]=[string \"]#{[variable test]}[string _]#{[variable ting]()}[string \"]) Test");

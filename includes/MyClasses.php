@@ -140,4 +140,31 @@ class MyClasses
 
     }
 
+
+
+    public static function find_get_class_name()
+    {
+        if (isset($_GET["cl"])) {
+            if (array_key_exists($_GET["cl"], static::$short_class)) {
+                $class_name = static::$short_class[$_GET["cl"]];
+                return $class_name;
+            }
+
+        }
+
+        if (isset($_GET["class_name"])) {
+            $class_name = $_GET["class_name"];
+            return $class_name;
+
+
+        }
+
+
+        return false;
+
+    }
+
+
+
+
 }

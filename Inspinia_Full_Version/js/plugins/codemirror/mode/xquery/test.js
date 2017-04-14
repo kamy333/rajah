@@ -3,7 +3,7 @@
 
 // Don't take these too seriously -- the expected results appear to be
 // based on the results of actual runs without any serious manual
-// verification. If a change you made causes them to fail, the test is
+// verification. If a change you made causes them to fail, the test.sql is
 // as likely to wrong as the code.
 
 (function() {
@@ -18,7 +18,7 @@
      "          [keyword attribute] [variable attribute] { [atom 1] },",
      "          [keyword element] [variable test] { [variable &#39;a&#39;] },           [keyword attribute] [variable foo] { [variable &quot;bar&quot;] },",
      "          [def&variable fn:doc]()[[ [variable foo][keyword /][variable @bar] [keyword eq] [variable $let] ]],",
-     "          [keyword //][variable x] }                 [comment (: a more 'evil' test :)]",
+     "          [keyword //][variable x] }                 [comment (: a more 'evil' test.sql :)]",
      "      [comment (: Modified Blakeley example (: with nested comment :) ... :)]",
      "      [keyword declare] [keyword private] [keyword function] [def&variable local:declare]() {()}[variable ;]",
      "      [keyword declare] [keyword private] [keyword function] [def&variable local:private]() {()}[variable ;]",
@@ -52,7 +52,7 @@
      "}[variable ;]",
      "[tag <out>]{[def&variable \"http://www.example.com/ns/my\":fn]([atom 12])}[tag </out>]");
 
-  MT("test EQName function with single quotes",
+  MT("test.sql EQName function with single quotes",
      "[keyword declare] [keyword function] [def&variable 'http://www.example.com/ns/my':fn] ([variable $a] [keyword as] [atom xs:integer]) [keyword as] [atom xs:integer] {",
      "   [variable $a] [keyword +] [atom 2]",
      "}[variable ;]",

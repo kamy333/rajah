@@ -3432,7 +3432,7 @@
   }
 
   // Used by replaceSelections to allow moving the selection to the
-  // start or around the replaced test. Hint may be "start" or "around".
+  // start or around the replaced test.sql. Hint may be "start" or "around".
   function computeReplacedSel(doc, changes, hint) {
     var out = [];
     var oldPrev = Pos(doc.first, 0), newPrev = oldPrev;

@@ -32,6 +32,7 @@ $query_string = remove_get(array('view', 'page', $class_name));
 
 $view_full_table = !empty($_GET) ? (int)$_GET["view"] : 0;
 
+$page_link_view=""; //initial variable
 if ($view_full_table == 1) {
     if (isset($page)) {
         $page_link_view = $class_name::$page_manage . $query_string . "page=" . u($page) . "&view=" . u(0);
@@ -110,13 +111,13 @@ echo call_user_func_array(array($class_name, 'table_nav'), [$page_link_view, $pa
 
 
     <?php
-    echo "<div class=\"row\">";
+    echo "<div class='row'>";
     echo "<div class=\"col-md-7 {$offset}\" id='pagination' >";
     echo call_user_func_array(array($class_name, 'display_pagination'), []);
     echo "</div>";
     echo "</div>";
 
-    echo "<div class=\"row\">";
+    echo "<div class='row'>";
     echo call_user_func_array(array($class_name, 'display_all'), ['', $view_full_table]);
     echo "</div>";
     ?>

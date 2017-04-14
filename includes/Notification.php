@@ -211,7 +211,7 @@ class Notification extends DatabaseObject
         $when=DateDifferenceFormat($notification->date , unixToMySQL(time()) );
 
 
-        if($notification->links){
+        if(isset($notification->links)){
             $link="href='{$path_admin}.{$notification->links}'";
         } else {
             $link="href='#'";

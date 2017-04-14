@@ -4950,7 +4950,7 @@
         @unlink($this->zipname);
 
         // ----- Rename the temporary file
-        // TBC : I should test the result ...
+        // TBC : I should test.sql the result ...
         //@rename($v_zip_temp_name, $this->zipname);
         PclZipUtilRename($v_zip_temp_name, $this->zipname);
     

@@ -9,7 +9,7 @@
     "[tag foo] { [property background]:[atom url]([string test.jpg]) }");
 
   MT('url_with_double_quotes',
-    "[tag foo] { [property background]:[atom url]([string \"test.jpg\"]) }");
+    "[tag foo] { [property background]:[atom url]([string \"test.sql.jpg\"]) }");
 
   MT('url_with_single_quotes',
     "[tag foo] { [property background]:[atom url]([string \'test.jpg\']) }");
@@ -18,7 +18,7 @@
     "[def @import] [string \"compass/css3\"]");
 
   MT('important_keyword',
-    "[tag foo] { [property background]:[atom url]([string \'test.jpg\']) [keyword !important] }");
+    "[tag foo] { [property background]:[atom url]([string \'test.sql.jpg\']) [keyword !important] }");
 
   MT('variable',
     "[variable-2 $blue]:[atom #333]");

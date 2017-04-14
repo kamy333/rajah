@@ -65,8 +65,19 @@ $class_array_setup_admin = array('Currency', 'Category', 'Category1', 'Category2
 $class_array_kamy = array('Links', 'MyExpense', 'MyCigarette', 'MyCigaretteDay', 'MyCigaretteMonth', 'MyCigaretteYear');
 $class_array_setup_kamy = array('MyExpensePerson', 'MyExpenseType');
 $class_array_setup_transport = array('TransportChauffeur', 'TransportClient', 'TransportType',
-    'TransportProgramming', 'TransportProgrammingModel');
+    'TransportProgramming', 'TransportProgrammingModel','ViewTransportModel',
+        "ViewTransportModelVisibleNo",
+        "ViewTransportModelVisibleYes",
+        'ViewTransportModelPivot', //parent
+        "ViewTransportModelPivotNo",
+        "ViewTransportModelPivotYes",
+        "ViewTransportSummaryCourseDateProgram",);
 
+
+if(!isset($class_name)){
+    $class_name="";
+
+}
 
 if (in_array($class_name, $class_array_setup_transport)) {
     $class_transport_active = " active";

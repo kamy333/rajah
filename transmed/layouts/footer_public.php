@@ -14,6 +14,7 @@
 
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
+<!--<script src="//code.jquery.com/jquery-1.12.4.js"></script>-->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -160,6 +161,7 @@ unset($pages) ?>
     <script src="<?php echo $Nav->path_public; ?>js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
 
     <script src="<?php echo $Nav->path_public . "myjs/formKamy.js"; ?>"></script>
+    <script src="<?php echo $Nav->path_public . "myjs/transport.js"; ?>"></script>
 
     <!--    <script>  $('.clockpicker').clockpicker();</script>-->
 

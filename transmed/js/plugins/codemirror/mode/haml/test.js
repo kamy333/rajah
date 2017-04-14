@@ -31,7 +31,7 @@
         "[tag %h1] This is not a / comment ");
 
     MT("attributes",
-        "[tag %a]([variable title][operator =][string \"test\"]){[atom :title] [operator =>] [string \"test\"]}");
+        "[tag %a]([variable title][operator =][string \"test.sql\"]){[atom :title] [operator =>] [string \"test.sql\"]}");
 
     MT("htmlCode",
         "[tag&bracket <][tag h1][tag&bracket >]Title[tag&bracket </][tag h1][tag&bracket >]");
@@ -83,7 +83,7 @@
     MT("hamlAfterRubyTag",
         "[attribute .block]",
         "  [tag %strong=] [variable now]",
-        "  [attribute .test]",
+        "  [attribute .test.sql]",
         "     [operator =][variable now]",
         "  [attribute .right]");
 
@@ -92,8 +92,8 @@
         "   [string \"World\"]");
 
     MT("interpolationInHashAttribute",
-        //"[tag %div]{[atom :id] [operator =>] [string \"#{][variable test][string }_#{][variable ting][string }\"]} test");
-        "[tag %div]{[atom :id] [operator =>] [string \"#{][variable test][string }_#{][variable ting][string }\"]} test");
+        //"[tag %div]{[atom :id] [operator =>] [string \"#{][variable test.sql][string }_#{][variable ting][string }\"]} test.sql");
+        "[tag %div]{[atom :id] [operator =>] [string \"#{][variable test.sql][string }_#{][variable ting][string }\"]} test.sql");
 
     MT("interpolationInHTMLAttribute",
         "[tag %div]([variable title][operator =][string \"#{][variable test][string }_#{][variable ting]()[string }\"]) Test");

@@ -452,6 +452,9 @@ public $warnings=array();
 
     function validate_time_individual($myTime, $field, $warning_me = false)
     {
+
+        $myTime=substr($myTime, 0,8);
+
         $time = preg_match('#^([01]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$#', $myTime);
         if ($time == 1) {
 

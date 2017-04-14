@@ -1,4 +1,10 @@
 <?php
+function redirect_to( $location = NULL ) {
+    if ($location != NULL) {
+        header("Location: {$location}");
+        exit;
+    }
+}
 
 function strip_zeros_from_date( $marked_string="" ) {
     // first remove the marked zeros
@@ -8,12 +14,6 @@ function strip_zeros_from_date( $marked_string="" ) {
     return $cleaned_string;
 }
 
-function redirect_to( $location = NULL ) {
-    if ($location != NULL) {
-        header("Location: {$location}");
-        exit;
-    }
-}
 
 function output_message($message="",$type="error") {
     if ($type=="ok" || $type=="OK" || $type=="o" || $type=="O"){
@@ -285,9 +285,9 @@ function day_eng( $numb=0){
         case 4:            return "Thursday";          break;
         case 5:            return "Friday";            break;
         case 6:            return "Saturday";          break;
-        case 7:            return "Sunday";            break;
+        case 0:            return "Sunday";            break;
         default:
-            return "ATTENTION Day english name CHIFFRE DOIT ETRE ENTRE 1-7";
+            return "ATTENTION Day english name CHIFFRE DOIT ETRE ENTRE 0-6";
             break;
 
 
@@ -304,9 +304,9 @@ function day_fr( $numb=0){
         case 4:    return "Jeudi";         break;
         case 5:    return "Vendredi";      break;
         case 6:    return "Samedi";        break;
-        case 7:    return "Dimanche";      break;
+        case 0:    return "Dimanche";      break;
         default:
-            return "ATTENTION CHIFFRE DOIT ETRE ENTRE 1-7";
+            return "ATTENTION CHIFFRE DOIT ETRE ENTRE 0-6";
             break;
 
 
@@ -322,9 +322,9 @@ function day_eng_no($jour){
         case "Thursday":     return 4 ;   break;
         case "Friday":       return 5;    break;
         case "Saturday":     return 6;    break;
-        case "Sunday":       return 7;    break;
+        case "Sunday":       return 0;    break;
         default:
-            return "ATTENTION day french CHIFFRE DOIT ETRE ENTRE 1-7";
+            return "ATTENTION day french CHIFFRE DOIT ETRE ENTRE 0-6";
             break;
     }
 
@@ -339,9 +339,9 @@ function day_no($jour){
         case "Jeudi":            return 4;       break;
         case "Vendredi":         return 5;       break;
         case "Samedi":           return 6;       break;
-        case "Dimanche":         return 7;       break;
+        case "Dimanche":         return 0;       break;
         default:
-            return "ATTENTION CHIFFRE DOIT ETRE ENTRE 1-7";
+            return "ATTENTION CHIFFRE DOIT ETRE ENTRE 0-6";
             break;
     }
 

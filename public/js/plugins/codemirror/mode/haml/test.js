@@ -13,7 +13,7 @@
      "[tag %h1] Hey There %h2");
 
   MT("idSelector",
-     "[tag %h1][attribute #test] Hey There");
+     "[tag %h1][attribute #test.sql] Hey There");
 
   MT("classSelector",
      "[tag %h1][attribute .hello] Hey There");
@@ -28,7 +28,7 @@
      "[tag %h1] This is not a / comment ");
 
   MT("attributes",
-     "[tag %a]([variable title][operator =][string \"test\"]){[atom :title] [operator =>] [string \"test\"]}");
+     "[tag %a]([variable title][operator =][string \"test.sql\"]){[atom :title] [operator =>] [string \"test.sql\"]}");
 
   MT("htmlCode",
      "[tag&bracket <][tag h1][tag&bracket >]Title[tag&bracket </][tag h1][tag&bracket >]");
@@ -89,8 +89,8 @@
      "   [string \"World\"]");
 
   MT("interpolationInHashAttribute",
-     //"[tag %div]{[atom :id] [operator =>] [string \"#{][variable test][string }_#{][variable ting][string }\"]} test");
-     "[tag %div]{[atom :id] [operator =>] [string \"#{][variable test][string }_#{][variable ting][string }\"]} test");
+     //"[tag %div]{[atom :id] [operator =>] [string \"#{][variable test.sql][string }_#{][variable ting][string }\"]} test.sql");
+     "[tag %div]{[atom :id] [operator =>] [string \"#{][variable test.sql][string }_#{][variable ting][string }\"]} test.sql");
 
   MT("interpolationInHTMLAttribute",
      "[tag %div]([variable title][operator =][string \"#{][variable test][string }_#{][variable ting]()[string }\"]) Test");

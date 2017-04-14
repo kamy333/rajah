@@ -249,7 +249,7 @@
         noop: function () {
         },
 
-        // See test/unit/core.js for details concerning isFunction.
+        // See test.sql/unit/core.js for details concerning isFunction.
         // Since version 1.3, DOM methods and functions like alert
         // aren't supported. They return false on IE (#2968).
         isFunction: function (obj) {
@@ -1216,7 +1216,7 @@
                     // Regex strategy adopted from Diego Perini
                     assert(function (div) {
                         // Select is set to empty string on purpose
-                        // This is to test IE's treatment of not explicitly
+                        // This is to test.sql IE's treatment of not explicitly
                         // setting a boolean content attribute,
                         // since its presence should be enough
                         // http://bugs.jquery.com/ticket/12359
@@ -1226,7 +1226,7 @@
 
                         // Support: IE8, Opera 11-12.16
                         // Nothing should be selected when empty strings follow ^= or $= or *=
-                        // The test attribute must be unknown in Opera but "safe" for WinRT
+                        // The test.sql attribute must be unknown in Opera but "safe" for WinRT
                         // http://msdn.microsoft.com/en-us/library/ie/hh465388.aspx#attribute_section
                         if (div.querySelectorAll("[msallowcapture^='']").length) {
                             rbuggyQSA.push("[*^$]=" + whitespace + "*(?:''|\"\")");
@@ -4245,7 +4245,7 @@
             div.cloneNode(true).click();
         }
 
-        // Execute the test only if not already executed in another module.
+        // Execute the test.sql only if not already executed in another module.
         if (support.deleteExpando == null) {
             // Support: IE<9
             support.deleteExpando = true;
@@ -4601,7 +4601,7 @@
                     jQuery.acceptData(elem)) {
 
                     // Call a native DOM method on the target with the same name name as the event.
-                    // Can't use an .isFunction() check here because IE6/7 fails that test.
+                    // Can't use an .isFunction() check here because IE6/7 fails that test.sql.
                     // Don't do default actions on window, that's where global variables be (#6170)
                     if (ontype && elem[type] && !jQuery.isWindow(elem)) {
 
@@ -6264,7 +6264,7 @@
                 var condition = conditionFn();
 
                 if (condition == null) {
-                    // The test was not ready at this point; screw the hook this time
+                    // The test.sql was not ready at this point; screw the hook this time
                     // but check again when needed next time.
                     return;
                 }

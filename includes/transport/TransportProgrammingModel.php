@@ -325,7 +325,7 @@ public $id ;
 public $visible ;
 public $week_day_rank_id ;
 public $client_habituel;
-    public $client_id;
+public $client_id;
 public $heure ;
 public $inverse_address ;
 public $depart ;
@@ -337,6 +337,18 @@ public $remarque  ;
 public $input_date;
 public $modification_time;
 public $username;
+
+
+public $color;
+
+public $prev_date;
+public $next_date;
+
+public $prev_day;
+public $next_day;
+
+
+
 
 //public $chauffeur_name;
 //public $type_transport;
@@ -354,7 +366,9 @@ public $username;
 
     public static function main_display()
     {
-        return static::create_calendar_french();
+//        return static::create_calendar_french();
+        return call_user_func_array(["ViewTransportModelPivot","main_display"], []);
+
     }
 
     public static function create_calendar_french()
@@ -470,12 +484,7 @@ public $username;
 
     }
 
-    public static function insert_javascript()
-    {
-        $output = "";
-        $output .= "";
 
-    }
 
     public function form_validation()
     {
@@ -547,6 +556,13 @@ public $username;
         }
 
 
+        if($this->visible==1){
+            $this->color="info";
+        } else {
+            $this->color="danger";
+
+        }
+
         $this->modification_time = now_sql() . " " . now_time();
 
         $user = User::find_by_id((int)$session->user_id);
@@ -554,6 +570,58 @@ public $username;
 
 
     }
+
+
+    public static function reverse_visible($id=0)
+    {
+       global $session;
+
+        $route=$_SERVER['PHP_SELF']."?class_name=".get_called_class();
+        $model=static::find_by_id((int) $id);
+
+        If($model->visible==0){
+            $model->visible=1;
+        }else {
+            $model->visible=0;
+        }
+
+     if($model->save()) {
+         $session->ok(true);
+     $session->message("Successful statut visible updated ")    ;
+     } else {
+     $session->message("Caution failed updated ")    ;
+
+     }
+//     unset($_POST);
+//        redirect_to("transport.php");
+//        header("transport.php?class_name={$class_name}");
+//        exit;
+}
+
+    public static function delete_record($id=0)
+    {
+        global $session;
+
+        $route=$_SERVER['PHP_SELF']."?class_name=".get_called_class();
+        $model=static::find_by_id((int) $id);
+
+
+
+        ;
+//        redirect_to("transport.php");   redirect does not work
+        if($model->delete()) {
+            $session->ok(true);
+            $session->message("Successful deletion ")    ;
+        } else {
+            $session->message("Caution failed deletion ")    ;
+
+        }
+
+        unset($_POST);
+
+    }
+
+
 
 
 }

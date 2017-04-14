@@ -54,7 +54,7 @@ class DatabaseObject
     {
         global $session;
 
-        if ($data == "data" || $data == 'ajax') {
+        if ($data == "data" || $data == 'ajax'|| $data=='tramsport') {
 
             static::change_to_unique_data($data);
 
@@ -307,87 +307,66 @@ class DatabaseObject
         return $output;
     }
 
-    public static function Create_form()
+    public static function Create_form($copy=true)
     {
-//        global $Nav;
+        global $Nav;
 //        if($Nav->)
+//        echo $_SERVER['PHP_SELF'];
 
-        if (isset($_GET['id'])) {
-//            $post_link=$_SERVER["PHP_SELF"]."?id=".urldecode($_GET['id'].$qr_str);
-//            $post_link=$_SERVER["PHP_SELF"].$qr_str."id=".urldecode($_GET['id']);
-            $post_link = clean_query_string(static::$page_edit . "?id=" . urldecode($_GET['id']));
 
+
+        if (isset($_GET['id']) && !isset($_GET['duplicate_record'])) {
+            $post_link = clean_query_string(static::$page_edit . "?id=" . urlencode($_GET['id']));
             $page = "Update";
             $page1 = "Update ID (" . $_GET['id'] . ")";
             $text_post = "Updated";
             $text_post1 = "update";
             $jquery = "update-form-button";
-
         } else {
+
             $post_link = clean_query_string(static::$page_new);
             $page = "New";
             $page1 = "Add New ";
             $text_post = "created";
             $text_post1 = "creation";
             $jquery = "add-form-button";
-
-
         }
-
         $output = "";
-
-
         $link = "<a  href='" . $post_link . " '>" . ' ' . $page1 . " "
             . clean_query_string(static::$page_name) . "</a>";
         $h4 = "<h4 class='text-center'>{$link} </h4>";
-
         $output .= "<div class ='form-header-dark-blue'  >";
         $output .= "<p>$link<p>";
         $output .= "</div>";
-
         $output .= "<div class =\"form-light-blue\">";
         $output .= "<form name='form_" . get_called_class() . "' id='form_" . get_called_class() . "'  class='form-horizontal' method='post' action='{$post_link}'> ";
-
-
         if (request_is_get()) {
             if (isset($_GET['id'])) {
                 $id = $_GET['id'];
                 $get_item = static::find_by_id($id);
                 $output .= static::construct_form($get_item, $_GET);
-
             } else {
-
                 $output .= static::construct_form(false, $_GET);
-
             }
-
-
         }
 
+//        if there is $_GET['id'] it will put id but not $_GET['copy_record']
         $output .= Form::form_id();
+
         $output .= csrf_token_tag();
         $output .= form::class_name(get_called_class());
-
 //        $output .= "</fieldset>";
-
         $output .= " <div class='col-sm-offset-3 col-sm-7 col-xs-3'>
                    <button  type='submit' name='submit' id='{$jquery}' class='btn btn-primary' >"
-            . $page . ' ' . get_called_class() . "</button></div>";
-
-
+            . $page . ' ' . static::$page_name . "</button></div>";
         $output .= "<div class='text-right' ><a href='"
             . clean_query_string(static::$page_manage) . "'" . " id='cancel-update-new' class='btn btn-info' role='button' >Cancel</a></div>";
-
         $output .= "";
-
-
         $output .= "</form>";
-
         $output .= "</div>";
-
         return $output;
-
     }
+
 
     public static function find_by_id($id = 0)
     {
@@ -447,6 +426,7 @@ class DatabaseObject
         $output = "";
         $myvalue = "";
 
+
         foreach (static::$get_form_element as $val) {
 
 
@@ -471,6 +451,11 @@ class DatabaseObject
 
             $get_item ? $value = $get_item->$val : $value = $myvalue;
             $output .= static::get_form($val, $value);
+//            if($get_item->id==1){
+////                var_dump(static::get_form($val, $value));
+//
+//            }
+
             $myvalue = "";
 
         }
@@ -507,7 +492,7 @@ class DatabaseObject
             //    var_dump(static::$form_properties);
 
             //  $vars=static::$form_properties[$name];
-
+//            $vars=[];
 
             if ($type_form) {
                 $vars = static::get_form_properties_search($name);
@@ -526,9 +511,16 @@ class DatabaseObject
 
             $type_text = array("text", 'password', 'email', 'search', 'date', 'datetime', 'datetime-local', 'color', 'button', 'file', 'hidden', 'image', 'month', 'number', 'range', 'reset', 'search', 'submit', 'tel', 'url');
 
-            $type = $vars['type'];
+            if (is_array($vars) ) {
+                $type = $vars['type'];
+            } else {
+                $type="";
+//                echo "ERROR ".__LINE__.__CLASS__ ;
 
-            //    var_dump($vars);
+            }
+
+
+//                var_dump($vars);
             if (in_array($type, $type_no_exception)) {
                 foreach ($vars as $attr => $val) {
 
@@ -607,7 +599,9 @@ class DatabaseObject
 
     public static function get_form_properties($name)
     {
-        return static::$form_properties[$name];
+        return isset (static::$form_properties[$name])? static::$form_properties[$name] :"";
+
+
         //   return $form_prop;
     }
 

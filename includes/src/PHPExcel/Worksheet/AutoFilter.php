@@ -402,7 +402,7 @@ class PHPExcel_Worksheet_AutoFilter
 						break;
 				}
 			} else {
-				//	String values are always tested for equality, factoring in for wildcards (hence a regexp test)
+				//	String values are always tested for equality, factoring in for wildcards (hence a regexp test.sql)
 				$retVal	= preg_match('/^'.$rule['value'].'$/i',$cellValue);
 			}
 			//	If there are multiple conditions, then we need to test both using the appropriate join operator
@@ -797,7 +797,7 @@ class PHPExcel_Worksheet_AutoFilter
 //				echo 'Testing cell ',$columnID.$row,PHP_EOL;
 				$cellValue = $this->_workSheet->getCell($columnID.$row)->getCalculatedValue();
 //				echo 'Value is ',$cellValue,PHP_EOL;
-				//	Execute the filter test
+				//	Execute the filter test.sql
 				$result = $result &&
 					call_user_func_array(
 						array('PHPExcel_Worksheet_AutoFilter',$columnFilterTest['method']),
